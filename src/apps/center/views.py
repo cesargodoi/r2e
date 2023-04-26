@@ -1,7 +1,6 @@
 # from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, DeleteView
-from django.views.generic.edit import UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from .models import Center
 from .forms import CenterForm
@@ -23,9 +22,7 @@ class CenterUpdate(UpdateView):
     model = Center
     form_class = CenterForm
     extra_context = {"title": "Update Center"}
-
-    def get_success_url(self):
-        return reverse_lazy("center:list")
+    success_url = reverse_lazy("center:list")
 
 
 class CenterDelete(DeleteView):

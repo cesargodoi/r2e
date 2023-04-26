@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # apps
     "apps.core",
     "apps.center",
+    "apps.other",
 ]
 
 MIDDLEWARE = [

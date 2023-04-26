@@ -107,5 +107,6 @@ venv.bak/
 static_collected
 
 # others
+.DS_Store
 .vscode
 poetry.lock

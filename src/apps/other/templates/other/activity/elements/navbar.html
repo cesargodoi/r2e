@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Núcleos</a>
+    <a class="navbar-brand" href="#">Atividades</a>
     <button 
       type="button" 
       class="navbar-toggler" 
@@ -26,12 +26,12 @@
 
       <button 
         class="btn btn-outline-primary me-2"
-        onclick="location.href='{% url 'center:create' %}';"
+        onclick="location.href='{% url 'other:activity_create' %}';"
       >
         <i class="bi bi-plus-lg"></i> Add
       </button>
 
-      <form class="d-flex" action="{% url 'center:search' %}">
+      <form class="d-flex" action="{% url 'other:activity_search' %}">
         {% csrf_token %}
         <input 
           type="search" 
