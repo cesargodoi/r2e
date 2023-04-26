@@ -11,3 +11,5 @@ ACTIVITY_TYPES = (
     ("ODD", _("Open Doors Day")),
     ("OTR", _("Others")),
 )
+
+EVENT_STATUS = (("OPN", _("open")), ("CLS", _("closed")))

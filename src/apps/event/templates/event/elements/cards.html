@@ -1,0 +1,52 @@
+<div class="d-flex flex-wrap">
+  {% for obj in object_list  %}
+    <div class="card p-2" style="width: 25rem;">
+      <h1 class="display-1 text-center">
+        {% if obj.status == 'OPN' %}
+          <i class="bi bi-door-open"></i>
+        {% else %}
+          <i class="bi bi-door-closed"></i>
+        {% endif %}
+      </h1>
+      <div class="card-body">
+        <h5 class="card-title">{{ obj.activity.name }}</h5>
+
+        <table class="table table-sm table-striped">
+          <tr>
+            <th scope="row">local</th>
+            <td>{{ obj.center.city }} ({{ obj.center.state }}-{{ obj.center.country }})</td>
+          </tr>
+          <tr>
+            <th scope="row">starts on</th>
+            <td>{{ obj.date }}</td>
+          </tr>
+          <tr>
+            <th scope="row">ends in</th>
+            <td>{{ obj.end_date }}</td>
+          </tr>
+          <tr>
+            <th scope="row">deadline</th>
+            <td>{{ obj.deadline }}</td>
+          </tr>
+          <tr>
+            <th scope="row">status</th>
+            <td>{{ obj.get_status_display }}</td>
+          </tr>
+        </table>
+        <br><br>
+        <div class="text-end position-absolute bottom-0 end-0 m-4">
+          <button 
+            type="button" 
+            class="btn btn-outline-info"
+            onclick="location.href='{% url 'event:detail' obj.pk %}';"
+          >
+            <i class="bi bi-eye"></i>
+            Detail
+          </button>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    Nenhum evento no banco de dados
+  {% endfor %}
+</div>

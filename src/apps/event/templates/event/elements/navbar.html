@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Atividades</a>
+    <a class="navbar-brand" href="#">Eventos</a>
     <button 
       type="button" 
       class="navbar-toggler" 
@@ -26,17 +26,17 @@
 
       <button 
         class="btn btn-outline-primary me-2"
-        onclick="location.href='{% url 'other:activity_create' %}';"
+        onclick="location.href='{% url 'event:create' %}';"
       >
         <i class="bi bi-plus-lg"></i> Add
       </button>
 
-      <form class="d-flex" action="{% url 'other:activity_search' %}">
+      <form class="d-flex" action="{% url 'event:search' %}">
         {% csrf_token %}
         <input 
           type="search" 
           class="form-control me-2" 
-          placeholder="Search" 
+          placeholder="MM/YYYY" 
           aria-label="Search"
           name="q"
         >

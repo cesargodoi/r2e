@@ -1,0 +1,75 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="card" style="width: 40rem;">
+    <h1 class="display-1 text-center">
+      {% if object.status == 'OPN' %}
+        <i class="bi bi-door-open"></i>
+      {% else %}
+        <i class="bi bi-door-closed"></i>
+      {% endif %}
+    </h1>
+    <div class="card-body">
+    <h2 class="card-title">{{ object.activity }}</h2>
+      <br>
+      <table class="table table-sm table-striped">
+        <tr>
+          <th scope="row">local</th>
+          <td>{{ object.center.city }} ({{ object.center.state }}-{{ object.center.country }})</td>
+        </tr>
+        <tr>
+          <th scope="row">starts on</th>
+          <td>{{ object.date }}</td>
+        </tr>
+        <tr>
+          <th scope="row">ends in</th>
+          <td>{{ object.end_date }}</td>
+        </tr>
+        <tr>
+          <th scope="row">deadline</th>
+          <td>{{ object.deadline }}</td>
+        </tr>
+        <tr>
+          <th scope="row">valor R$</th>
+          <td>{{ object.ref_value }} (min: {{ object.min_value }})</td>
+        </tr>
+        <tr>
+          <th scope="row">description</th>
+          <td>{{ object.description }}</td>
+        </tr>
+        <tr>
+          <th scope="row">status</th>
+          <td>{{ object.get_status_display }}</td>
+        </tr>
+      </table>
+      <br><br>
+      <div class="text-end">
+        <button 
+          type="button" 
+          class="btn btn-outline-info"
+          onclick="location.href='{% url 'event:list' %}';"
+        >
+          <i class="bi bi-chevron-left"></i>
+          Voltar 
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-outline-warning"
+          onclick="location.href='{% url 'event:update' object.pk %}';"
+        >
+          <i class="bi bi-pencil"></i>
+          Editar 
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-outline-danger"
+          onclick="location.href='{% url 'event:delete' object.pk %}';"
+        >
+          <i class="bi bi-trash"></i>
+          Delete 
+        </button>
+      </div>
+    </div>
+  </div>
+{% endblock %}

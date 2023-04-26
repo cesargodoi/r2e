@@ -1,11 +1,5 @@
 from django import forms
-from .models import Activity, BankFlag
-
-
-class ActivityForm(forms.ModelForm):
-    class Meta:
-        model = Activity
-        fields = "__all__"
+from .models import BankFlag
 
 
 class BankFlagForm(forms.ModelForm):
