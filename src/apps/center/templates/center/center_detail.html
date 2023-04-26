@@ -1,0 +1,34 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+
+  <header class="row">
+    <div class="col-10">
+      <h1>{{ object }}</h1>
+      <p class="text-muted"></p>
+    </div>
+    <div class="col-2">
+      <div class="text-end">
+        <button 
+          type="button" 
+          class="btn btn-outline-info"
+          onclick="location.href='{% url 'center:list' %}';"
+        >
+          <i class="bi bi-chevron-left"></i>
+          Voltar 
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-outline-warning"
+          onclick="location.href='{% url 'center:update' pk=object.pk %}';"
+        >
+          <i class="bi bi-pencil"></i>
+          Editar 
+        </button>
+      </div>
+    </div>
+  </reader>
+
+
+{% endblock %}

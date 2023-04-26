@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "r2e"
+version = "0.1.0"
+description = ""
+authors = ["cesargodoi <cesar.godoi@gmail.com>"]
+readme = "README.md"
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+django = "^4.2"
+pillow = "^9.5.0"
+django-widget-tweaks = "^1.4.12"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+isort = "^5.12.0"
+flake8 = "^6.0.0"
+ipdb = "^0.13.13"
+mypy = "^1.2.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
