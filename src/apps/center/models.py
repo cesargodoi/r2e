@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from r2e.commom import COUNTRIES_CHOICES, phone_format
+from r2e.commom import COUNTRIES_CHOICES, GENDER, phone_format
 
 
 class Center(models.Model):
@@ -31,9 +31,55 @@ class Center(models.Model):
         return reverse("center:detail", args=[self.pk])
 
     def __str__(self):
-        return f"{self.short_name} ({self.country})"
+        return f"{self.short_name} ({self.get_country_display()})"
 
     class Meta:
         verbose_name = _("center")
         verbose_name_plural = _("centers")
         ordering = ["name"]
+
+
+class Building(models.Model):
+    center = models.ForeignKey(Center, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(_("name"), max_length=30)
+    description = models.CharField(
+        _("description"), max_length=100, null=True, blank=True
+    )
+    is_active = models.BooleanField(_("active"), default=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.center.short_name})"
+
+    class Meta:
+        verbose_name = _("building")
+        verbose_name_plural = _("buildings")
+        ordering = ["center", "name"]
+
+
+class Bedroom(models.Model):
+    building = models.ForeignKey(
+        Building, on_delete=models.SET_NULL, null=True
+    )
+    name = models.CharField(_("name"), max_length=20)
+    gender = models.CharField(
+        _("gender"), max_length=1, choices=GENDER, default="M"
+    )
+    floor = models.IntegerField(_("floor"), default=0)
+    beds = models.IntegerField(_("beds"))
+    bunks = models.IntegerField(_("bunks"))
+    is_active = models.BooleanField(_("active"), default=True)
+
+    def __str__(self):
+        return "{}({}) - {}({}) [{}B {}T]".format(
+            self.building.name,
+            self.building.center.short_name,
+            self.name,
+            self.get_gender_display(),
+            self.beds,
+            self.bunks,
+        )
+
+    class Meta:
+        verbose_name = _("bedroom")
+        verbose_name_plural = _("bedrooms")
+        ordering = ["building", "name"]
