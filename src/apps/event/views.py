@@ -63,6 +63,10 @@ class EventList(ListView):
     paginate = 10
 
 
+class EventDetail(DetailView):
+    model = Event
+
+
 class EventCreate(CreateView):
     model = Event
     form_class = EventForm
@@ -76,14 +80,9 @@ class EventCreate(CreateView):
         return initial
 
 
-class EventDetail(DetailView):
-    model = Event
-
-
 class EventUpdate(UpdateView):
     model = Event
     form_class = EventForm
-    # success_url = reverse_lazy("event:list")
     extra_context = {"title": "Update Event"}
 
     def get_initial(self):

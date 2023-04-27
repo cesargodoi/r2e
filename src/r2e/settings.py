@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     # apps
     "apps.core",
     "apps.center",
+    "apps.person",
     "apps.event",
     "apps.other",
 ]

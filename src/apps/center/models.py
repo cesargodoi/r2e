@@ -2,16 +2,16 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from r2e.commom import COUNTRIES_CHOICES
+from r2e.commom import COUNTRIES_CHOICES, phone_format
 
 
 class Center(models.Model):
     name = models.CharField(_("name"), max_length=50, unique=True)
-    short_name = models.CharField(_("short name"), max_length=12, unique=True)
+    short_name = models.CharField(_("short name"), max_length=20, unique=True)
     city = models.CharField(_("city"), max_length=50, null=True, blank=True)
     state = models.CharField(_("state"), max_length=2, null=True, blank=True)
     country = models.CharField(
-        _("country"), max_length=2, choices=COUNTRIES_CHOICES
+        _("country"), max_length=2, choices=COUNTRIES_CHOICES, default="BR"
     )
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(_("phone"), max_length=20, null=True, blank=True)
@@ -22,6 +22,10 @@ class Center(models.Model):
         blank=True,
         verbose_name=_("contact"),
     )
+
+    def save(self, *args, **kwargs):
+        self.phone = phone_format(self.phone)
+        super(Center, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("center:detail", args=[self.pk])
