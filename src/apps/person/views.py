@@ -7,7 +7,7 @@ from django.views.generic import (
     DeleteView,
 )
 
-from .models import Person
+from .models import Person, CreditLog
 from .forms import PersonForm
 
 
@@ -18,6 +18,13 @@ class PersonList(ListView):
 
 class PersonDetail(DetailView):
     model = Person
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["credit_log"] = CreditLog.objects.filter(
+            person=self.object
+        ).order_by("created_on")
+        return context
 
 
 class PersonCreate(CreateView):

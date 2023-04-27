@@ -32,6 +32,17 @@ ASPECTS = (
     ("A6", _("6st. Aspect")),
 )
 
+CREDIT_OPERATIONS = (
+    ("ADJ", _("Adjustment")),
+    ("GEN", _("Generation")),
+    ("USE", _("Used")),
+    ("CAN", _("Cancel")),
+    ("EXC", _("Exclusion")),
+    ("DEV", _("Devolution")),
+    ("CML", _("Cancel Multiple")),
+    ("RPY", _("Repayment")),
+)
+
 
 # helpers
 def us_inter_char(txt, codif="utf-8"):
