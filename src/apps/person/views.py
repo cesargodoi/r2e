@@ -7,7 +7,7 @@ from django.views.generic import (
     DeleteView,
 )
 
-from .models import Person, CreditLog
+from .models import Person  # , CreditLog
 from .forms import PersonForm
 
 
@@ -21,9 +21,9 @@ class PersonDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["credit_log"] = CreditLog.objects.filter(
-            person=self.object
-        ).order_by("created_on")
+        context["credit_log"] = self.object.credit_logs.all().order_by(
+            "created_on"
+        )
         return context
 
 
