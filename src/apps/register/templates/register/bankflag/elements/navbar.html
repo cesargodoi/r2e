@@ -26,12 +26,12 @@
 
       <button 
         class="btn btn-outline-primary me-2"
-        onclick="location.href='{% url 'other:bankflag_create' %}';"
+        onclick="location.href='{% url 'register:bankflag_create' %}';"
       >
         <i class="bi bi-plus-lg"></i> Add
       </button>
 
-      <form class="d-flex" action="{% url 'other:bankflag_search' %}">
+      <form class="d-flex" action="{% url 'register:bankflag_search' %}">
         {% csrf_token %}
         <input 
           type="search" 

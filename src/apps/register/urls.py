@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 
-app_name = "other"
+app_name = "register"
 
 # bankflag
 urlpatterns = [

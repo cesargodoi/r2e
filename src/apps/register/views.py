@@ -8,35 +8,35 @@ from .forms import BankFlagForm
 # BankFlag Views
 class BankFlagList(ListView):
     model = BankFlag
-    template_name = "other/bankflag/list.html"
+    template_name = "register/bankflag/list.html"
 
 
 class BankFlagCreate(CreateView):
     model = BankFlag
     form_class = BankFlagForm
-    template_name = "other/bankflag/form.html"
-    success_url = reverse_lazy("other:bankflag_list")
+    template_name = "register/bankflag/form.html"
+    success_url = reverse_lazy("register:bankflag_list")
     extra_context = {"title": "Create Bank or Flag"}
 
 
 class BankFlagUpdate(UpdateView):
     model = BankFlag
     form_class = BankFlagForm
-    template_name = "other/bankflag/form.html"
-    success_url = reverse_lazy("other:bankflag_list")
+    template_name = "register/bankflag/form.html"
+    success_url = reverse_lazy("register:bankflag_list")
     extra_context = {"title": "Update Bank or Flag"}
 
 
 class BankFlagDelete(DeleteView):
     model = BankFlag
-    template_name = "other/bankflag/confirm_delete.html"
-    success_url = reverse_lazy("other:bankflag_list")
+    template_name = "register/bankflag/confirm_delete.html"
+    success_url = reverse_lazy("register:bankflag_list")
 
 
 class BankFlagSearch(ListView):
     model = BankFlag
     paginate_by = 10
-    template_name = "other/bankflag/list.html"
+    template_name = "register/bankflag/list.html"
 
     def get_queryset(self):
         return BankFlag.objects.filter(

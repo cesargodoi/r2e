@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     "apps.center",
     "apps.person",
     "apps.event",
-    "apps.other",
+    "apps.register",
 ]
 
 MIDDLEWARE = [
