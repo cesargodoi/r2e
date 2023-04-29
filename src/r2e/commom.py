@@ -3,23 +3,23 @@ from unicodedata import normalize
 from django.utils.translation import gettext_lazy as _
 
 
-COUNTRIES_CHOICES = (
+COUNTRIES_CHOICES = [
     ("BR", _("Brazil")),
     ("US", _("United States")),
-)
+]
 
-ACTIVITY_TYPES = (
+ACTIVITY_TYPES = [
     ("CNF", _("Conference")),
     ("SCF", _("Special Conference")),
     ("ODD", _("Open Doors Day")),
     ("OTR", _("Others")),
-)
+]
 
-EVENT_STATUS = (("OPN", _("open")), ("CLS", _("closed")))
+EVENT_STATUS = [("OPN", _("open")), ("CLS", _("closed"))]
 
-GENDER = (("M", _("Male")), ("F", _("Female")))
+GENDER = [("M", _("Male")), ("F", _("Female"))]
 
-ASPECTS = (
+ASPECTS = [
     ("PW", _("Public Work")),
     ("YW", _("Youth Work")),
     ("PG", _("Guest of Pupil")),
@@ -30,9 +30,9 @@ ASPECTS = (
     ("GR", _("Grail")),
     ("A5", _("5st. Aspect")),
     ("A6", _("6st. Aspect")),
-)
+]
 
-CREDIT_OPERATIONS = (
+CREDIT_OPERATIONS = [
     ("ADJ", _("Adjustment")),
     ("GEN", _("Generation")),
     ("USE", _("Used")),
@@ -41,7 +41,49 @@ CREDIT_OPERATIONS = (
     ("DEV", _("Devolution")),
     ("CML", _("Cancel Multiple")),
     ("RPY", _("Repayment")),
-)
+]
+
+PAYMENT_TYPES = [
+    ("CSH", _("Cash")),
+    ("CHK", _("Check")),
+    ("PRE", _("Pre Check")),
+    ("DBT", _("Debit")),
+    ("CDT", _("Credit")),
+    ("DPT", _("Deposit")),
+    ("TRF", _("Transfer")),
+    ("GSC", _("Guest Credit")),
+    ("FRE", _("Free")),
+]
+
+LODGE_TYPES = [("LDG", _("Lodge")), ("HSE", _("House")), ("HTL", _("Hotel"))]
+
+ARRIVAL_DATE = [
+    ("D0", _("Eve day")),
+    ("D1", _("First day")),
+    ("D2", _("Secound day")),
+]
+
+ARRIVAL_TIME = [
+    ("BB", _("Before breakfast")),
+    ("BL", _("Before lunch")),
+    ("BD", _("Before diner")),
+    ("AD", _("After diner")),
+]
+
+STAFFS = [
+    ("KIT", _("Kitchen")),
+    ("DSW", _("Dishwashing")),
+    ("REF", _("Refectory")),
+    ("ACC", _("Accommodation")),
+    ("EXT", _("External Area")),
+    ("AFT", _("Aftermath")),
+    ("SNK", _("Snack")),
+    ("BRF", _("Breakfast")),
+    ("TPL", _("Temple")),
+    ("LDR", _("Laundry")),
+    ("MTP", _("Multiple")),
+    ("CNT", _("Center Team")),
+]
 
 
 # helpers

@@ -9,6 +9,10 @@ from r2e.commom import (
     COUNTRIES_CHOICES,
     ASPECTS,
     CREDIT_OPERATIONS,
+    LODGE_TYPES,
+    ARRIVAL_DATE,
+    ARRIVAL_TIME,
+    STAFFS,
     us_inter_char,
     short_name,
     phone_format,
@@ -43,7 +47,7 @@ class Person(models.Model):
         _("credit"), max_digits=7, decimal_places=2, default=0.0
     )
     observations = models.CharField(
-        _("observations"), max_length=250, blank=True
+        _("observations"), max_length=255, null=True, blank=True
     )
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
@@ -94,7 +98,9 @@ class CreditLog(models.Model):
     operation = models.CharField(
         _("operation"), max_length=3, choices=CREDIT_OPERATIONS, default="ADJ"
     )
-    description = models.CharField(_("description"), max_length=250)
+    description = models.CharField(
+        _("description"), max_length=255, null=True, blank=True
+    )
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
@@ -114,9 +120,61 @@ class CreditLog(models.Model):
     )
 
     def __str__(self):
-        return f"{self.person.name} - $ {self.credit} ({self.operation})"
+        return f"{self.person.name} - ${self.credit} ({self.operation})"
 
     class Meta:
         verbose_name = _("credit log")
         verbose_name_plural = _("credit logs")
         ordering = ["-created_on"]
+
+
+class PersonStay(models.Model):
+    person = models.ForeignKey(
+        Person,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="stays",
+        verbose_name=_("person"),
+    )
+    stay_center = models.ForeignKey(
+        Center,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="stays",
+        verbose_name=_("stay center"),
+    )
+    lodge = models.CharField(
+        _("lodge"), max_length=3, choices=LODGE_TYPES, default="LDG"
+    )
+    arrival_date = models.CharField(
+        _("arrival date"), max_length=2, choices=ARRIVAL_DATE, default="D1"
+    )
+    arrival_time = models.CharField(
+        _("arrival time"), max_length=2, choices=ARRIVAL_TIME, default="BL"
+    )
+    no_stairs = models.BooleanField(_("no stairs"), default=False)
+    no_bunk = models.BooleanField(_("no bunk"), default=False)
+    bedroom = models.IntegerField(_("bedroom"), default=0)
+    bedroom_alt = models.IntegerField(_("bedroom alt"), default=0)
+    staff = models.CharField(
+        _("staff"), max_length=3, choices=STAFFS, default="STA"
+    )
+    others = models.CharField(
+        _("others"), max_length=255, null=True, blank=True
+    )
+    observations = models.CharField(
+        _("observations"), max_length=255, null=True, blank=True
+    )
+
+    def __str__(self):
+        return "{} | {} | [{}, {}]".format(
+            self.person.name,
+            self.get_lodge_display(),
+            self.get_arrival_date_display(),
+            self.get_arrival_time_display(),
+        )
+
+    class Meta:
+        verbose_name = _("person stay")
+        verbose_name_plural = _("person stays")
+        ordering = ["person__name_sa"]

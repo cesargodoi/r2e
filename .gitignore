@@ -110,3 +110,4 @@ static_collected
 .DS_Store
 .vscode
 poetry.lock
+poetry.toml

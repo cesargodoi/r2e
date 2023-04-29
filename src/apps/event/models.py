@@ -70,3 +70,16 @@ class Event(models.Model):
         verbose_name = _("event")
         verbose_name_plural = _("events")
         ordering = ["-date"]
+
+
+class BedroomMapping(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
+    mapping = models.JSONField(_("mapping"))
+
+    def __str__(self):
+        return f"Mapping -> {self.event}"
+
+    class Meta:
+        verbose_name = _("bedroom mapping")
+        verbose_name_plural = _("bedrooms mapping")
+        ordering = ["-event__date"]
