@@ -23,10 +23,12 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # others
+    # others apps
     "widget_tweaks",
+    # devlopment apps
+    "django_extensions",
     # apps
-    "apps.core",
+    "apps.base",
     "apps.center",
     "apps.person",
     "apps.event",

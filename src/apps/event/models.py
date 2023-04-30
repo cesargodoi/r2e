@@ -64,7 +64,7 @@ class Event(models.Model):
         return reverse("event:detail", kwargs={"pk": self.pk})
 
     def __str__(self):
-        return f"{self.activity} ({self.date} - {self.end_date})"
+        return f"{self.activity} -> {self.date} ({self.center.short_name})"
 
     class Meta:
         verbose_name = _("event")

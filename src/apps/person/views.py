@@ -24,6 +24,12 @@ class PersonDetail(DetailView):
         context["credit_log"] = self.object.credit_logs.all().order_by(
             "created_on"
         )
+        context["stays"] = self.object.stays.all().order_by(
+            "stay_center__name"
+        )
+        context["registers"] = self.object.registers.all().order_by(
+            "-created_on"
+        )
         return context
 
 

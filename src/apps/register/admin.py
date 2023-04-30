@@ -58,7 +58,7 @@ class OrderAdmin(admin.ModelAdmin):
         "center",
         "event",
     )
-    filter_horizontal = ["registers", "form_of_payments"]
+    # filter_horizontal = ["registers", "form_of_payments"]
 
     def save_model(self, request, obj, form, change):
         if change:

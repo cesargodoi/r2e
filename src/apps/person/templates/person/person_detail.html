@@ -1,4 +1,4 @@
-{% extends "core/base.html" %}
+{% extends "base/base.html" %}
 {% load static %}
 
 {% block content %}
@@ -44,30 +44,11 @@
         </tr>
       </table>
       <br>
-      <!-- Credit Log | start -->
-      {% if credit_log %}
-        <table class="table table-sm table-hover">
-          <tr>
-            <th>Date</th>
-            <th>Operation</th>
-            <th>Description</th>
-            <th class="text-end">R$</th>
-          </tr>
-          {% for credit in credit_log %}
-            <tr class="{% if credit.operation == 'USE' %}text-danger{% endif %}">
-              <td>{{ credit.created_on|date:'d/m/Y' }}</td>
-              <td>{{ credit.get_operation_display }}</td>
-              <td>{{ credit.description }}</td>
-              <td class="text-end">{% if credit.operation == 'USE' %}-{% endif %}{{ credit.credit }}</td>
-            </tr>
-          {% endfor %}
-          <tr>
-            <th colspan="3" class="text-end">TOTAL</th>
-            <th class="text-end">{{ object.credit }}</th>
-          </tr>
-        </table>
-      {% endif %}
-      <!-- Credit Log | end -->
+        {% include 'person/elements/credit_log.html' %}
+      <br>
+        {% include 'person/elements/stays.html' %}
+      <br>
+        {% include 'person/elements/registers.html' %}
       <br><br>
       <div class="text-end">
         <button 

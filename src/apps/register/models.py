@@ -23,12 +23,74 @@ class BankFlag(models.Model):
         ordering = ["name"]
 
 
+class Order(models.Model):
+    center = models.ForeignKey(
+        "center.Center",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="orders",
+        verbose_name=_("center"),
+    )
+    event = models.ForeignKey(
+        "event.Event",
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="orders",
+    )
+    value = models.DecimalField(_("value"), max_digits=7, decimal_places=2)
+    credit_launch = models.BooleanField(_("credit launch"), default=False)
+    late_payment = models.BooleanField(_("late payment"), default=False)
+    canceled_payment = models.BooleanField(
+        _("canceled payment"), default=False
+    )
+    observations = models.CharField(
+        _("observations"), max_length=250, null=True, blank=True
+    )
+    is_active = models.BooleanField(default=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    created_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="orders_created",
+    )
+    updated_on = models.DateTimeField(auto_now=True)
+    updated_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="orders_updated",
+    )
+
+    def __str__(self):
+        return "{} ${} | cr:{} | lt:{} | cc:{} | at:{}".format(
+            self.event,
+            self.value,
+            self.credit_launch,
+            self.late_payment,
+            self.canceled_payment,
+            self.created_on.strftime("%m/%d/%Y %H:%M:%S"),
+        )
+
+    class Meta:
+        verbose_name = _("order")
+        verbose_name_plural = _("orders")
+        ordering = ["-created_on"]
+
+
 class Register(models.Model):
     person = models.ForeignKey(
         "person.Person",
         on_delete=models.SET_NULL,
         null=True,
         related_name="registers",
+    )
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="registers",
+        verbose_name=_("order"),
     )
     lodge = models.CharField(
         _("lodge"), max_length=3, choices=LODGE_TYPES, default="LDG"
@@ -94,6 +156,13 @@ class FormOfPayment(models.Model):
         null=True,
         related_name="form_of_payments",
     )
+    order = models.ForeignKey(
+        Order,
+        on_delete=models.SET_NULL,
+        null=True,
+        related_name="form_of_payments",
+        verbose_name=_("order"),
+    )
     payment_type = models.CharField(
         _("payment type"), max_length=3, choices=PAYMENT_TYPES, default="CSH"
     )
@@ -144,63 +213,4 @@ class FormOfPayment(models.Model):
     class Meta:
         verbose_name = _("form of payment")
         verbose_name_plural = _("form of payments")
-        ordering = ["-created_on"]
-
-
-class Order(models.Model):
-    center = models.ForeignKey(
-        "center.Center",
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name="orders",
-        verbose_name=_("center"),
-    )
-    event = models.ForeignKey(
-        "event.Event",
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name="orders",
-    )
-    registers = models.ManyToManyField(Register, verbose_name=_("registers"))
-    form_of_payments = models.ManyToManyField(
-        FormOfPayment, verbose_name=_("form of payments")
-    )
-    value = models.DecimalField(_("value"), max_digits=7, decimal_places=2)
-    credit_launch = models.BooleanField(_("credit launch"), default=False)
-    late_payment = models.BooleanField(_("late payment"), default=False)
-    canceled_payment = models.BooleanField(
-        _("canceled payment"), default=False
-    )
-    observations = models.CharField(
-        _("observations"), max_length=250, null=True, blank=True
-    )
-    is_active = models.BooleanField(default=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name="orders_created",
-    )
-    updated_on = models.DateTimeField(auto_now=True)
-    updated_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        related_name="orders_updated",
-    )
-
-    def __str__(self):
-        return "{} ${} | cr:{} | lt:{} | cc:{} | at:{}".format(
-            self.event,
-            self.value,
-            self.credit_launch,
-            self.late_payment,
-            self.canceled_payment,
-            self.created_on.strftime("%m/%d/%Y %H:%M:%S"),
-        )
-
-    class Meta:
-        verbose_name = _("order")
-        verbose_name_plural = _("orders")
         ordering = ["-created_on"]

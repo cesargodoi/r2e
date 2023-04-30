@@ -1,0 +1,14 @@
+<!-- Registers | start -->
+{% if credit_log %}
+<table class="table table-sm table-hover">
+  <tr>
+    <th>Register</th>
+  </tr>
+  {% for reg in registers %}
+    <tr>
+      <td>{{ reg }} {{ reg.order.event }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endif %}
+<!-- Registers | end -->
