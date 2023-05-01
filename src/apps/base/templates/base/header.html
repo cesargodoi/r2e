@@ -1,0 +1,22 @@
+<div class="row mb-4">
+  <div class="col-md">
+    <h3 class="text-dark">{{ title }}</h3>
+  </div>
+  <div class="col-md text-end">
+    {% block search_form %}
+      <form class="d-sm-inline-block ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+        <div class="input-group">
+          <input 
+            class="bg-light form-control border-1 small" 
+            type="text" 
+            placeholder="Search for ..."
+            name="q"
+          >
+          <button class="btn btn-primary py-0" type="submit">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </form>
+    {% endblock %}
+  </div>
+</div>

@@ -1,14 +1,31 @@
 <!-- Registers | start -->
-{% if credit_log %}
-<table class="table table-sm table-hover">
-  <tr>
-    <th>Register</th>
-  </tr>
-  {% for reg in registers %}
-    <tr>
-      <td>{{ reg }} {{ reg.order.event }}</td>
-    </tr>
-  {% endfor %}
-</table>
-{% endif %}
+<div class="card shadow mb-3">
+  <div class="card-header py-3">
+    <p class="text-primary m-0 fw-bold">Registers</p>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      <table class="table table-sm table-hover">
+        <tr>
+          <th>Date</th>
+          <th>Event</th>
+          <th>Lodge</th>
+          <th>Arrival</th>
+          <th class="text-end">Value</th>
+        </tr>
+        {% for reg in registers %}
+          <tr>
+            <td>{{ reg.order.event.date|date:"d/m/y" }}</td>
+            <td>{{ reg.order.event.activity.name }} ({{ reg.order.event.center.short_name }})</td>
+            <td>{{ reg.get_lodge_display }}</td>
+            <td>
+              {{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display }}
+            </td>
+            <td class="text-end">{{ reg.value }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
 <!-- Registers | end -->

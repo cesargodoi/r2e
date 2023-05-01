@@ -1,0 +1,43 @@
+{% load static %}
+{% load my_tags %}
+
+<div class="card shadow">
+  <div class="card-header py-3">
+    <p class="text-primary m-0 fw-bold">People</p>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      <table class="table my-0" id="dataTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Local</th>
+            <th>Age</th>
+            <th>Phone</th>
+            <th class="text-end">Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in object_list  %}
+            <tr class="is-link" onclick="location.href='{% url 'person:detail' obj.pk %}'">
+              <td>{{ forloop.counter }}</td>
+              <td>
+                {% if obj.gender == 'M' %}
+                  <img src="{% static 'img/male.png' %}" alt="male" style="width:30px;height:30px;"> &nbsp;&nbsp;
+                {% else %}
+                  <img src="{% static 'img/female.png' %}" alt="female" style="width:30px;height:30px;"> &nbsp;&nbsp;
+                {% endif %}
+                {{ obj.name }}
+              </td>
+              <td>{{ obj.city }} ({{ obj.state }}-{{ obj.country }})</td>
+              <td>{{ obj.birth|age }}</td>
+              <td>{{ obj.phone }}</td>
+              <td class="text-end">{{ obj.email }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

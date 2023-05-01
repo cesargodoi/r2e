@@ -7,17 +7,33 @@ from django.views.generic import (
     DeleteView,
 )
 
-from .models import Person  # , CreditLog
+from .models import Person
 from .forms import PersonForm
 
 
 class PersonList(ListView):
     model = Person
     paginate = 10
+    extra_context = {"title": "People"}
+
+    def get_queryset(self):
+        if not self.request.GET.get("q"):
+            return Person.objects.all()
+        else:
+            return Person.objects.filter(
+                name_sa__icontains=self.request.GET.get("q")
+            )
+
+    def get_context_data(self, **kwargs):
+        self.request.session["nav_item"] = "people"
+        context = super().get_context_data(**kwargs)
+        context["q"] = self.request.GET.get("q")
+        return context
 
 
 class PersonDetail(DetailView):
     model = Person
+    extra_context = {"title": "Person detail"}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -65,18 +81,3 @@ class PersonUpdate(UpdateView):
 class PersonDelete(DeleteView):
     model = Person
     success_url = reverse_lazy("person:list")
-
-
-class PersonSearch(ListView):
-    model = Person
-    paginate_by = 10
-
-    def get_queryset(self):
-        return Person.objects.filter(
-            name_sa__icontains=self.request.GET.get("q")
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["q"] = self.request.GET.get("q")
-        return context

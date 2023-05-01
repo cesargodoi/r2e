@@ -1,13 +1,14 @@
+{% load static %}
 <div class="d-flex flex-wrap">
   {% for obj in object_list  %}
     <div class="card p-2" style="width: 25rem;">
-      <h1 class="display-1 text-center">
+      <div class="text-center">
         {% if obj.gender == 'M' %}
-          <i class="bi bi-gender-male"></i>
+          <img src="{% static 'img/male.png' %}" alt="male" style="width:30px;height:30px;">
         {% else %}
-          <i class="bi bi-gender-female"></i>
+          <img src="{% static 'img/female.png' %}" alt="female" style="width:30px;height:30px;">
         {% endif %}
-      </h1>
+      </div>
       <div class="card-body">
         <h5 class="card-title">{{ obj.name }}</h5>
 
