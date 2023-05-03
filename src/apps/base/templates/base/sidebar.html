@@ -1,6 +1,12 @@
 <ul class="navbar-nav text-light" id="accordionSidebar">
-  <li class="nav-item"><a class="nav-link active" href="/index.html"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-  <li class="nav-item"><a class="nav-link" href="/profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+  <li class="nav-item">
+    <a 
+      class="nav-link {% if request.session.nav_item == 'event' %}active{% else %}{% endif %}" 
+      href="{% url 'event:list' %}"
+    >
+      <i class="bi bi-calendar-event"></i><span>Events</span>
+    </a>
+  </li>
   <li class="nav-item">
     <a 
       class="nav-link {% if request.session.nav_item == 'people' %}active{% else %}{% endif %}" 
@@ -9,6 +15,7 @@
       <i class="fa fa-users"></i><span>People</span>
     </a>
   </li>
+  <div class="border-bottom border-1 border-secondary border-opacity-50 ms-3 me-3"></div>
   <li class="nav-item"><a class="nav-link" href="/login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
   <li class="nav-item"><a class="nav-link" href="/register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
 </ul>

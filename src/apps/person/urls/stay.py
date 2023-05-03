@@ -1,9 +1,8 @@
 from django.urls import path
+from .person import urlpatterns
 from .. import views
 
-app_name = "person"
-
-urlpatterns = [
+urlpatterns += [
     path(
         "<int:person_id>/stay/create/",
         views.StayCreate.as_view(),
