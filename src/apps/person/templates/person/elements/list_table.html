@@ -30,7 +30,9 @@
                 {% endif %}
                 {{ obj.name }}
               </td>
-              <td>{{ obj.city }} ({{ obj.state }}-{{ obj.country }})</td>
+              <td>
+                {% if obj.city %}{{ obj.city }}{% endif %} ({% if obj.state %}{{ obj.state }}-{% endif %}{{ obj.country }})
+              </td>
               <td>{{ obj.birth|age }}</td>
               <td>{{ obj.phone }}</td>
               <td class="text-end">{{ obj.email }}</td>

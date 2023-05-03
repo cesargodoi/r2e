@@ -41,8 +41,12 @@ class Person(models.Model):
     )
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(_("phone"), max_length=20, null=True, blank=True)
-    sos_contact = models.CharField(_("sos contact"), max_length=50, blank=True)
-    sos_phone = models.CharField(_("sos phone"), max_length=20, blank=True)
+    sos_contact = models.CharField(
+        _("sos contact"), max_length=50, null=True, blank=True
+    )
+    sos_phone = models.CharField(
+        _("sos phone"), max_length=20, null=True, blank=True
+    )
     credit = models.DecimalField(
         _("credit"), max_digits=7, decimal_places=2, default=0.0
     )

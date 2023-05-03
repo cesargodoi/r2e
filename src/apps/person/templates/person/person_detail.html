@@ -21,4 +21,14 @@
       </div>
     </div>
   </div>
+  {% include 'base/modal.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/modal_form.js' %}"></script>
+<script>
+  function manageData(url) {
+    htmx.ajax('GET', url, '#baseModalContent')
+  }
+</script>
 {% endblock %}

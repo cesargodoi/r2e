@@ -1,0 +1,33 @@
+<tr>
+  <td>{{ stay.stay_center }}</td>
+  <td>{{ stay.get_lodge_display }}</td>
+  <td>{{ stay.get_arrival_date_display }}, {{ stay.get_arrival_time_display }}</td>
+  <td class="text-danger">
+    {% if stay.no_stairs %}no stairs{% endif %}
+    {% if stay.no_stairs and stay.no_bunk %}| {% endif %}
+    {% if stay.no_bunk %}no bunk{% endif %}
+  </td>
+  <td>{{ stay.get_staff_display }}</td>
+  <td class="text-end">
+    <div class="btn-group" role="group">
+      <button 
+        type="button"
+        class="btn btn-secondary btn-sm" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{% url 'person:stay_update' object.pk stay.pk %}')"
+      >
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button 
+        type="button"
+        class="btn btn-danger btn-sm" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{% url 'person:stay_delete' object.pk stay.pk %}')"
+      >
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </td>
+</tr>

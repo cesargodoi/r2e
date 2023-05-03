@@ -5,8 +5,8 @@
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-      {% if credit_log %}
-        <table class="table table-sm table-hover">
+      {% if stays %}
+        <table class="table table-sm">
           <tr>
             <th>Stay</th>
             <th>Lodge</th>
@@ -15,29 +15,22 @@
             <th>Staff</th>
             <th></th>
           </tr>
-          {% for stay in stays %}
-            <tr>
-              <td>{{ stay.stay_center }}</td>
-              <td>{{ stay.get_lodge_display }}</td>
-              <td>{{ stay.get_arrival_date_display }}, {{ stay.get_arrival_time_display }}</td>
-              <td class="text-danger">
-                {% if stay.no_stairs %}no stairs{% endif %}
-                {% if stay.no_stairs and stay.no_bunk %} {% endif %}
-                {% if stay.no_bunk %}no bunk{% endif %}
-              </td>
-              <td>{{ stay.get_staff_display }}</td>
-              <td class="text-end">
-                <a class="text-warning" href="{% url 'person:update' object.pk %}">
-                  <i class="bi bi-pencil"></i>
-                </a>
-              </td>
-            </tr>
-          {% endfor %}
+          <tbody id="stay_list">
+            {% for stay in stays %}
+              {% include 'person/elements/stay_row.html' %}
+            {% endfor %}
+          </tbody>
         </table>
       {% endif %}
     </div>
     <div class="text-end mb-3">
-      <button class="btn btn-primary btn-sm" type="submit">
+      <button 
+        type="button"
+        class="btn btn-primary btn-sm" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{% url 'person:stay_create' object.pk %}')"
+      >
         <i class="bi bi-plus-lg"></i> Add 
       </button>
     </div>
