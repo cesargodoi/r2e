@@ -59,7 +59,10 @@
         <button 
           type="button"
           class="btn btn-secondary btn-sm" 
-          onclick="location.href='{% url 'person:update' object.pk %}';"
+          data-bs-toggle="modal" 
+          data-bs-target="#baseModal"
+          onclick="manageData('{% url 'person:update' object.pk %}')"
+          {% comment %} onclick="location.href='{% url 'person:update' object.pk %}';" {% endcomment %}
         >
           <i class="bi bi-pencil"></i> Editar
         </button>

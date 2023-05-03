@@ -1,5 +1,5 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block content %}
   {% include 'person/elements/list_header.html' %}
   {% include 'person/elements/list_table.html' %}
@@ -9,10 +9,20 @@
       class="float-buttom-plus border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
       data-bs-toggle="modal" 
       data-bs-target="#baseModal"
-      onclick="location.href='{% url 'person:create' %}';"
+      onclick="manageData('{% url 'person:create' %}')"
+      {% comment %} onclick="location.href='{% url 'person:create' %}';" {% endcomment %}
     >
       <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
     </button>
   </div>
   {% include 'base/modal.html' %}
 {% endblock  %}
+
+{% block scripts %}
+<script src="{% static 'js/modal_form.js' %}"></script>
+<script>
+  function manageData(url) {
+    htmx.ajax('GET', url, '#baseModalContent')
+  }
+</script>
+{% endblock %}

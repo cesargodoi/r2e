@@ -1,7 +1,5 @@
 from django.urls import reverse_lazy, reverse
-
 from django.http import HttpResponse
-from django.template.loader import render_to_string
 from django.views.generic import DeleteView
 from django.views.generic.edit import FormView
 from ..models import Person, PersonStay
@@ -24,11 +22,6 @@ class StayCreate(FormView):
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.save()
         return HttpResponse(
-            render_to_string(
-                "person/elements/stay_row.html",
-                {"stay": stay, "object": stay.person},
-                self.request,
-            ),
             headers={
                 "HX-Redirect": reverse(
                     "person:detail", args=[self.kwargs["person_id"]]
@@ -54,11 +47,6 @@ class StayUpdate(FormView):
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.save()
         return HttpResponse(
-            render_to_string(
-                "person/elements/stay_row.html",
-                {"stay": stay, "object": stay.person},
-                self.request,
-            ),
             headers={
                 "HX-Redirect": reverse(
                     "person:detail", args=[self.kwargs["person_id"]]
