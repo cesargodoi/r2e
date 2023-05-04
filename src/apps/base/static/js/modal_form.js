@@ -1,31 +1,34 @@
-;(function () {
+; (function () {
 
-  var myModal = new bootstrap.Modal(document.getElementById('baseModal'))
+  const baseModal = document.querySelector('#baseModal');
+  const modal = new bootstrap.Modal(baseModal);
+  const baseModalContent = document.querySelector('#baseModalContent');
 
   // Response targeting #baseModalContent => show the modal
-  htmx.on("#baseModal", "htmx:afterSwap", (event) => {
-    if (event.detail.target.id == "baseModalContent") {
-      $('#baseModal').modal('show');
+  baseModal.addEventListener('htmx:afterSwap', (event) => {
+    if (event.detail.target.id === 'baseModalContent') {
+      modal.show();
     }
-  })
-  
+  });
+
   // Empty response targeting #baseModalContent => hide the modal
-  htmx.on("#baseModal", "htmx:beforeSwap", (event) => {
-    if (event.detail.target.id == "baseModalContent" && !event.detail.xhr.response) {
-      $('#baseModal').modal('hide');
+  baseModal.addEventListener('htmx:beforeSwap', (event) => {
+    if (event.detail.target.id === 'baseModalContent' && !event.detail.xhr.response) {
+      modal.hide();
     }
-  })
+  });
 
   // Close modal by event
-  htmx.on("closeModal", () => {modalForm.hide()})
-  
+  htmx.on("closeModal", () => { modalForm.hide() })
+
   // Close modal (old style)
   htmx.on("#baseModal", "htmx:beforeSend", (e) => {
-    $('#baseModal').modal('hide');
+    modal.hide();
   });
 
   // Remove #baseModalContent content after hiding
-  htmx.on("#baseModal", "hidden.bs.modal", () => {
-    $("#baseModalContent").empty();
-  })
+  baseModal.addEventListener('hidden.bs.modal', () => {
+    baseModalContent.innerHTML = '';
+  });
+
 })()

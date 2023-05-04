@@ -1,6 +1,7 @@
 from datetime import datetime
-
-from django.urls import reverse_lazy
+from django.db.models import Count
+from django.urls import reverse_lazy, reverse
+from django.http import HttpResponse
 from django.views.generic import (
     ListView,
     CreateView,
@@ -17,15 +18,16 @@ from ..forms import EventForm
 class EventList(ListView):
     model = Event
     paginate = 10
+    extra_context = {"title": "Events"}
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
-            return Event.objects.all()
+            return Event.objects.all().annotate(num_orders=Count("orders"))
         else:
             date = datetime.strptime(self.request.GET.get("q"), "%m/%Y")
             events = Event.objects.filter(
                 date__month=date.month, date__year=date.year
-            )
+            ).annotate(num_orders=Count("orders"))
             return events
 
     def get_context_data(self, **kwargs):
@@ -51,6 +53,10 @@ class EventCreate(CreateView):
         initial["modified_by"] = self.request.user
         return initial
 
+    def form_valid(self, form):
+        form.save()
+        return HttpResponse(headers={"HX-Redirect": reverse("event:list")})
+
 
 class EventUpdate(UpdateView):
     model = Event
@@ -67,28 +73,16 @@ class EventUpdate(UpdateView):
         context["pk"] = self.kwargs["pk"]
         return context
 
+    def form_valid(self, form):
+        form.save()
+        return HttpResponse(
+            headers={
+                "HX-Redirect": reverse("event:detail", args=[self.object.pk])
+            }
+        )
+
 
 class EventDelete(DeleteView):
     model = Event
-    template_name = "event/elements/confirm_delete.html"
+    template_name = "base/generics/confirm_delete.html"
     success_url = reverse_lazy("event:list")
-
-
-class EventSearch(ListView):
-    model = Event
-    paginate_by = 10
-
-    def get_queryset(self):
-        if not self.request.GET.get("q"):
-            return Event.objects.all()
-        else:
-            date = datetime.strptime(self.request.GET.get("q"), "%m/%Y")
-            events = Event.objects.filter(
-                date__month=date.month, date__year=date.year
-            )
-            return events
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["q"] = self.request.GET.get("q")
-        return context

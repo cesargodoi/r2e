@@ -1,0 +1,55 @@
+{% load static %}
+{% load my_tags %}
+
+<div class="card shadow">
+  <div class="card-header py-3">
+    <p class="text-primary m-0 fw-bold">Events</p>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      <table class="table my-0" id="dataTable">
+        {% if object_list %}
+          <tr>
+            <th>#</th>
+            <th>Event</th>
+            <th>Local</th>
+            <th>Date</th>
+            <th>Registers</th>
+            <th class="text-end">Status</th>
+          </tr>
+        {% endif %}
+        <tbody>
+          {% for obj in object_list  %}
+            <tr class="is-link" onclick="location.href='{% url 'event:detail' obj.pk %}'">
+              <td>{{ forloop.counter }}</td>
+              <td>
+                {% if obj.status == 'OPN' %}
+                  <i class="bi bi-door-open text-primary"></i>
+                {% else %}
+                  <i class="bi bi-door-closed text-danger"></i> 
+                {% endif %}
+                {{ obj.activity.name }}
+              </td>
+              <td>
+                {% if obj.center.city %}{{ obj.center.city }}{% endif %} ({% if obj.center.state %}{{ obj.center.state }}-{% endif %}{{ obj.center.country }})
+              </td>
+              <td>{{ obj.date }}</td>
+              <td>{% if obj.num_orders %}{{ obj.num_orders }}{% endif %}</td>
+              <td class="text-end">
+                {% if obj.status == 'OPN' %}
+                  <div class="badge rounded-pill text-bg-primary">Open</div>
+                {% else %}
+                  <div class="badge rounded-pill text-bg-danger">Close</div>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <div class="alert alert-warning" role="alert">
+              no <strong>Events</strong> was found in the database
+            </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

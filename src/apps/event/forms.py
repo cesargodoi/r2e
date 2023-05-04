@@ -12,6 +12,7 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = "__all__"
+        exclude = ("is_active",)
         widgets = {
             "description": forms.Textarea(attrs={"rows": 2}),
             "date": forms.widgets.DateInput(
@@ -23,7 +24,6 @@ class EventForm(forms.ModelForm):
             "deadline": forms.widgets.DateInput(
                 format="%Y-%m-%d %H:%M:%S", attrs={"type": "datetime-local"}
             ),
-            "is_active": forms.HiddenInput(),
             "created_by": forms.HiddenInput(),
             "modified_by": forms.HiddenInput(),
         }

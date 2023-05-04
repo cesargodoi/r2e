@@ -93,5 +93,5 @@ class PersonUpdate(UpdateView):
 
 class PersonDelete(DeleteView):
     model = Person
-    template_name = "person/elements/confirm_delete.html"
+    template_name = "base/generics/confirm_delete.html"
     success_url = reverse_lazy("person:list")
