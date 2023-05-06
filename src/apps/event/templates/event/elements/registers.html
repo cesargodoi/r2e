@@ -1,0 +1,39 @@
+<!-- Stays | start -->
+<div class="card shadow mb-3">
+  <div class="card-header py-3">
+    <p class="text-primary m-0 fw-bold">Registers</p>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      {% if object.orders.count > 0 %}
+        <table class="table table-sm">
+          <tr>
+            <th>#</th>
+            <th>Person</th>
+            <th>Lodge</th>
+            <th colspan="2">Stay</th>
+            <th class="text-end">Value $</th>
+            <th></th>
+          </tr>
+          <tbody id="stay_list">
+            {% for reg in registers %}
+              {% include 'event/elements/register_row.html' %}
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+    <div class="text-end mb-3">
+      <button 
+        type="button"
+        class="btn btn-primary btn-sm" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{% url 'person:stay_create' object.pk %}')"
+      >
+        <i class="bi bi-plus-lg"></i> Add 
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Stays | end -->

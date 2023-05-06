@@ -14,32 +14,30 @@
             <th>Event</th>
             <th>Local</th>
             <th>Date</th>
-            <th>Registers</th>
+            <th class="text-end">Registers</th>
             <th class="text-end">Status</th>
           </tr>
         {% endif %}
         <tbody>
           {% for obj in object_list  %}
-            <tr class="is-link" onclick="location.href='{% url 'event:detail' obj.pk %}'">
+            <tr 
+              class="is-link text-{% if obj.status == 'OPN' %}primary{% else %}secondary{% endif %}" 
+              onclick="location.href='{% url 'event:detail' obj.pk %}'"
+              >
               <td>{{ forloop.counter }}</td>
               <td>
-                {% if obj.status == 'OPN' %}
-                  <i class="bi bi-door-open text-primary"></i>
-                {% else %}
-                  <i class="bi bi-door-closed text-danger"></i> 
-                {% endif %}
                 {{ obj.activity.name }}
               </td>
-              <td>
-                {% if obj.center.city %}{{ obj.center.city }}{% endif %} ({% if obj.center.state %}{{ obj.center.state }}-{% endif %}{{ obj.center.country }})
+              <td>{{ obj.center }}</td>
+              <td>{{ obj.date|date:"d/m" }} to {{ obj.end_date|date:"d/m" }} of {{ obj.end_date|date:"Y" }}</td>
+              <td class="text-end fw-bolder">
+                {% if obj.num_orders %}{{ obj.num_orders }}{% endif %}
               </td>
-              <td>{{ obj.date }}</td>
-              <td>{% if obj.num_orders %}{{ obj.num_orders }}{% endif %}</td>
               <td class="text-end">
                 {% if obj.status == 'OPN' %}
-                  <div class="badge rounded-pill text-bg-primary">Open</div>
+                  <span class="badge rounded-pill text-bg-primary">Open</span>
                 {% else %}
-                  <div class="badge rounded-pill text-bg-danger">Close</div>
+                  <span class="badge rounded-pill text-bg-secondary">Close</span>
                 {% endif %}
               </td>
             </tr>

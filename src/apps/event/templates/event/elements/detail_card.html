@@ -1,0 +1,85 @@
+{% load static %}
+<div class="card mb-3">
+  <div class="card-body shadow">
+    <div class="row mb-3 border-bottom">
+      <div class="col-md-6">
+        <div class="d-flex justify-content-between">
+          <h2>{{ object.activity.name }}</h2>
+          <h2>
+            <span class="badge bg-{% if object.status == 'OPN'%}primary{% else %}secondary{% endif %}">
+              {{ object.get_status_display|upper }}
+            </span>
+          </h2>
+        </div>
+        <p class="fw-bold mb-4">
+          {{ object.center.short_name }} - 
+          {{ object.center.city }} ({{ object.center.state }}-{{ object.center.country }})
+          &nbsp;&nbsp;&nbsp; {{ object.date|date:"M/Y" }}
+        </p>
+        <p 
+          class="lead mb-4"
+          data-bs-toggle="tooltip" 
+          data-bs-placement="bottom" 
+          data-bs-title="{{ object.description }}"
+        >
+          {{ object.description|truncatechars:80 }}
+        </p>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-sm">
+          <tr>
+            <th>periodo:</th>
+            <td class="lead">{{ object.date|date:"d/M" }} à {{ object.end_date|date:"d/M" }} de {{ object.date|date:"Y" }}</td>
+          </tr>
+          <tr>
+            <th>inscrições até:</th>
+            <td class="lead">{{ object.deadline|date:"d/m/Y" }} às {{ object.deadline|date:"H:i" }}</td>
+          </tr>
+          <tr>
+            <th>taxa de registro:</th>
+            <td class="lead">{{ object.ref_value }} &nbsp;&nbsp; <small class="text-warning"><em>(min. {{ object.min_value }})</em></small></td>
+          </tr>
+          <tr>
+            <th>inscritos no núcleo:</th>
+            <td class="h4"><strong>{% if registers|length > 0 %}{{ registers|length }}{% endif %}</strong></td>
+          </tr>
+          <tr>
+            <th>total no evento:</th>
+            <td class="h4"><strong>{% if object.orders.count > 0 %}{{ object.orders.count }}{% endif %}</strong></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="text-end mb-3">
+      <div class="btn-group" role="group">
+        <button 
+          type="button" 
+          class="btn btn-info btn-sm"
+          onclick="location.href='{% url 'event:list' %}';"
+        >
+          <i class="bi bi-chevron-left"></i>
+          Voltar 
+        </button>
+        <button 
+          type="button"
+          class="btn btn-secondary btn-sm" 
+          data-bs-toggle="modal" 
+          data-bs-target="#baseModal"
+          onclick="manageData('{% url 'event:update' object.pk %}');"
+        >
+          <i class="bi bi-pencil"></i> Editar
+        </button>
+        <button 
+          type="button"
+          class="btn btn-danger btn-sm" 
+          data-bs-toggle="modal" 
+          data-bs-target="#baseModal"
+          onclick="manageData('{% url 'event:delete' object.pk %}')"
+        >
+          <i class="bi bi-trash"></i> Deletar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

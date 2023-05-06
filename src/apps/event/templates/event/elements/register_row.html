@@ -1,0 +1,38 @@
+{% load static %}
+<tr>
+  <td>{{ forloop.counter }}</td>
+  <th>{{ reg.person.name }}</th>
+  <td>{{ reg.get_lodge_display }}</td>
+  <td>{{ reg.get_arrival_date_display }} | {{ reg.get_arrival_time_display }}</td>
+  <td>
+    {% if reg.no_stairs %}
+      <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:30px;height:30px;"> &nbsp;&nbsp;
+    {% endif %}
+    {% if reg.no_bunk %}
+      <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:30px;height:30px;">
+    {% endif %}
+  </td>
+  <th class="text-end">{{ reg.value }}</th>
+  <td class="text-end">
+    <div class="btn-group" role="group">
+      <button 
+        type="button"
+        class="btn btn-secondary btn-sm" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{ url 'person:stay_update' object.pk stay.pk %}')"
+      >
+        <i class="bi bi-pencil"></i>
+      </button>
+      <button 
+        type="button"
+        class="btn btn-danger btn-sm" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{ url 'person:stay_delete' object.pk stay.pk %}')"
+      >
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </td>
+</tr>

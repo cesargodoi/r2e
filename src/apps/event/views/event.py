@@ -13,6 +13,8 @@ from django.views.generic import (
 from ..models import Event
 from ..forms import EventForm
 
+from apps.register.models import Register
+
 
 # Event Views
 class EventList(ListView):
@@ -39,6 +41,17 @@ class EventList(ListView):
 
 class EventDetail(DetailView):
     model = Event
+
+    def get_context_data(self, **kwargs):
+        self.request.session["nav_item"] = "event"
+        context = super().get_context_data(**kwargs)
+        context["title"] = self.object.activity.name
+        registers = Register.objects.filter(
+            order__event=self.object.pk,
+            order__center=self.request.user.centers.first(),
+        ).order_by("-created_on")
+        context["registers"] = registers
+        return context
 
 
 class EventCreate(CreateView):

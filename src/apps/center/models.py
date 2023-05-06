@@ -15,11 +15,9 @@ class Center(models.Model):
     )
     email = models.EmailField(null=True, blank=True)
     phone = models.CharField(_("phone"), max_length=20, null=True, blank=True)
-    contact = models.ForeignKey(
+    contact = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
+        related_name="centers",
         verbose_name=_("contact"),
     )
 
