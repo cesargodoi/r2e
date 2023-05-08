@@ -5,7 +5,7 @@
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-      {% if object.orders.count > 0 %}
+      {% if registers.count > 0 %}
         <table class="table table-sm">
           <tr>
             <th>#</th>
@@ -17,7 +17,7 @@
           </tr>
           <tbody id="stay_list">
             {% for reg in registers %}
-              {% include 'event/elements/register_row.html' %}
+              {% include 'event/elements/register_list_item.html' %}
             {% endfor %}
           </tbody>
         </table>
@@ -27,9 +27,7 @@
       <button 
         type="button"
         class="btn btn-primary btn-sm" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'person:stay_create' object.pk %}')"
+        onclick="location.href='{% url 'register:create_order' object.center.pk object.pk %}';"
       >
         <i class="bi bi-plus-lg"></i> Add 
       </button>

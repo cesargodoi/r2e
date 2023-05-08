@@ -1,0 +1,24 @@
+<div class="input-group">
+  <input 
+    type="text"
+    class="form-control"
+    name="term"
+    placeholder="Search person to add ..."
+    hx-get="{% url 'register:search_person' %}"
+    hx-target="#personNames"
+    hx-trigger="keyup changed delay:500ms"
+  />
+  <span class="input-group-text">or</span>
+  <button 
+    type="button" 
+    class="btn btn-primary"
+    data-bs-toggle="modal" 
+    data-bs-target="#baseModal"
+    onclick="manageData('{% url 'register:create_person' %}')"
+  >
+    <i class="bi bi-plus-lg"></i> Add
+  </button>
+</div>
+<div class="float-end suggestion-list">
+  <div id="personNames"></div>
+</div>

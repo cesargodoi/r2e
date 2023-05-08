@@ -1,8 +1,8 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
-from .models import BankFlag
-from .forms import BankFlagForm
+from ..models import BankFlag
+from ..forms import BankFlagForm
 
 
 # BankFlag Views

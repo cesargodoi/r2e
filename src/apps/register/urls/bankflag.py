@@ -1,10 +1,9 @@
 from django.urls import path
-from . import views
+from .register import urlpatterns
+from .. import views
 
-app_name = "register"
 
-# bankflag
-urlpatterns = [
+urlpatterns += [
     path("bankflag/list/", views.BankFlagList.as_view(), name="bankflag_list"),
     path(
         "bankflag/create/",

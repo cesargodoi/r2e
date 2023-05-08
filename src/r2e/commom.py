@@ -59,8 +59,8 @@ LODGE_TYPES = [("LDG", _("Lodge")), ("HSE", _("House")), ("HTL", _("Hotel"))]
 
 ARRIVAL_DATE = [
     ("D0", _("Eve day")),
-    ("D1", _("First day")),
-    ("D2", _("Secound day")),
+    ("D1", _("1st day")),
+    ("D2", _("2nd day")),
 ]
 
 ARRIVAL_TIME = [
@@ -140,3 +140,9 @@ def phone_format(num, country="BR"):
                 else f"+55 {num[:2]} {num[2:6]}-{num[6:]}"
             )
     return num
+
+
+def clear_session(request, items):
+    for item in items:
+        if request.session.get(item):
+            del request.session[item]

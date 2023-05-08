@@ -12,11 +12,6 @@ class StayCreate(FormView):
     extra_context = {"title": "Create a new Stay"}
     success_url = reverse_lazy("person:list")
 
-    def get_initial(self):
-        initial = super().get_initial()
-        initial["person"] = self.kwargs["person_id"]
-        return initial
-
     def form_valid(self, form):
         stay = form.save(commit=False)
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
@@ -33,7 +28,7 @@ class StayCreate(FormView):
 class StayUpdate(FormView):
     form_class = StayForm
     template_name = "person/elements/stay_form.html"
-    extra_context = {"title": "Update Stay CBV"}
+    extra_context = {"title": "Update Stay"}
     success_url = reverse_lazy("person:list")
 
     def get_form_kwargs(self):
@@ -57,7 +52,7 @@ class StayUpdate(FormView):
 
 class StayDelete(DeleteView):
     model = PersonStay
-    template_name = "person/elements/confirm_delete.html"
+    template_name = "base/generics/confirm_delete.html"
 
     def get_success_url(self):
         return reverse("person:detail", args=[self.kwargs["person_id"]])

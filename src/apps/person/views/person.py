@@ -58,6 +58,7 @@ class PersonCreate(CreateView):
 
     def get_initial(self):
         initial = super().get_initial()
+        initial["center"] = self.request.user.centers.first()
         initial["created_by"] = self.request.user
         initial["modified_by"] = self.request.user
         return initial

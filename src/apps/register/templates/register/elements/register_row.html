@@ -1,0 +1,59 @@
+{% load static %}
+<tr>
+  <td>{{ forloop.counter }}</td>
+  <td>{{ reg.person.name }}</td>
+  {% if reg.lodge %}
+    <td>
+      {{ reg.lodge }} &nbsp;&nbsp;&nbsp;
+      {{ reg.arrival_date }} | {{ reg.arrival_time }} &nbsp;&nbsp;&nbsp;
+      {% if reg.no_stairs %}
+        <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:30px;height:30px;"> &nbsp;&nbsp;
+      {% endif %}
+      {% if reg.no_bunk %}
+        <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:30px;height:30px;">
+      {% endif %}
+    </td>
+    <td>{% if reg.observations %}{{ reg.observations }}{% endif %}</td>
+  {% else %}
+    <td colspan="2" class="text-danger">Por favor, insira uma estadia.</td>
+  {% endif %}
+  <td class="text-end">
+    {% if reg.lodge %}
+      <button 
+        type="button" 
+        class="btn btn-light text-secondary btn-sm"
+        onclick="manageData('{% url 'register:edit_stay' reg.person.id reg.regid %}')"
+      >
+        <i class="bi bi-pencil"></i>
+      </button>
+    {% else %}
+      <button 
+        type="button" 
+        class="btn btn-light text-primary btn-sm"
+        onclick="manageData('{% url 'register:add_stay' request.session.new_order.center reg.person.id reg.regid %}')"
+      >
+        <i class="bi bi-plus-lg"></i>
+      </button>
+    {% endif %}
+    <button 
+      type="button" 
+      class="btn btn-light text-danger btn-sm"
+      hx-get="{% url 'register:del_register' %}"
+      hx-vals='{"regid": "{{ reg.regid }}"}'
+      hx-confirm="Are you sure?"
+    >
+      <i class="bi bi-trash"></i>
+    </button>
+  </td>
+  <td class="text-end">
+    <input 
+      type="number" 
+      name="value"
+      style="width: 7rem; text-align:right;"
+      hx-get="{% url 'register:adj_value' %}"
+      hx-vals='{"regid": "{{ reg.regid }}"}'
+      value="{{ reg.value|floatformat:2 }}" 
+      {% if not reg.lodge %}disabled{% endif %}
+    />
+  </td>
+</tr>

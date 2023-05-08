@@ -1,0 +1,69 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+  {% include 'base/generics/header.html' %}
+
+  <!-- Registers -->
+  <div class="card shadow mb-3">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-8 mb-3">
+          <p class="text-primary m-0 fw-bold">Registers</p>
+        </div>
+        <div class="float-end col-md-4 search-inline input-group" id="searchPerson">
+          {% include "register/elements/search_person.html" %}
+        </div>
+      </div>
+    </div>
+    <div class="card-body" id="registers">
+      {% if request.session.new_order.registers %}
+        <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+          <table class="table table-sm">
+            <tr>
+              <th>#</th>
+              <th>Person</th>
+              <th colspan="3">Stay</th>
+              <th class="text-end">Value R$</th>
+            </tr>
+            {% for reg in request.session.new_order.registers %} 
+              {% include 'register/elements/register_row.html' %}
+            {% endfor %}
+            <tr>
+              <th colspan="5" class="text-end">Total:</th>
+              <th class="text-end h4 pe-3">{{ request.session.new_order.total_registers|floatformat:2 }}</th>
+            </tr>
+          </table>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Forms of Payment -->
+  <div class="card shadow mb-3">
+    <div class="card-header py-3 d-flex justify-content-between">
+      <p class="text-primary m-0 fw-bold">Forms of Payment</p>
+      <button 
+        type="button" 
+        class="btn btn-primary btn-sm"
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('')"
+      >
+        <i class="bi bi-plus-lg"></i> Add
+      </button>
+    </div>
+  </div>
+  
+  
+  {% include 'base/modal.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/modal_form.js' %}"></script>
+<script>
+  function manageData(url) {
+    htmx.ajax('GET', url, '#baseModalContent')
+  }
+</script>
+{% endblock %}

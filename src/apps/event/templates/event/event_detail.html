@@ -2,10 +2,9 @@
 {% load static %}
 
 {% block content %}
-  {% comment %} {% include 'event/elements/detail_header.html' %} {% endcomment %}
   <div class="mb-3">
     {% include 'event/elements/detail_card.html' %}
-    {% include 'event/elements/registers.html' %}
+    {% include 'event/elements/register_list.html' %}
   </div>
   {% include 'base/modal.html' %}
 {% endblock %}
