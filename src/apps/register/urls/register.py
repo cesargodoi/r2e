@@ -16,7 +16,11 @@ urlpatterns = [
     ),
     path("search_person/", views.search_person, name="search_person"),
     path("add_person/", views.add_person, name="add_person"),
-    path("adj_value/", views.adj_value, name="adj_value"),
+    path(
+        "adj_register_value/",
+        views.adj_register_value,
+        name="adj_register_value",
+    ),
     path("del_register/", views.del_register, name="del_register"),
     path(
         "<int:center_id>/<int:person_id>/<str:regid>/stay/add/",
@@ -28,4 +32,12 @@ urlpatterns = [
         views.EditStay.as_view(),
         name="edit_stay",
     ),
+    # form of payment
+    path("payform/add/", views.AddPayForm.as_view(), name="add_payform"),
+    path(
+        "adj_payform_value/",
+        views.adj_payform_value,
+        name="adj_payform_value",
+    ),
+    path("del_payform/", views.del_payform, name="del_payform"),
 ]

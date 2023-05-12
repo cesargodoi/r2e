@@ -1,0 +1,33 @@
+{% load static %}
+<tr>
+  <td>{{ forloop.counter }}</td>
+  <td>{{ payf.payment_type.name }}</td>
+  {% if payf.payform_type.id != 'CSH'  %}
+    <td>{{ payf.bank_flag.name }}</td>
+    <td>{{ payf.ctrl }}</td>
+  {% else %}
+    <td colspan="2"></td>
+  {% endif %}
+  <td class="text-end" style="width: 8rem;">
+    <did class="d-flex justify-content-end">
+      <input 
+        type="number" 
+        name="value"
+        class="form-control form-control-sm"
+        style="width: 6.5rem; text-align:right;"
+        hx-get="{% url 'register:adj_payform_value' %}"
+        hx-vals='{"pfid": "{{ payf.pfid }}"}'
+        value="{{ payf.value|floatformat:2 }}" 
+      />
+      <button 
+        type="button" 
+        class="btn btn-light text-danger btn-sm ms-1"
+        hx-get="{% url 'register:del_payform' %}"
+        hx-vals='{"pfid": "{{ payf.pfid }}"}'
+        hx-confirm="Are you sure?"
+      >
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </td>
+</tr>

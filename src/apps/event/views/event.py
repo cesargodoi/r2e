@@ -44,12 +44,14 @@ class EventDetail(DetailView):
 
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "event"
+        user_center = self.request.user.centers.first()
         context = super().get_context_data(**kwargs)
+        context["user_center"] = user_center.id
         context["title"] = self.object.activity.name
         registers = Register.objects.filter(
             order__event=self.object.pk,
-            order__center=self.request.user.centers.first(),
-        ).order_by("-created_on")
+            order__center=user_center,
+        ).order_by("person")
         context["registers"] = registers
         return context
 

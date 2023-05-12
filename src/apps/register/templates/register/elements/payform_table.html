@@ -1,0 +1,43 @@
+<div class="table-responsive table mt-2">
+  <table class="table table-sm">
+    {% if request.session.new_order.payforms %}
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Type</th>
+          <th colspan="2">Detail</th>
+          <th class="text-end">Value R$</th>
+        </tr>
+      </thead>
+    {% endif %}
+    <tbody class="table-group-divider">
+      {% for payf in request.session.new_order.payforms %} 
+        {% include 'register/elements/payform_row.html' %}
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      {% if request.session.new_order.payforms %}
+        <tr>
+          <th colspan="4" class="text-end h4">Total:</th>
+          <th class="text-end total-value">
+            <input 
+              type="number" 
+              class="form-control form-control-lg"
+              style="width: 8.7rem; text-align:right;"
+              value="{{ request.session.new_order.total_payforms|floatformat:2 }}" 
+              readonly
+            />
+          </th>
+        </tr>
+      {% endif %}
+      {% if request.session.new_order.missing != 0 %}
+      <tr class="text-danger">
+        <th colspan="4" class="text-end">Missing:</th>
+        <th class="text-end text-center">
+          {{ request.session.new_order.missing|floatformat:2 }}
+        </th>
+      </tr>
+      {% endif %}
+    </tfoot>
+  </table>
+</div>
