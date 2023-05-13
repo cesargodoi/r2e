@@ -15,6 +15,11 @@ urlpatterns = [
         name="update_order",
     ),
     path(
+        "<int:event>/<int:pk>/delete_order/",
+        views.DeleteOrder.as_view(),
+        name="delete_order",
+    ),
+    path(
         "person/create/",
         views.CreatePerson.as_view(),
         name="create_person",

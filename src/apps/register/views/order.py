@@ -104,6 +104,21 @@ class UpdateOrder(CreateOrder):
         return render(request, self.template_name, self.basic_context)
 
 
+class DeleteOrder(View):
+    template_name = "register/order_delete.html"
+    basic_context = {"title": "Delete Order"}
+
+    def get(self, request, *args, **kwargs):
+        order = Order.objects.get(pk=kwargs["pk"])
+        self.basic_context["registers"] = order.registers.all()
+        self.basic_context["payforms"] = order.form_of_payments.all()
+        return render(request, self.template_name, self.basic_context)
+
+    def post(self, request, *args, **kwargs):
+        Order.objects.get(pk=kwargs["pk"]).delete()
+        return redirect("event:detail", pk=kwargs["event"])
+
+
 #  Registers  #################################################################
 class CreatePerson(PersonCreate):
     def form_valid(self, form):
