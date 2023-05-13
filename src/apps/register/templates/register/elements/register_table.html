@@ -9,7 +9,7 @@
       </tr>
     </thead>
     <tbody class="table-group-divider">
-      {% for reg in request.session.new_order.registers %} 
+      {% for reg in request.session.order.registers %} 
         {% include 'register/elements/register_row.html' %}
       {% endfor %}
     </tbody>
@@ -21,7 +21,7 @@
             type="number" 
             class="form-control form-control-lg"
             style="width: 8.7rem; text-align:right;"
-            value="{{ request.session.new_order.total_registers|floatformat:2 }}" 
+            value="{{ request.session.order.total_registers|floatformat:2 }}" 
             readonly
           />
         </th>

@@ -9,11 +9,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-
 from ..models import Event
 from ..forms import EventForm
-
 from apps.register.models import Register
+from r2e.commom import clear_session
 
 
 # Event Views
@@ -43,15 +42,17 @@ class EventDetail(DetailView):
     model = Event
 
     def get_context_data(self, **kwargs):
+        clear_session(self.request, ["order"])
         self.request.session["nav_item"] = "event"
         user_center = self.request.user.centers.first()
         context = super().get_context_data(**kwargs)
         context["user_center"] = user_center.id
         context["title"] = self.object.activity.name
-        registers = Register.objects.filter(
-            order__event=self.object.pk,
-            order__center=user_center,
+        total_registers = Register.objects.filter(
+            order__event=self.object.pk
         ).order_by("person")
+        registers = total_registers.filter(order__center=user_center)
+        context["total_registers"] = total_registers
         context["registers"] = registers
         return context
 

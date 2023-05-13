@@ -53,13 +53,22 @@
         <div class="card-body" id="formsOfPayment">
           <form action="{{ request.path }}" method="post">
             {% csrf_token %}
-            <textarea class="form-control mb-4" rows="3" name="observations"></textarea>
-            <button 
-              type="submit" 
-              class="btn btn-primary btn-lg"
-            >
-              <i class="bi bi-check"></i>Manda vê
-            </button>
+            <textarea name="observations" class="form-control mb-4" rows="3">{{ request.session.order.observations }}</textarea>
+            <div class="text-end">
+              <button 
+                type="button" 
+                class="btn btn-info btn-lg"
+                onclick="location.href='{% url 'event:detail' request.session.order.event %}';"
+              >
+                <i class="bi bi-chevron-left"></i>Voltar
+              </button>
+              <button 
+                type="submit" 
+                class="btn btn-primary btn-lg"
+              >
+                <i class="bi bi-check"></i>Manda vê
+              </button>
+            </div>
           </form>
         </div>
       </div>

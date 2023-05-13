@@ -40,12 +40,12 @@
             <td class="lead">{{ object.ref_value }} &nbsp;&nbsp; <small class="text-warning"><em>(min. {{ object.min_value }})</em></small></td>
           </tr>
           <tr>
-            <th>inscritos no núcleo:</th>
-            <td class="h4"><strong>{% if registers|length > 0 %}{{ registers|length }}{% endif %}</strong></td>
+            <th>total no evento:</th>
+            <td class="h4"><strong>{% if total_registers|length > 0 %}{{ total_registers|length }}{% endif %}</strong></td>
           </tr>
           <tr>
-            <th>total no evento:</th>
-            <td class="h4"><strong>{% if object.orders.count > 0 %}{{ object.orders.count }}{% endif %}</strong></td>
+            <th>inscritos no núcleo:</th>
+            <td class="h4"><strong>{% if registers|length > 0 %}{{ registers|length }}{% endif %}</strong></td>
           </tr>
         </table>
       </div>

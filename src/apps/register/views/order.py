@@ -14,29 +14,30 @@ from apps.person.views import StayCreate, StayUpdate, PersonCreate
 
 
 class CreateOrder(View):
-    template_name = "register/create_order.html"
+    template_name = "register/order_form.html"
     basic_context = {"title": "Create Order"}
 
     def get(self, request, *args, **kwargs):
-        # clear_session(request, ["new_order"])  # coment form multiple
-        if self.request.session.get("new_order"):
-            if "saved" in request.session["new_order"].keys():
-                clear_session(request, ["new_order"])
-                utils.init_session(request)
-        else:
+        if request.session.get("order"):
+            if "saved" in request.session["order"].keys():
+                clear_session(request, ["order"])
+        if not request.session.get("order"):
             utils.init_session(request)
         event = Event.objects.get(pk=kwargs["event"])
-        request.session["new_order"]["event"] = event.pk
-        request.session["new_order"]["center"] = kwargs["center"]
-        request.session["new_order"]["deadline"] = event.deadline.strftime(
+        request.session["order"]["event"] = event.pk
+        request.session["order"]["event_center"] = event.center.pk
+        request.session["order"]["center"] = kwargs["center"]
+        request.session["order"]["deadline"] = event.deadline.strftime(
             "%Y-%m-%d %H:%M"
         )
-        request.session["new_order"]["ref_value"] = float(event.ref_value)
+        request.session["order"]["ref_value"] = float(event.ref_value)
         request.session.modified = True
         return render(request, self.template_name, self.basic_context)
 
     def post(self, request, *args, **kwargs):
-        new_order = request.session["new_order"]
+        if request.session["order"]["order"]:
+            Order.objects.filter(pk=request.session["order"]["order"]).delete()
+        new_order = request.session["order"]
         # Order
         order_dict = utils.get_dict_order_to_db(request, new_order)
         order = Order(**order_dict)
@@ -60,15 +61,58 @@ class CreateOrder(View):
         return redirect("event:detail", pk=new_order["event"])
 
 
+class UpdateOrder(CreateOrder):
+    basic_context = {"title": "Update Order"}
+
+    def get(self, request, *args, **kwargs):
+        if request.session.get("order"):
+            if "saved" in request.session["order"].keys():
+                clear_session(request, ["order"])
+        if not request.session.get("order"):
+            utils.init_session(request)
+            order = Order.objects.get(pk=kwargs["pk"])
+            # adjusting section
+            request.session["order"]["update"] = True
+            request.session["order"]["order"] = order.pk
+            request.session["order"]["event"] = order.event.pk
+            request.session["order"]["event_center"] = order.event.center.pk
+            request.session["order"]["center"] = order.center.pk
+            request.session["order"][
+                "deadline"
+            ] = order.event.deadline.strftime("%Y-%m-%d %H:%M")
+            request.session["order"]["observations"] = order.observations
+            request.session["order"]["ref_value"] = float(
+                order.event.ref_value
+            )
+            for register in order.registers.all():
+                request.session["order"]["registers"].append(
+                    utils.get_dict_register_update(
+                        register, order.event.center.pk
+                    )
+                )
+                utils.total_registers_add(
+                    request.session["order"], float(register.value)
+                )
+            for payform in order.form_of_payments.all():
+                request.session["order"]["payforms"].append(
+                    utils.get_dict_payform_update(payform)
+                )
+                utils.total_payforms_add(
+                    request.session["order"], float(payform.value)
+                )
+            request.session.modified = True
+        return render(request, self.template_name, self.basic_context)
+
+
 #  Registers  #################################################################
 class CreatePerson(PersonCreate):
     def form_valid(self, form):
         person = form.save()
-        ref_value = self.request.session["new_order"]["ref_value"]
+        ref_value = self.request.session["order"]["ref_value"]
         register_stay = utils.get_dict_register(person, None, ref_value)
-        self.request.session["new_order"]["registers"].append(register_stay)
+        self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(
-            self.request.session["new_order"], register_stay["value"]
+            self.request.session["order"], register_stay["value"]
         )
         self.request.session.modified = True
         return HttpResponse(headers={"HX-Refresh": "true"})
@@ -93,14 +137,12 @@ def search_person(request):
 def add_person(request):
     person = Person.objects.get(pk=request.GET.get("id"))
     stay = person.stays.filter(
-        stay_center__pk=request.session["new_order"]["center"],
+        stay_center__pk=request.session["order"]["event_center"],
     ).first()
-    ref_value = request.session["new_order"]["ref_value"]
+    ref_value = request.session["order"]["ref_value"]
     register_stay = utils.get_dict_register(person, stay, ref_value)
-    request.session["new_order"]["registers"].append(register_stay)
-    utils.total_registers_add(
-        request.session["new_order"], register_stay["value"]
-    )
+    request.session["order"]["registers"].append(register_stay)
+    utils.total_registers_add(request.session["order"], register_stay["value"])
     request.session.modified = True
     return HttpResponse(headers={"HX-Refresh": "true"})
 
@@ -108,21 +150,21 @@ def add_person(request):
 def adj_register_value(request):
     value = float(request.GET.get("value"))
     register = utils.get_register(
-        request.session["new_order"], request.GET.get("regid")
+        request.session["order"], request.GET.get("regid")
     )
-    utils.total_registers_del(request.session["new_order"], register["value"])
+    utils.total_registers_del(request.session["order"], register["value"])
     register["value"] = value
-    utils.total_registers_add(request.session["new_order"], value)
+    utils.total_registers_add(request.session["order"], value)
     request.session.modified = True
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 def del_register(request):
     register = utils.get_register(
-        request.session["new_order"], request.GET.get("regid")
+        request.session["order"], request.GET.get("regid")
     )
-    utils.total_registers_del(request.session["new_order"], register["value"])
-    request.session["new_order"]["registers"].remove(register)
+    utils.total_registers_del(request.session["order"], register["value"])
+    request.session["order"]["registers"].remove(register)
     request.session.modified = True
     return HttpResponse(headers={"HX-Refresh": "true"})
 
@@ -140,16 +182,16 @@ class AddStay(StayCreate):
         stay.save()
 
         old_register = utils.get_register(
-            self.request.session["new_order"], self.kwargs["regid"]
+            self.request.session["order"], self.kwargs["regid"]
         )
-        self.request.session["new_order"]["registers"].remove(old_register)
+        self.request.session["order"]["registers"].remove(old_register)
 
         register_stay = utils.get_dict_register(
-            person, stay, self.request.session["new_order"]["ref_value"]
+            person, stay, self.request.session["order"]["ref_value"]
         )
-        self.request.session["new_order"]["registers"].append(register_stay)
+        self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(
-            self.request.session["new_order"], register_stay["value"]
+            self.request.session["order"], register_stay["value"]
         )
         self.request.session.modified = True
         return HttpResponse(headers={"HX-Refresh": "true"})
@@ -163,14 +205,14 @@ class EditStay(StayUpdate):
         stay.save()
 
         old_register = utils.get_register(
-            self.request.session["new_order"], self.kwargs["pk"]
+            self.request.session["order"], self.kwargs["pk"]
         )
         old_value = old_register["value"]
-        self.request.session["new_order"]["registers"].remove(old_register)
+        self.request.session["order"]["registers"].remove(old_register)
 
         _stay = person.stays.get(pk=self.kwargs["pk"])
         register_stay = utils.get_dict_register(person, _stay, old_value)
-        self.request.session["new_order"]["registers"].append(register_stay)
+        self.request.session["order"]["registers"].append(register_stay)
 
         self.request.session.modified = True
         return HttpResponse(headers={"HX-Refresh": "true"})
@@ -184,13 +226,13 @@ class AddPayForm(View):
     def get(self, *args, **kwargs):
         people = [
             (reg["person"]["id"], reg["person"]["name"])
-            for reg in self.request.session["new_order"]["registers"]
+            for reg in self.request.session["order"]["registers"]
         ]
         form = FormOfPaymentForm()
         form.fields["person"].choices = people
         form.fields["person"].initial = people[0][0] if people else None
         form.fields["value"].initial = abs(
-            self.request.session["new_order"]["missing"]
+            self.request.session["order"]["missing"]
         )
         self.basic_context["form"] = form
         return render(self.request, self.template_name, self.basic_context)
@@ -200,9 +242,9 @@ class AddPayForm(View):
         form = FormOfPaymentForm(_payform)
         if form.is_valid():
             payform = utils.get_dict_payform(_payform)
-            self.request.session["new_order"]["payforms"].append(payform)
+            self.request.session["order"]["payforms"].append(payform)
             utils.total_payforms_add(
-                self.request.session["new_order"], payform["value"]
+                self.request.session["order"], payform["value"]
             )
             self.request.session.modified = True
             return HttpResponse(headers={"HX-Refresh": "true"})
@@ -214,20 +256,20 @@ class AddPayForm(View):
 def adj_payform_value(request):
     value = float(request.GET.get("value"))
     payform = utils.get_payform(
-        request.session["new_order"], request.GET.get("pfid")
+        request.session["order"], request.GET.get("pfid")
     )
-    utils.total_payforms_del(request.session["new_order"], payform["value"])
+    utils.total_payforms_del(request.session["order"], payform["value"])
     payform["value"] = value
-    utils.total_payforms_add(request.session["new_order"], value)
+    utils.total_payforms_add(request.session["order"], value)
     request.session.modified = True
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 def del_payform(request):
     payform = utils.get_payform(
-        request.session["new_order"], request.GET.get("pfid")
+        request.session["order"], request.GET.get("pfid")
     )
-    utils.total_payforms_del(request.session["new_order"], payform["value"])
-    request.session["new_order"]["payforms"].remove(payform)
+    utils.total_payforms_del(request.session["order"], payform["value"])
+    request.session["order"]["payforms"].remove(payform)
     request.session.modified = True
     return HttpResponse(headers={"HX-Refresh": "true"})

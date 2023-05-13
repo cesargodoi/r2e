@@ -30,7 +30,7 @@
       <button 
         type="button" 
         class="btn btn-light text-primary btn-sm"
-        onclick="manageData('{% url 'register:add_stay' request.session.new_order.center reg.person.id reg.regid %}')"
+        onclick="manageData('{% url 'register:add_stay' request.session.order.event_center reg.person.id reg.regid %}')"
       >
         <i class="bi bi-plus-lg"></i>
       </button>

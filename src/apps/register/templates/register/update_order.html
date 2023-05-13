@@ -53,7 +53,11 @@
         <div class="card-body" id="formsOfPayment">
           <form action="{{ request.path }}" method="post">
             {% csrf_token %}
-            <textarea class="form-control mb-4" rows="3" name="observations"></textarea>
+            <textarea class="form-control mb-4" rows="3" name="observations">
+              {% if request.session.order.observations %}
+                {{ request.session.order.observations|safe }}
+              {% endif %}
+            </textarea>
             <button 
               type="submit" 
               class="btn btn-primary btn-lg"

@@ -17,10 +17,8 @@
     <div class="btn-group" role="group">
       <button 
         type="button"
-        class="btn btn-secondary btn-sm" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{ url 'person:stay_update' object.pk stay.pk %}')"
+        class="btn btn-light text-secondary btn-sm" 
+        onclick="location.href='{% url 'register:update_order' reg.order.id %}';"
       >
         <i class="bi bi-pencil"></i>
       </button>

@@ -87,7 +87,7 @@ class Register(models.Model):
     )
     order = models.ForeignKey(
         Order,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         related_name="registers",
         verbose_name=_("order"),
@@ -158,7 +158,7 @@ class FormOfPayment(models.Model):
     )
     order = models.ForeignKey(
         Order,
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         related_name="form_of_payments",
         verbose_name=_("order"),

@@ -8,8 +8,10 @@ from r2e.commom import PAYMENT_TYPES
 
 #  Helpers  ###################################################################
 def init_session(request):
-    request.session["new_order"] = {
+    request.session["order"] = {
+        "order": None,
         "event": None,
+        "event_center": None,
         "center": None,
         "registers": [],
         "payforms": [],
@@ -44,6 +46,26 @@ def get_dict_register(person, stay, ref_value):
     )
 
 
+def get_dict_register_update(register, event_center_pk):
+    person = register.person
+    stay = person.stays.filter(stay_center__pk=event_center_pk).first()
+    return dict(
+        regid=stay.id,
+        person=dict(name=person.name, id=person.id),
+        lodge=dict(name=register.get_lodge_display(), id=register.lodge),
+        arrival_date=dict(
+            name=register.get_arrival_date_display(), id=register.arrival_date
+        ),
+        arrival_time=dict(
+            name=register.get_arrival_time_display(), id=register.arrival_time
+        ),
+        no_stairs=register.no_stairs,
+        no_bunk=register.no_bunk,
+        observations=register.observations,
+        value=float(register.value),
+    )
+
+
 def get_dict_payform(payform):
     person = Person.objects.get(pk=payform["person"])
     bank_flag = (
@@ -66,49 +88,61 @@ def get_dict_payform(payform):
     )
 
 
-def get_register(new_order, regid):
-    return [
-        reg
-        for reg in new_order["registers"]
-        if str(reg["regid"]) == str(regid)
-    ][0]
-
-
-def get_payform(new_order, pfid):
-    print(type(pfid))
-    return [
-        reg for reg in new_order["payforms"] if str(reg["pfid"]) == str(pfid)
-    ][0]
-
-
-def adjust_missing_value(new_order):
-    new_order["missing"] = (
-        new_order["total_payforms"] - new_order["total_registers"]
+def get_dict_payform_update(payform):
+    return dict(
+        pfid=payform.id,
+        person=dict(name=payform.person.name, id=payform.person.id),
+        payment_type=dict(
+            name=str(dict(PAYMENT_TYPES)[payform.payment_type]),
+            id=payform.payment_type,
+        ),
+        bank_flag=dict(name=payform.bank_flag.name, id=payform.bank_flag.id)
+        if payform.bank_flag
+        else "",
+        ctrl=payform.ctrl or "",
+        value=float(payform.value) or 0.0,
     )
 
 
-def total_registers_add(new_order, value):
-    new_order["total_registers"] += value
-    adjust_missing_value(new_order)
+def get_register(order, regid):
+    return [
+        reg for reg in order["registers"] if str(reg["regid"]) == str(regid)
+    ][0]
 
 
-def total_registers_del(new_order, value):
-    new_order["total_registers"] -= value
-    if new_order["total_registers"] < 0:
-        new_order["total_registers"] = 0.0
-    adjust_missing_value(new_order)
+def get_payform(order, pfid):
+    print(type(pfid))
+    return [reg for reg in order["payforms"] if str(reg["pfid"]) == str(pfid)][
+        0
+    ]
 
 
-def total_payforms_add(new_order, value):
-    new_order["total_payforms"] += value
-    adjust_missing_value(new_order)
+def adjust_missing_value(order):
+    order["missing"] = order["total_payforms"] - order["total_registers"]
 
 
-def total_payforms_del(new_order, value):
-    new_order["total_payforms"] -= value
-    if new_order["total_payforms"] < 0:
-        new_order["total_payforms"] = 0.0
-    adjust_missing_value(new_order)
+def total_registers_add(order, value):
+    order["total_registers"] += value
+    adjust_missing_value(order)
+
+
+def total_registers_del(order, value):
+    order["total_registers"] -= value
+    if order["total_registers"] < 0:
+        order["total_registers"] = 0.0
+    adjust_missing_value(order)
+
+
+def total_payforms_add(order, value):
+    order["total_payforms"] += value
+    adjust_missing_value(order)
+
+
+def total_payforms_del(order, value):
+    order["total_payforms"] -= value
+    if order["total_payforms"] < 0:
+        order["total_payforms"] = 0.0
+    adjust_missing_value(order)
 
 
 #   to save on database   #####################################################
