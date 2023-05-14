@@ -20,6 +20,11 @@ urlpatterns = [
         name="delete_order",
     ),
     path(
+        "<int:pk>/show_order/",
+        views.show_order,
+        name="show_order",
+    ),
+    path(
         "person/create/",
         views.CreatePerson.as_view(),
         name="create_person",

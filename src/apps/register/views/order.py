@@ -61,6 +61,17 @@ class CreateOrder(View):
         return redirect("event:detail", pk=new_order["event"])
 
 
+def show_order(request, pk):
+    order = Order.objects.get(pk=pk)
+    context = {
+        "order": order,
+        "registers": order.registers.all(),
+        "payforms": order.form_of_payments.all(),
+        "title": "Order",
+    }
+    return render(request, "register/order_show.html", context)
+
+
 class UpdateOrder(CreateOrder):
     basic_context = {"title": "Update Order"}
 

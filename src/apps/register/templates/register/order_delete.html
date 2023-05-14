@@ -7,44 +7,7 @@
 <div class="modal-body">
   <h4>{% trans 'Are you shure you want to remove' %}: </h4>
   <br>
-  <h5>Register{{ registers|pluralize:"s" }}</h5>
-  <table class="table table-sm">
-    <tr>
-      <th>#</th>
-      <th>nome</th>
-      <th class="text-end">valor R$</th>
-    </tr>
-    {% for reg in registers %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ reg.person.name }}</td>
-        <td class="text-end">{{ reg.value }}</td>
-      </tr>
-    {% endfor %}
-  </table>
-  <h5>Form{{ payforms|pluralize:"s" }} of payment</h5>
-  <table class="table table-sm">
-    <tr>
-      <th>#</th>
-      <th>tipo</th>
-      <th colspan="3">detalhes</th>
-      <th class="text-end">valor R$</th>
-    </tr>
-    {% for payf in payforms %}
-      <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ payf.get_payment_type_display }}</td>
-        <td>{{ payf.bank_flag.name }}</td>
-        <td>{% if payf.ctrl %}{{ payf.ctrl }}{% endif %}</td>
-        <td class="text-end">
-          {% if registers|length > 1 %}
-            <small>{{ payf.person.name|truncatewords:1 }}</small>
-          {% endif %}
-        </td>
-        <td class="text-end">{{ payf.value }}</td>
-      </tr>
-    {% endfor %}
-  </table>
+  {% include 'register/elements/detail_registers_payforms.html' %}
 </div>
 
 <div class="modal-footer">

@@ -1,0 +1,29 @@
+{% load i18n %}
+<div class="modal-header">
+  <h4 class="modal-title">{% trans 'Order Detail' %}! </h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+  <div class="d-flex justify-content-between">
+    <div><em>registrado por:</em> <strong>{{ order.updated_by }}</strong></div>
+    <div><em>em:</em> <strong>{{ order.updated_on|date:'d/m/y H:i' }}</strong></div>
+    <div><em>order:</em> <strong>{{ order.pk }}</strong></div>
+  </div>
+  <br>
+  {% include 'register/elements/detail_registers_payforms.html' %}
+</div>
+
+<div class="modal-footer">
+  <div class="btn-group text-right" role="group">
+    <button 
+      type="button" 
+      class="btn btn-info" 
+      data-bs-dismiss="modal" 
+      aria-label="Close"
+    >
+      <i class="bi bi-x-lg"></i>
+      {% trans 'Cancel' %}
+    </button>
+  </div>
+</div>
