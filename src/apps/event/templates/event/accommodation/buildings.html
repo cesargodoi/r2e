@@ -1,0 +1,11 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block content %}
+<h1>{{ tittle }}</h1>
+
+<ul>
+  {% for bedroom in accommodations %}
+    <li>{{ bedroom.name }} | {{ bedroom.building_name }} | {{ bedroom.gender }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

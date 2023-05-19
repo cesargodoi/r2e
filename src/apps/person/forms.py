@@ -32,8 +32,11 @@ class PersonForm(forms.ModelForm):
 class StayForm(forms.ModelForm):
     class Meta:
         model = PersonStay
-        exclude = ["person", "bedroom", "bedroom_alt"]
+        exclude = ["person"]
         widgets = {
             "others": forms.Textarea(attrs={"rows": 2}),
             "observations": forms.Textarea(attrs={"rows": 2}),
+            "bedroom": forms.HiddenInput(),
+            "bedroom_alt": forms.HiddenInput(),
+            "bedroom_type": forms.HiddenInput(),
         }

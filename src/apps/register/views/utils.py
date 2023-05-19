@@ -1,8 +1,11 @@
 import secrets
 from datetime import datetime
 
+# from django.db.models import Q
+
 from ..models import BankFlag
 from apps.person.models import Person
+from apps.event.models import Accommodation
 from r2e.commom import PAYMENT_TYPES
 
 
@@ -39,8 +42,16 @@ def get_dict_register(person, stay, ref_value):
         )
         if stay
         else "",
+        departure_time=dict(
+            name=stay.get_departure_time_display(), id=stay.departure_time
+        )
+        if stay
+        else "",
         no_stairs=stay.no_stairs if stay else "",
         no_bunk=stay.no_bunk if stay else "",
+        bedroom=stay.bedroom if stay else "",
+        bedroom_alt=stay.bedroom_alt if stay else "",
+        bedroom_type=stay.bedroom_type if stay else "",
         observations=stay.observations if stay else "",
         value=ref_value if stay else 0.0,
     )
@@ -59,8 +70,15 @@ def get_dict_register_update(register, event_center_pk):
         arrival_time=dict(
             name=register.get_arrival_time_display(), id=register.arrival_time
         ),
+        departure_time=dict(
+            name=register.get_departure_time_display(),
+            id=register.departure_time,
+        ),
         no_stairs=register.no_stairs,
         no_bunk=register.no_bunk,
+        bedroom=register.bedroom,
+        bedroom_alt=register.bedroom_alt,
+        bedroom_type=register.bedroom_type,
         observations=register.observations,
         value=float(register.value),
     )
@@ -177,9 +195,23 @@ def get_dict_register_to_db(request, register, order_id, update=False):
         no_bunk=register["no_bunk"],
         arrival_date=register["arrival_date"]["id"],
         arrival_time=register["arrival_time"]["id"],
+        departure_time=register["departure_time"]["id"],
         observations=register["observations"],
         value=register["value"],
     )
+    # TODO: validar bedroom_alt
+    if register["bedroom"]:
+        try:
+            accommodation = Accommodation.objects.filter(
+                bedroom_id=register["bedroom"],
+                bottom_or_top=register["bedroom_type"],
+                register__isnull=True,
+            )
+        except Exception:
+            accommodation = []
+        _register["accommodation"] = (
+            accommodation[0] if accommodation else None
+        )
     _register.update(who_made_what(request, update))
     return _register
 

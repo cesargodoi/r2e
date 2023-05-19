@@ -1,24 +1,25 @@
 <!-- Stays | start -->
 <div class="card shadow mb-3">
   <div class="card-header py-3">
-    <p class="text-primary m-0 fw-bold">Stays</p>
+    <p class="text-primary m-0 fw-bold">Registers</p>
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-      {% if stays %}
+      {% if registers.count > 0 %}
         <table class="table table-sm">
           <tr>
-            <th>Stay</th>
+            <th>#</th>
+            <th>Person</th>
             <th>Lodge</th>
             <th>Arrival</th>
             <th>Departure</th>
-            <th>Restriction</th>
-            <th>Staff</th>
+            <th>Restrictions</th>
+            <th class="text-end">Value $</th>
             <th></th>
           </tr>
           <tbody id="stay_list">
-            {% for stay in stays %}
-              {% include 'person/elements/stay_row.html' %}
+            {% for reg in registers %}
+              {% include 'event/accommodation/elements/person_list_item.html' %}
             {% endfor %}
           </tbody>
         </table>
@@ -27,10 +28,8 @@
     <div class="text-end mb-3">
       <button 
         type="button"
-        class="btn btn-primary btn-sm" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'person:stay_create' object.pk %}')"
+        class="btn btn-outline-primary" 
+        onclick="location.href='{ url 'register:create_order' user_center object.pk %}';"
       >
         <i class="bi bi-plus-lg"></i> Add 
       </button>

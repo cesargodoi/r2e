@@ -7,6 +7,7 @@ from r2e.commom import (
     LODGE_TYPES,
     ARRIVAL_DATE,
     ARRIVAL_TIME,
+    DEPARTURE_TIME,
     STAFFS,
 )
 
@@ -103,11 +104,19 @@ class Register(models.Model):
     arrival_time = models.CharField(
         _("arrival time"), max_length=2, choices=ARRIVAL_TIME, default="BL"
     )
-    bedroom = models.ForeignKey(
-        "center.Bedroom",
+    departure_time = models.CharField(
+        _("departure time"),
+        max_length=3,
+        choices=DEPARTURE_TIME,
+        default="END",
+    )
+    accommodation = models.OneToOneField(
+        "event.Accommodation",
         on_delete=models.SET_NULL,
         null=True,
-        verbose_name=_("bedroom"),
+        blank=True,
+        related_name="register",
+        verbose_name=_("accommodation"),
     )
     housed = models.BooleanField(_("housed"), default=False)
     staff = models.CharField(

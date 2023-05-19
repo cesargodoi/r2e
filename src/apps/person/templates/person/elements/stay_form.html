@@ -29,13 +29,16 @@
         </div>
       {% endif %}
     {% endfor %}
+    {% render_field form.bedroom type="hidden" %}
+    {% render_field form.bedroom_alt type="hidden" %}
+    {% render_field form.bedroom_type type="hidden" %}
   </div>
 
   <div class="modal-footer">
-    <div class="btn-group text-right" role="group">
+    <div class="text-right" role="group">
       <button 
         type="button" 
-        class="btn btn-info" 
+        class="btn btn-outline-info" 
         data-bs-dismiss="modal" 
         aria-label="Close"
       >
@@ -44,7 +47,7 @@
       </button>
       <button 
         type="submit"
-        class="btn btn-primary"
+        class="btn btn-outline-primary"
       >
         <i class="bi bi-check-lg"></i>
         {% trans 'Confirm' %}

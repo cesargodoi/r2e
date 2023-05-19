@@ -9,7 +9,7 @@
     <div class="card-header py-3">
       <div class="d-flex justify-content-between flex-wrap" style="width: 100%">
         <div class="col-sm-6 mb-3">
-          <p class="text-primary m-0 fw-bold h4">Registers</p>
+          <p class="text-primary m-0 fw-bold h5">Registers</p>
         </div>
         <div class="col-sm-6 search-inline input-group" id="searchPerson">
           {% include "register/elements/search_person.html" %}
@@ -28,10 +28,10 @@
       <!-- Forms of Payment -->
       <div class="card shadow mb-3">
         <div class="card-header py-3 d-flex justify-content-between">
-          <p class="text-primary m-0 fw-bold h4">Forms of Payment</p>
+          <p class="text-primary m-0 fw-bold h5">Forms of Payment</p>
           <button 
             type="button" 
-            class="btn btn-primary"
+            class="btn btn-outline-primary"
             data-bs-toggle="modal" 
             data-bs-target="#baseModal"
             onclick="manageData('{% url 'register:add_payform' %}')"
@@ -57,14 +57,14 @@
             <div class="text-end">
               <button 
                 type="button" 
-                class="btn btn-info btn-lg"
+                class="btn btn-outline-info"
                 onclick="location.href='{% url 'event:detail' request.session.order.event %}';"
               >
                 <i class="bi bi-chevron-left"></i>Voltar
               </button>
               <button 
                 type="submit" 
-                class="btn btn-primary btn-lg"
+                class="btn btn-outline-primary"
               >
                 <i class="bi bi-check"></i>Manda vê
               </button>

@@ -2,7 +2,19 @@
 <tr>
   <td>{{ forloop.counter }}</td>
   <th>{{ reg.person.name }}</th>
-  <td>{{ reg.get_lodge_display }}</td>
+  <td>
+    {% if reg.lodge == 'HSE' %}🏠{% endif %}
+    {% if reg.lodge == 'HTL' %}🏨{% endif %}
+    {% if reg.lodge == 'LDG' %}
+      {% if reg.accommodation %}
+        🛌 {{ reg.accommodation.bedroom.name }}{{ reg.accommodation.bottom_or_top }} 
+        &nbsp;&nbsp;({{ reg.accommodation.bedroom.building.name }})
+      {% else %}
+        🛏
+      {% endif %}
+    {% endif %}
+
+  </td>
   <td>{{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display|lower }}</td>
   <td>{{ reg.get_departure_time_display }}</td>
   <td>

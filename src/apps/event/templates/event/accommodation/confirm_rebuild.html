@@ -5,15 +5,13 @@
 </div>
 
 <div class="modal-body">
-  <h4>{% trans 'Are you shure you want to remove' %}: </h4>
-  <br>
-  {% include 'register/elements/detail_registers_payforms.html' %}
+  <h4>{% trans 'Are you shure you want to rebuild the mapping of event' %}? </h4>
 </div>
 
 <div class="modal-footer">
   <form method="POST" action="{{ request.path }}">
     {% csrf_token %}
-    <div class="text-right">
+    <div class="text-right" role="group">
       <button 
         type="button" 
         class="btn btn-outline-info" 
@@ -28,7 +26,7 @@
         class="btn btn-outline-danger"
       >
         <i class="bi bi-check-lg"></i>
-        {% trans 'Delete' %}
+        {% trans 'Rebuild' %}
       </button>
     </div>
   </form>

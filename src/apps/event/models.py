@@ -4,7 +4,12 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from apps.center.models import Center
-from r2e.commom import ACTIVITY_TYPES, EVENT_STATUS
+from r2e.commom import (
+    ACTIVITY_TYPES,
+    EVENT_STATUS,
+    BEDROOM_GENDER,
+    BEDROOM_TYPE,
+)
 
 
 class Activity(models.Model):
@@ -72,14 +77,39 @@ class Event(models.Model):
         ordering = ["-date"]
 
 
-class BedroomMapping(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True)
-    mapping = models.JSONField(_("mapping"))
+class Accommodation(models.Model):
+    event = models.ForeignKey(
+        Event,
+        related_name="accommodations",
+        on_delete=models.CASCADE,
+        null=True,
+    )
+    bedroom = models.ForeignKey(
+        "center.Bedroom",
+        related_name="accommodations",
+        on_delete=models.SET_NULL,
+        null=True,
+    )
+    gender = models.CharField(
+        _("gender"), max_length=1, choices=BEDROOM_GENDER, default="M"
+    )
+    bottom_or_top = models.CharField(
+        _("bottom or topn"), max_length=1, choices=BEDROOM_TYPE, default="B"
+    )
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Mapping -> {self.event}"
+        return "{} ({}) - {} | {} ({}) | {} | {}".format(
+            self.event.activity.name,
+            self.event.center.short_name,
+            self.event.date,
+            self.bedroom.name,
+            self.bedroom.building.name,
+            self.get_gender_display(),
+            self.get_bottom_or_top_display(),
+        )
 
     class Meta:
-        verbose_name = _("bedroom mapping")
-        verbose_name_plural = _("bedrooms mapping")
-        ordering = ["-event__date"]
+        verbose_name = _("accommodation")
+        verbose_name_plural = _("accommodations")
+        ordering = ["-event__date", "bedroom__building__name", "bedroom__name"]

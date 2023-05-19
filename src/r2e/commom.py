@@ -18,6 +18,9 @@ ACTIVITY_TYPES = [
 EVENT_STATUS = [("OPN", _("open")), ("CLS", _("closed"))]
 
 GENDER = [("M", _("Male")), ("F", _("Female"))]
+BEDROOM_GENDER = [("M", _("Male")), ("F", _("Female")), ("X", _("Mixed"))]
+BEDROOM_TYPE = [("B", _("Bottom")), ("T", _("Top"))]
+
 
 ASPECTS = [
     ("PW", _("Public Work")),
@@ -68,6 +71,16 @@ ARRIVAL_TIME = [
     ("BL", _("Before lunch")),
     ("BD", _("Before diner")),
     ("AD", _("After diner")),
+]
+
+DEPARTURE_TIME = [
+    ("BL1", _("Before 1st lunch")),
+    ("AL1", _("After 1st lunch")),
+    ("BDN", _("Before dinner")),
+    ("ADN", _("After dinner")),
+    ("BL2", _("Before 2nd lunch")),
+    ("AL2", _("After 2nd lunch")),
+    ("END", _("End of event")),
 ]
 
 STAFFS = [

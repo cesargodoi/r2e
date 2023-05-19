@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="mb-3">
+    {% include 'event/accommodation/elements/event_card.html' %}
+    {% include 'event/accommodation/elements/person_list.html' %}
+  </div>
+
+  {% include 'base/modal.html' %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/modal_form.js' %}"></script>
+<script>
+  function manageData(url) {
+    htmx.ajax('GET', url, '#baseModalContent')
+  }
+</script>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-from r2e.commom import COUNTRIES_CHOICES, GENDER, phone_format
+from r2e.commom import COUNTRIES_CHOICES, BEDROOM_GENDER, phone_format
 
 
 class Center(models.Model):
@@ -40,9 +40,6 @@ class Center(models.Model):
 class Building(models.Model):
     center = models.ForeignKey(Center, on_delete=models.SET_NULL, null=True)
     name = models.CharField(_("name"), max_length=30)
-    description = models.CharField(
-        _("description"), max_length=100, null=True, blank=True
-    )
     is_active = models.BooleanField(_("active"), default=True)
 
     def __str__(self):
@@ -60,21 +57,18 @@ class Bedroom(models.Model):
     )
     name = models.CharField(_("name"), max_length=20)
     gender = models.CharField(
-        _("gender"), max_length=1, choices=GENDER, default="M"
+        _("gender"), max_length=1, choices=BEDROOM_GENDER, default="M"
     )
     floor = models.IntegerField(_("floor"), default=0)
-    beds = models.IntegerField(_("beds"))
-    bunks = models.IntegerField(_("bunks"))
+    bottom_beds = models.IntegerField(_("bottom beds"))
+    top_beds = models.IntegerField(_("top beds"))
     is_active = models.BooleanField(_("active"), default=True)
 
     def __str__(self):
-        return "{}({}) - {}({}) [{}B {}T]".format(
+        return "{} - {}({})".format(
+            self.name,
             self.building.name,
             self.building.center.short_name,
-            self.name,
-            self.get_gender_display(),
-            self.beds,
-            self.bunks,
         )
 
     class Meta:

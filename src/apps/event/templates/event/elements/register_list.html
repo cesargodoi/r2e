@@ -11,7 +11,9 @@
             <th>#</th>
             <th>Person</th>
             <th>Lodge</th>
-            <th colspan="2">Stay</th>
+            <th>Arrival</th>
+            <th>Departure</th>
+            <th>Restrictions</th>
             <th class="text-end">Value $</th>
             <th></th>
           </tr>
@@ -26,7 +28,7 @@
     <div class="text-end mb-3">
       <button 
         type="button"
-        class="btn btn-primary btn-sm" 
+        class="btn btn-outline-primary" 
         onclick="location.href='{% url 'register:create_order' user_center object.pk %}';"
       >
         <i class="bi bi-plus-lg"></i> Add 

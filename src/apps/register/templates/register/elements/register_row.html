@@ -5,7 +5,8 @@
   {% if reg.lodge %}
     <td>
       {{ reg.lodge.name }} &nbsp;&nbsp;&nbsp;
-      {{ reg.arrival_date.name }} | {{ reg.arrival_time.name }} &nbsp;&nbsp;&nbsp;
+      ⤵️ {{ reg.arrival_date.name }}, {{ reg.arrival_time.name|lower }} &nbsp;&nbsp;&nbsp;
+      ⤴️ {{ reg.departure_time.name }} &nbsp;&nbsp;&nbsp;
       {% if reg.no_stairs %}
         <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:30px;height:30px;"> &nbsp;&nbsp;
       {% endif %}

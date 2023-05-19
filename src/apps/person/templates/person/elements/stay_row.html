@@ -1,7 +1,8 @@
 <tr>
   <td>{{ stay.stay_center }}</td>
   <td>{{ stay.get_lodge_display }}</td>
-  <td>{{ stay.get_arrival_date_display }}, {{ stay.get_arrival_time_display }}</td>
+  <td>{{ stay.get_arrival_date_display }}, {{ stay.get_arrival_time_display|lower }}</td>
+  <td>{{ stay.get_departure_time_display }}</td>
   <td class="text-danger">
     {% if stay.no_stairs %}no stairs{% endif %}
     {% if stay.no_stairs and stay.no_bunk %}| {% endif %}

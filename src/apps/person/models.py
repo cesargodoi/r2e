@@ -12,7 +12,9 @@ from r2e.commom import (
     LODGE_TYPES,
     ARRIVAL_DATE,
     ARRIVAL_TIME,
+    DEPARTURE_TIME,
     STAFFS,
+    BEDROOM_TYPE,
     us_inter_char,
     short_name,
     phone_format,
@@ -156,10 +158,19 @@ class PersonStay(models.Model):
     arrival_time = models.CharField(
         _("arrival time"), max_length=2, choices=ARRIVAL_TIME, default="BL"
     )
+    departure_time = models.CharField(
+        _("departure time"),
+        max_length=3,
+        choices=DEPARTURE_TIME,
+        default="END",
+    )
     no_stairs = models.BooleanField(_("no stairs"), default=False)
     no_bunk = models.BooleanField(_("no bunk"), default=False)
     bedroom = models.IntegerField(_("bedroom"), default=0)
     bedroom_alt = models.IntegerField(_("bedroom alt"), default=0)
+    bedroom_type = models.CharField(
+        _("bedroom type"), max_length=1, choices=BEDROOM_TYPE, default="B"
+    )
     staff = models.CharField(
         _("staff"), max_length=3, choices=STAFFS, default="STA"
     )
