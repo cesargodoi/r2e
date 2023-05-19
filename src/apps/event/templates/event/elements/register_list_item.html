@@ -2,15 +2,20 @@
 <tr>
   <td>{{ forloop.counter }}</td>
   <th>{{ reg.person.name }}</th>
-  <td>{{ reg.get_lodge_display }}</td>
+  <td>
+    {% if reg.lodge == 'HSE' %}🏠{% endif %}
+    {% if reg.lodge == 'HTL' %}🏨{% endif %}
+    {% if reg.lodge == 'LDG' %}🏢{% endif %}
+    {{ reg.get_lodge_display }}
+  </td>
   <td>{{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display|lower }}</td>
   <td>{{ reg.get_departure_time_display }}</td>
   <td>
     {% if reg.no_stairs %}
-      <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:30px;height:30px;"> &nbsp;&nbsp;
+      <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;
     {% endif %}
     {% if reg.no_bunk %}
-      <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:30px;height:30px;">
+      <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;">
     {% endif %}
   </td>
   <th class="text-end">{{ reg.value }}</th>

@@ -4,14 +4,17 @@
   <td>{{ reg.person.name }}</td>
   {% if reg.lodge %}
     <td>
+      {% if reg.lodge.id == 'HSE' %}🏠{% endif %}
+      {% if reg.lodge.id == 'HTL' %}🏨{% endif %}
+      {% if reg.lodge.id == 'LDG' %}🏢{% endif %}
       {{ reg.lodge.name }} &nbsp;&nbsp;&nbsp;
       ⤵️ {{ reg.arrival_date.name }}, {{ reg.arrival_time.name|lower }} &nbsp;&nbsp;&nbsp;
       ⤴️ {{ reg.departure_time.name }} &nbsp;&nbsp;&nbsp;
       {% if reg.no_stairs %}
-        <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:30px;height:30px;"> &nbsp;&nbsp;
+        <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;
       {% endif %}
       {% if reg.no_bunk %}
-        <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:30px;height:30px;">
+        <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;">
       {% endif %}
     </td>
     <td>{% if reg.observations %}{{ reg.observations }}{% endif %}</td>

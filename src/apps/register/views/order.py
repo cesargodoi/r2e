@@ -26,6 +26,7 @@ class CreateOrder(View):
         event = Event.objects.get(pk=kwargs["event"])
         request.session["order"]["event"] = event.pk
         request.session["order"]["event_center"] = event.center.pk
+        request.session["order"]["alt_mapping"] = event.alt_mapping
         request.session["order"]["center"] = kwargs["center"]
         request.session["order"]["deadline"] = event.deadline.strftime(
             "%Y-%m-%d %H:%M"
@@ -87,6 +88,7 @@ class UpdateOrder(CreateOrder):
             request.session["order"]["order"] = order.pk
             request.session["order"]["event"] = order.event.pk
             request.session["order"]["event_center"] = order.event.center.pk
+            request.session["order"]["alt_mapping"] = order.event.alt_mapping
             request.session["order"]["center"] = order.center.pk
             request.session["order"][
                 "deadline"
@@ -98,7 +100,9 @@ class UpdateOrder(CreateOrder):
             for register in order.registers.all():
                 request.session["order"]["registers"].append(
                     utils.get_dict_register_update(
-                        register, order.event.center.pk
+                        register,
+                        order.event.center.pk,
+                        order.event.alt_mapping,
                     )
                 )
                 utils.total_registers_add(
@@ -135,7 +139,10 @@ class CreatePerson(PersonCreate):
     def form_valid(self, form):
         person = form.save()
         ref_value = self.request.session["order"]["ref_value"]
-        register_stay = utils.get_dict_register(person, None, ref_value)
+        alt_mapping = self.request.session["order"]["alt_mapping"]
+        register_stay = utils.get_dict_register(
+            person, None, ref_value, alt_mapping
+        )
         self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(
             self.request.session["order"], register_stay["value"]
@@ -166,7 +173,10 @@ def add_person(request):
         stay_center__pk=request.session["order"]["event_center"],
     ).first()
     ref_value = request.session["order"]["ref_value"]
-    register_stay = utils.get_dict_register(person, stay, ref_value)
+    alt_mapping = request.session["order"]["alt_mapping"]
+    register_stay = utils.get_dict_register(
+        person, stay, ref_value, alt_mapping
+    )
     request.session["order"]["registers"].append(register_stay)
     utils.total_registers_add(request.session["order"], register_stay["value"])
     request.session.modified = True
@@ -212,8 +222,10 @@ class AddStay(StayCreate):
         )
         self.request.session["order"]["registers"].remove(old_register)
 
+        ref_value = self.request.session["order"]["ref_value"]
+        alt_mapping = self.request.session["order"]["alt_mapping"]
         register_stay = utils.get_dict_register(
-            person, stay, self.request.session["order"]["ref_value"]
+            person, stay, ref_value, alt_mapping
         )
         self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(
@@ -237,7 +249,10 @@ class EditStay(StayUpdate):
         self.request.session["order"]["registers"].remove(old_register)
 
         _stay = person.stays.get(pk=self.kwargs["pk"])
-        register_stay = utils.get_dict_register(person, _stay, old_value)
+        alt_mapping = self.request.session["order"]["alt_mapping"]
+        register_stay = utils.get_dict_register(
+            person, _stay, old_value, alt_mapping
+        )
         self.request.session["order"]["registers"].append(register_stay)
 
         self.request.session.modified = True

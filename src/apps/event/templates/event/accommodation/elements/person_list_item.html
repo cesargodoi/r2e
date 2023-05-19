@@ -2,27 +2,35 @@
 <tr>
   <td>{{ forloop.counter }}</td>
   <th>{{ reg.person.name }}</th>
-  <td>
+  <th
+    data-bs-toggle="tooltip" 
+    data-bs-placement="top"
+    data-bs-custom-class="custom-tooltip"
+    data-bs-title="{% if reg.accommodation %}{{ reg.accommodation.bedroom.building.name }}{% else %}not alocated{% endif %}"
+  >
     {% if reg.lodge == 'HSE' %}🏠{% endif %}
     {% if reg.lodge == 'HTL' %}🏨{% endif %}
     {% if reg.lodge == 'LDG' %}
       {% if reg.accommodation %}
-        🛌 {{ reg.accommodation.bedroom.name }}{{ reg.accommodation.bottom_or_top }} 
-        &nbsp;&nbsp;({{ reg.accommodation.bedroom.building.name }})
+        🏢 
+        <span class="text-primary">
+          {{ reg.accommodation.bedroom.name }} {{ reg.accommodation.bottom_or_top }}
+          {{ reg.accommodation.bedroom.get_gender_display }}
+        </span>
       {% else %}
-        🛏
+        🏢 <span class="text-danger">???</SPAN>
       {% endif %}
     {% endif %}
 
-  </td>
+  </th>
   <td>{{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display|lower }}</td>
   <td>{{ reg.get_departure_time_display }}</td>
   <td>
     {% if reg.no_stairs %}
-      <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:30px;height:30px;"> &nbsp;&nbsp;
+      <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;
     {% endif %}
     {% if reg.no_bunk %}
-      <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:30px;height:30px;">
+      <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;">
     {% endif %}
   </td>
   <th class="text-end">{{ reg.value }}</th>

@@ -16,6 +16,7 @@ def init_session(request):
         "event": None,
         "event_center": None,
         "center": None,
+        "alt_mapping": False,
         "registers": [],
         "payforms": [],
         "ref_value": 0.0,
@@ -25,13 +26,16 @@ def init_session(request):
     }
 
 
-def get_dict_register(person, stay, ref_value):
+def get_dict_register(person, stay, ref_value, alt_mapping):
+    bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
     return dict(
         regid=stay.id if stay else secrets.token_hex(3)[:6],
         person=dict(name=person.name, id=person.id),
         lodge=dict(name=stay.get_lodge_display(), id=stay.lodge)
         if stay
         else "",
+        no_stairs=stay.no_stairs if stay else "",
+        no_bunk=stay.no_bunk if stay else "",
         arrival_date=dict(
             name=stay.get_arrival_date_display(), id=stay.arrival_date
         )
@@ -47,23 +51,22 @@ def get_dict_register(person, stay, ref_value):
         )
         if stay
         else "",
-        no_stairs=stay.no_stairs if stay else "",
-        no_bunk=stay.no_bunk if stay else "",
-        bedroom=stay.bedroom if stay else "",
-        bedroom_alt=stay.bedroom_alt if stay else "",
+        bedroom=bedroom if bedroom else "",
         bedroom_type=stay.bedroom_type if stay else "",
         observations=stay.observations if stay else "",
         value=ref_value if stay else 0.0,
     )
 
 
-def get_dict_register_update(register, event_center_pk):
+def get_dict_register_update(register, event_center_pk, alt_mapping):
     person = register.person
     stay = person.stays.filter(stay_center__pk=event_center_pk).first()
     return dict(
         regid=stay.id,
         person=dict(name=person.name, id=person.id),
         lodge=dict(name=register.get_lodge_display(), id=register.lodge),
+        no_stairs=register.no_stairs,
+        no_bunk=register.no_bunk,
         arrival_date=dict(
             name=register.get_arrival_date_display(), id=register.arrival_date
         ),
@@ -74,11 +77,8 @@ def get_dict_register_update(register, event_center_pk):
             name=register.get_departure_time_display(),
             id=register.departure_time,
         ),
-        no_stairs=register.no_stairs,
-        no_bunk=register.no_bunk,
-        bedroom=register.bedroom,
-        bedroom_alt=register.bedroom_alt,
-        bedroom_type=register.bedroom_type,
+        bedroom=stay.bedroom_alt if alt_mapping else stay.bedroom,
+        bedroom_type=stay.bedroom_type,
         observations=register.observations,
         value=float(register.value),
     )
@@ -199,7 +199,7 @@ def get_dict_register_to_db(request, register, order_id, update=False):
         observations=register["observations"],
         value=register["value"],
     )
-    # TODO: validar bedroom_alt
+    # TODO: validar bedroom_alt  ?????
     if register["bedroom"]:
         try:
             accommodation = Accommodation.objects.filter(

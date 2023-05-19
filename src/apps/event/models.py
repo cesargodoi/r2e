@@ -47,6 +47,7 @@ class Event(models.Model):
     status = models.CharField(
         _("status"), max_length=3, choices=EVENT_STATUS, default="OPN"
     )
+    alt_mapping = models.BooleanField(_("alternate mapping"), default=False)
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)
     modified_on = models.DateTimeField(auto_now=True)
