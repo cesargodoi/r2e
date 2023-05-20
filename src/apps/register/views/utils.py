@@ -27,7 +27,10 @@ def init_session(request):
 
 
 def get_dict_register(person, stay, ref_value, alt_mapping):
-    bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
+    if stay:
+        bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
+    else:
+        bedroom = ""
     return dict(
         regid=stay.id if stay else secrets.token_hex(3)[:6],
         person=dict(name=person.name, id=person.id),
@@ -51,7 +54,7 @@ def get_dict_register(person, stay, ref_value, alt_mapping):
         )
         if stay
         else "",
-        bedroom=bedroom if bedroom else "",
+        bedroom=bedroom,
         bedroom_type=stay.bedroom_type if stay else "",
         observations=stay.observations if stay else "",
         value=ref_value if stay else 0.0,

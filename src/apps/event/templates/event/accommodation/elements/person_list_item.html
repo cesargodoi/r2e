@@ -2,27 +2,69 @@
 <tr>
   <td>{{ forloop.counter }}</td>
   <th>{{ reg.person.name }}</th>
-  <th
-    data-bs-toggle="tooltip" 
-    data-bs-placement="top"
-    data-bs-custom-class="custom-tooltip"
-    data-bs-title="{% if reg.accommodation %}{{ reg.accommodation.bedroom.building.name }}{% else %}not alocated{% endif %}"
-  >
+  <th>
     {% if reg.lodge == 'HSE' %}🏠{% endif %}
     {% if reg.lodge == 'HTL' %}🏨{% endif %}
     {% if reg.lodge == 'LDG' %}
+      <div 
+        data-bs-toggle="tooltip" 
+        data-bs-placement="top"
+        data-bs-custom-class="custom-tooltip"
+        data-bs-title="{% if reg.accommodation %}{{ reg.accommodation.bedroom.building.name }}{% else %}not alocated{% endif %}"
+      >
+        {% if reg.accommodation %}
+          {% if reg.accommodation.bottom_or_top == 'T' %} 
+            <img src="{% static 'img/icons/bed_TY.png' %}" alt="no stairs" style="width:20px;height:20px;">
+          {% else %}
+            <img src="{% static 'img/icons/bed_BY.png' %}" alt="no stairs" style="width:20px;height:20px;">
+          {% endif %}
+          <span class="text-primary">
+            {{ reg.accommodation.bedroom.name }}
+            {{ reg.accommodation.bedroom.get_gender_display }}
+          </span>
+        {% else %}
+          <img src="{% static 'img/icons/bed_EMPTY.png' %}" alt="no stairs" style="width:20px;height:20px;">
+          <span class="text-danger">not alocated</SPAN>
+        {% endif %}
+      </div>
+    {% endif %}
+  </th>
+  <td>
+    {% if reg.lodge == 'LDG' %}
       {% if reg.accommodation %}
-        🏢 
-        <span class="text-primary">
-          {{ reg.accommodation.bedroom.name }} {{ reg.accommodation.bottom_or_top }}
-          {{ reg.accommodation.bedroom.get_gender_display }}
-        </span>
+        <div class="btn-group" role="group">
+          <button 
+            type="button"
+            class="btn btn-light text-info btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#baseModal"
+            onclick="manageData('{% url 'register:show_order' reg.order.id %}')"
+          >
+            <i class="bi bi-eye"></i>
+          </button>
+          <button 
+            type="button"
+            class="btn btn-light text-danger btn-sm" 
+            data-bs-toggle="modal" 
+            data-bs-target="#baseModal"
+            onclick="manageData('{% url 'register:delete_order' object.pk reg.order.id %}')"
+          >
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
       {% else %}
-        🏢 <span class="text-danger">???</SPAN>
+        <button 
+          type="button"
+          class="btn btn-light text-primary btn-sm" 
+          data-bs-toggle="modal" 
+          data-bs-target="#baseModal"
+          onclick="manageData('{% url 'register:delete_order' object.pk reg.order.id %}')"
+        >
+          <i class="bi bi-plus-lg"></i>
+        </button>
       {% endif %}
     {% endif %}
-
-  </th>
+  </td>
   <td>{{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display|lower }}</td>
   <td>{{ reg.get_departure_time_display }}</td>
   <td>
@@ -33,34 +75,12 @@
       <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;">
     {% endif %}
   </td>
-  <th class="text-end">{{ reg.value }}</th>
-  <td class="text-end">
-    <div class="btn-group" role="group">
-      <button 
-        type="button"
-        class="btn btn-light text-info btn-sm" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'register:show_order' reg.order.id %}')"
-      >
-        <i class="bi bi-eye"></i>
-      </button>
-      <button 
-        type="button"
-        class="btn btn-light text-secondary btn-sm" 
-        onclick="location.href='{% url 'register:update_order' reg.order.id %}';"
-      >
-        <i class="bi bi-pencil"></i>
-      </button>
-      <button 
-        type="button"
-        class="btn btn-light text-danger btn-sm" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'register:delete_order' object.pk reg.order.id %}')"
-      >
-        <i class="bi bi-trash"></i>
-      </button>
-    </div>
-  </td>
+  <th {% if reg.observations %}
+    data-bs-toggle="tooltip" 
+    data-bs-placement="top"
+    data-bs-custom-class="custom-tooltip"
+    data-bs-title="{{ reg.observations }}"
+  {% endif %}>
+    {% if reg.observations %}{{ reg.observations|truncatechars:20 }}{% endif %}
+  </th>
 </tr>

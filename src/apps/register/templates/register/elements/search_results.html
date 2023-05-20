@@ -2,15 +2,22 @@
 
 <ul class="list-group">
   {% for person in results %}
-    <li 
-      class="list-group-item search-item text-secondary"
-      style="cursor: pointer;"
-      hx-get="{% url 'register:add_person' %}"
-      hx-vals='{"name": "{{ person.name }}", "id": "{{ person.id }}"}'
-      hx-target="#registers"
-      hx-swap="innerHTML"
-    >
-      {{ person.name }}
+    {% if person.id in registers %}
+      <li class="list-group-item search-item text-success" style="cursor: not-allowed;">
+    {% else %}
+      <li 
+        class="list-group-item search-item text-secondary"
+        style="cursor: pointer;"
+        hx-get="{% url 'register:add_person' %}"
+        hx-vals='{"name": "{{ person.name }}", "id": "{{ person.id }}"}'
+        hx-target="#registers"
+        hx-swap="innerHTML"
+      >
+    {% endif %}
+      {{ person.name }} 
+      {% if person.id in registers %} 
+        <i class="bi bi-check-circle-fill"></i>
+      {% endif %}
     </li>
   {% empty %}
     <li class="list-group-item text-secondary">{% trans 'No search results' %}</li>

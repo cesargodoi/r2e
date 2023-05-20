@@ -154,20 +154,32 @@ class CreatePerson(PersonCreate):
 @require_http_methods(["GET"])
 def search_person(request):
     template_name = "register/elements/search_results.html"
+    event_id = request.session["order"]["event"]
+    registers = [
+        reg.person_id
+        for reg in Register.objects.filter(order__event_id=event_id)
+    ]
     results = (
         Person.objects.filter(
             name_sa__icontains=request.GET.get("term"),
             center=request.user.centers.first(),
+            is_active=True,
         )[:10]
         if request.GET.get("term")
         else None
     )
-    context = {"results": results}
+    context = {"results": results, "registers": registers}
     return render(request, template_name, context)
 
 
 @require_http_methods(["GET"])
 def add_person(request):
+    in_session = [
+        reg["person"]["id"] for reg in request.session["order"]["registers"]
+    ]
+    if int(request.GET.get("id")) in in_session:
+        return HttpResponse(headers={"HX-Refresh": "true"})
+
     person = Person.objects.get(pk=request.GET.get("id"))
     stay = person.stays.filter(
         stay_center__pk=request.session["order"]["event_center"],
