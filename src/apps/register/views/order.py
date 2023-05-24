@@ -2,7 +2,7 @@ from django.views.decorators.http import require_http_methods
 from django.http import QueryDict
 from django.shortcuts import render, HttpResponse, redirect
 from django.views import View
-from r2e.commom import clear_session
+from r2e.commom import clear_session, get_bedroom_type
 
 from ..models import Order, Register, FormOfPayment
 from ..forms import FormOfPaymentForm
@@ -226,6 +226,7 @@ class AddStay(StayCreate):
     def form_valid(self, form):
         stay = form.save(commit=False)
         person = Person.objects.get(pk=self.kwargs["person_id"])
+        stay.bedroom_type = get_bedroom_type(stay)
         stay.person = person
         stay.save()
 
@@ -251,6 +252,7 @@ class EditStay(StayUpdate):
     def form_valid(self, form):
         stay = form.save(commit=False)
         person = Person.objects.get(pk=self.kwargs["person_id"])
+        stay.bedroom_type = get_bedroom_type(stay)
         stay.person = person
         stay.save()
 

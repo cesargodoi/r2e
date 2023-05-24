@@ -41,3 +41,8 @@
   z-index: 100;
   top: 2.5rem;
 }
+
+.icon-style {
+  width: 25px;
+  height: 25px;
+}

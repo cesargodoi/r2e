@@ -1,0 +1,74 @@
+{% load static %}
+{% load my_tags %}
+{% load i18n %}
+<div class="modal-header">
+  <div class="d-flex justify-content-between align-items-center w-100 me-4">
+    <div>
+      {% if bedroom.bedroom.gender == 'M'%}<img src="{% static 'img/male.png' %}" alt="male" style="width:35px;height:35px;">{% endif %}
+      {% if bedroom.bedroom.gender == 'F'%}<img src="{% static 'img/female.png' %}" alt="female" style="width:35px;height:35px;">{% endif %}
+      {% if bedroom.bedroom.gender == 'X'%}<img src="{% static 'img/mixed.png' %}" alt="mixed" style="width:35px;height:35px;">{% endif %}
+      <span class="text-muted mb-0">{{ bedroom.bedroom.get_gender_display }}</span>
+    </div>
+    <h4 class="modal-title">
+      {{ bedroom.bedroom.name }} 
+    </h4>
+    <p class="text-muted mb-0">{{ bedroom.bedroom.building.name }}</p>
+  </div>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+  <h5>Camas de baixo</h5>
+  <ul class="list-group">
+    {% for bed in bottoms %}
+      <li class="list-group-item">
+        {% if bed.register %}
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <img class="icon-style me-2" src="{% static 'img/icons/bed_BN.png' %}">
+              {{ bed.register.person.name }} 
+            </div>
+            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} years</span>
+          </div>
+        {% else %}
+          <img class="icon-style me-2" src="{% static 'img/icons/bed_BY.png' %}">
+          <span class="text-muted">livre</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  <br>
+  <h5>Camas de cima</h5>
+  <ul class="list-group">
+    {% for bed in tops %}
+      <li class="list-group-item">
+        {% if bed.register %}
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <img class="icon-style me-2" src="{% static 'img/icons/bed_TN.png' %}">
+              {{ bed.register.person.name }}
+            </div>
+            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} years</span>
+          </div>
+        {% else %}
+          <img class="icon-style me-2" src="{% static 'img/icons/bed_TY.png' %}">
+          <span class="text-muted">livre</span>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="modal-footer">
+  <div class="btn-group text-right" role="group">
+    <button 
+      type="button" 
+      class="btn btn-outline-info" 
+      data-bs-dismiss="modal" 
+      aria-label="Close"
+    >
+      <i class="bi bi-x-lg"></i>
+      {% trans 'Close' %}
+    </button>
+  </div>
+</div>

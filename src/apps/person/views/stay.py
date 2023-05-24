@@ -4,6 +4,7 @@ from django.views.generic import DeleteView
 from django.views.generic.edit import FormView
 from ..models import Person, PersonStay
 from ..forms import StayForm
+from r2e.commom import get_bedroom_type
 
 
 class StayCreate(FormView):
@@ -15,6 +16,7 @@ class StayCreate(FormView):
     def form_valid(self, form):
         stay = form.save(commit=False)
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
+        stay.bedroom_type = get_bedroom_type(stay)
         stay.save()
         return HttpResponse(
             headers={
@@ -40,6 +42,7 @@ class StayUpdate(FormView):
     def form_valid(self, form):
         stay = form.save(commit=False)
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
+        stay.bedroom_type = get_bedroom_type(stay)
         stay.save()
         return HttpResponse(
             headers={

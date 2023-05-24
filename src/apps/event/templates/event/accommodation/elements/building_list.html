@@ -1,0 +1,15 @@
+{% load i18n %}
+<h5>{% trans 'Choose a building' %}: </h5>
+<select 
+  class="form-select" 
+  name="building_id"
+  hx-get="{% url 'event:get_bedrooms_by_building' event_id %}?gender={{ gender }}" 
+  hx-target="#bedrooms"
+>
+  <option selected>---</option>
+  {% for building in buildings %}
+    <option value="{{ building.0 }}">
+      {{ building.1 }}
+    </option>
+  {% endfor %}
+</select>

@@ -1,0 +1,86 @@
+{% load i18n %}
+<div class="modal-header">
+  <h4 class="modal-title">Let's add person on bedroom</h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+  <h5>{% trans 'Choose a bedroom gender' %}: </h5>
+  <div class="form-check form-check-inline">
+    <input 
+      id="radio1" 
+      class="form-check-input" 
+      type="radio" 
+      name="gender" 
+      value="{{ gender.id }}"
+      hx-get="{% url 'event:get_buildings_by_gender' event_id %}" 
+      hx-target="#buildings" 
+    >
+    <label class="form-check-label" for="radio1">{{ gender.name }}</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input 
+      id="radio2" 
+      class="form-check-input" 
+      type="radio" 
+      name="gender" 
+      value="X"
+      hx-get="{% url 'event:get_buildings_by_gender' event_id %}" 
+      hx-target="#buildings" 
+    >
+    <label class="form-check-label" for="radio2">Mixed</label>
+  </div>
+  <div class="row">
+    <div id="buildings" class="col-sm-6 mt-4"></div>
+    <div id="bedrooms" class="col-sm-6 mt-4"></div>
+  </div>
+  <div id="mapping" class="mt-4"></div>
+  <div id="warning" class="alert alert-warning mt-4 d-none"></div>
+</div>
+
+<div class="modal-footer">
+  <form hx-post="{{ request.path }}">
+    {% csrf_token %}
+    <div class="text-right" role="group">
+      <button 
+        type="button" 
+        class="btn btn-outline-info" 
+        data-bs-dismiss="modal" 
+        aria-label="Close"
+      >
+        <i class="bi bi-x-lg"></i>
+        {% trans 'Cancel' %}
+      </button>
+      <button 
+        id="submitButton"
+        type="submit"
+        class="btn btn-outline-primary d-none"
+      >
+        <i class="bi bi-check-lg"></i>
+        {% trans 'Put in the bedroom' %}
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+  if (!submitButton){
+    const submitButton = document.querySelector('#submitButton');
+  }
+  if (!warning){
+    const warning = document.querySelector('#warning');
+  }
+
+  htmx.on("showWarning", (e) => {
+    warning.classList.remove('d-none');
+    setTimeout(() => {warning.classList.add('d-none')}, 5000);
+  });
+
+  htmx.on("showSubmitButton", (e) => {
+    submitButton.classList.remove('d-none');
+  });
+
+  htmx.on("hideSubmitButton", (e) => {
+    submitButton.classList.add('d-none');
+  });
+</script>

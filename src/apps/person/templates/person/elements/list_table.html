@@ -24,9 +24,9 @@
               <td>{{ forloop.counter }}</td>
               <td>
                 {% if obj.gender == 'M' %}
-                  <img src="{% static 'img/male.png' %}" alt="male" style="width:30px;height:30px;"> &nbsp;&nbsp;
+                  <img src="{% static 'img/male.png' %}" alt="male" style="width:20px;height:20px;"> &nbsp;&nbsp;
                 {% else %}
-                  <img src="{% static 'img/female.png' %}" alt="female" style="width:30px;height:30px;"> &nbsp;&nbsp;
+                  <img src="{% static 'img/female.png' %}" alt="female" style="width:20px;height:20px;"> &nbsp;&nbsp;
                 {% endif %}
                 {{ obj.name }}
               </td>

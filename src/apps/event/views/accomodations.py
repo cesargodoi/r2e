@@ -1,13 +1,16 @@
-from django.shortcuts import render, redirect
+import json
+from django.shortcuts import render, redirect, HttpResponse
+from django.template.loader import render_to_string
 from django.views.generic import View
 from django.views.generic import DetailView
 
 from apps.event.models import Event, Accommodation
 
+from apps.person.models import PersonStay
 from apps.register.models import Register
 from apps.center.models import Bedroom
 
-# from r2e.commom import clear_session
+from r2e.commom import clear_session
 
 
 class Accommodations(DetailView):
@@ -31,14 +34,6 @@ class Accommodations(DetailView):
         return context
 
 
-# class Accommodations(View):
-#     def get(self, request, *args, **kwargs):
-#         template_name = "event/accommodation/list.html"
-#         event = Event.objects.get(id=kwargs["event_id"])
-#         context = {"tittle": "Accommodations", "event": event}
-#         return render(request, template_name, context)
-
-
 class RebuildTheMapping(View):
     def get(self, request, *args, **kwargs):
         template_name = "event/accommodation/confirm_rebuild.html"
@@ -48,6 +43,184 @@ class RebuildTheMapping(View):
         kill_mapping(kwargs["event_id"])
         generate_mapping(kwargs["event_id"])
         return redirect("event:accommodations", kwargs["event_id"])
+
+
+def bedroom_details(request, bedroom_id):
+    template_name = "event/accommodation/bedroom_details.html"
+    bedroom = Accommodation.objects.filter(bedroom_id=bedroom_id).order_by(
+        "bottom_or_top"
+    )
+    context = {
+        "bedroom": bedroom[0],
+        "tops": [b for b in bedroom if b.bottom_or_top == "T"],
+        "bottoms": [b for b in bedroom if b.bottom_or_top == "B"],
+    }
+    return render(request, template_name, context)
+
+
+class AddToBedroom(View):
+    def get(self, request, *args, **kwargs):
+        register = Register.objects.get(id=kwargs["reg_id"])
+        clear_session(request, ["add_to_bedroom"])
+        request.session["add_to_bedroom"] = {
+            "reg_id": register.id,
+            "person_id": register.person.id,
+            "center_id": register.order.event.center.id,
+            "event_id": register.order.event.id,
+        }
+        context = {
+            "event_id": register.order.event_id,
+            "gender": {
+                "id": register.person.gender,
+                "name": register.person.get_gender_display(),
+            },
+        }
+        template_name = "event/accommodation/add_to_bedroom.html"
+        return render(request, template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        to_bedroom = request.session["add_to_bedroom"]
+        bedroom_type = (
+            "T"
+            if to_bedroom.get("force_top_bed")
+            else to_bedroom["bedroom_type"]
+        )
+        accommodations = Accommodation.objects.filter(
+            bedroom_id=to_bedroom["bedroom_id"],
+            bottom_or_top=bedroom_type,
+            register__isnull=True,
+        )
+        if not accommodations and bedroom_type == "T":
+            accommodations = Accommodation.objects.filter(
+                bedroom_id=to_bedroom["bedroom_id"],
+                bottom_or_top="B",
+                register__isnull=True,
+            )
+        if not accommodations:
+            return HttpResponse(
+                "Bedroom is no longer available. Please choose another one.",
+                headers={
+                    "HX-Retarget": "#warning",
+                    "HX-Trigger": json.dumps({"showWarning": True}),
+                },
+            )
+        selected_accommodation = accommodations[0]
+        register = Register.objects.get(id=to_bedroom["reg_id"])
+        register.accommodation = selected_accommodation
+        register.save()
+        stay = PersonStay.objects.get(id=to_bedroom["stay_id"])
+        if selected_accommodation.event.alt_mapping:
+            stay.bedroom_alt = to_bedroom["bedroom_id"]
+        else:
+            stay.bedroom = to_bedroom["bedroom_id"]
+        stay.save()
+        return HttpResponse(headers={"HX-Refresh": "true"})
+
+
+def get_buildings_by_gender(request, event_id):
+    template_name = "event/accommodation/elements/building_list.html"
+    _buildings = Accommodation.objects.filter(
+        event_id=event_id, gender=request.GET["gender"], register__isnull=True
+    ).order_by("bedroom__building__name")
+    buildings = {
+        (b.bedroom.building.id, b.bedroom.building.name) for b in _buildings
+    }
+    context = {
+        "buildings": buildings,
+        "event_id": event_id,
+        "gender": request.GET["gender"],
+    }
+    return HttpResponse(
+        render_to_string(template_name, context, request),
+        headers={"HX-Trigger": json.dumps({"hideSubmitButton": True})},
+    )
+
+
+def get_bedrooms_by_building(request, event_id):
+    template_name = "event/accommodation/elements/bedroom_list.html"
+    _bedrooms = Accommodation.objects.filter(
+        event_id=event_id,
+        gender=request.GET["gender"],
+        register__isnull=True,
+        bedroom__building_id=request.GET["building_id"],
+    ).order_by("bedroom__name")
+    bedrooms = {(b.bedroom.id, b.bedroom.name) for b in _bedrooms}
+    context = {
+        "bedrooms": bedrooms,
+        "event_id": event_id,
+        "gender": request.GET["gender"],
+    }
+    return HttpResponse(
+        render_to_string(template_name, context, request),
+        headers={"HX-Trigger": json.dumps({"hideSubmitButton": True})},
+    )
+
+
+def get_bedroom_mapping(request, event_id):
+    template_name = "event/accommodation/elements/bedroom_mapping.html"
+    request.session["add_to_bedroom"]["bedroom_id"] = ""
+    request.session["add_to_bedroom"]["bedroom_id"] = int(
+        request.GET["bedroom_id"]
+    )
+    _stay = PersonStay.objects.get(
+        person=request.session["add_to_bedroom"]["person_id"],
+        stay_center=request.session["add_to_bedroom"]["center_id"],
+    )
+    request.session["add_to_bedroom"]["stay_id"] = _stay.id
+    request.session["add_to_bedroom"]["bedroom_type"] = _stay.bedroom_type
+    request.session.modified = True
+    _bedroom = Accommodation.objects.filter(
+        event_id=event_id, bedroom_id=request.GET["bedroom_id"]
+    )
+    bottom_beds = _bedroom.filter(bottom_or_top="B").exclude(
+        register__isnull=False
+    )
+    force_top_bed = (
+        True if not bottom_beds and _stay.bedroom_type == "B" else False
+    )
+    context = {
+        "tops": [b for b in _bedroom if b.bottom_or_top == "T"],
+        "bottoms": [b for b in _bedroom if b.bottom_or_top == "B"],
+        "force_top_bed": force_top_bed,
+    }
+    return HttpResponse(
+        render_to_string(template_name, context, request),
+        headers={
+            "HX-Trigger": json.dumps({"showSubmitButton": True})
+            if not force_top_bed
+            else None
+        },
+    )
+
+
+def force_top_bed(request):
+    request.session["add_to_bedroom"]["force_top_bed"] = (
+        True if request.GET.get("forceTopBed") else False
+    )
+    request.session.modified = True
+    return HttpResponse(
+        status=204,
+        headers={
+            "HX-Trigger": json.dumps(
+                {"showSubmitButton": True}
+                if request.GET.get("forceTopBed")
+                else {"hideSubmitButton": True}
+            )
+        },
+    )
+
+
+class RemoveFromBedroom(View):
+    def get(self, request, *args, **kwargs):
+        template_name = "event/accommodation/confirm_to_remove.html"
+        return render(request, template_name)
+
+    def post(self, request, *args, **kwargs):
+        register = Register.objects.get(id=kwargs["reg_id"])
+        event_id = register.accommodation.event_id
+        register.accommodation = None
+        register.save()
+        return redirect("event:accommodations", event_id)
 
 
 #  helpers  ###################################################################
@@ -67,42 +240,3 @@ def generate_mapping(event_id):
 
 def kill_mapping(event_id):
     Accommodation.objects.filter(event_id=event_id).delete()
-
-
-# def get_bedroom_dict(event, bedroom):
-#     return {
-#         "event": event,
-#         "bedroom": bedroom,
-#         "gender": bedroom.gender,
-#         "up_down": [0 for _ in range(bedroom.beds)],
-#         "bunks": [0 for _ in range(bedroom.bunks)],
-#         "building_name": bedroom.building.name,
-#         "building_id": bedroom.building.id,
-#     }
-
-
-# def get_mapping_from_db(request, event_id):
-#     template_name = "event/accommodations/mapp.html"
-#     put_mapping_in_session(request, event_id)
-#     male = [
-#         bed
-#         for bed in get_mapping_from_session(request)
-#         if bed["gender"] == "X"
-#     ]
-#     context = {
-#         "tittle": "Pegando do banco de dados",
-#         "accommodations": male,
-#     }
-#     return render(request, template_name, context)
-
-
-# def put_mapping_in_session(request, event_id):
-#     clear_session(request, ["accommodations"])
-#     accommodations = BedroomMapping.objects.get(event_id=event_id)
-#     request.session["accommodations"] = accommodations.mapping
-#     request.session.modified = True
-#     return accommodations
-
-
-# def get_mapping_from_session(request):
-#     return request.session["accommodations"]

@@ -1,6 +1,7 @@
 import re
 from unicodedata import normalize
 from django.utils.translation import gettext_lazy as _
+from datetime import date
 
 
 COUNTRIES_CHOICES = [
@@ -159,3 +160,16 @@ def clear_session(request, items):
     for item in items:
         if request.session.get(item):
             del request.session[item]
+
+
+def get_bedroom_type(stay):
+    if stay.no_bunk:
+        return "B"
+    if get_age(stay.person.birth) > 12 and get_age(stay.person.birth) < 45:
+        return "T"
+    else:
+        return "B"
+
+
+def get_age(birth):
+    return (date.today() - birth).days // 365

@@ -21,11 +21,6 @@
   // Close modal by event
   htmx.on("closeModal", () => { modalForm.hide() })
 
-  // Close modal (old style)
-  htmx.on("#baseModal", "htmx:beforeSend", (e) => {
-    modal.hide();
-  });
-
   // Remove #baseModalContent content after hiding
   baseModal.addEventListener('hidden.bs.modal', () => {
     baseModalContent.innerHTML = '';

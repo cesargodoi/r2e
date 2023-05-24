@@ -202,7 +202,6 @@ def get_dict_register_to_db(request, register, order_id, update=False):
         observations=register["observations"],
         value=register["value"],
     )
-    # TODO: validar bedroom_alt  ?????
     if register["bedroom"]:
         try:
             accommodation = Accommodation.objects.filter(
