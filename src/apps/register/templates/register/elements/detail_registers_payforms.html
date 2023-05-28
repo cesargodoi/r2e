@@ -37,3 +37,8 @@
       </tr>
     {% endfor %}
   </table>
+  {% if order.observations %}
+    <div class="alert alert-secondary">
+      {{ order.observations }}
+    </div>
+  {% endif %}

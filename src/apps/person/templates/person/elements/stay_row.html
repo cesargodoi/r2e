@@ -34,9 +34,10 @@
       <button 
         type="button"
         class="btn btn-light text-secondary btn-sm" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'person:stay_update' object.pk stay.pk %}')"
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasForm" 
+        aria-controls="offcanvasForm"
+        onclick="manageForm('{% url 'person:stay_update' object.pk stay.pk %}')"
       >
         <i class="bi bi-pencil"></i>
       </button>

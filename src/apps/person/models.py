@@ -178,9 +178,6 @@ class PersonStay(models.Model):
         _("bedroom type"), max_length=1, choices=BEDROOM_TYPE, default="B"
     )
     staff = models.ManyToManyField(Staff, blank=True, verbose_name=_("staff"))
-    others = models.CharField(
-        _("others"), max_length=255, null=True, blank=True
-    )
     observations = models.CharField(
         _("observations"), max_length=255, null=True, blank=True
     )

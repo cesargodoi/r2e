@@ -1,0 +1,35 @@
+{% load i18n %}
+<div 
+  id="offcanvasForm" 
+  class="offcanvas offcanvas-end" 
+  tabindex="-1" 
+  data-bs-backdrop="static"
+  aria-labelledby="offcanvasFormLabel"
+>
+  <div class="offcanvas-header">
+    {% include 'base/hx/offcanvas_title.html' %}
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div id="offcanvasContent" class="offcanvas-body" hx-target="this">
+    Loading...
+  </div>
+  <div class="offcanvas-footer text-end m-4">
+    <button 
+      type="button" 
+      class="btn btn-outline-info" 
+      data-bs-dismiss="offcanvas" 
+      aria-label="Close"
+    >
+      <i class="bi bi-x-lg"></i>
+      {% trans 'Cancel' %}
+    </button>
+    <button 
+      type="submit"
+      class="btn btn-outline-primary"
+      form="form"
+    >
+      <i class="bi bi-check-lg"></i>
+      {% trans 'Confirm' %}
+    </button>
+  </div>
+</div>

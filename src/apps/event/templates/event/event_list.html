@@ -8,21 +8,26 @@
     <button 
       type="button"
       class="float-buttom-plus border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
-      data-bs-toggle="modal" 
-      data-bs-target="#baseModal"
-      onclick="manageData('{% url 'event:create' %}')"
+      data-bs-toggle="offcanvas" 
+      data-bs-target="#offcanvasForm" 
+      aria-controls="offcanvasForm"
+      onclick="manageForm('{% url 'event:create' %}')"
     >
       <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
     </button>
   </div>
   {% include 'base/modal.html' %}
-{% endblock  %}
+  {% include 'base/offcanvas.html' %}
+{% endblock %}
 
 {% block scripts %}
 <script src="{% static 'js/modal_form.js' %}"></script>
 <script>
   function manageData(url) {
     htmx.ajax('GET', url, '#baseModalContent')
+  }
+  function manageForm(url) {
+    htmx.ajax('GET', url, '#offcanvasContent')
   }
 </script>
 {% endblock %}

@@ -26,7 +26,10 @@
       <button 
         type="button" 
         class="btn btn-light text-secondary btn-sm"
-        onclick="manageData('{% url 'register:edit_stay' reg.person.id reg.regid %}')"
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasForm" 
+        aria-controls="offcanvasForm"
+        onclick="manageForm('{% url 'register:edit_stay' reg.person.id reg.regid %}')"
       >
         <i class="bi bi-pencil"></i>
       </button>
@@ -34,7 +37,10 @@
       <button 
         type="button" 
         class="btn btn-light text-primary btn-sm"
-        onclick="manageData('{% url 'register:add_stay' request.session.order.event_center reg.person.id reg.regid %}')"
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasForm" 
+        aria-controls="offcanvasForm"
+        onclick="manageForm('{% url 'register:add_stay' request.session.order.event_center reg.person.id reg.regid %}')"
       >
         <i class="bi bi-plus-lg"></i>
       </button>

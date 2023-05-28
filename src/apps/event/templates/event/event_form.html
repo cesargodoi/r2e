@@ -1,56 +1,28 @@
 {% load static %}
 {% load i18n %}
 {% load widget_tweaks %}
+{% include 'base/hx/offcanvas_title.html' %}
 <form hx-post="{{ request.path }}">
   {% csrf_token %}
-
-  <div class="modal-header">
-    <h4 class="modal-title text-dark">{{ title }}</h4>
-    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-  </div>
-
-  <div class="modal-body row">
-    {% for field in form.visible_fields %}
-      {% if field|field_type == "booleanfield" %}
-        <div class="col-md-6 {% if field.errors %}has-error{% endif %} mt-3">
-          {% render_field field class="form-check-input" %}
-          <label for="#" class="form-label">{{ field.label_tag }}</label>
-          {% for error in field.errors %}
-            <span class="text-muted">{{ error }}</span>
-          {% endfor %}
-        </div>
-      {% else %}
-        <div class="col-md-6 {% if field.errors %}has-error{% endif %} mt-3">
-          <label for="#" class="form-label">{{ field.label_tag }}</label>
-          {% render_field field class="form-control" %}
-          {% for error in field.errors %}
-            <span class="text-muted">{{ error }}</span>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endfor %}
-    {% render_field form.created_by type="hidden" %}
-    {% render_field form.modified_by type="hidden" %}
-  </div>
-
-  <div class="modal-footer">
-    <div class="btn-group text-right" role="group">
-      <button 
-        type="button" 
-        class="btn btn-info" 
-        data-bs-dismiss="modal" 
-        aria-label="Close"
-      >
-        <i class="bi bi-x-lg"></i>
-        {% trans 'Cancel' %}
-      </button>
-      <button 
-        type="submit"
-        class="btn btn-primary"
-      >
-        <i class="bi bi-check-lg"></i>
-        {% trans 'Confirm' %}
-      </button>
-    </div>
-  </div>
+  {% for field in form.visible_fields %}
+    {% if field|field_type == "booleanfield" %}
+      <div class="{% if field.errors %}has-error{% endif %} mt-3">
+        {% render_field field class="form-check-input" %}
+        <label for="#" class="form-label">{{ field.label_tag }}</label>
+        {% for error in field.errors %}
+          <span class="text-muted">{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="{% if field.errors %}has-error{% endif %} mt-3">
+        <label for="#" class="form-label">{{ field.label_tag }}</label>
+        {% render_field field class="form-control" %}
+        {% for error in field.errors %}
+          <span class="text-muted">{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endfor %}
+  {% render_field form.created_by type="hidden" %}
+  {% render_field form.modified_by type="hidden" %}
 </form>

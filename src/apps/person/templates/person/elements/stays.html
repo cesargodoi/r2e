@@ -28,9 +28,10 @@
       <button 
         type="button"
         class="btn btn-outline-primary" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'person:stay_create' object.pk %}')"
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasForm" 
+        aria-controls="offcanvasForm"
+        onclick="manageForm('{% url 'person:stay_create' object.pk %}')"
       >
         <i class="bi bi-plus-lg"></i> Add 
       </button>

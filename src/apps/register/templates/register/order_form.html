@@ -32,9 +32,10 @@
           <button 
             type="button" 
             class="btn btn-outline-primary"
-            data-bs-toggle="modal" 
-            data-bs-target="#baseModal"
-            onclick="manageData('{% url 'register:add_payform' %}')"
+            data-bs-toggle="offcanvas" 
+            data-bs-target="#offcanvasForm" 
+            aria-controls="offcanvasForm"
+            onclick="manageForm('{% url 'register:add_payform' %}')"
           >
             <i class="bi bi-plus-lg"></i> Add
           </button>
@@ -53,7 +54,7 @@
         <div class="card-body" id="formsOfPayment">
           <form action="{{ request.path }}" method="post">
             {% csrf_token %}
-            <textarea name="observations" class="form-control mb-4" rows="3">{{ request.session.order.observations }}</textarea>
+            <textarea name="observations" class="form-control mb-4" rows="2">{{ request.session.order.observations }}</textarea>
             <div class="text-end">
               <button 
                 type="button" 
@@ -66,7 +67,7 @@
                 type="submit" 
                 class="btn btn-outline-primary"
               >
-                <i class="bi bi-check"></i>Manda vê
+                <i class="bi bi-check"></i>Registrar
               </button>
             </div>
           </form>
@@ -74,10 +75,8 @@
       </div>
     </div>
   </div>
-  
-  
-  
   {% include 'base/modal.html' %}
+  {% include 'base/offcanvas.html' %}
 {% endblock %}
 
 {% block scripts %}
@@ -85,6 +84,9 @@
 <script>
   function manageData(url) {
     htmx.ajax('GET', url, '#baseModalContent')
+  }
+  function manageForm(url) {
+    htmx.ajax('GET', url, '#offcanvasContent')
   }
 </script>
 {% endblock %}

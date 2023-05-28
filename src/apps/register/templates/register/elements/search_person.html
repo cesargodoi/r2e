@@ -12,9 +12,10 @@
   <button 
     type="button" 
     class="btn btn-outline-primary"
-    data-bs-toggle="modal" 
-    data-bs-target="#baseModal"
-    onclick="manageData('{% url 'register:create_person' %}')"
+    data-bs-toggle="offcanvas" 
+    data-bs-target="#offcanvasForm" 
+    aria-controls="offcanvasForm"
+    onclick="manageForm('{% url 'register:create_person' %}')"
   >
     <i class="bi bi-plus-lg"></i> Add
   </button>

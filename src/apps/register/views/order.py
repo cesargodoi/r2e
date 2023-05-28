@@ -225,9 +225,8 @@ class AddStay(StayCreate):
 
     def form_valid(self, form):
         stay = form.save(commit=False)
-        person = Person.objects.get(pk=self.kwargs["person_id"])
+        stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
-        stay.person = person
         stay.save()
         staff_objs = form.cleaned_data["staff"]
         stay.staff.set(staff_objs)
@@ -241,7 +240,7 @@ class AddStay(StayCreate):
         ref_value = self.request.session["order"]["ref_value"]
         alt_mapping = self.request.session["order"]["alt_mapping"]
         register_stay = utils.get_dict_register(
-            person, stay, ref_value, alt_mapping
+            stay.person, stay, ref_value, alt_mapping
         )
         self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(
