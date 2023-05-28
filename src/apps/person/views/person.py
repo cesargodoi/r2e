@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.views.generic import (
     ListView,
@@ -65,7 +65,7 @@ class PersonCreate(CreateView):
 
     def form_valid(self, form):
         form.save()
-        return HttpResponse(headers={"HX-Redirect": reverse("person:list")})
+        return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 class PersonUpdate(UpdateView):
@@ -85,11 +85,7 @@ class PersonUpdate(UpdateView):
 
     def form_valid(self, form):
         form.save()
-        return HttpResponse(
-            headers={
-                "HX-Redirect": reverse("person:detail", args=[self.object.pk])
-            }
-        )
+        return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 class PersonDelete(DeleteView):

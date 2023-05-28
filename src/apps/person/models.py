@@ -13,7 +13,6 @@ from r2e.commom import (
     ARRIVAL_DATE,
     ARRIVAL_TIME,
     DEPARTURE_TIME,
-    STAFFS,
     BEDROOM_TYPE,
     us_inter_char,
     short_name,
@@ -134,6 +133,13 @@ class CreditLog(models.Model):
         ordering = ["-created_on"]
 
 
+class Staff(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+
+
 class PersonStay(models.Model):
     person = models.ForeignKey(
         Person,
@@ -171,9 +177,7 @@ class PersonStay(models.Model):
     bedroom_type = models.CharField(
         _("bedroom type"), max_length=1, choices=BEDROOM_TYPE, default="B"
     )
-    staff = models.CharField(
-        _("staff"), max_length=3, choices=STAFFS, default="STA"
-    )
+    staff = models.ManyToManyField(Staff, blank=True, verbose_name=_("staff"))
     others = models.CharField(
         _("others"), max_length=255, null=True, blank=True
     )

@@ -1,5 +1,6 @@
 from django import forms
 from .models import Activity, Event
+from apps.person.models import PersonStay
 
 
 class ActivityForm(forms.ModelForm):
@@ -27,3 +28,9 @@ class EventForm(forms.ModelForm):
             "created_by": forms.HiddenInput(),
             "modified_by": forms.HiddenInput(),
         }
+
+
+class StaffForm(forms.ModelForm):
+    class Meta:
+        model = PersonStay
+        fields = ["staff"]

@@ -47,34 +47,32 @@
     </table>
     <br>
     <div class="text-end mb-3">
-      <div class="btn-group" role="group">
-        <button 
-          type="button" 
-          class="btn btn-info btn-sm"
-          onclick="location.href='{% url 'person:list' %}';"
-        >
-          <i class="bi bi-chevron-left"></i>
-          Voltar 
-        </button>
-        <button 
-          type="button"
-          class="btn btn-secondary btn-sm" 
-          data-bs-toggle="modal" 
-          data-bs-target="#baseModal"
-          onclick="manageData('{% url 'person:update' object.pk %}')"
-        >
-          <i class="bi bi-pencil"></i> Editar
-        </button>
-        <button 
-          type="button"
-          class="btn btn-danger btn-sm" 
-          data-bs-toggle="modal" 
-          data-bs-target="#baseModal"
-          onclick="manageData('{% url 'person:delete' object.pk %}')"
-        >
-          <i class="bi bi-trash"></i> Deletar
-        </button>
-      </div>
+      <button 
+        type="button" 
+        class="btn btn-outline-info"
+        onclick="location.href='{% url 'person:list' %}';"
+      >
+        <i class="bi bi-chevron-left"></i>
+        Voltar 
+      </button>
+      <button 
+        type="button"
+        class="btn btn-outline-secondary" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{% url 'person:update' object.pk %}')"
+      >
+        <i class="bi bi-pencil"></i> Editar
+      </button>
+      <button 
+        type="button"
+        class="btn btn-outline-danger" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{% url 'person:delete' object.pk %}')"
+      >
+        <i class="bi bi-trash"></i> Deletar
+      </button>
     </div>
   </div>
 </div>

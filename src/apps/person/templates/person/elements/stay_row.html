@@ -1,19 +1,39 @@
+{% load static %}
 <tr>
   <td>{{ stay.stay_center }}</td>
-  <td>{{ stay.get_lodge_display }}</td>
+  <td>
+    {% if stay.lodge == 'HSE' %}🏠{% endif %}
+    {% if stay.lodge == 'HTL' %}🏨{% endif %}
+    {% if stay.lodge == 'LDG' %}🏢{% endif %}
+  </td>
   <td>{{ stay.get_arrival_date_display }}, {{ stay.get_arrival_time_display|lower }}</td>
   <td>{{ stay.get_departure_time_display }}</td>
-  <td class="text-danger">
-    {% if stay.no_stairs %}no stairs{% endif %}
-    {% if stay.no_stairs and stay.no_bunk %}| {% endif %}
-    {% if stay.no_bunk %}no bunk{% endif %}
+  <td>
+    {% if stay.no_stairs %}
+      <img class="icon-style" src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs"> &nbsp;&nbsp;
+    {% endif %}
+    {% if stay.no_bunk %}
+      <img class="icon-style" src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk">
+    {% endif %}
   </td>
-  <td>{{ stay.get_staff_display }}</td>
+  {% if stay.staff.all|length > 2 %}
+    <td 
+      data-bs-toggle="tooltip" 
+      data-bs-placement="top"
+      data-bs-custom-class="custom-tooltip"
+      data-bs-title="{{ stay.staff.all|join:" | " }}"
+    >
+  {% else %}
+    <td>
+  {% endif %}
+    {{ stay.staff.all|slice:":2"|join:" | " }} 
+    {% if stay.staff.all|length > 2 %}...{% endif %}
+  </td>
   <td class="text-end">
     <div class="btn-group" role="group">
       <button 
         type="button"
-        class="btn btn-secondary btn-sm" 
+        class="btn btn-light text-secondary btn-sm" 
         data-bs-toggle="modal" 
         data-bs-target="#baseModal"
         onclick="manageData('{% url 'person:stay_update' object.pk stay.pk %}')"
@@ -22,7 +42,7 @@
       </button>
       <button 
         type="button"
-        class="btn btn-danger btn-sm" 
+        class="btn btn-light text-danger btn-sm" 
         data-bs-toggle="modal" 
         data-bs-target="#baseModal"
         onclick="manageData('{% url 'person:stay_delete' object.pk stay.pk %}')"

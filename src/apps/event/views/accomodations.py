@@ -10,6 +10,8 @@ from apps.person.models import PersonStay
 from apps.register.models import Register
 from apps.center.models import Bedroom
 
+from ..forms import StaffForm
+
 from r2e.commom import clear_session
 
 
@@ -221,6 +223,34 @@ class RemoveFromBedroom(View):
         register.accommodation = None
         register.save()
         return redirect("event:accommodations", event_id)
+
+
+class ManagingStaff(View):
+    def get(self, request, *args, **kwargs):
+        template_name = "event/accommodation/managing_staff.html"
+        register = Register.objects.get(id=kwargs["reg_id"])
+        stay = register.person.stays.get(
+            stay_center=register.order.event.center
+        )
+        form = StaffForm(instance=stay)
+        context = {"form": form}
+        return render(request, template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        register = Register.objects.get(id=kwargs["reg_id"])
+        stay = register.person.stays.get(
+            stay_center=register.order.event.center
+        )
+        form = StaffForm(request.POST, instance=stay)
+        if form.is_valid():
+            staff = form.cleaned_data["staff"]
+            stay.staff.clear()
+            stay.staff.set(staff)
+            stay.save()
+            staff_on_register = " | ".join([s.name for s in staff])
+            register.staff = staff_on_register
+            register.save()
+            return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 #  helpers  ###################################################################

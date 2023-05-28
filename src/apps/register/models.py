@@ -8,7 +8,6 @@ from r2e.commom import (
     ARRIVAL_DATE,
     ARRIVAL_TIME,
     DEPARTURE_TIME,
-    STAFFS,
 )
 
 
@@ -119,12 +118,7 @@ class Register(models.Model):
         verbose_name=_("accommodation"),
     )
     housed = models.BooleanField(_("housed"), default=False)
-    staff = models.CharField(
-        _("staff"), max_length=3, choices=STAFFS, null=True, blank=True
-    )
-    description = models.CharField(
-        _("description"), max_length=250, null=True, blank=True
-    )
+    staff = models.CharField(_("staff"), max_length=120, null=True, blank=True)
     value = models.DecimalField(_("value"), max_digits=7, decimal_places=2)
     observations = models.CharField(
         _("observations"), max_length=250, null=True, blank=True

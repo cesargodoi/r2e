@@ -84,21 +84,6 @@ DEPARTURE_TIME = [
     ("END", _("End of event")),
 ]
 
-STAFFS = [
-    ("KIT", _("Kitchen")),
-    ("DSW", _("Dishwashing")),
-    ("REF", _("Refectory")),
-    ("ACC", _("Accommodation")),
-    ("EXT", _("External Area")),
-    ("AFT", _("Aftermath")),
-    ("SNK", _("Snack")),
-    ("BRF", _("Breakfast")),
-    ("TPL", _("Temple")),
-    ("LDR", _("Laundry")),
-    ("MTP", _("Multiple")),
-    ("CNT", _("Center Team")),
-]
-
 
 # helpers
 def us_inter_char(txt, codif="utf-8"):

@@ -12,7 +12,7 @@
             <th>Lodge</th>
             <th>Arrival</th>
             <th>Departure</th>
-            <th>Restriction</th>
+            <th>Restr.</th>
             <th>Staff</th>
             <th></th>
           </tr>
@@ -27,7 +27,7 @@
     <div class="text-end mb-3">
       <button 
         type="button"
-        class="btn btn-primary btn-sm" 
+        class="btn btn-outline-primary" 
         data-bs-toggle="modal" 
         data-bs-target="#baseModal"
         onclick="manageData('{% url 'person:stay_create' object.pk %}')"

@@ -79,12 +79,24 @@
       <img class="icon-style" src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk">
     {% endif %}
   </td>
-  <th {% if reg.observations %}
+  <td class="d-flex justify-content-between">
+    {{ reg.staff }}
+    <button 
+      type="button"
+      class="btn btn-light text-secondary btn-sm" 
+      data-bs-toggle="modal" 
+      data-bs-target="#baseModal"
+      onclick="manageData('{% url 'event:managing_staff' reg.id %}')"
+    >
+      <i class="bi bi-pencil"></i>
+    </button>
+  </td>
+  <td {% if reg.observations %}
     data-bs-toggle="tooltip" 
     data-bs-placement="top"
     data-bs-custom-class="custom-tooltip"
     data-bs-title="{{ reg.observations }}"
   {% endif %}>
     {% if reg.observations %}{{ reg.observations|truncatechars:20 }}{% endif %}
-  </th>
+  </td>
 </tr>

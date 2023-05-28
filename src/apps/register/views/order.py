@@ -229,6 +229,9 @@ class AddStay(StayCreate):
         stay.bedroom_type = get_bedroom_type(stay)
         stay.person = person
         stay.save()
+        staff_objs = form.cleaned_data["staff"]
+        stay.staff.set(staff_objs)
+        stay.save()
 
         old_register = utils.get_register(
             self.request.session["order"], self.kwargs["regid"]
@@ -254,6 +257,9 @@ class EditStay(StayUpdate):
         person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
         stay.person = person
+        staff_objs = form.cleaned_data["staff"]
+        stay.staff.clear()
+        stay.staff.set(staff_objs)
         stay.save()
 
         old_register = utils.get_register(

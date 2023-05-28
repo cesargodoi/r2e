@@ -18,13 +18,9 @@ class StayCreate(FormView):
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
         stay.save()
-        return HttpResponse(
-            headers={
-                "HX-Redirect": reverse(
-                    "person:detail", args=[self.kwargs["person_id"]]
-                ),
-            },
-        )
+        staff_objs = form.cleaned_data["staff"]
+        stay.staff.set(staff_objs)
+        return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 class StayUpdate(FormView):
@@ -43,14 +39,11 @@ class StayUpdate(FormView):
         stay = form.save(commit=False)
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
+        staff_objs = form.cleaned_data["staff"]
+        stay.staff.clear()
+        stay.staff.set(staff_objs)
         stay.save()
-        return HttpResponse(
-            headers={
-                "HX-Redirect": reverse(
-                    "person:detail", args=[self.kwargs["person_id"]]
-                ),
-            },
-        )
+        return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 class StayDelete(DeleteView):
