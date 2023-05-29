@@ -8,13 +8,17 @@
   </div>
 
   {% include 'base/modal.html' %}
-{% endblock %}
+  {% include 'base/offcanvas.html' %}
+{% endblock  %}
 
 {% block scripts %}
-<script src="{% static 'js/modal_form.js' %}"></script>
-<script>
-  function manageData(url) {
-    htmx.ajax('GET', url, '#baseModalContent')
-  }
-</script>
+  <script src="{% static 'js/modal_form.js' %}"></script>
+  <script>
+    function manageData(url) {
+      htmx.ajax('GET', url, '#baseModalContent')
+    }
+    function manageForm(url) {
+      htmx.ajax('GET', url, '#offcanvasContent')
+    }
+  </script>
 {% endblock %}

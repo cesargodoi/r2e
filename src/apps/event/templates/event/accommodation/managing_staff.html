@@ -1,45 +1,8 @@
 {% load static %}
 {% load i18n %}
 {% load widget_tweaks %}
-<div class="modal-header">
-  <h4 class="modal-title">
-    Gerenciar o Staff 
-  </h4>
-  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-
-<form hx-post={{ request.path }}>
-  <div class="modal-body">
-    {% csrf_token %}
-    {% for field in form.visible_fields %}
-      <div class="{% if field.errors %}has-error{% endif %} mt-3">
-        <label for="#" class="form-label">{{ field.label_tag }}</label>
-        {% render_field field class="form-control" %}
-        {% for error in field.errors %}
-          <span class="text-muted">{{ error }}</span>
-        {% endfor %}
-      </div>
-    {% endfor %}
-  </div>
-
-  <div class="modal-footer">
-    <div class="text-right">
-      <button 
-        type="button" 
-        class="btn btn-outline-info" 
-        data-bs-dismiss="modal" 
-        aria-label="Close"
-      >
-        <i class="bi bi-x-lg"></i>
-        {% trans 'Close' %}
-      </button>
-      <button 
-        type="submit"
-        class="btn btn-outline-primary"
-      >
-        <i class="bi bi-check-lg"></i>
-        {% trans 'Update' %}
-      </button>
-    </div>
-  </div>
+{% include 'base/hx/offcanvas_title.html' %}
+<form id="form" hx-post={{ request.path }}>
+  {% csrf_token %}
+  {{ form }}
 </form>

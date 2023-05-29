@@ -233,7 +233,7 @@ class ManagingStaff(View):
             stay_center=register.order.event.center
         )
         form = StaffForm(instance=stay)
-        context = {"form": form}
+        context = {"title": "Managing Staff", "form": form}
         return render(request, template_name, context)
 
     def post(self, request, *args, **kwargs):

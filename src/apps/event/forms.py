@@ -34,3 +34,5 @@ class StaffForm(forms.ModelForm):
     class Meta:
         model = PersonStay
         fields = ["staff"]
+        labels = {"staff": ""}
+        widgets = {"staff": forms.widgets.CheckboxSelectMultiple}
