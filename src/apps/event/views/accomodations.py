@@ -27,12 +27,12 @@ class Accommodations(DetailView):
             order__event=self.object.pk
         ).order_by("person")
         context["registers"] = registers
-        context["housed"] = len(
-            [r for r in registers if r.accommodation or r.lodge != "LDG"]
-        )
-        context["not_housed"] = len(
+        context["allocated"] = len([r for r in registers if r.accommodation])
+        context["unallocated"] = len(
             [r for r in registers if not r.accommodation and r.lodge == "LDG"]
         )
+        context["house"] = len([r for r in registers if r.lodge == "HSE"])
+        context["hotel"] = len([r for r in registers if r.lodge == "HTL"])
         return context
 
 

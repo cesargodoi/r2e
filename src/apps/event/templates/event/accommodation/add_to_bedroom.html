@@ -1,6 +1,6 @@
 {% load i18n %}
 <div class="modal-header">
-  <h4 class="modal-title">Let's add person on bedroom</h4>
+  <h4 class="modal-title">{% trans "Let's add person on bedroom" %}</h4>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 
@@ -28,7 +28,7 @@
       hx-get="{% url 'event:get_buildings_by_gender' event_id %}" 
       hx-target="#buildings" 
     >
-    <label class="form-check-label" for="radio2">Mixed</label>
+    <label class="form-check-label" for="radio2">{% trans "Mixed" %}</label>
   </div>
   <div class="row">
     <div id="buildings" class="col-sm-6 mt-4"></div>
