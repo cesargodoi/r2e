@@ -42,6 +42,9 @@ class EventDetail(DetailView):
     model = Event
 
     def get_context_data(self, **kwargs):
+        if "accommodation" in self.request.session:
+            del self.request.session["accommodation"]
+
         clear_session(self.request, ["order"])
         self.request.session["nav_item"] = "event"
         user_center = self.request.user.centers.first()

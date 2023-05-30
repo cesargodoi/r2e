@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from django.views.generic import View
 from django.views.generic import DetailView
+from django.core.paginator import Paginator
 
 from apps.event.models import Event, Accommodation
 
@@ -12,7 +13,7 @@ from apps.center.models import Bedroom
 
 from ..forms import StaffForm
 
-from r2e.commom import clear_session
+from r2e.commom import clear_session, get_pagination_url
 
 
 class Accommodations(DetailView):
@@ -22,17 +23,29 @@ class Accommodations(DetailView):
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "event"
         context = super().get_context_data(**kwargs)
+
+        queryset = get_queryset_and_totals(self.request, self.object.pk)
+
+        if self.request.GET.get("filter") in ["HSE", "HTL"]:
+            queryset = queryset.filter(lodge=self.request.GET.get("filter"))
+        elif self.request.GET.get("filter") == "alloc":
+            queryset = queryset.filter(
+                lodge="LDG", accommodation__isnull=False
+            )
+        elif self.request.GET.get("filter") == "unalloc":
+            queryset = queryset.filter(lodge="LDG", accommodation__isnull=True)
+
+        items_per_page = 2
+        paginator = Paginator(queryset, items_per_page)
+        page_number = self.request.GET.get("page") or 1
+        page_obj = paginator.get_page(page_number)
+
         context["title"] = "Accommodation management"
-        registers = Register.objects.filter(
-            order__event=self.object.pk
-        ).order_by("person")
-        context["registers"] = registers
-        context["allocated"] = len([r for r in registers if r.accommodation])
-        context["unallocated"] = len(
-            [r for r in registers if not r.accommodation and r.lodge == "LDG"]
-        )
-        context["house"] = len([r for r in registers if r.lodge == "HSE"])
-        context["hotel"] = len([r for r in registers if r.lodge == "HTL"])
+        context["event_id"] = self.object.pk
+        context["filter"] = self.request.GET.get("filter") or "all"
+        context["pagination_url"] = get_pagination_url(self.request)
+        context["page_obj"] = page_obj
+        context["registers"] = list(page_obj.object_list)
         return context
 
 
@@ -116,6 +129,9 @@ class AddToBedroom(View):
         else:
             stay.bedroom = to_bedroom["bedroom_id"]
         stay.save()
+        get_queryset_and_totals(
+            request, register.order.event.id, get_totals=True
+        )
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
@@ -270,3 +286,25 @@ def generate_mapping(event_id):
 
 def kill_mapping(event_id):
     Accommodation.objects.filter(event_id=event_id).delete()
+
+
+def get_queryset_and_totals(request, evenid, get_totals=False):
+    queryset = Register.objects.filter(order__event=evenid).order_by("person")
+    if get_totals:
+        del request.session["accommodation"]
+    if "accommodation" not in request.session or get_totals:
+        request.session["accommodation"] = {}
+        request.session["accommodation"]["total_registers"] = len(queryset)
+        request.session["accommodation"]["allocated"] = len(
+            [r for r in queryset if r.accommodation]
+        )
+        request.session["accommodation"]["unallocated"] = len(
+            [r for r in queryset if not r.accommodation and r.lodge == "LDG"]
+        )
+        request.session["accommodation"]["house"] = len(
+            [r for r in queryset if r.lodge == "HSE"]
+        )
+        request.session["accommodation"]["hotel"] = len(
+            [r for r in queryset if r.lodge == "HTL"]
+        )
+    return queryset if not get_totals else None

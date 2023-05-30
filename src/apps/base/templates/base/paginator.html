@@ -1,0 +1,26 @@
+{% load django_bootstrap5 %}
+<div class="pagination">
+  {% if page_obj.paginator.num_pages > 1 %}
+    {% if page_obj.has_previous %}
+      <span class="page-item">
+        <a class="page-link" href="{{ pagination_url }}&page={{ page_obj.previous_page_number }}">&lsaquo;</a>
+      </span>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+        <span class="page-item active">
+          <span class="page-link">{{ num }}</span>
+        </span>
+      {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'3' %}
+        <span class="page-item">
+          <a class="page-link" href="{{ pagination_url }}&page={{ num }}">{{ num }}</a>
+        </span>
+      {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <span class="page-item">
+        <a class="page-link" href="{{ pagination_url }}&page={{ page_obj.next_page_number }}">&rsaquo;</a>
+      </span>
+    {% endif %}
+  {% endif %}
+</div>

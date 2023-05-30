@@ -205,7 +205,7 @@ def get_dict_register_to_db(request, register, order_id, update=False):
         observations=register["observations"],
         value=register["value"],
     )
-    if register["bedroom"]:
+    if register["bedroom"] and register["lodge"]["id"] == "LDG":
         try:
             accommodation = Accommodation.objects.filter(
                 bedroom_id=register["bedroom"],

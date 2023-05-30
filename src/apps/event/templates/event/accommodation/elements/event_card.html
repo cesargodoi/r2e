@@ -13,49 +13,86 @@
         &nbsp;&nbsp; {{ object.date|date:"M/Y" }}
       </span>
     </div>
-    <div class="row mb-3 border-bottom">
-      <div class="col-md-2 text-end"></div>
-      <div class="col-md-2 text-end">
-        <strong>{% trans "Registered" %}:</strong> &nbsp;&nbsp;
-        <span class="h4"><strong>{% if registers|length > 0 %}{{ registers|length }}{% endif %}</strong></span>
-      </div>
-      <div class="col-md-2 text-end">
-        <strong>{% trans "Allocated" %}:</strong> &nbsp;&nbsp;
-        <span class="h4"><strong>{{ allocated }}</strong></span>
-      </div>
-      <div class="col-md-2 text-end">
-        <strong>{% trans "Unallocated" %}:</strong> &nbsp;&nbsp;
-        <span class="h4"><strong>{{ unallocated }}</strong></span>
-      </div>
-      <div class="col-md-2 text-end">
-        <strong>{% trans "House" %}:</strong> &nbsp;&nbsp;
-        <span class="h4"><strong>{{ house }}</strong></span>
-      </div>
-      <div class="col-md-2 text-end">
-        <strong>{% trans "Hotel" %}:</strong> &nbsp;&nbsp;
-        <span class="h4"><strong>{{ hotel }}</strong></span>
-      </div>
-    </div>
+    <ul class="nav nav-pills nav-fill mt-2 mb-4 bg-light">
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'all' %}active{% endif %}" 
+          href="{% url 'event:accommodations' event_id %}"
+        >
+          {% trans "Registered" %}  
+          <span class="badge text-bg-secondary">
+            {{ request.session.accommodation.total_registers }}
+          </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'alloc' %}active{% endif %}" 
+          href="{% url 'event:accommodations' event_id %}?filter=alloc"
+        >
+          {% trans "Allocated" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.accommodation.allocated }}
+          </span>
+        </a> 
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'unalloc' %}active{% endif %}" 
+          href="{% url 'event:accommodations' event_id %}?filter=unalloc"
+        >
+          {% trans "Unallocated" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.accommodation.unallocated }}
+          </span>
+        </a> 
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'HSE' %}active{% endif %}" 
+          href="{% url 'event:accommodations' event_id %}?filter=HSE"
+        >
+          {% trans "House" %}
+          <span class="badge text-bg-secondary"> 
+            {{ request.session.accommodation.house }}
+          </span>
+        </a> 
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'HTL' %}active{% endif %}" 
+          href="{% url 'event:accommodations' event_id %}?filter=HTL"
+        >
+          {% trans "Hotel" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.accommodation.hotel }}
+          </span>
+        </a> 
+      </li>
+    </ul>
 
-    <div class="text-end mb-3">
-      <button 
-        type="button" 
-        class="btn btn-outline-info"
-        onclick="location.href='{% url 'event:detail' object.pk %}';"
-      >
-        <i class="bi bi-chevron-left"></i>
-        Voltar 
-      </button>
-      <button 
-        type="button"
-        class="btn btn-outline-danger" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'event:rebuild_the_mapping' event.pk %}')"
-      >
-        <i class="bi bi-building"></i> 
-        Reset mapping
-      </button>
+    <div class="d-flex justify-content-between">
+      {% include 'base/paginator.html' %}
+      <div class="text-end mb-3">
+        <button 
+          type="button" 
+          class="btn btn-outline-info"
+          onclick="location.href='{% url 'event:detail' object.pk %}';"
+        >
+          <i class="bi bi-chevron-left"></i>
+          Voltar 
+        </button>
+        <button 
+          type="button"
+          class="btn btn-outline-danger" 
+          data-bs-toggle="modal" 
+          data-bs-target="#baseModal"
+          onclick="manageData('{% url 'event:rebuild_the_mapping' event.pk %}')"
+        >
+          <i class="bi bi-building"></i> 
+          Reset mapping
+        </button>
+      </div>
     </div>
   </div>
 </div>

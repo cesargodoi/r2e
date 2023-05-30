@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # others apps
     "widget_tweaks",
+    "django_bootstrap5",
     # devlopment apps
     "django_extensions",
     # apps

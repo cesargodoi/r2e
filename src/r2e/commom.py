@@ -158,3 +158,9 @@ def get_bedroom_type(stay):
 
 def get_age(birth):
     return (date.today() - birth).days // 365
+
+
+def get_pagination_url(request):
+    preserved_qs = request.GET.copy()
+    preserved_qs.pop("page", None)
+    return f"{request.path}?{preserved_qs.urlencode()}"
