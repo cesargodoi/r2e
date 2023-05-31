@@ -71,9 +71,10 @@
       </li>
     </ul>
 
-    <div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between align-items-center">
       {% include 'base/paginator.html' %}
       <div class="text-end mb-3">
+        {% include 'base/generics/search.html' with placeholder='Search for ...' %}
         <button 
           type="button" 
           class="btn btn-outline-info"

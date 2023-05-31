@@ -24,7 +24,9 @@ class Accommodations(DetailView):
         self.request.session["nav_item"] = "event"
         context = super().get_context_data(**kwargs)
 
-        queryset = get_queryset_and_totals(self.request, self.object.pk)
+        queryset = get_queryset_and_totals(
+            self.request, self.object.pk, q=self.request.GET.get("q")
+        )
 
         if self.request.GET.get("filter") in ["HSE", "HTL"]:
             queryset = queryset.filter(lodge=self.request.GET.get("filter"))
@@ -35,7 +37,7 @@ class Accommodations(DetailView):
         elif self.request.GET.get("filter") == "unalloc":
             queryset = queryset.filter(lodge="LDG", accommodation__isnull=True)
 
-        items_per_page = 2
+        items_per_page = 10
         paginator = Paginator(queryset, items_per_page)
         page_number = self.request.GET.get("page") or 1
         page_obj = paginator.get_page(page_number)
@@ -43,6 +45,7 @@ class Accommodations(DetailView):
         context["title"] = "Accommodation management"
         context["event_id"] = self.object.pk
         context["filter"] = self.request.GET.get("filter") or "all"
+        context["q"] = self.request.GET.get("q", "")
         context["pagination_url"] = get_pagination_url(self.request)
         context["page_obj"] = page_obj
         context["registers"] = list(page_obj.object_list)
@@ -288,8 +291,10 @@ def kill_mapping(event_id):
     Accommodation.objects.filter(event_id=event_id).delete()
 
 
-def get_queryset_and_totals(request, evenid, get_totals=False):
-    queryset = Register.objects.filter(order__event=evenid).order_by("person")
+def get_queryset_and_totals(request, evenid, q=None, get_totals=False):
+    queryset = Register.objects.filter(
+        order__event=evenid, person__name__icontains=q if q else ""
+    ).order_by("person")
     if get_totals:
         del request.session["accommodation"]
     if "accommodation" not in request.session or get_totals:
