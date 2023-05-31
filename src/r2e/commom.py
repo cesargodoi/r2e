@@ -55,7 +55,7 @@ PAYMENT_TYPES = [
     ("CDT", _("Credit")),
     ("DPT", _("Deposit")),
     ("TRF", _("Transfer")),
-    ("GSC", _("Guest Credit")),
+    ("PIX", _("Pix")),
     ("FRE", _("Free")),
 ]
 
@@ -68,20 +68,22 @@ ARRIVAL_DATE = [
 ]
 
 ARRIVAL_TIME = [
-    ("BB", _("Before breakfast")),
-    ("BL", _("Before lunch")),
-    ("BD", _("Before diner")),
-    ("AD", _("After diner")),
+    ("0BD", _("Eve day, before dinner.")),
+    ("0AD", _("Eve day, after dinner.")),
+    ("1BB", _("First day, before breakfast.")),
+    ("1BL", _("First day, before lunch.")),
+    ("1BD", _("First day, before dinner.")),
+    ("1AD", _("First day, after dinner.")),
+    ("2BB", _("Second day, before breakfast.")),
 ]
 
 DEPARTURE_TIME = [
-    ("BL1", _("Before 1st lunch")),
-    ("AL1", _("After 1st lunch")),
-    ("BDN", _("Before dinner")),
-    ("ADN", _("After dinner")),
-    ("BL2", _("Before 2nd lunch")),
-    ("AL2", _("After 2nd lunch")),
-    ("END", _("End of event")),
+    ("1BL", _("First day, before lunch.")),
+    ("1BD", _("First day, before dinner.")),
+    ("1AD", _("First day, after dinner.")),
+    ("2BB", _("Second day, before breakfast.")),
+    ("2BL", _("Second day, before lunch.")),
+    ("2AL", _("Second day, after lunch.")),
 ]
 
 

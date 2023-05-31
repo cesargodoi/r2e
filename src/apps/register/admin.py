@@ -12,12 +12,12 @@ class RegisterAdmin(admin.ModelAdmin):
         "lodge",
         "no_stairs",
         "no_bunk",
-        "arrival_date",
         "arrival_time",
+        "departure_time",
         "housed",
         "value",
     )
-    list_filter = ("lodge", "housed", "arrival_date", "arrival_time")
+    list_filter = ("lodge", "housed", "arrival_time", "departure_time")
 
     def save_model(self, request, obj, form, change):
         if change:

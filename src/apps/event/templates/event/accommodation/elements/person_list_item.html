@@ -69,8 +69,8 @@
       {% endif %}
     {% endif %}
   </td>
-  <td>{{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display|lower }}</td>
-  <td>{{ reg.get_departure_time_display }}</td>
+  <td>⤵️ {{ reg.get_arrival_time_display }}</td>
+  <td>⤴️ {{ reg.get_departure_time_display }}</td>
   <td>
     {% if reg.no_stairs %}
       <img class="icon-style" src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs"> &nbsp;&nbsp;

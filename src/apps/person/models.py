@@ -10,7 +10,6 @@ from r2e.commom import (
     ASPECTS,
     CREDIT_OPERATIONS,
     LODGE_TYPES,
-    ARRIVAL_DATE,
     ARRIVAL_TIME,
     DEPARTURE_TIME,
     BEDROOM_TYPE,
@@ -158,17 +157,14 @@ class PersonStay(models.Model):
     lodge = models.CharField(
         _("lodge"), max_length=3, choices=LODGE_TYPES, default="LDG"
     )
-    arrival_date = models.CharField(
-        _("arrival date"), max_length=2, choices=ARRIVAL_DATE, default="D1"
-    )
     arrival_time = models.CharField(
-        _("arrival time"), max_length=2, choices=ARRIVAL_TIME, default="BL"
+        _("arrival time"), max_length=3, choices=ARRIVAL_TIME, default="1BL"
     )
     departure_time = models.CharField(
         _("departure time"),
         max_length=3,
         choices=DEPARTURE_TIME,
-        default="END",
+        default="2AL",
     )
     no_stairs = models.BooleanField(_("no stairs"), default=False)
     no_bunk = models.BooleanField(_("no bunk"), default=False)

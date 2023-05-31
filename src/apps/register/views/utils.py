@@ -1,8 +1,6 @@
 import secrets
 from datetime import datetime
 
-# from django.db.models import Q
-
 from ..models import BankFlag
 from apps.person.models import Person
 from apps.event.models import Accommodation
@@ -39,11 +37,6 @@ def get_dict_register(person, stay, ref_value, alt_mapping):
         else "",
         no_stairs=stay.no_stairs if stay else "",
         no_bunk=stay.no_bunk if stay else "",
-        arrival_date=dict(
-            name=stay.get_arrival_date_display(), id=stay.arrival_date
-        )
-        if stay
-        else "",
         arrival_time=dict(
             name=stay.get_arrival_time_display(), id=stay.arrival_time
         )
@@ -71,9 +64,6 @@ def get_dict_register_update(register, event_center_pk, alt_mapping):
         lodge=dict(name=register.get_lodge_display(), id=register.lodge),
         no_stairs=register.no_stairs,
         no_bunk=register.no_bunk,
-        arrival_date=dict(
-            name=register.get_arrival_date_display(), id=register.arrival_date
-        ),
         arrival_time=dict(
             name=register.get_arrival_time_display(), id=register.arrival_time
         ),
@@ -198,7 +188,6 @@ def get_dict_register_to_db(request, register, order_id, update=False):
         lodge=register["lodge"]["id"],
         no_stairs=register["no_stairs"],
         no_bunk=register["no_bunk"],
-        arrival_date=register["arrival_date"]["id"],
         arrival_time=register["arrival_time"]["id"],
         departure_time=register["departure_time"]["id"],
         staff=register["staff"],

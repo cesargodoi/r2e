@@ -6,8 +6,8 @@
     {% if stay.lodge == 'HTL' %}🏨{% endif %}
     {% if stay.lodge == 'LDG' %}🏢{% endif %}
   </td>
-  <td>{{ stay.get_arrival_date_display }}, {{ stay.get_arrival_time_display|lower }}</td>
-  <td>{{ stay.get_departure_time_display }}</td>
+  <td>⤵️ {{ stay.get_arrival_time_display }}</td>
+  <td>⤴️ {{ stay.get_departure_time_display }}</td>
   <td>
     {% if stay.no_stairs %}
       <img class="icon-style" src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs"> &nbsp;&nbsp;
