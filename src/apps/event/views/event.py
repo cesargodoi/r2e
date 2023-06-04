@@ -12,20 +12,20 @@ from django.views.generic import (
 from ..models import Event
 from ..forms import EventForm
 from apps.register.models import Register
-from r2e.commom import clear_session
+from r2e.commom import clear_session, get_pagination_url, get_paginator
 
 
 # Event Views
 class EventList(ListView):
     model = Event
-    paginate = 10
+    paginate_by = 10
     extra_context = {"title": "Events"}
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
             return Event.objects.all().annotate(num_orders=Count("orders"))
         else:
-            date = datetime.strptime(self.request.GET.get("q"), "%m/%Y")
+            date = datetime.strptime(self.request.GET.get("q"), "%m/%y")
             events = Event.objects.filter(
                 date__month=date.month, date__year=date.year
             ).annotate(num_orders=Count("orders"))
@@ -34,29 +34,40 @@ class EventList(ListView):
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "event"
         context = super().get_context_data(**kwargs)
-        context["q"] = self.request.GET.get("q")
+        context["q"] = self.request.GET.get("q") or ""
+        context["pagination_url"] = get_pagination_url(self.request)
         return context
 
 
 class EventDetail(DetailView):
     model = Event
+    extra_context = {"title": "Records management"}
 
     def get_context_data(self, **kwargs):
         if "accommodation" in self.request.session:
             del self.request.session["accommodation"]
-
         clear_session(self.request, ["order"])
         self.request.session["nav_item"] = "event"
         user_center = self.request.user.centers.first()
         context = super().get_context_data(**kwargs)
+
         context["user_center"] = user_center.id
-        context["title"] = self.object.activity.name
-        total_registers = Register.objects.filter(
-            order__event=self.object.pk
+        q = self.request.GET.get("q")
+
+        queryset = Register.objects.filter(
+            order__event=self.object.pk, person__name__icontains=q if q else ""
         ).order_by("person")
-        registers = total_registers.filter(order__center=user_center)
-        context["total_registers"] = total_registers
-        context["registers"] = registers
+
+        page_obj = get_paginator(
+            self.request, queryset.filter(order__center=user_center)
+        )
+
+        context["total_registers"] = queryset.count()
+        context["q"] = self.request.GET.get("q", "")
+        context["pagination_url"] = get_pagination_url(self.request)
+        context["page_obj"] = page_obj
+        context["registers"] = list(page_obj.object_list)
+        context["delete_link"] = reverse("event:delete", args=[self.object.pk])
         return context
 
 

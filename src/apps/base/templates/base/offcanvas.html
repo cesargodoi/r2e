@@ -31,5 +31,19 @@
       <i class="bi bi-check-lg"></i>
       {% trans 'Confirm' %}
     </button>
+    {% if delete_link %}
+      <button 
+        type="button" 
+        class="btn btn-outline-danger" 
+        data-bs-dismiss="offcanvas" 
+        aria-label="Close"
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{{ delete_link }}')"
+      >
+        <i class="bi bi-x-lg"></i>
+        {% trans 'Delete' %}
+      </button>
+    {% endif %}
   </div>
 </div>

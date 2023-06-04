@@ -3,12 +3,30 @@
   <td>{{ forloop.counter }}</td>
   <th>{{ reg.person.name }}</th>
   <th>
-    {% if reg.lodge == 'HSE' %}🏠{% endif %}
-    {% if reg.lodge == 'HTL' %}🏨{% endif %}
+    {% if reg.lodge == 'HSE' %}
+      <span
+        data-bs-toggle="tooltip" 
+        data-bs-placement="left"
+        data-bs-custom-class="custom-tooltip"
+        data-bs-title="house"
+      >
+        🏠
+      </span>
+    {% endif %}
+    {% if reg.lodge == 'HTL' %}
+      <span
+        data-bs-toggle="tooltip" 
+        data-bs-placement="left"
+        data-bs-custom-class="custom-tooltip"
+        data-bs-title="hotel"
+      >
+        🏨
+      </span>
+    {% endif %}
     {% if reg.lodge == 'LDG' %}
       <div 
         data-bs-toggle="tooltip" 
-        data-bs-placement="top"
+        data-bs-placement="left"
         data-bs-custom-class="custom-tooltip"
         data-bs-title="{% if reg.accommodation %}{{ reg.accommodation.bedroom.building.name }}{% else %}not alocated{% endif %}"
       >
@@ -28,7 +46,6 @@
           </span>
         {% else %}
           <img class="icon-style" src="{% static 'img/icons/bed_EMPTY.png' %}" alt="no stairs" style="width:20px;height:20px;">
-          <span class="text-danger">not alocated</SPAN>
         {% endif %}
       </div>
     {% endif %}
@@ -79,6 +96,14 @@
       <img class="icon-style" src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk">
     {% endif %}
   </td>
+  <td {% if reg.observations %}
+    data-bs-toggle="tooltip" 
+    data-bs-placement="top"
+    data-bs-custom-class="custom-tooltip"
+    data-bs-title="{{ reg.observations }}"
+  {% endif %}>
+    {% if reg.observations %}{{ reg.observations|truncatechars:20 }}{% endif %}
+  </td>
   <td class="d-flex justify-content-between">
     {{ reg.staff }}
     <button 
@@ -91,13 +116,5 @@
     >
       <i class="bi bi-pencil"></i>
     </button>
-  </td>
-  <td {% if reg.observations %}
-    data-bs-toggle="tooltip" 
-    data-bs-placement="top"
-    data-bs-custom-class="custom-tooltip"
-    data-bs-title="{{ reg.observations }}"
-  {% endif %}>
-    {% if reg.observations %}{{ reg.observations|truncatechars:20 }}{% endif %}
   </td>
 </tr>

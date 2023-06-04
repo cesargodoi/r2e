@@ -3,7 +3,6 @@ from django.shortcuts import render, redirect, HttpResponse
 from django.template.loader import render_to_string
 from django.views.generic import View
 from django.views.generic import DetailView
-from django.core.paginator import Paginator
 
 from apps.event.models import Event, Accommodation
 
@@ -13,7 +12,7 @@ from apps.center.models import Bedroom
 
 from ..forms import StaffForm
 
-from r2e.commom import clear_session, get_pagination_url
+from r2e.commom import clear_session, get_pagination_url, get_paginator
 
 
 class Accommodations(DetailView):
@@ -37,10 +36,7 @@ class Accommodations(DetailView):
         elif self.request.GET.get("filter") == "unalloc":
             queryset = queryset.filter(lodge="LDG", accommodation__isnull=True)
 
-        items_per_page = 10
-        paginator = Paginator(queryset, items_per_page)
-        page_number = self.request.GET.get("page") or 1
-        page_obj = paginator.get_page(page_number)
+        page_obj = get_paginator(self.request, queryset)
 
         context["title"] = "Accommodation management"
         context["event_id"] = self.object.pk

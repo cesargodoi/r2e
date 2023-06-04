@@ -1,7 +1,7 @@
 <!-- Stays | start -->
 <div class="card shadow mb-3">
   <div class="card-header py-3">
-    <p class="text-primary m-0 fw-bold">Registers</p>
+    {% include 'base/list_search.html' with list_title="Accommodations" placeholder="Search by name..." %}
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -14,8 +14,8 @@
             <th>Arrival</th>
             <th>Departure</th>
             <th>Restr.</th>
+            <th>Obs</th>
             <th>Staff</th>
-            <th>Observations</th>
           </tr>
           <tbody id="stay_list">
             {% for reg in registers %}

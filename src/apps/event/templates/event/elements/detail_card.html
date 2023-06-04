@@ -1,31 +1,9 @@
 {% load static %}
 <div class="card mb-3">
   <div class="card-body shadow">
-    <div class="row mb-3 border-bottom">
-      <div class="col-md-6">
-        <div class="d-flex justify-content-between">
-          <h2>{{ object.activity.name }}</h2>
-          <h2>
-            <span class="badge bg-{% if object.status == 'OPN'%}primary{% else %}secondary{% endif %}">
-              {{ object.get_status_display|upper }}
-            </span>
-          </h2>
-        </div>
-        <p class="fw-bold mb-4">
-          {{ object.center.short_name }} - 
-          {{ object.center.city }} ({{ object.center.state }}-{{ object.center.country }})
-          &nbsp;&nbsp;&nbsp; {{ object.date|date:"M/Y" }}
-        </p>
-        <p 
-          class="lead mb-4"
-          data-bs-toggle="tooltip" 
-          data-bs-placement="bottom" 
-          data-bs-title="{{ object.description }}"
-        >
-          {{ object.description|truncatechars:80 }}
-        </p>
-      </div>
-      <div class="col-md-6">
+    {% include 'event/accommodation/elements/page_header.html' with stts=object.status status=object.get_status_display %}
+    <div class="row mb-3 bg-light">
+      <div class="col-lg-4">
         <table class="table table-sm">
           <tr>
             <th>periodo:</th>
@@ -35,13 +13,34 @@
             <th>inscrições até:</th>
             <td class="lead">{{ object.deadline|date:"d/m/Y" }} às {{ object.deadline|date:"H:i" }}</td>
           </tr>
+        </table>
+      </div>
+      <div class="col-lg-4">
+        <table class="table table-sm">
           <tr>
             <th>taxa de registro:</th>
             <td class="lead">{{ object.ref_value }} &nbsp;&nbsp; <small class="text-warning"><em>(min. {{ object.min_value }})</em></small></td>
           </tr>
           <tr>
+            <th>obs:</th>
+            <td class="lead">
+              <span 
+                class="lead mb-4"
+                data-bs-toggle="tooltip" 
+                data-bs-placement="bottom" 
+                data-bs-title="{{ object.description }}"
+              >
+                {{ object.description|truncatechars:25 }}
+            </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-lg-4">
+        <table class="table table-sm">
+          <tr>
             <th>total no evento:</th>
-            <td class="h4"><strong>{% if total_registers|length > 0 %}{{ total_registers|length }}{% endif %}</strong></td>
+            <td class="h4"><strong>{% if total_registers > 0 %}{{ total_registers }}{% endif %}</strong></td>
           </tr>
           <tr>
             <th>inscritos no núcleo:</th>
@@ -50,15 +49,13 @@
         </table>
       </div>
     </div>
-
     <div class="text-end mb-3">
       <button 
-        type="button" 
-        class="btn btn-outline-info"
-        onclick="location.href='{% url 'event:list' %}';"
+        type="button"
+        class="btn btn-outline-primary" 
+        onclick="location.href='{% url 'register:create_order' user_center object.pk %}';"
       >
-        <i class="bi bi-chevron-left"></i>
-        Voltar 
+        <i class="bi bi-plus-lg"></i> Inscrever
       </button>
       <button 
         type="button"
@@ -79,13 +76,12 @@
         Acomodações 
       </button>
       <button 
-        type="button"
-        class="btn btn-outline-danger" 
-        data-bs-toggle="modal" 
-        data-bs-target="#baseModal"
-        onclick="manageData('{% url 'event:delete' object.pk %}')"
+        type="button" 
+        class="btn btn-outline-info"
+        onclick="location.href='{% url 'event:list' %}';"
       >
-        <i class="bi bi-trash"></i> Deletar
+        <i class="bi bi-chevron-left"></i>
+        Voltar 
       </button>
     </div>
   </div>

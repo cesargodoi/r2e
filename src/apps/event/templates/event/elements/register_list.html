@@ -1,11 +1,13 @@
 <!-- Stays | start -->
 <div class="card shadow mb-3">
   <div class="card-header py-3">
-    <p class="text-primary m-0 fw-bold">Registers</p>
+    <div class="card-header py-3">
+      {% include 'base/list_search.html' with list_title="Registers" placeholder="Search by name..." %}
+    </div>
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
-      {% if registers.count > 0 %}
+      {% if registers|length > 0 %}
         <table class="table table-sm">
           <tr>
             <th>#</th>
@@ -23,16 +25,11 @@
             {% endfor %}
           </tbody>
         </table>
+      {% else %}
+        <div class="alert alert-secondary" role="alert">
+          Register not found.
+        </div>
       {% endif %}
-    </div>
-    <div class="text-end mb-3">
-      <button 
-        type="button"
-        class="btn btn-outline-primary" 
-        onclick="location.href='{% url 'register:create_order' user_center object.pk %}';"
-      >
-        <i class="bi bi-plus-lg"></i> Add 
-      </button>
     </div>
   </div>
 </div>

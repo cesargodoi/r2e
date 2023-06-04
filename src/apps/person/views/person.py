@@ -10,11 +10,12 @@ from django.views.generic import (
 
 from ..models import Person
 from ..forms import PersonForm
+from r2e.commom import get_pagination_url
 
 
 class PersonList(ListView):
     model = Person
-    paginate = 10
+    paginate_by = 10
     extra_context = {"title": "People"}
 
     def get_queryset(self):
@@ -28,7 +29,8 @@ class PersonList(ListView):
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "people"
         context = super().get_context_data(**kwargs)
-        context["q"] = self.request.GET.get("q")
+        context["q"] = self.request.GET.get("q") or ""
+        context["pagination_url"] = get_pagination_url(self.request)
         return context
 
 

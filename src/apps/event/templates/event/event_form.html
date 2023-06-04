@@ -2,7 +2,7 @@
 {% load i18n %}
 {% load widget_tweaks %}
 {% include 'base/hx/offcanvas_title.html' %}
-<form hx-post="{{ request.path }}">
+<form id="form" hx-post="{{ request.path }}">
   {% csrf_token %}
   {% for field in form.visible_fields %}
     {% if field|field_type == "booleanfield" %}

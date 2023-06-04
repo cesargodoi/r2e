@@ -1,5 +1,7 @@
-{% load django_bootstrap5 %}
-<div class="d-flex align-items-center mb-3">
+<div class="d-flex justify-content-end align-items-center">
+  {% if page_obj.paginator.count > 0 %}
+    <span>{{ page_obj.paginator.count }} registro{{ page_obj.paginator.count|pluralize }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  {% endif %}
   <div class="pagination">
     {% if page_obj.paginator.num_pages > 1 %}
       {% if page_obj.has_previous %}
@@ -12,7 +14,7 @@
           <span class="page-item active">
             <span class="page-link">{{ num }}</span>
           </span>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'3' %}
           <span class="page-item">
             <a class="page-link" href="{{ pagination_url }}&page={{ num }}">{{ num }}</a>
           </span>
@@ -25,6 +27,4 @@
       {% endif %}
     {% endif %}
   </div>
-  {% if page_obj.paginator.num_pages > 1 %}&nbsp;&nbsp;&nbsp;&nbsp;{% endif %}
-  <span>{{ page_obj.paginator.count }} registro{{ page_obj.paginator.count|pluralize }} encontrado{{ page_obj.paginator.count|pluralize }}</span>
 </div>

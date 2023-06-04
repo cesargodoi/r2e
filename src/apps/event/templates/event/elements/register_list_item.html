@@ -8,8 +8,8 @@
     {% if reg.lodge == 'LDG' %}🏢{% endif %}
     {{ reg.get_lodge_display }}
   </td>
-  <td>{{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display|lower }}</td>
-  <td>{{ reg.get_departure_time_display }}</td>
+  <td>⤵️ {{ reg.get_arrival_time_display }}</td>
+  <td>⤴️ {{ reg.get_departure_time_display }}</td>
   <td>
     {% if reg.no_stairs %}
       <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;

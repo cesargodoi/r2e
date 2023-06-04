@@ -3,7 +3,7 @@
 
 <div class="card shadow">
   <div class="card-header py-3">
-    <p class="text-primary m-0 fw-bold">Events</p>
+    {% include 'base/list_search.html' with list_title="Events" placeholder="Search by MM/YY..." %}
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">

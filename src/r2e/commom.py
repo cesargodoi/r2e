@@ -1,6 +1,7 @@
 import re
 from unicodedata import normalize
 from django.utils.translation import gettext_lazy as _
+from django.core.paginator import Paginator
 from datetime import date
 
 
@@ -160,6 +161,12 @@ def get_bedroom_type(stay):
 
 def get_age(birth):
     return (date.today() - birth).days // 365
+
+
+def get_paginator(request, queryset, quant=10):
+    paginator = Paginator(queryset, quant)
+    page_number = request.GET.get("page") or 1
+    return paginator.get_page(page_number)
 
 
 def get_pagination_url(request):
