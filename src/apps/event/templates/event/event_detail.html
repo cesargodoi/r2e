@@ -10,6 +10,23 @@
   {% include 'base/offcanvas.html' %}
 {% endblock %}
 
+{% block float_buttoms %}
+  <button 
+    type="button"
+    class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
+    onclick="location.href='{% url 'register:create_order' user_center object.pk %}';"
+  >
+    <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
+  <button 
+    type="button"
+    class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
+    onclick="location.href='{% url 'event:list' %}';"
+  >
+    <i class="fa fa-angle-left text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
+{% endblock %}
+
 {% block scripts %}
 <script src="{% static 'js/modal_form.js' %}"></script>
 <script>

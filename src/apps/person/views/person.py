@@ -1,4 +1,4 @@
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 from django.views.generic import (
     ListView,
@@ -48,6 +48,9 @@ class PersonDetail(DetailView):
         )
         context["registers"] = self.object.registers.all().order_by(
             "-created_on"
+        )
+        context["delete_link"] = reverse(
+            "person:delete", args=[self.object.pk]
         )
         return context
 

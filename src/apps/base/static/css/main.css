@@ -2,14 +2,30 @@
   cursor: pointer;
 }
 
-.float-buttom-plus{
+.float-buttom-plus {
   width: 3rem;
   height: 3rem;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
   z-index: 5;
   position: fixed;
   bottom: 15px;
   right: 73px;
+}
+
+.float-buttom {
+  width: 3rem;
+  height: 3rem;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
+  margin-right: .7rem;
+}
+
+.float-buttoms {
+  display: flex;
+  justify-content: flex-end;
+  z-index: 5;
+  position: fixed;
+  bottom: 16px;
+  right: 64px;
 }
 
 .scroll-to-top {
@@ -21,23 +37,24 @@
   height: 3rem;
   text-align: center;
   color: #fff;
-  background: rgba(90,92,105, 0.9);
+  background: rgba(90, 92, 105, 0.9);
   line-height: 46px;
   border-radius: 50% !important;
-  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
   z-index: 5;
 }
 
-.search-inline, .search-item {
+.search-inline,
+.search-item {
   width: 22rem;
 }
 
 .search-item:hover {
-  background-color:  #dee2e6;
+  background-color: #dee2e6;
 }
 
 .suggestion-list {
-  position: absolute; 
+  position: absolute;
   z-index: 100;
   top: 2.5rem;
 }

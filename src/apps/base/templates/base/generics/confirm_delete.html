@@ -12,10 +12,10 @@
 <div class="modal-footer">
   <form method="POST" action="{{ request.path }}">
     {% csrf_token %}
-    <div class="btn-group text-right" role="group">
+    <div class="text-right">
       <button 
         type="button" 
-        class="btn btn-info" 
+        class="btn btn-outline-info" 
         data-bs-dismiss="modal" 
         aria-label="Close"
       >
@@ -24,7 +24,7 @@
       </button>
       <button 
         type="submit"
-        class="btn btn-danger"
+        class="btn btn-outline-danger"
       >
         <i class="bi bi-check-lg"></i>
         {% trans 'Delete' %}

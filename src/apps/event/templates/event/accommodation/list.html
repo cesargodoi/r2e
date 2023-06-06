@@ -4,11 +4,22 @@
 {% block content %}
   <div class="mb-3">
     {% include 'event/accommodation/elements/event_card.html' %}
+    {% include 'event/accommodation/elements/navbar.html' %}
     {% include 'event/accommodation/elements/person_list.html' %}
   </div>
 
   {% include 'base/modal.html' %}
   {% include 'base/offcanvas.html' %}
+{% endblock  %}
+
+{% block float_buttoms %}
+  <button 
+    type="button"
+    class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
+    onclick="location.href='{% url 'event:detail' object.pk %}';"
+  >
+    <i class="fa fa-angle-left text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
 {% endblock  %}
 
 {% block scripts %}

@@ -51,11 +51,12 @@
     </div>
     <div class="text-end mb-3">
       <button 
-        type="button"
-        class="btn btn-outline-primary" 
-        onclick="location.href='{% url 'register:create_order' user_center object.pk %}';"
+        type="button" 
+        class="btn btn-outline-success"
+        onclick="location.href='{% url 'event:accommodations' object.pk %}';"
       >
-        <i class="bi bi-plus-lg"></i> Inscrever
+        <i class="bi bi-building"></i>
+        Acomodações 
       </button>
       <button 
         type="button"
@@ -66,22 +67,6 @@
         onclick="manageForm('{% url 'event:update' object.pk %}');"
       >
         <i class="bi bi-pencil"></i> Editar
-      </button>
-      <button 
-        type="button" 
-        class="btn btn-outline-success"
-        onclick="location.href='{% url 'event:accommodations' object.pk %}';"
-      >
-        <i class="bi bi-building"></i>
-        Acomodações 
-      </button>
-      <button 
-        type="button" 
-        class="btn btn-outline-info"
-        onclick="location.href='{% url 'event:list' %}';"
-      >
-        <i class="bi bi-chevron-left"></i>
-        Voltar 
       </button>
     </div>
   </div>

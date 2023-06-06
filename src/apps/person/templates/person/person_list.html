@@ -3,21 +3,22 @@
 {% block content %}
   {% include 'person/elements/list_header.html' %}
   {% include 'person/elements/list_table.html' %}
-  <div class="text-end mt-4 me-4">
-    <button 
-      type="button"
-      class="float-buttom-plus border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
-      data-bs-toggle="offcanvas" 
-      data-bs-target="#offcanvasForm" 
-      aria-controls="offcanvasForm"
-      onclick="manageForm('{% url 'person:create' %}')"
-    >
-      <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
-    </button>
-  </div>
   {% include 'base/modal.html' %}
   {% include 'base/offcanvas.html' %}
 {% endblock  %}
+
+{% block float_buttoms %}
+  <button 
+    type="button"
+    class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
+    data-bs-toggle="offcanvas" 
+    data-bs-target="#offcanvasForm" 
+    aria-controls="offcanvasForm"
+    onclick="manageForm('{% url 'person:create' %}')"
+  >
+    <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
+{% endblock %}
 
 {% block scripts %}
 <script src="{% static 'js/modal_form.js' %}"></script>
