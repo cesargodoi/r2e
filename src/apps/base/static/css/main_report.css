@@ -1,0 +1,27 @@
+body {
+  width: 1000px;
+  margin: 0 auto;
+  font-size: 8pt;
+  font-family: arial, helvetica;
+}
+
+@media screen {
+
+  .floating {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 200;
+    margin: 20px;
+    padding: 20px;
+    background-color: #efefef;
+  }
+}
+
+@media print {
+
+  a,
+  #controlers {
+    display: none;
+  }
+}

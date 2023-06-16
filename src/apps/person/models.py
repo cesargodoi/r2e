@@ -14,7 +14,6 @@ from r2e.commom import (
     DEPARTURE_TIME,
     BEDROOM_TYPE,
     us_inter_char,
-    short_name,
     phone_format,
 )
 
@@ -25,7 +24,6 @@ class Person(models.Model):
     )
     name = models.CharField(_("name"), max_length=50, unique=True)
     name_sa = models.CharField(max_length=50, editable=False)
-    short_name = models.CharField(max_length=30, editable=False)
     id_card = models.CharField(_("id card"), max_length=40, unique=True)
     gender = models.CharField(
         _("gender"), max_length=1, choices=GENDER, default="M"
@@ -73,7 +71,6 @@ class Person(models.Model):
 
     def save(self, *args, **kwargs):
         self.name_sa = us_inter_char(self.name)
-        self.short_name = short_name(self.name)
         self.phone = phone_format(self.phone) if self.phone else None
         self.sos_phone = (
             phone_format(self.sos_phone) if self.sos_phone else None
@@ -182,8 +179,8 @@ class PersonStay(models.Model):
         return "{} | {} | [{}, {}]".format(
             self.person.name,
             self.get_lodge_display(),
-            self.get_arrival_date_display(),
             self.get_arrival_time_display(),
+            self.get_departure_time_display(),
         )
 
     class Meta:
