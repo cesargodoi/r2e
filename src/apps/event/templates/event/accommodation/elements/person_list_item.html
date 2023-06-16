@@ -45,7 +45,7 @@
             {{ reg.accommodation.bedroom.name }}
           </span>
         {% else %}
-          <img class="icon-style" src="{% static 'img/icons/bed_EMPTY.png' %}" alt="no stairs" style="width:20px;height:20px;">
+          <img class="icon-style" src="{% static 'img/icons/bed_EMPTY.png' %}" alt="no stairs">
         {% endif %}
       </div>
     {% endif %}
@@ -105,8 +105,7 @@
     {% if reg.observations %}{{ reg.observations|truncatechars:20 }}{% endif %}
   </td>
   <td>
-    <div class="d-flex justify-content-between">
-      {{ reg.staff }}
+    <div class="d-flex justify-content-between flex-row-reverse">
       <button 
         type="button"
         class="btn btn-light text-secondary btn-sm" 
@@ -117,6 +116,7 @@
       >
         <i class="bi bi-pencil"></i>
       </button>
+      {{ reg.staff }}
     </div>
   </td>
 </tr>

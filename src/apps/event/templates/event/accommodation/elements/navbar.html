@@ -13,7 +13,19 @@
         <h5 class="offcanvas-title mb-3 border-bottom">Reports</h5>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#"><i class="bi bi-file-earmark-ruled"></i> Mapping</a>
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_mapping_by_room' event.pk %}">
+              <i class="bi bi-file-earmark-ruled"></i> Accommodation mapping by room
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_mapping_per_person' event.pk %}">
+              <i class="bi bi-file-earmark-ruled"></i> Accommodation mapping per person
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_people_at_the_event' event.pk %}">
+              <i class="bi bi-file-earmark-ruled"></i> People on event
+            </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="#"><i class="bi bi-file-earmark-ruled"></i> Staff</a>

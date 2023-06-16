@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+
+{% with building="" name="" bottom_or_top=""%}
+  {% for obj in object_list %}
+    {% ifchanged obj.bedroom.building %}
+      {% with building=obj.bedroom.building %}
+        <h3 class="mt-4 fw-bolder">{{ obj.bedroom.building }}</h3>
+      {% endwith %}
+    {% endifchanged %}
+    {% ifchanged obj.bedroom.name %}
+      {% with name=obj.bedroom.name %}
+        <h5 class="mt-4">Quarto:  &nbsp;&nbsp;<strong>{{ obj.bedroom.name }}</strong></h3>
+      {% endwith %}
+    {% endifchanged %}
+    {% ifchanged obj.bottom_or_top %}
+      {% with bottom_or_top=obj.bottom_or_op %}
+        {% if obj.bottom_or_top == 'T' %}<br>cama de cima<br>{% else %}cama de baixo<br>{% endif %}
+      {% endwith %}
+    {% endifchanged %}
+    {% if obj.bottom_or_top == 'T' %} 
+      <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}">
+    {% else %}
+      <img class="icon-style" src="{% static 'img/icons/bed_BY.png' %}">
+    {% endif %}
+    {% if obj.register.person %} {{ obj.register.person.name }}{% else %} unused{% endif %}</span> &nbsp;&nbsp;
+  {% endfor %}
+{% endwith %}
+
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+  <h1>{{ title }}</h1>
+
+  <table class="table table-sm" style="font-size: smaller;">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Hospedagem</th>
+        <th scope="col">Chegada</th>
+        <th scope="col">Partida</th>
+        <th scope="col">Obs</th>
+        <th scope="col">Staff</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for obj in object_list %}
+        <tr>
+          <th>{{ forloop.counter }}</th>
+          <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
+          <td>
+            {% if obj.lodge == 'HSE' %}
+              🏠 CASA
+            {% elif obj.lodge == 'HTL' %}
+              🏨 HOTEL
+            {% else %}
+              {% if obj.accommodation %}
+              {{ obj.accommodation.bedroom.building.name }} | {{ obj.accommodation.bedroom.name }} | {{ obj.accommodation.get_bottom_or_top_display }}
+              {% else %}
+                Não alocado
+              {% endif %}
+            {% endif %}
+          </td>
+          <td>⤵️ {{ obj.get_arrival_time_display }}</td>
+          <td>⤴️ {{ obj.get_departure_time_display }}</td>
+          <td>{{ obj.observations|default:""|truncatechars:25 }}</td>
+          <td>{{ obj.staff|default:"" }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
