@@ -14,21 +14,28 @@
     {% block head %}{% endblock %}
   </head>
   <body>
-    <div class="row border-bottom">
-      <div class='col-sm-8'>
-        <h3>Eventos RC</h3>
-        {% block header %}{% endblock %}
-      </div>
-      <div class='col-sm-4'>
-        <div class="text-end">
-          <b>user:</b><br>
-          <i>{{ user.email }}</i><br>
-          <b>center:</b><br>
-          <i>{{ user.centers.first }}</i><br>
-          <time datetime="{% now 'DATE_FORMAT' %}" pubdate>{% now 'd/m/y - H\hi' %}</time>
+    <div class="border-bottom d-flex justify-content-between">
+      <div class="d-flex align-items-center pt-2 pb-2">
+        <img src="{% static 'img/rca_logo.png' %}" width="50em" height="50em" style="filter: invert();">
+        <div class="ms-3">
+          <span class="h3 mt-2">Eventos RC</span><br>
+          <span class="text-muted fs-6 fw-light fst-italic">
+            {{ event.activity.name }} &nbsp;&nbsp;|&nbsp;&nbsp;
+            {{ event.center.short_name }} - 
+            {{ event.center.city }} ({{ event.center.state }}-{{ event.center.country }})
+            &nbsp;&nbsp; {{ event.date|date:"M/Y" }}
+          </span>
         </div>
       </div>
+      <div class="text-end pt-2 pb-2">
+        <b>user:</b> &nbsp; <i>{{ user.email }}</i><br>
+        <b>center:</b> &nbsp; <i>{{ user.centers.first }}</i><br>
+        <time datetime="{% now 'DATE_FORMAT' %}" pubdate>{% now 'd/m/y - H\hi' %}</time>
+      </div>
     </div>
+    <center>
+      <h4 class="fw-bolder m-3">{{ title }}</h4>
+    </center>
 
     {% block content %}{% endblock %}
 
@@ -39,6 +46,5 @@
       </center>
       {% include 'base/ctrls.html' %}
     {% endblock %}
-
   </body>
 </html>

@@ -1,0 +1,16 @@
+{% extends 'base/base_report.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+  {% with stf="" %}
+    {% for staff in staff_list %}
+      {% ifchanged staff.stf %}
+        {% with stf=staff.stf %}
+          <h4 class="mt-4 fw-bolder">{{ staff.stf }}</h4>
+        {% endwith %}
+      {% endifchanged %}
+      &nbsp; • {{ staff.person }} &nbsp;&nbsp;
+    {% endfor %}
+  {% endwith %}
+{% endblock %}

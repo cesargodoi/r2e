@@ -302,6 +302,8 @@ class AddPayForm(View):
         form = FormOfPaymentForm(_payform)
         if form.is_valid():
             payform = utils.get_dict_payform(_payform)
+            if payform["payment_type"]["id"] == "FRE":
+                self.request.session["order"]["free"] = "true"
             self.request.session["order"]["payforms"].append(payform)
             utils.total_payforms_add(
                 self.request.session["order"], payform["value"]

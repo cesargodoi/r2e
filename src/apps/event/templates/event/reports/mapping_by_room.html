@@ -2,10 +2,6 @@
 {% load static %}
 {% load my_tags %}
 
-{% block header %}
-  <h5>{{ title }}</h5>
-{% endblock  %}
-
 {% block content %}
   {% with building="" name="" bottom_or_top=""%}
     {% for obj in object_list %}

@@ -1,0 +1,50 @@
+{% load i18n %}
+{% block content %}
+  <h3>{{ obj.type|upper }}</h3>
+  {% if obj.type == 'Cash' and obj.objects|length >= 0 %}
+    <div class="table-responsive table mt-2 mb-4">
+      <table class="table table-sm">
+        <tr class="border-top">
+          <th>{{ obj.objects|length }} {% trans 'Records' %}</th>
+          <th class="text-end lead fw-bolder" colspan="5">TOTAL</th>
+          <th width="120px" class="text-end lead fw-bolder">{{ obj.total }}</th>
+        </tr>
+      </table>
+    </div>
+  {% else %}
+    <div class="table-responsive table mt-2 mb-4">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col" width="2%">#</th>
+            <th scope="col" width="17%">{% trans 'Type' %}</th>
+            <th scope="col" width="17%">{% trans 'Bank/Flag' %}</th>
+            <th scope="col" width="17%">{% trans 'Control' %}</th>
+            <th scope="col" width="17%">{% trans 'User' %}</th>
+            <th scope="col" width="17%">{% trans 'On' %}</th>
+            <th scope="col" width="13%" class="text-end">{% trans 'Value' %} $</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for fp in obj.objects %}
+            <tr>
+              <th>{{ forloop.counter }}</th>
+              <td class="fw-bolder">{{ fp.type }}</td>
+              <td>{{ fp.bank_flag|default:' ' }}</td>
+              <td>{{ fp.ctrl|default:' ' }}</td>
+              <td>{{ fp.user }}</td>
+              <td>{{ fp.on }}</td>
+              <td class="fw-bolder text-end">{{ fp.value }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="lead">
+            <th class="text-end" colspan="6">TOTAL</th>
+            <th width="120px" class="text-end">{{ obj.total }}</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  {% endif %}
+{% endblock %}

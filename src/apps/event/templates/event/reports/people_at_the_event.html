@@ -2,22 +2,18 @@
 {% load static %}
 {% load my_tags %}
 
-{% block header %}
-  <h5>{{ title }}</h5>
-{% endblock  %}
-
 {% block content %}
   <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-    <table class="table table-sm" style="font-size: smaller;">
+    <table class="table table-sm">
       <thead>
         <tr>
           <th scope="col" width="2%">#</th>
           <th scope="col" width="14%">Nome</th>
           <th scope="col" width="18%">Hospedagem</th>
-          <th scope="col" width="13%">Chegada</th>
-          <th scope="col" width="13%">Partida</th>
-          <th scope="col" width="20%">Obs</th>
-          <th scope="col" width="20%">Staff</th>
+          <th scope="col" width="15%">Chegada</th>
+          <th scope="col" width="15%">Partida</th>
+          <th scope="col" width="18%">Obs</th>
+          <th scope="col" width="18%">Staff</th>
         </tr>
       </thead>
       <tbody>
@@ -27,20 +23,19 @@
             <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
             <td>
               {% if obj.lodge == 'HSE' %}
-                🏠 CASA
+                CASA
               {% elif obj.lodge == 'HTL' %}
-                🏨 HOTEL
+                HOTEL
               {% else %}
-                🏢 
                 {% if obj.accommodation %}
-                  {{ obj.accommodation.bedroom.building.name }} | {{ obj.accommodation.bedroom.name }} | {{ obj.accommodation.get_bottom_or_top_display }}
+                  {{ obj.accommodation.bedroom.building.name }} | {{ obj.accommodation.bedroom.name }} | {{ obj.accommodation.bottom_or_top }}
                 {% else %}
                   Não alocado
                 {% endif %}
               {% endif %}
             </td>
-            <td>⤵️ {{ obj.get_arrival_time_display }}</td>
-            <td>⤴️ {{ obj.get_departure_time_display }}</td>
+            <td>{{ obj.get_arrival_time_display }}</td>
+            <td>{{ obj.get_departure_time_display }}</td>
             <td>{{ obj.observations|default:""|truncatechars:25 }}</td>
             <td>{{ obj.staff|default:"" }}</td>
           </tr>
