@@ -1,3 +1,4 @@
+{% load static %}
 {% load i18n %}
 <nav class="navbar bg-light mb-3">
   <div class="container-fluid">
@@ -14,9 +15,44 @@
         <h5 class="offcanvas-title mb-3 border-bottom">Reports</h5>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'event:report_cash_balance' event.pk %}" target="_blank">
+            <span 
+              class="nav-link" 
+              aria-current="page" 
+              href="#"
+              onclick="togleBalanceType();"
+            >
               <i class="bi bi-file-earmark-ruled"></i> {% trans 'Cash balance' %}
-            </a>
+            </span>
+          </li>
+          <li class="nav-item" id="balanceType" style="display: none;">
+            <div class="list-group list-group-flush effect-trans">
+              <a 
+              class="list-group-item list-group-item-action"
+              href="{% url 'event:report_cash_balance' event.pk %}?days=today" 
+              >
+                Today
+              </a>
+              <span 
+                class="list-group-item list-group-item-action"
+              >
+                Last <input id="nDays" type="number" class="single-form-control" style="width: 4rem;" value="7" /> 
+                <a 
+                  class="btn btn-primary btn-sm" 
+                  href="#"
+                  style="text-decoration: none;"
+                  onclick="get_days()"
+                >
+                  Days
+                </a>
+              </span>
+              <a 
+                class="list-group-item list-group-item-action"
+                href="{% url 'event:report_cash_balance' event.pk %}"
+                target="_blank"
+              >
+                All
+              </a>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'event:report_payment_per_person' event.pk %}" target="_blank">
@@ -55,3 +91,21 @@
     </div>
   </div>
 </nav>
+
+<script>
+  function togleBalanceType() {
+    var balanceType = document.getElementById('balanceType');
+    if (balanceType.style.display === 'none') {
+      balanceType.style.display = 'block';
+    } else {
+      balanceType.style.display = 'none';
+    }
+  }
+
+  function get_days() {
+    var nDays = document.getElementById('nDays');
+    url = `{% url 'event:report_cash_balance' event.pk %}?days=${nDays.value}`;
+    var win = window.open(url, '_blank');
+    win.focus();
+  }
+</script>
