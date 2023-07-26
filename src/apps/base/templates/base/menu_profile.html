@@ -4,10 +4,14 @@
   <div class="nav-item dropdown no-arrow">
     <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
       <span class="d-none d-lg-inline me-2 text-gray-600 small">{{ request.user }}</span>
-      <img class="border rounded-circle img-profile" src="{% static 'img/avatars/avatar1.jpeg' %}">
+      {% if user.person.first.gender == 'M' %}
+        <img src="{% static 'img/male.png' %}" alt="male" style="width:25px;height:25px;"> &nbsp;&nbsp;
+      {% else %}
+        <img src="{% static 'img/female.png' %}" alt="female" style="width:25px;height:25px;"> &nbsp;&nbsp;
+      {% endif %}
     </a>
     <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in">
-      <a class="dropdown-item" href="#">
+      <a class="dropdown-item" href="{% url 'person:detail' user.person.first.id %}">
         <i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile
       </a>
       <a class="dropdown-item" href="#">
