@@ -1,5 +1,4 @@
   {% load static %}
-  
   <!DOCTYPE html>
   <html lang="en">
   
@@ -27,13 +26,9 @@
           <div class="container-fluid d-flex flex-column p-0">
             <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
               <div class="sidebar-brand-icon">
-                {% comment %} <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-calendar-event fs-5">
-                  <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"></path>
-                  <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"></path>
-                </svg> {% endcomment %}
                 <img src="{% static 'img/rca_logo.png' %}" width="45em" height="45em">
               </div>
-              <div class="sidebar-brand-text mx-3"><span>Eventos RC</span></div>
+              <div class="sidebar-brand-text mx-3"><span>Eventos RCA</span></div>
             </a>
             <hr class="sidebar-divider my-0">
               {% include 'base/sidebar.html' %}
@@ -50,7 +45,7 @@
               <button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button">
                 <i class="fas fa-bars"></i>
               </button>
-              <h3 class="mb-0" >Eventos RC</h3>
+              <h3 class="mb-0" >Eventos RCA</h3>
               <ul class="navbar-nav flex-nowrap ms-auto">
                 <!-- actions -->
                 {% block actions %}{% endblock %}

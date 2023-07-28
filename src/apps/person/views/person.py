@@ -7,13 +7,15 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from ..models import Person
 from ..forms import PersonForm
+
 from r2e.commom import get_pagination_url
 
 
-class PersonList(ListView):
+class PersonList(LoginRequiredMixin, ListView):
     model = Person
     paginate_by = 10
     extra_context = {"title": "People"}
@@ -34,7 +36,7 @@ class PersonList(ListView):
         return context
 
 
-class PersonDetail(DetailView):
+class PersonDetail(LoginRequiredMixin, DetailView):
     model = Person
     extra_context = {"title": "Person detail"}
 
@@ -55,7 +57,7 @@ class PersonDetail(DetailView):
         return context
 
 
-class PersonCreate(CreateView):
+class PersonCreate(LoginRequiredMixin, CreateView):
     model = Person
     form_class = PersonForm
     success_url = reverse_lazy("person:list")
@@ -63,7 +65,7 @@ class PersonCreate(CreateView):
 
     def get_initial(self):
         initial = super().get_initial()
-        initial["center"] = self.request.user.centers.first()
+        initial["center"] = self.request.user.person.center
         initial["created_by"] = self.request.user
         initial["modified_by"] = self.request.user
         return initial
@@ -73,7 +75,7 @@ class PersonCreate(CreateView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class PersonUpdate(UpdateView):
+class PersonUpdate(LoginRequiredMixin, UpdateView):
     model = Person
     form_class = PersonForm
     extra_context = {"title": "Update Person"}
@@ -93,7 +95,7 @@ class PersonUpdate(UpdateView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class PersonDelete(DeleteView):
+class PersonDelete(LoginRequiredMixin, DeleteView):
     model = Person
     template_name = "base/generics/confirm_delete.html"
     success_url = reverse_lazy("person:list")

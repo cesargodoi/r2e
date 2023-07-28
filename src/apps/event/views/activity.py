@@ -1,4 +1,5 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
     CreateView,
@@ -10,7 +11,7 @@ from ..models import Activity
 from ..forms import ActivityForm
 
 
-class ActivityList(ListView):
+class ActivityList(LoginRequiredMixin, ListView):
     model = Activity
     template_name = "event/activity/list.html"
 
@@ -27,7 +28,7 @@ class ActivityList(ListView):
         return context
 
 
-class ActivityCreate(CreateView):
+class ActivityCreate(LoginRequiredMixin, CreateView):
     model = Activity
     form_class = ActivityForm
     template_name = "event/activity/form.html"
@@ -35,7 +36,7 @@ class ActivityCreate(CreateView):
     extra_context = {"title": "Create Activity"}
 
 
-class ActivityUpdate(UpdateView):
+class ActivityUpdate(LoginRequiredMixin, UpdateView):
     model = Activity
     form_class = ActivityForm
     template_name = "event/activity/form.html"
@@ -43,7 +44,7 @@ class ActivityUpdate(UpdateView):
     extra_context = {"title": "Update Activity"}
 
 
-class ActivityDelete(DeleteView):
+class ActivityDelete(LoginRequiredMixin, DeleteView):
     model = Activity
     template_name = "event/activity/confirm_delete.html"
     success_url = reverse_lazy("event:activity_list")

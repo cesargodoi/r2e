@@ -2,6 +2,7 @@ from datetime import datetime
 from django.db.models import Count
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
     CreateView,
@@ -11,12 +12,14 @@ from django.views.generic import (
 )
 from ..models import Event
 from ..forms import EventForm
+
 from apps.register.models import Register
+
 from r2e.commom import clear_session, get_pagination_url, get_paginator
 
 
 # Event Views
-class EventList(ListView):
+class EventList(LoginRequiredMixin, ListView):
     model = Event
     paginate_by = 10
     extra_context = {"title": "Events"}
@@ -39,7 +42,7 @@ class EventList(ListView):
         return context
 
 
-class EventDetail(DetailView):
+class EventDetail(LoginRequiredMixin, DetailView):
     model = Event
     extra_context = {"title": "Records management"}
 
@@ -48,7 +51,7 @@ class EventDetail(DetailView):
             del self.request.session["accommodation"]
         clear_session(self.request, ["order"])
         self.request.session["nav_item"] = "event"
-        user_center = self.request.user.centers.first()
+        user_center = self.request.user.person.center
         context = super().get_context_data(**kwargs)
 
         context["user_center"] = user_center.id
@@ -71,7 +74,7 @@ class EventDetail(DetailView):
         return context
 
 
-class EventCreate(CreateView):
+class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
     success_url = reverse_lazy("event:list")
@@ -88,7 +91,7 @@ class EventCreate(CreateView):
         return HttpResponse(headers={"HX-Redirect": reverse("event:list")})
 
 
-class EventUpdate(UpdateView):
+class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     form_class = EventForm
     extra_context = {"title": "Update Event"}
@@ -112,7 +115,7 @@ class EventUpdate(UpdateView):
         )
 
 
-class EventDelete(DeleteView):
+class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
     template_name = "base/generics/confirm_delete.html"
     success_url = reverse_lazy("event:list")

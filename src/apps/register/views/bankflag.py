@@ -1,4 +1,6 @@
 from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 from ..models import BankFlag
@@ -6,44 +8,55 @@ from ..forms import BankFlagForm
 
 
 # BankFlag Views
-class BankFlagList(ListView):
+class BankFlagList(LoginRequiredMixin, ListView):
     model = BankFlag
     template_name = "register/bankflag/list.html"
-
-
-class BankFlagCreate(CreateView):
-    model = BankFlag
-    form_class = BankFlagForm
-    template_name = "register/bankflag/form.html"
-    success_url = reverse_lazy("register:bankflag_list")
-    extra_context = {"title": "Create Bank or Flag"}
-
-
-class BankFlagUpdate(UpdateView):
-    model = BankFlag
-    form_class = BankFlagForm
-    template_name = "register/bankflag/form.html"
-    success_url = reverse_lazy("register:bankflag_list")
-    extra_context = {"title": "Update Bank or Flag"}
-
-
-class BankFlagDelete(DeleteView):
-    model = BankFlag
-    template_name = "register/bankflag/confirm_delete.html"
-    success_url = reverse_lazy("register:bankflag_list")
-
-
-class BankFlagSearch(ListView):
-    model = BankFlag
-    paginate_by = 10
-    template_name = "register/bankflag/list.html"
+    extra_context = {"title": "Bank and Flags"}
 
     def get_queryset(self):
+        if not self.request.GET.get("q"):
+            return BankFlag.objects.all()
         return BankFlag.objects.filter(
             name__icontains=self.request.GET.get("q")
         )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["q"] = self.request.GET.get("q")
+        if self.request.GET.get("q"):
+            context["q"] = self.request.GET.get("q")
         return context
+
+
+class BankFlagCreate(LoginRequiredMixin, CreateView):
+    model = BankFlag
+    form_class = BankFlagForm
+    template_name = "register/bankflag/form.html"
+    success_url = reverse_lazy("register:bankflag_list")
+    extra_context = {"title": "Create Bank or Flag"}
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponse(headers={"HX-Refresh": "true"})
+
+
+class BankFlagUpdate(LoginRequiredMixin, UpdateView):
+    model = BankFlag
+    form_class = BankFlagForm
+    template_name = "register/bankflag/form.html"
+    extra_context = {"title": "Update Bank or Flag"}
+    success_url = reverse_lazy("register:bankflag_list")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["pk"] = self.kwargs["pk"]
+        return context
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponse(headers={"HX-Refresh": "true"})
+
+
+class BankFlagDelete(LoginRequiredMixin, DeleteView):
+    model = BankFlag
+    template_name = "base/generics/confirm_delete.html"
+    success_url = reverse_lazy("register:bankflag_list")

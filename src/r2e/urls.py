@@ -3,6 +3,8 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("accounts/", include("apps.accounts.urls")),
+    path("base/", include("apps.base.urls")),
     path("center/", include("apps.center.urls")),
     path("person/", include("apps.person.urls")),
     path("event/", include("apps.event.urls")),

@@ -1,12 +1,15 @@
 from decimal import Decimal
 from django.views.generic import ListView
-from apps.register.models import Register
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from ..models import Accommodation
+
+from apps.register.models import Register
 
 from r2e.commom import get_age
 
 
-class ReportByAccommodation(ListView):
+class ReportByAccommodation(LoginRequiredMixin, ListView):
     model = Accommodation
 
     def get_object(self, queryset=None):
@@ -18,7 +21,7 @@ class ReportByAccommodation(ListView):
         return context
 
 
-class ReportByRegister(ListView):
+class ReportByRegister(LoginRequiredMixin, ListView):
     model = Register
 
     def get_queryset(self):

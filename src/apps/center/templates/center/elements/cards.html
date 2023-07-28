@@ -24,7 +24,7 @@
           </tr>
           <tr>
             <th scope="row">contact</th>
-            <td>{{ obj.contact }}</td>
+            <td>{% if obj.contact.first.person %}{{ obj.contact.first.person }}{% else %}{{ obj.contact.first }}{% endif %}</td>
           </tr>
         </table>
         <br><br>

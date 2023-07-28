@@ -1,7 +1,32 @@
 {% extends 'base/base.html' %}
-
+{% load static %}
 {% block content %}
-  {% include 'center/elements/navbar.html' %}
-  <br>
-  {% include 'center/elements/cards.html' %}
+  {% include 'center/elements/list_table.html' %}
+  {% include 'base/modal.html' %}
+  {% include 'base/offcanvas.html' %}
 {% endblock  %}
+
+{% block float_buttoms %}
+  <button 
+    type="button"
+    class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
+    data-bs-toggle="offcanvas" 
+    data-bs-target="#offcanvasForm" 
+    aria-controls="offcanvasForm"
+    onclick="manageForm('{% url 'center:create' %}')"
+  >
+    <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/modal_form.js' %}"></script>
+<script>
+  function manageData(url) {
+    htmx.ajax('GET', url, '#baseModalContent')
+  }
+  function manageForm(url) {
+    htmx.ajax('GET', url, '#offcanvasContent')
+  }
+</script>
+{% endblock %}

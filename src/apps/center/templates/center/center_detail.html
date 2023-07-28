@@ -1,0 +1,51 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+  {% include 'center/elements/detail_header.html' %}
+  <div class="row mb-3">
+    <div class="col-lg-4">
+      {% include 'center/elements/detail_card.html' %}
+    </div>
+
+    <div class="col-lg-8">
+      <div class="row">
+        <div class="col">
+          {% include 'center/elements/events.html' %}
+          {% comment %} 
+          {% if credit_log %}
+            {% include 'person/elements/credit_log.html' %}
+          {% endif %}
+          {% if registers %}
+            {% include 'person/elements/registers.html' %}
+          {% endif %} {% endcomment %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include 'base/modal.html' %}
+  {% include 'base/offcanvas.html' %}
+{% endblock %}
+
+
+{% block float_buttoms %}
+  <button 
+    type="button"
+    class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
+    onclick="location.href='{% url 'center:list' %}';"
+  >
+    <i class="fa fa-angle-left text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/modal_form.js' %}"></script>
+<script>
+  function manageData(url) {
+    htmx.ajax('GET', url, '#baseModalContent')
+  }
+  function manageForm(url) {
+    htmx.ajax('GET', url, '#offcanvasContent')
+  }
+</script>
+{% endblock %}

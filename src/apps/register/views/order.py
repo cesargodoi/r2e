@@ -1,8 +1,9 @@
 from django.views.decorators.http import require_http_methods
 from django.http import QueryDict
 from django.shortcuts import render, HttpResponse, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views import View
-from r2e.commom import clear_session, get_bedroom_type
 
 from ..models import Order, Register, FormOfPayment
 from ..forms import FormOfPaymentForm
@@ -12,8 +13,10 @@ from apps.event.models import Event
 from apps.person.models import Person
 from apps.person.views import StayCreate, StayUpdate, PersonCreate
 
+from r2e.commom import clear_session, get_bedroom_type
 
-class CreateOrder(View):
+
+class CreateOrder(LoginRequiredMixin, View):
     template_name = "register/order_form.html"
     basic_context = {"title": "Create Order"}
 
@@ -119,7 +122,7 @@ class UpdateOrder(CreateOrder):
         return render(request, self.template_name, self.basic_context)
 
 
-class DeleteOrder(View):
+class DeleteOrder(LoginRequiredMixin, View):
     template_name = "register/order_delete.html"
     basic_context = {"title": "Delete Order"}
 
@@ -151,6 +154,7 @@ class CreatePerson(PersonCreate):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
+@login_required
 @require_http_methods(["GET"])
 def search_person(request):
     template_name = "register/elements/search_results.html"
@@ -162,7 +166,7 @@ def search_person(request):
     results = (
         Person.objects.filter(
             name_sa__icontains=request.GET.get("term"),
-            center=request.user.centers.first(),
+            center=request.user.person.center,
             is_active=True,
         )[:10]
         if request.GET.get("term")
@@ -172,6 +176,7 @@ def search_person(request):
     return render(request, template_name, context)
 
 
+@login_required
 @require_http_methods(["GET"])
 def add_person(request):
     in_session = [
@@ -195,6 +200,7 @@ def add_person(request):
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
+@login_required
 def adj_register_value(request):
     value = float(request.GET.get("value"))
     register = utils.get_register(
@@ -207,6 +213,7 @@ def adj_register_value(request):
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
+@login_required
 def del_register(request):
     register = utils.get_register(
         request.session["order"], request.GET.get("regid")
@@ -279,7 +286,7 @@ class EditStay(StayUpdate):
 
 
 #  Forms of Payment  ##########################################################
-class AddPayForm(View):
+class AddPayForm(LoginRequiredMixin, View):
     template_name = "register/elements/payform_form.html"
     basic_context = {"title": "Add Form of Payment"}
 
@@ -315,6 +322,7 @@ class AddPayForm(View):
             return render(self.request, self.template_name, self.basic_context)
 
 
+@login_required
 def adj_payform_value(request):
     value = float(request.GET.get("value"))
     payform = utils.get_payform(
@@ -327,6 +335,7 @@ def adj_payform_value(request):
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
+@login_required
 def del_payform(request):
     payform = utils.get_payform(
         request.session["order"], request.GET.get("pfid")

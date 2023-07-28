@@ -1,21 +1,22 @@
 import json
 from django.shortcuts import render, redirect, HttpResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.views.generic import View
 from django.views.generic import DetailView
 
-from apps.event.models import Event, Accommodation
+from ..forms import StaffForm
 
+from apps.event.models import Event, Accommodation
 from apps.person.models import PersonStay
 from apps.register.models import Register
 from apps.center.models import Bedroom
 
-from ..forms import StaffForm
-
 from r2e.commom import clear_session, get_pagination_url, get_paginator
 
 
-class Accommodations(DetailView):
+class Accommodations(LoginRequiredMixin, DetailView):
     model = Event
     template_name = "event/accommodation/list.html"
 
@@ -48,7 +49,7 @@ class Accommodations(DetailView):
         return context
 
 
-class RebuildTheMapping(View):
+class RebuildTheMapping(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         template_name = "event/accommodation/confirm_rebuild.html"
         return render(request, template_name)
@@ -59,6 +60,7 @@ class RebuildTheMapping(View):
         return redirect("event:accommodations", kwargs["event_id"])
 
 
+@login_required
 def bedroom_details(request, bedroom_id):
     template_name = "event/accommodation/bedroom_details.html"
     bedroom = Accommodation.objects.filter(bedroom_id=bedroom_id).order_by(
@@ -72,7 +74,7 @@ def bedroom_details(request, bedroom_id):
     return render(request, template_name, context)
 
 
-class AddToBedroom(View):
+class AddToBedroom(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         register = Register.objects.get(id=kwargs["reg_id"])
         clear_session(request, ["add_to_bedroom"])
@@ -134,6 +136,7 @@ class AddToBedroom(View):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
+@login_required
 def get_buildings_by_gender(request, event_id):
     template_name = "event/accommodation/elements/building_list.html"
     _buildings = Accommodation.objects.filter(
@@ -153,6 +156,7 @@ def get_buildings_by_gender(request, event_id):
     )
 
 
+@login_required
 def get_bedrooms_by_building(request, event_id):
     template_name = "event/accommodation/elements/bedroom_list.html"
     _bedrooms = Accommodation.objects.filter(
@@ -173,6 +177,7 @@ def get_bedrooms_by_building(request, event_id):
     )
 
 
+@login_required
 def get_bedroom_mapping(request, event_id):
     template_name = "event/accommodation/elements/bedroom_mapping.html"
     request.session["add_to_bedroom"]["bedroom_id"] = ""
@@ -210,6 +215,7 @@ def get_bedroom_mapping(request, event_id):
     )
 
 
+@login_required
 def force_top_bed(request):
     request.session["add_to_bedroom"]["force_top_bed"] = (
         True if request.GET.get("forceTopBed") else False
@@ -227,7 +233,7 @@ def force_top_bed(request):
     )
 
 
-class RemoveFromBedroom(View):
+class RemoveFromBedroom(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         template_name = "event/accommodation/confirm_to_remove.html"
         return render(request, template_name)
@@ -240,7 +246,7 @@ class RemoveFromBedroom(View):
         return redirect("event:accommodations", event_id)
 
 
-class ManagingStaff(View):
+class ManagingStaff(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         template_name = "event/accommodation/managing_staff.html"
         register = Register.objects.get(id=kwargs["reg_id"])

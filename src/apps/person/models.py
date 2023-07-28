@@ -19,7 +19,7 @@ from r2e.commom import (
 
 
 class Person(models.Model):
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         related_name="person",
         on_delete=models.DO_NOTHING,
@@ -82,6 +82,7 @@ class Person(models.Model):
         self.sos_phone = (
             phone_format(self.sos_phone) if self.sos_phone else None
         )
+        self.state = self.state.upper()
         super(Person, self).save(*args, **kwargs)
 
     def get_absolute_url(self):

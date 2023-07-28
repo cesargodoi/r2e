@@ -1,0 +1,27 @@
+<div class="card shadow mb-3">
+  <div class="card-header py-3">
+    <p class="text-primary m-0 fw-bold">Events</p>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      {% if object.event_set.all %}
+        <table class="table table-sm">
+          <tr>
+            <th>#</th>
+            <th>Event</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+          <tbody id="event_list">
+            {% include 'center/elements/event_row.html' with events=object.event_set.all %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="alert alert-warning" role="alert">
+          no <strong>Events</strong> was found in the database
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

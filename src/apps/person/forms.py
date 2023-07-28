@@ -6,7 +6,7 @@ class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
         fields = "__all__"
-        exclude = ("is_active",)
+        exclude = ("user", "is_active")
         widgets = {
             "observations": forms.Textarea(attrs={"rows": 2}),
             "birth": forms.widgets.DateInput(

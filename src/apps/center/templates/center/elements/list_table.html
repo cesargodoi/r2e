@@ -1,0 +1,43 @@
+{% load static %}
+
+<div class="card shadow">
+  <div class="card-header py-3">
+    {% include 'base/list_search.html' with list_title="Center" placeholder="Search by name..." %}
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      <table class="table my-0" id="dataTable">
+        {% if object_list %}
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Local</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th class="text-end">Contact</th>
+          </tr>
+        {% endif %}
+        <tbody>
+          {% for obj in object_list  %}
+            <tr class="is-link" onclick="location.href='{% url 'center:detail' obj.pk %}'">
+              <td>{{ forloop.counter }}</td>
+              <td>{{ obj.name }}</td>
+              <td>
+                {% if obj.city %}{{ obj.city }}{% endif %} ({% if obj.state %}{{ obj.state }}-{% endif %}{{ obj.country }})
+              </td>
+              <td>{{ obj.email }}</td>
+              <td>{{ obj.phone }}</td>
+              <td class="text-end">
+                {% if obj.contact.first.person %}{{ obj.contact.first.person }}{% else %}{{ obj.contact.first }}{% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <div class="alert alert-warning" role="alert">
+              no person was found in the database
+            </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

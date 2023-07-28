@@ -2,12 +2,15 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 from django.views.generic import DeleteView
 from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 from ..models import Person, PersonStay
 from ..forms import StayForm
+
 from r2e.commom import get_bedroom_type
 
 
-class StayCreate(FormView):
+class StayCreate(LoginRequiredMixin, FormView):
     form_class = StayForm
     template_name = "person/elements/stay_form.html"
     extra_context = {"title": "Create a new Stay"}
@@ -23,7 +26,7 @@ class StayCreate(FormView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class StayUpdate(FormView):
+class StayUpdate(LoginRequiredMixin, FormView):
     form_class = StayForm
     template_name = "person/elements/stay_form.html"
     extra_context = {"title": "Update Stay"}
@@ -46,7 +49,7 @@ class StayUpdate(FormView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class StayDelete(DeleteView):
+class StayDelete(LoginRequiredMixin, DeleteView):
     model = PersonStay
     template_name = "base/generics/confirm_delete.html"
 

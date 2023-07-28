@@ -1,0 +1,16 @@
+{% load static %}
+{% for event in events %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td>{{ event.activity }}</td>
+    <td>{{ event.date|date:"d/m/y" }}</td>
+    <td>
+      <span class="badge rounded-pill text-bg-{% if event.status == "OPN" %}primary{% else %}danger{% endif %}">
+        {{ event.get_status_display }}
+      </span>
+    </td>
+    <td class="text-end">
+      <a href="{% url 'event:detail' event.pk %}">go to event</a>
+    </td>
+  </tr> 
+{% endfor %}

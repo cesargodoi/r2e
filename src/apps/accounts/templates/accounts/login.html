@@ -1,0 +1,24 @@
+{% extends 'base/base_auth.html' %}
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+  <div class="p-5">
+    <div class="text-center">
+      <h4 class="text-dark mb-4">Welcome Back!</h4>
+    </div>
+    <form class="user" id="form" method="post">
+      {% csrf_token %}
+      {% for field in form.visible_fields %}
+        <div class="{% if field.errors %}has-error{% endif %} mt-3">
+          {% render_field field class="form-control form-control-user" placeholder=field.label %}
+          {% for error in field.errors %}
+            <small class="text-muted">{{ error }}</small>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <br>
+      <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+    </form>
+  </div>
+{% endblock %}

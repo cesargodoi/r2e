@@ -20,9 +20,4 @@ urlpatterns += [
         views.BankFlagDelete.as_view(),
         name="bankflag_delete",
     ),
-    path(
-        "bankflag/search/",
-        views.BankFlagSearch.as_view(),
-        name="bankflag_search",
-    ),
 ]

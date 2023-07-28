@@ -1,0 +1,48 @@
+{% load static %}
+{% load my_tags %}
+<div class="card mb-3">
+  <div class="card-body shadow">
+    <div class="text-center">
+      <h1 class="display-1 text-center text-dark"><i class="bi bi-building"></i></h1>
+      <h3 class="text-dark mb-4">{{ object.name }}</h3>
+    </div>
+    <hr>
+    <table class="table table-sm table-hover">
+      <tr>
+        <th>short name</th>
+        <td>{{ object.short_name }}</td>
+      </tr>
+      <tr>
+        <th>local</th>
+        <td>
+          {% if object.city %}{{ object.city }}{% endif %} ({% if object.state %}{{ object.state }}-{% endif %}{{ object.country }})
+        </td>
+      </tr>
+      <tr>
+        <th>phone</th>
+        <td>{{ object.phone }}</td>
+      </tr>
+      <tr>
+        <th>email</th>
+        <td>{{ object.email }}</td>
+      </tr>
+      <tr>
+        <th scope="row">contact</th>
+        <td>{% if object.contact.first.person %}{{ object.contact.first.person }}{% else %}{{ object.contact.first }}{% endif %}</td>
+      </tr>
+    </table>
+    <br>
+    <div class="text-end mb-3">
+      <button 
+        type="button"
+        class="btn btn-outline-secondary" 
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasForm" 
+        aria-controls="offcanvasForm"
+        onclick="manageForm('{% url 'center:update' object.pk %}')"
+      >
+        <i class="bi bi-pencil"></i> Editar
+      </button>
+    </div>
+  </div>
+</div>
