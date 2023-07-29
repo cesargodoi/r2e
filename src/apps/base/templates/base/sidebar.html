@@ -1,3 +1,4 @@
+{% load my_tags %}
 <ul class="navbar-nav text-light" id="accordionSidebar">
   <li class="nav-item">
     <a 
@@ -15,10 +16,12 @@
       <i class="fa fa-users"></i><span>People</span>
     </a>
   </li>
-  <div class="border-bottom border-1 border-secondary border-opacity-50 ms-3 me-3"></div>
-  <li class="nav-item">
-    <a class="nav-link" href="{% url 'base:tools' %}">
-      <i class="fa fa-tools"></i><span>Tools</span>
-    </a>
-  </li>
+  {% if user|in_group:'admin' or user.is_superuser %}
+    <div class="border-bottom border-1 border-secondary border-opacity-50 ms-3 me-3"></div>
+    <li class="nav-item">
+      <a class="nav-link" href="{% url 'base:tools' %}">
+        <i class="fa fa-tools"></i><span>Tools</span>
+      </a>
+    </li>
+  {% endif %}
 </ul>

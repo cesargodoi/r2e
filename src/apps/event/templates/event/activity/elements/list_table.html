@@ -1,7 +1,7 @@
 {% load static %}
 <div class="card shadow">
   <div class="card-header py-3">
-    {% include 'base/list_search.html' with list_title="Bank and Flags" placeholder="Search by name..." %}
+    {% include 'base/list_search.html' with list_title="Activities" placeholder="Search by name..." %}
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -10,6 +10,7 @@
           <tr>
             <th width="35px">#</th>
             <th>Name</th>
+            <th>Type</th>
             <th></th>
           </tr>
         {% endif %}
@@ -18,6 +19,7 @@
             <tr>
               <td>{{ forloop.counter }}</td>
               <td>{{ obj.name }}</td>
+              <td>{{ obj.get_activity_type_display }}</td>
               <td class="text-end">
                 {% if user.is_superuser %}
                   <button 
@@ -26,7 +28,7 @@
                     data-bs-toggle="offcanvas" 
                     data-bs-target="#offcanvasForm" 
                     aria-controls="offcanvasForm"
-                    onclick="manageForm('{% url 'register:bankflag_update' obj.pk %}')"
+                    onclick="manageForm('{% url 'event:activity_update' obj.pk %}')"
                   >
                     <i class="bi bi-pencil-square"></i>
                     Edit
@@ -36,7 +38,7 @@
                     class="btn btn-outline-danger btn-sm"
                     data-bs-toggle="modal" 
                     data-bs-target="#baseModal"
-                    onclick="manageData('{% url 'register:bankflag_delete' obj.pk %}')"
+                    onclick="manageData('{% url 'event:activity_delete' obj.pk %}')"
                   >
                     <i class="bi bi-trash3"></i>
                     Delete
@@ -46,7 +48,7 @@
             </tr>
           {% empty %}
             <div class="alert alert-warning" role="alert">
-              no <strong>bank or flag</strong> was found in the database
+              no <strong>activities</strong> was found in the database
             </div>
           {% endfor %}
         </tbody>

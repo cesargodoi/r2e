@@ -1,37 +1,26 @@
-{% extends 'base/base.html' %}
-{% load widget_tweaks %}
 {% load static %}
-
-{% block content %}
-  <h1>{{ title }}</h1> 
-  <form method="post">
-    {% csrf_token %}
-    {% for field in form.visible_fields %}
-      <div class="col-auto {% if field.errors %}has-error{% endif %}">
+{% load i18n %}
+{% load widget_tweaks %}
+{% include 'base/hx/offcanvas_title.html' %}
+<form id="form" hx-post="{{ request.path }}">
+  {% csrf_token %}
+  {% for field in form.visible_fields %}
+    {% if field|field_type == "booleanfield" %}
+      <div class="{% if field.errors %}has-error{% endif %} mt-3">
+        {% render_field field class="form-check-input" %}
+        <label for="#" class="form-label">{{ field.label_tag }}</label>
+        {% for error in field.errors %}
+          <span class="text-muted">{{ error }}</span>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="{% if field.errors %}has-error{% endif %} mt-3">
         <label for="#" class="form-label">{{ field.label_tag }}</label>
         {% render_field field class="form-control" %}
         {% for error in field.errors %}
           <span class="text-muted">{{ error }}</span>
         {% endfor %}
       </div>
-    {% endfor %}  
-    <div class="text-end mt-4">
-      <button 
-        type="button" 
-        class="btn btn-outline-secondary"
-        onclick="location.href='{% url 'event:activity_list' %}';"
-      >
-        <i class="bi bi-chevron-left"></i>
-        Voltar 
-      </button>
-      <button 
-        type="submit" 
-        class="btn btn-outline-primary"
-      >
-        <i class="bi bi-check-lg"></i>
-        Save
-      </button>
-    </div>
-  </form>
-
-{% endblock  %}
+    {% endif %}
+  {% endfor %}
+</form>

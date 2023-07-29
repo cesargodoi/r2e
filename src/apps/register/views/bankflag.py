@@ -59,4 +59,5 @@ class BankFlagUpdate(LoginRequiredMixin, UpdateView):
 class BankFlagDelete(LoginRequiredMixin, DeleteView):
     model = BankFlag
     template_name = "base/generics/confirm_delete.html"
+    permission_required = "register.delete_bankflag"
     success_url = reverse_lazy("register:bankflag_list")

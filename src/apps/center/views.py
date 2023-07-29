@@ -6,7 +6,10 @@ from django.views.generic import (
     CreateView,
     UpdateView,
 )
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 
 from .models import Center
 from .forms import CenterForm
@@ -38,9 +41,10 @@ class CenterDetail(LoginRequiredMixin, DetailView):
         return context
 
 
-class CenterCreate(LoginRequiredMixin, CreateView):
+class CenterCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Center
     form_class = CenterForm
+    permission_required = "center.add_center"
     extra_context = {"title": "Create Center"}
     success_url = reverse_lazy("center:list")
 

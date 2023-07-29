@@ -1,12 +1,13 @@
 {% extends 'base/base.html' %}
-
+{% load my_tags %}
 {% block content %}
   <h3 class="text-dark">{{ title }}</h3>
   <br>
   <div class="d-flex flex-wrap" style="gap: 1em;">
+
     <div 
       class="card text-bg-primary mb-3 is-link" 
-      style="max-width: 18rem;"
+      style="width: 18rem;"
       onclick="location.href='{% url 'register:bankflag_list' %}'"
     >
       <div class="card-body">
@@ -14,15 +15,27 @@
         <p class="card-text">manage bank names or credit card flags</p>
       </div>
     </div>
-    <div 
-      class="card text-bg-primary mb-3 is-link" 
-      style="max-width: 18rem;"
-      onclick="location.href='{% url 'center:list' %}'"
-    >
-      <div class="card-body">
-        <h4 class="card-title">Centers</h4>
-        <p class="card-text">manage centers and conference centers</p>
+    {% if user.is_authenticated and user|in_group:'admin' %}
+      <div 
+        class="card text-bg-primary mb-3 is-link" 
+        style="width: 18rem;"
+        onclick="location.href='{% url 'center:list' %}'"
+      >
+        <div class="card-body">
+          <h4 class="card-title">Centers</h4>
+          <p class="card-text">manage centers and conference centers</p>
+        </div>
       </div>
-    </div>
+      <div 
+        class="card text-bg-primary mb-3 is-link" 
+        style="width: 18rem;"
+        onclick="location.href='{% url 'event:activity_list' %}'"
+      >
+        <div class="card-body">
+          <h4 class="card-title">Activities</h4>
+          <p class="card-text">manage activities</p>
+        </div>
+      </div>
+    {% endif %}
   </div>
 {% endblock  %}
