@@ -1,0 +1,48 @@
+<div class="d-flex justify-content-end align-items-center">
+  {% if page_obj.paginator.count > 0 %}
+    <span>{{ page_obj.paginator.count }} registro{{ page_obj.paginator.count|pluralize }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+  {% endif %}
+  <div class="pagination">
+    {% if page_obj.paginator.num_pages > 1 %}
+      {% if page_obj.has_previous %}
+        <span class="page-item">
+          <a 
+            class="page-link" 
+            href="#"
+            hx-get="{{ pagination_url }}&page={{ page_obj.previous_page_number }}" 
+            hx-target="#bedrooms" 
+            hx-swap="innerHTML"
+          >&lsaquo;</a>
+        </span>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <span class="page-item active">
+            <span class="page-link">{{ num }}</span>
+          </span>
+        {% elif num > page_obj.number|add:'-2' and num < page_obj.number|add:'3' %}
+          <span class="page-item">
+            <a 
+              class="page-link" 
+              href="#"
+              hx-get="{{ pagination_url }}&page={{ num }}"
+              hx-target="#bedrooms" 
+              hx-swap="innerHTML"
+            >{{ num }}</a>
+          </span>
+        {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+        <span class="page-item">
+          <a 
+            class="page-link" 
+            href="#"
+            hx-get="{{ pagination_url }}&page={{ page_obj.next_page_number }}"
+            hx-target="#bedrooms" 
+            hx-swap="innerHTML"
+          >&rsaquo;</a>
+        </span>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>

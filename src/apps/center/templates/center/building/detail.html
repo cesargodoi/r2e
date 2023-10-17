@@ -1,0 +1,61 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block content %}
+  <div class="mb-3">
+    {% include "center/building/elements/detail_card.html" %}
+  </div>
+  <div class="card shadow">
+    <div class="card-header py-3">
+      <div class="row">
+        <div class="col-md-4"><p class="text-primary m-0 mb-3 fw-bold">Bedrooms</p></div>
+        <div class="col-md-4 text-center">
+          {% include "center/building/elements/get_bedrooms.html" %}
+        </div>
+        <div id="paginator" class="col-md-4 text-end" hx-swap-oob="true">{% include 'base/paginator_htmx.html' %}</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div hx-get="{% url 'center:bedroom_list' object.pk %}" hx-target="#bedrooms" hx-swap="innerHTML" hx-trigger="load"></div>
+      <div id="bedrooms">Loading...</div>
+    </div>
+  </div>
+
+  {% include 'base/modal.html' %}
+  {% include 'base/offcanvas.html' %}
+{% endblock %}
+
+{% block float_buttoms %}
+  {% if user.is_superuser %}
+    <button 
+      type="button"
+      class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
+      data-bs-toggle="offcanvas" 
+      data-bs-target="#offcanvasForm" 
+      aria-controls="offcanvasForm"
+      onclick="manageForm('{% url 'center:bedroom_create' object.pk %}')"
+    >
+      <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+    </button>
+    <button 
+      type="button"
+      class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
+      onclick="location.href='{% url 'center:building_list' %}';"
+    >
+      <i class="fa fa-angle-left text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+    </button>
+  {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/modal_form.js' %}"></script>
+<script>
+  function manageData(url) {
+    htmx.ajax('GET', url, '#baseModalContent')
+  }
+
+  function manageForm(url) {
+    htmx.ajax('GET', url, '#offcanvasContent')
+  }
+</script>
+{% endblock %}

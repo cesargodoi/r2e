@@ -11,8 +11,8 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
 )
 
-from .models import Center
-from .forms import CenterForm
+from ..models import Center
+from ..forms import CenterForm
 
 
 class CenterList(LoginRequiredMixin, ListView):

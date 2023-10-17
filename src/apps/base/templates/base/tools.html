@@ -29,6 +29,16 @@
       <div 
         class="card text-bg-primary mb-3 is-link" 
         style="width: 18rem;"
+        onclick="location.href='{% url 'center:building_list' %}'"
+      >
+        <div class="card-body">
+          <h4 class="card-title">Buildings</h4>
+          <p class="card-text">manage the buildings in your center</p>
+        </div>
+      </div>
+      <div 
+        class="card text-bg-primary mb-3 is-link" 
+        style="width: 18rem;"
         onclick="location.href='{% url 'event:activity_list' %}'"
       >
         <div class="card-body">

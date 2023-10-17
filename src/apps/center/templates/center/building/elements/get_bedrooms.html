@@ -1,0 +1,19 @@
+<form 
+  class="d-sm-inline-block ms-md-3 my-2 my-md-0 mw-100 navbar-search"
+  hx-get="{% url 'center:bedroom_list' object.pk %}"
+  hx-target="#bedrooms"
+  hx-swap="innerHTML"
+>
+  <div class="input-group">
+    <input 
+      class="bg-light form-control border-1 small" 
+      type="text" 
+      placeholder="Search by name..."
+      name="q"
+      value={{ q }}
+    >
+    <button class="btn btn-outline-primary py-0" type="submit">
+      <i class="fas fa-search"></i> Buscar
+    </button>
+  </div>
+</form>

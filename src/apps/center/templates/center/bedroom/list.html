@@ -1,0 +1,75 @@
+{% load static %}
+<div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+  <table class="table my-0" id="dataTable">
+    {% if object_list %}
+      <tr>
+        <th>#</th>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Floor</th>
+        <th>Beds</th>
+        <th>Active</th>
+        <th></th>
+      </tr>
+    {% endif %}
+    <tbody>
+      {% for obj in object_list  %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ obj.name }}</td>
+          <td>
+            <!-- gender -->
+          {% if obj.gender == 'M'%}<img src="{% static 'img/male.png' %}" alt="male" style="width:22px;height:22px;">{% endif %}
+          {% if obj.gender == 'F'%}<img src="{% static 'img/female.png' %}" alt="female" style="width:22px;height:22px;">{% endif %}
+          {% if obj.gender == 'X'%}<img src="{% static 'img/mixed.png' %}" alt="mixed" style="width:22px;height:22px;">{% endif %}
+          </td>
+          <td>
+            {% if obj.floor == 0 %}
+              terreo
+            {% else %}
+              {{ obj.floor }}o. andar
+            {% endif %}
+          </td>
+          <td>
+            {{ obj.bottom_beds }} <img class="icon-style" src="{% static 'img/icons/bed_BY.png' %}"> &nbsp;&nbsp;
+            {{ obj.top_beds }} <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}">
+          </td>
+          <td>{{ obj.is_active }}</td>
+          <td class="text-end">
+            {% if user.is_superuser %}
+              <button 
+                type="button" 
+                class="btn btn-outline-secondary btn-sm"
+                data-bs-toggle="offcanvas" 
+                data-bs-target="#offcanvasForm" 
+                aria-controls="offcanvasForm"
+                onclick="manageForm('{% url 'center:bedroom_update' obj.building_id obj.pk %}')"
+              >
+                <i class="bi bi-pencil-square"></i>
+                Edit
+              </button>
+              <button 
+                type="button" 
+                class="btn btn-outline-danger btn-sm"
+                data-bs-toggle="modal" 
+                data-bs-target="#baseModal"
+                onclick="manageData('{% url 'center:bedroom_delete' obj.building_id obj.pk %}')"
+              >
+                <i class="bi bi-trash3"></i>
+                Delete
+              </button>
+            {% endif %}
+          </td>
+        </tr>
+      {% empty %}
+        <div class="alert alert-warning" role="alert">
+          no buildings were found in the database
+        </div>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+{% if pagination_url %}
+  <div id="paginator" class="col-md-4 text-end" hx-swap-oob="true">{% include 'base/paginator_htmx.html' %}</div>
+{% endif %}
