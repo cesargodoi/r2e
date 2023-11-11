@@ -1,3 +1,5 @@
+import os
+import dynaconf  # noqa
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -124,3 +126,12 @@ AUTH_USER_MODEL = "accounts.CustomUser"
 
 LOGIN_REDIRECT_URL = "/event/list/"
 LOGIN_URL = "/accounts/login/"
+
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+
+settings = dynaconf.DjangoDynaconf(
+    __name__,
+    ENVVAR_PREFIX="R2E",
+    SETTINGS_FILE_FOR_DYNACONF="../settings.yaml",
+    SECRETS_FOR_DYNACONF="../.secrets.yaml",
+)  # noqa

@@ -111,3 +111,5 @@ static_collected
 .vscode
 poetry.lock
 poetry.toml
+settings.yaml
+.secrets.yaml
