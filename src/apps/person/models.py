@@ -8,7 +8,6 @@ from r2e.commom import (
     GENDER,
     COUNTRIES_CHOICES,
     ASPECTS,
-    CREDIT_OPERATIONS,
     LODGE_TYPES,
     ARRIVAL_TIME,
     DEPARTURE_TIME,
@@ -31,7 +30,9 @@ class Person(models.Model):
     )
     name = models.CharField(_("name"), max_length=50, unique=True)
     name_sa = models.CharField(max_length=50, editable=False)
-    id_card = models.CharField(_("id card"), max_length=40, unique=True)
+    id_card = models.CharField(
+        _("id card"), max_length=40, unique=True, null=True, blank=True
+    )
     gender = models.CharField(
         _("gender"), max_length=1, choices=GENDER, default="M"
     )
@@ -51,9 +52,6 @@ class Person(models.Model):
     )
     sos_phone = models.CharField(
         _("sos phone"), max_length=20, null=True, blank=True
-    )
-    credit = models.DecimalField(
-        _("credit"), max_digits=7, decimal_places=2, default=0.0
     )
     observations = models.CharField(
         _("observations"), max_length=255, null=True, blank=True
@@ -95,46 +93,6 @@ class Person(models.Model):
         verbose_name = _("person")
         verbose_name_plural = _("people")
         ordering = ["name_sa"]
-
-
-class CreditLog(models.Model):
-    person = models.ForeignKey(
-        Person, on_delete=models.CASCADE, related_name="credit_logs"
-    )
-    credit = models.DecimalField(
-        _("credit"), max_digits=7, decimal_places=2, default=0.0
-    )
-    operation = models.CharField(
-        _("operation"), max_length=3, choices=CREDIT_OPERATIONS, default="ADJ"
-    )
-    description = models.CharField(
-        _("description"), max_length=255, null=True, blank=True
-    )
-    is_active = models.BooleanField(default=True)
-    created_on = models.DateTimeField(auto_now_add=True)
-    modified_on = models.DateTimeField(auto_now=True)
-    created_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name="created_credit_log",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-    modified_by = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name="modified_credit_log",
-        on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-    )
-
-    def __str__(self):
-        return f"{self.person.name} - ${self.credit} ({self.operation})"
-
-    class Meta:
-        verbose_name = _("credit log")
-        verbose_name_plural = _("credit logs")
-        ordering = ["-created_on"]
 
 
 class Staff(models.Model):

@@ -46,9 +46,6 @@ class PersonDetail(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["credit_log"] = self.object.credit_logs.all().order_by(
-            "created_on"
-        )
         context["stays"] = self.object.stays.all().order_by(
             "stay_center__name"
         )

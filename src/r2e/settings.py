@@ -58,14 +58,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "r2e.wsgi.application"
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",  # noqa: E501
@@ -90,11 +82,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR.parent / "www/static/"
 
-STATICFILES_DIRS = (
-    "src/apps/base/static",
-    BASE_DIR.parent / "www/assets/",
-)
-
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR.parent / "www/media"
 
@@ -102,7 +89,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
-LOGIN_REDIRECT_URL = "/event/list/"
+LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/accounts/login/"
 
 os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
