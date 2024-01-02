@@ -1,15 +1,18 @@
 {% load static %}
+{% load my_tags %}
 <div class="card shadow">
   <div class="card-header py-3">
-    {% include 'base/list_search.html' with list_title="Bank and Flags" placeholder="Search by name..." %}
+    {% include 'base/list_search.html' with list_title="Building" placeholder="Search by name..." %}
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
       <table class="table my-0" id="dataTable">
         {% if object_list %}
           <tr>
-            <th width="35px">#</th>
+            <th>#</th>
             <th>Name</th>
+            <th>Center</th>
+            <th>Active</th>
             <th></th>
           </tr>
         {% endif %}
@@ -18,7 +21,19 @@
             <tr>
               <td>{{ forloop.counter }}</td>
               <td>{{ obj.name }}</td>
+              <td>{{ obj.center }}</td>
+              <td>
+                {{ obj.is_active }}
+              </td>
               <td class="text-end">
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary btn-sm"
+                  onclick="location.href='{% url 'center:building_detail' obj.pk %}'"
+                >
+                  <i class="bi bi-eye"></i>
+                  View
+                </button>
                 {% if user.is_superuser %}
                   <button 
                     type="button" 
@@ -26,7 +41,7 @@
                     data-bs-toggle="offcanvas" 
                     data-bs-target="#offcanvasForm" 
                     aria-controls="offcanvasForm"
-                    onclick="manageForm('{% url 'register:bankflag_update' obj.pk %}')"
+                    onclick="manageForm('{% url 'center:building_update' obj.pk %}')"
                   >
                     <i class="bi bi-pencil-square"></i>
                     Edit
@@ -36,7 +51,7 @@
                     class="btn btn-outline-danger btn-sm"
                     data-bs-toggle="modal" 
                     data-bs-target="#baseModal"
-                    onclick="manageData('{% url 'register:bankflag_delete' obj.pk %}')"
+                    onclick="manageData('{% url 'center:building_delete' obj.pk %}')"
                   >
                     <i class="bi bi-trash3"></i>
                     Delete
@@ -46,7 +61,7 @@
             </tr>
           {% empty %}
             <div class="alert alert-warning" role="alert">
-              no <strong>bank or flag</strong> was found in the database
+              no buildings were found in the database
             </div>
           {% endfor %}
         </tbody>

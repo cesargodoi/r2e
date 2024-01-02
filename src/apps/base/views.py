@@ -10,3 +10,7 @@ def home(request):
 @login_required
 def tools(request):
     return render(request, "base/tools.html", context={"title": "Tools"})
+
+
+def permission_denied_403(request, exception):
+    return render(request, "base/generics/403.html", status=403)

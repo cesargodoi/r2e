@@ -16,7 +16,7 @@
       <i class="fa fa-users"></i><span>People</span>
     </a>
   </li>
-  {% if user|in_group:'admin' or user.is_superuser %}
+  {% if user|has_group:'admin,office' %}
     <div class="border-bottom border-1 border-secondary border-opacity-50 ms-3 me-3"></div>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'base:tools' %}">

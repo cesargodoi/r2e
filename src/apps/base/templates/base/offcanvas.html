@@ -32,7 +32,7 @@
       <i class="bi bi-check-lg"></i>
       {% trans 'Confirm' %}
     </button>
-    {% if user.is_authenticated and user|in_group:'admin' %}
+    {% if user.is_authenticated and user|has_group:'admin,office' %}
       {% if delete_link %}
         <button 
           type="button" 

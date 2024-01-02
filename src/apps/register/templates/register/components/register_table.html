@@ -10,7 +10,7 @@
     </thead>
     <tbody class="table-group-divider">
       {% for reg in request.session.order.registers %} 
-        {% include 'register/elements/register_row.html' %}
+        {% include 'register/components/register_row.html' %}
       {% endfor %}
     </tbody>
     <tfoot>

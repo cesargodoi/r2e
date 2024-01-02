@@ -1,0 +1,14 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <div class="text-center mt-5">
+    <div class="error mx-auto" data-text="403">
+        <p class="m-0">403</p>
+    </div>
+    <p class="text-dark mb-5 lead">Acesso proibido ao seu usuário</p>
+    <p class="text-black-50 mb-0">Desculpe, você não tem permissão para acessar esta página.</p>
+    <a href="javascript:history.back()">← Voltar de onde eu vim</a>
+    <a href="{% url 'base:home' %}">← Voltar para a página inicial</a>
+  </div>
+{% endblock  %}
+
+

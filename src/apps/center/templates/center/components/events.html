@@ -14,7 +14,7 @@
             <th></th>
           </tr>
           <tbody id="event_list">
-            {% include 'center/elements/event_row.html' with events=object.event_set.all %}
+            {% include 'center/components/event_row.html' with events=object.event_set.all %}
           </tbody>
         </table>
       {% else %}

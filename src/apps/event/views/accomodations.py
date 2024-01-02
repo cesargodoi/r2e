@@ -138,7 +138,7 @@ class AddToBedroom(LoginRequiredMixin, View):
 
 @login_required
 def get_buildings_by_gender(request, event_id):
-    template_name = "event/accommodation/elements/building_list.html"
+    template_name = "event/accommodation/components/building_list.html"
     _buildings = Accommodation.objects.filter(
         event_id=event_id, gender=request.GET["gender"], register__isnull=True
     ).order_by("bedroom__building__name")
@@ -158,7 +158,7 @@ def get_buildings_by_gender(request, event_id):
 
 @login_required
 def get_bedrooms_by_building(request, event_id):
-    template_name = "event/accommodation/elements/bedroom_list.html"
+    template_name = "event/accommodation/components/bedroom_list.html"
     _bedrooms = Accommodation.objects.filter(
         event_id=event_id,
         gender=request.GET["gender"],
@@ -179,7 +179,7 @@ def get_bedrooms_by_building(request, event_id):
 
 @login_required
 def get_bedroom_mapping(request, event_id):
-    template_name = "event/accommodation/elements/bedroom_mapping.html"
+    template_name = "event/accommodation/components/bedroom_mapping.html"
     request.session["add_to_bedroom"]["bedroom_id"] = ""
     request.session["add_to_bedroom"]["bedroom_id"] = int(
         request.GET["bedroom_id"]

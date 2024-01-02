@@ -12,7 +12,7 @@ from r2e.commom import get_bedroom_type
 
 class StayCreate(LoginRequiredMixin, FormView):
     form_class = StayForm
-    template_name = "person/elements/stay_form.html"
+    template_name = "person/components/stay_form.html"
     extra_context = {"title": "Create a new Stay"}
     success_url = reverse_lazy("person:list")
 
@@ -28,7 +28,7 @@ class StayCreate(LoginRequiredMixin, FormView):
 
 class StayUpdate(LoginRequiredMixin, FormView):
     form_class = StayForm
-    template_name = "person/elements/stay_form.html"
+    template_name = "person/components/stay_form.html"
     extra_context = {"title": "Update Stay"}
     success_url = reverse_lazy("person:list")
 

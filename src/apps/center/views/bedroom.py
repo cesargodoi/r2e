@@ -4,6 +4,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
+    UserPassesTestMixin,
 )
 
 from ..models import Building, Bedroom
@@ -34,12 +35,20 @@ class BedroomList(LoginRequiredMixin, ListView):
         return context
 
 
-class BedroomCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class BedroomCreate(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    CreateView,
+):
     model = Bedroom
     form_class = BedroomForm
     template_name = "center/bedroom/form.html"
     permission_required = "center.add_bedroom"
     extra_context = {"title": "Create Bedroom"}
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_initial(self):
         initial = super().get_initial()
@@ -58,11 +67,14 @@ class BedroomCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         )
 
 
-class BedroomUpdate(LoginRequiredMixin, UpdateView):
+class BedroomUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Bedroom
     form_class = BedroomForm
     template_name = "center/bedroom/form.html"
     extra_context = {"title": "Update Bedroom"}
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_initial(self):
         initial = super().get_initial()
@@ -86,10 +98,13 @@ class BedroomUpdate(LoginRequiredMixin, UpdateView):
         )
 
 
-class BedroomDelete(LoginRequiredMixin, DeleteView):
+class BedroomDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Bedroom
     template_name = "base/generics/confirm_delete.html"
     permission_required = "center.delete_bedroom"
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_success_url(self):
         return str(

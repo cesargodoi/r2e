@@ -12,7 +12,7 @@
     {% endif %}
     <tbody class="table-group-divider">
       {% for payf in request.session.order.payforms %} 
-        {% include 'register/elements/payform_row.html' %}
+        {% include 'register/components/payform_row.html' %}
       {% endfor %}
     </tbody>
     <tfoot>

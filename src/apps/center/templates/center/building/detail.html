@@ -3,14 +3,14 @@
 
 {% block content %}
   <div class="mb-3">
-    {% include "center/building/elements/detail_card.html" %}
+    {% include "center/building/components/detail_card.html" %}
   </div>
   <div class="card shadow">
     <div class="card-header py-3">
       <div class="row">
         <div class="col-md-4"><p class="text-primary m-0 mb-3 fw-bold">Bedrooms</p></div>
         <div class="col-md-4 text-center">
-          {% include "center/building/elements/get_bedrooms.html" %}
+          {% include "center/building/components/get_bedrooms.html" %}
         </div>
         <div id="paginator" class="col-md-4 text-end" hx-swap-oob="true">{% include 'base/paginator_htmx.html' %}</div>
       </div>
@@ -37,14 +37,14 @@
     >
       <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
     </button>
-    <button 
-      type="button"
-      class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
-      onclick="location.href='{% url 'center:building_list' %}';"
-    >
-      <i class="fa fa-angle-left text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
-    </button>
   {% endif %}
+  <button 
+    type="button"
+    class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
+    onclick="location.href='{% url 'center:building_list' %}';"
+  >
+    <i class="fa fa-angle-left text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
 {% endblock %}
 
 {% block scripts %}

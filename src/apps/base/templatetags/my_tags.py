@@ -15,6 +15,9 @@ def shortname(name):
     return short_name(name)
 
 
-@register.filter(name="in_group")
-def in_group(user, group_name):
-    return user.groups.filter(name=group_name).exists()
+@register.filter(name="has_group")
+def has_group(user, group_names):
+    if user.is_superuser:
+        return True
+    groups = user.groups.values_list("name", flat=True)
+    return any(group in groups for group in group_names.split(","))

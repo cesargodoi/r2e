@@ -1,9 +1,7 @@
 <!-- Stays | start -->
 <div class="card shadow mb-3">
   <div class="card-header py-3">
-    <div class="card-header py-3">
-      {% include 'base/list_search.html' with list_title="Registers" placeholder="Search by name..." %}
-    </div>
+    {% include 'base/list_search.html' with list_title="Accommodations" placeholder="Search by name..." %}
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -12,23 +10,19 @@
           <tr>
             <th>#</th>
             <th>Person</th>
-            <th>Lodge</th>
+            <th colspan="2">Housed in</th>
             <th>Arrival</th>
             <th>Departure</th>
-            <th>Restrictions</th>
-            <th class="text-end">Value $</th>
-            <th></th>
+            <th>Restr.</th>
+            <th>Obs</th>
+            <th>Staff</th>
           </tr>
           <tbody id="stay_list">
             {% for reg in registers %}
-              {% include 'event/elements/register_list_item.html' %}
+              {% include 'event/accommodation/components/person_list_item.html' %}
             {% endfor %}
           </tbody>
         </table>
-      {% else %}
-        <div class="alert alert-secondary" role="alert">
-          Register not found.
-        </div>
       {% endif %}
     </div>
   </div>

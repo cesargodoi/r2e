@@ -20,11 +20,11 @@
       </tr>
       <tr>
         <th>phone</th>
-        <td>{{ object.phone }}</td>
+        <td>{% if object.phone %}{{ object.phone }}{% endif %}</td>
       </tr>
       <tr>
         <th>email</th>
-        <td>{{ object.email }}</td>
+        <td>{% if object.email %}{{ object.email }}{% endif %}</td>
       </tr>
       <tr class="text-danger">
         <th>sos contact</th>
@@ -42,7 +42,7 @@
       </tr>
       <tr>
         <th>id card</th>
-        <td>{{ object.id_card }}</td>
+        <td>{% if object.id_card %}{{ object.id_card }}{% endif %}</td>
       </tr>
     </table>
     <br>

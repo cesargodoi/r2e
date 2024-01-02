@@ -12,13 +12,13 @@
           <p class="text-primary m-0 fw-bold h5">Registers</p>
         </div>
         <div class="col-sm-6 search-inline input-group" id="searchPerson">
-          {% include "register/elements/search_person.html" %}
+          {% include "register/components/search_person.html" %}
         </div>
       </div>
     </div>
     <div class="card-body" id="registers">
       {% if request.session.order.registers %}
-        {% include 'register/elements/register_table.html' %}
+        {% include 'register/components/register_table.html' %}
       {% else %}
         <br>
       {% endif %}
@@ -46,7 +46,7 @@
         </div>
         <div class="card-body" id="formsOfPayment">
           {% if request.session.order.registers.0.lodge %}
-            {% include 'register/elements/payform_table.html' %}
+            {% include 'register/components/payform_table.html' %}
           {% else %}
             <br>
           {% endif %}

@@ -33,7 +33,7 @@
   <br>
   {% for object in object_list %}
     {% if object.type != 'Free' %}
-      {% include 'event/reports/elements/cash_balance_table.html' with obj=object %}
+      {% include 'event/reports/components/cash_balance_table.html' with obj=object %}
     {% endif %}
   {% endfor %}
 {% endblock %}

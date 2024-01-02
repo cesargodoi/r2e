@@ -157,7 +157,7 @@ class CreatePerson(PersonCreate):
 @login_required
 @require_http_methods(["GET"])
 def search_person(request):
-    template_name = "register/elements/search_results.html"
+    template_name = "register/components/search_results.html"
     event_id = request.session["order"]["event"]
     registers = [
         reg.person_id
@@ -287,7 +287,7 @@ class EditStay(StayUpdate):
 
 #  Forms of Payment  ##########################################################
 class AddPayForm(LoginRequiredMixin, View):
-    template_name = "register/elements/payform_form.html"
+    template_name = "register/components/payform_form.html"
     basic_context = {"title": "Add Form of Payment"}
 
     def get(self, *args, **kwargs):

@@ -33,16 +33,18 @@
     </table>
     <br>
     <div class="text-end mb-3">
-      <button 
-        type="button"
-        class="btn btn-outline-secondary" 
-        data-bs-toggle="offcanvas" 
-        data-bs-target="#offcanvasForm" 
-        aria-controls="offcanvasForm"
-        onclick="manageForm('{% url 'center:update' object.pk %}')"
-      >
-        <i class="bi bi-pencil"></i> Editar
-      </button>
+      {% if user.is_authenticated and user|has_group:'admin' %}
+        <button 
+          type="button"
+          class="btn btn-outline-secondary" 
+          data-bs-toggle="offcanvas" 
+          data-bs-target="#offcanvasForm" 
+          aria-controls="offcanvasForm"
+          onclick="manageForm('{% url 'center:update' object.pk %}')"
+        >
+          <i class="bi bi-pencil"></i> Editar
+        </button>
+      {% endif %}
     </div>
   </div>
 </div>

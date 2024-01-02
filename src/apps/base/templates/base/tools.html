@@ -4,18 +4,17 @@
   <h3 class="text-dark">{{ title }}</h3>
   <br>
   <div class="d-flex flex-wrap" style="gap: 1em;">
-
-    <div 
-      class="card text-bg-primary mb-3 is-link" 
-      style="width: 18rem;"
-      onclick="location.href='{% url 'register:bankflag_list' %}'"
-    >
-      <div class="card-body">
-        <h4 class="card-title">Bank or Flag</h4>
-        <p class="card-text">manage bank names or credit card flags</p>
+    {% if user.is_authenticated and user|has_group:'office,admin' %}
+      <div 
+        class="card text-bg-primary mb-3 is-link" 
+        style="width: 18rem;"
+        onclick="location.href='{% url 'register:bankflag_list' %}'"
+      >
+        <div class="card-body">
+          <h4 class="card-title">Bank or Flag</h4>
+          <p class="card-text">manage bank names or credit card flags</p>
+        </div>
       </div>
-    </div>
-    {% if user.is_authenticated and user|in_group:'admin' %}
       <div 
         class="card text-bg-primary mb-3 is-link" 
         style="width: 18rem;"

@@ -1,18 +1,18 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block content %}
-  {% include 'person/elements/detail_header.html' %}
+  {% include 'person/components/detail_header.html' %}
   <div class="row mb-3">
     <div class="col-lg-4">
-      {% include 'person/elements/detail_card.html' %}
+      {% include 'person/components/detail_card.html' %}
     </div>
 
     <div class="col-lg-8">
       <div class="row">
         <div class="col">
-          {% include 'person/elements/stays.html' %}
+          {% include 'person/components/stays.html' %}
           {% if registers %}
-            {% include 'person/elements/registers.html' %}
+            {% include 'person/components/registers.html' %}
           {% endif %}
         </div>
       </div>

@@ -10,3 +10,5 @@ urlpatterns = [
     path("event/", include("apps.event.urls")),
     path("register/", include("apps.register.urls")),
 ]
+
+handler403 = "apps.base.views.permission_denied_403"

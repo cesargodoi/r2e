@@ -10,6 +10,7 @@ from django.views.generic import (
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
+    UserPassesTestMixin,
 )
 
 from ..models import Person
@@ -24,12 +25,13 @@ class PersonList(LoginRequiredMixin, ListView):
     extra_context = {"title": "People"}
 
     def get_queryset(self):
+        query = Person.objects.filter(center=self.request.user.person.center)
+        if not self.request.user.is_superuser:
+            query = query.filter(user_id__gt=1)
         if not self.request.GET.get("q"):
-            return Person.objects.all()
+            return query
         else:
-            return Person.objects.filter(
-                name_sa__icontains=self.request.GET.get("q")
-            )
+            return query.filter(name_sa__icontains=self.request.GET.get("q"))
 
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "people"
@@ -40,9 +42,15 @@ class PersonList(LoginRequiredMixin, ListView):
         return context
 
 
-class PersonDetail(LoginRequiredMixin, DetailView):
+class PersonDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Person
     extra_context = {"title": "Person detail"}
+
+    def test_func(self):
+        return self.request.user.is_superuser or (
+            self.request.user.person.center == self.get_object().center
+            and self.get_object().pk > 1
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -77,11 +85,22 @@ class PersonCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class PersonUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class PersonUpdate(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    UpdateView,
+):
     model = Person
     form_class = PersonForm
     permission_required = "person.change_person"
     extra_context = {"title": "Update Person"}
+
+    def test_func(self):
+        return self.request.user.is_superuser or (
+            self.request.user.person.center == self.get_object().center
+            and self.get_object().pk > 1
+        )
 
     def get_initial(self):
         initial = super().get_initial()
@@ -98,8 +117,19 @@ class PersonUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class PersonDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class PersonDelete(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    DeleteView,
+):
     model = Person
     template_name = "base/generics/confirm_delete.html"
     permission_required = "person.delete_person"
     success_url = reverse_lazy("person:list")
+
+    def test_func(self):
+        return self.request.user.is_superuser or (
+            self.request.user.person.center == self.get_object().center
+            and self.get_object().pk > 1
+        )

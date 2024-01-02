@@ -10,6 +10,7 @@ from django.views.generic import (
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
+    UserPassesTestMixin,
 )
 
 from ..models import Building
@@ -25,11 +26,13 @@ class BuildingList(LoginRequiredMixin, ListView):
     template_name = "center/building/list.html"
 
     def get_queryset(self):
-        if not self.request.GET.get("q"):
-            return Building.objects.all()
-        return Building.objects.filter(
-            name__icontains=self.request.GET.get("q")
-        )
+        query = Building.objects.all()
+        if not self.request.user.is_superuser:
+            query = query.filter(center=self.request.user.person.center)
+        if self.request.GET.get("q"):
+            return query.filter(name__icontains=self.request.GET.get("q"))
+        else:
+            return query
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,7 +52,12 @@ class BuildingDetail(LoginRequiredMixin, DetailView):
         return context
 
 
-class BuildingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class BuildingCreate(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    CreateView,
+):
     model = Building
     form_class = BuildingForm
     template_name = "center/building/form.html"
@@ -57,17 +65,23 @@ class BuildingCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     extra_context = {"title": "Create Building"}
     success_url = reverse_lazy("center:building_list")
 
+    def test_func(self):
+        return self.request.user.is_superuser
+
     def form_valid(self, form):
         form.save()
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class BuildingUpdate(LoginRequiredMixin, UpdateView):
+class BuildingUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Building
     form_class = BuildingForm
     template_name = "center/building/form.html"
     extra_context = {"title": "Update Building"}
     success_url = reverse_lazy("center:building_list")
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -79,8 +93,11 @@ class BuildingUpdate(LoginRequiredMixin, UpdateView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class BuildingDelete(LoginRequiredMixin, DeleteView):
+class BuildingDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Building
     template_name = "base/generics/confirm_delete.html"
     permission_required = "center.delete_building"
     success_url = reverse_lazy("center:building_list")
+
+    def test_func(self):
+        return self.request.user.is_superuser

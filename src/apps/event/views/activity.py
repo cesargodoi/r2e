@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
+    UserPassesTestMixin,
 )
 from django.views.generic import (
     ListView,
@@ -33,7 +34,12 @@ class ActivityList(LoginRequiredMixin, ListView):
         return context
 
 
-class ActivityCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class ActivityCreate(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    CreateView,
+):
     model = Activity
     form_class = ActivityForm
     template_name = "event/activity/form.html"
@@ -41,18 +47,29 @@ class ActivityCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     success_url = reverse_lazy("event:activity_list")
     extra_context = {"title": "Create Activity"}
 
+    def test_func(self):
+        return self.request.user.is_superuser
+
     def form_valid(self, form):
         form.save()
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class ActivityUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+class ActivityUpdate(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    UpdateView,
+):
     model = Activity
     form_class = ActivityForm
     template_name = "event/activity/form.html"
     permission_required = "event.change_activity"
     success_url = reverse_lazy("event:activity_list")
     extra_context = {"title": "Update Activity"}
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -64,8 +81,16 @@ class ActivityUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class ActivityDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+class ActivityDelete(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    DeleteView,
+):
     model = Activity
     template_name = "base/generics/confirm_delete.html"
     permission_required = "event.delete_activity"
     success_url = reverse_lazy("event:activity_list")
+
+    def test_func(self):
+        return self.request.user.is_superuser
