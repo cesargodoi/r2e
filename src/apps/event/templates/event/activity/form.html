@@ -5,22 +5,17 @@
 <form id="form" hx-post="{{ request.path }}">
   {% csrf_token %}
   {% for field in form.visible_fields %}
-    {% if field|field_type == "booleanfield" %}
-      <div class="{% if field.errors %}has-error{% endif %} mt-3">
+    <div class="{% if field.errors %}has-error{% endif %} mt-3">
+      {% if field|field_type == "booleanfield" %}
         {% render_field field class="form-check-input" %}
         <label for="#" class="form-label">{{ field.label_tag }}</label>
-        {% for error in field.errors %}
-          <span class="text-muted">{{ error }}</span>
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="{% if field.errors %}has-error{% endif %} mt-3">
+      {% else %}
         <label for="#" class="form-label">{{ field.label_tag }}</label>
         {% render_field field class="form-control" %}
-        {% for error in field.errors %}
-          <span class="text-muted">{{ error }}</span>
-        {% endfor %}
-      </div>
-    {% endif %}
+      {% endif %}
+      {% for error in field.errors %}
+        <span class="text-muted">{{ error }}</span>
+      {% endfor %}
+    </div>
   {% endfor %}
 </form>
