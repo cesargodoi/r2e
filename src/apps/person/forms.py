@@ -1,5 +1,5 @@
 from django import forms
-from .models import Person, PersonStay
+from .models import Person, PersonStay, Staff
 
 
 class PersonForm(forms.ModelForm):
@@ -17,16 +17,10 @@ class PersonForm(forms.ModelForm):
         }
 
 
-# class StayFormGet(forms.ModelForm):
-#     person = forms.IntegerField(widget=forms.HiddenInput)
-
-#     class Meta:
-#         model = PersonStay
-#         exclude = ("bedroom", "bedroom_alt")
-#         widgets = {
-#             "others": forms.Textarea(attrs={"rows": 2}),
-#             "observations": forms.Textarea(attrs={"rows": 2}),
-#         }
+class StaffForm(forms.ModelForm):
+    class Meta:
+        model = Staff
+        fields = "__all__"
 
 
 class StayForm(forms.ModelForm):

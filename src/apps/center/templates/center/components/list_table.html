@@ -15,20 +15,31 @@
             <th>Email</th>
             <th>Phone</th>
             <th class="text-end">Contact</th>
+            <th></th>
           </tr>
         {% endif %}
         <tbody>
           {% for obj in object_list  %}
-            <tr class="is-link" onclick="location.href='{% url 'center:detail' obj.pk %}'">
+            <tr>
               <td>{{ forloop.counter }}</td>
               <td>{{ obj.name }}</td>
               <td>
                 {% if obj.city %}{{ obj.city }}{% endif %} ({% if obj.state %}{{ obj.state }}-{% endif %}{{ obj.country }})
               </td>
-              <td>{{ obj.email }}</td>
-              <td>{{ obj.phone }}</td>
+              <td>{% if obj.email %}{{ obj.email }}{% endif %}</td>
+              <td>{% if obj.phone %}{{ obj.phone }}{% endif %}</td>
               <td class="text-end">
-                {% if obj.contact.first.person %}{{ obj.contact.first.person }}{% else %}{{ obj.contact.first }}{% endif %}
+                {% if obj.contact.first.person %}{{ obj.contact.first.person }}{% elif obj.contact.first %}{{ obj.contact.first }}{% else %}{% endif %}
+              </td>
+              <td class="text-end">
+                <button 
+                  type="button" 
+                  class="btn btn-outline-secondary btn-sm"
+                  onclick="location.href='{% url 'center:detail' obj.pk %}'"
+                >
+                  <i class="bi bi-eye"></i>
+                  View
+                </button>
               </td>
             </tr>
           {% empty %}

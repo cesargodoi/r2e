@@ -45,6 +45,16 @@
           <p class="card-text">manage activities</p>
         </div>
       </div>
+      <div 
+        class="card text-bg-primary mb-3 is-link" 
+        style="width: 18rem;"
+        onclick="location.href='{% url 'person:staff_list' %}'"
+      >
+        <div class="card-body">
+          <h4 class="card-title">Staff</h4>
+          <p class="card-text">manage staff</p>
+        </div>
+      </div>
     {% endif %}
   </div>
 {% endblock  %}

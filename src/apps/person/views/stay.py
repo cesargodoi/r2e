@@ -2,7 +2,10 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
 from django.views.generic import DeleteView
 from django.views.generic.edit import FormView
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 
 from ..models import Person, PersonStay
 from ..forms import StayForm
@@ -10,9 +13,10 @@ from ..forms import StayForm
 from r2e.commom import get_bedroom_type
 
 
-class StayCreate(LoginRequiredMixin, FormView):
+class StayCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
     form_class = StayForm
     template_name = "person/components/stay_form.html"
+    permission_required = "person.add_personstay"
     extra_context = {"title": "Create a new Stay"}
     success_url = reverse_lazy("person:list")
 
@@ -26,9 +30,10 @@ class StayCreate(LoginRequiredMixin, FormView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class StayUpdate(LoginRequiredMixin, FormView):
+class StayUpdate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
     form_class = StayForm
     template_name = "person/components/stay_form.html"
+    permission_required = "person.change_personstay"
     extra_context = {"title": "Update Stay"}
     success_url = reverse_lazy("person:list")
 
@@ -49,9 +54,10 @@ class StayUpdate(LoginRequiredMixin, FormView):
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class StayDelete(LoginRequiredMixin, DeleteView):
+class StayDelete(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = PersonStay
     template_name = "base/generics/confirm_delete.html"
+    permission_required = "person.delete_personstay"
 
     def get_success_url(self):
         return reverse("person:detail", args=[self.kwargs["person_id"]])

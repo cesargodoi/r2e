@@ -24,16 +24,16 @@
       <i class="bi bi-x-lg"></i>
       {% trans 'Cancel' %}
     </button>
-    <button 
-      type="submit"
-      class="btn btn-outline-primary"
-      form="form"
-    >
-      <i class="bi bi-check-lg"></i>
-      {% trans 'Confirm' %}
-    </button>
     {% if user.is_authenticated and user|has_group:'admin,office' %}
-      {% if delete_link %}
+      <button 
+        type="submit"
+        class="btn btn-outline-primary"
+        form="form"
+      >
+        <i class="bi bi-check-lg"></i>
+        {% trans 'Confirm' %}
+      </button>
+      {% if delete_link and user|delete_permission:delete_link %}
         <button 
           type="button" 
           class="btn btn-outline-danger" 

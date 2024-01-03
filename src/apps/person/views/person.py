@@ -25,13 +25,14 @@ class PersonList(LoginRequiredMixin, ListView):
     extra_context = {"title": "People"}
 
     def get_queryset(self):
-        query = Person.objects.filter(center=self.request.user.person.center)
+        query = Person.objects.all()
         if not self.request.user.is_superuser:
-            query = query.filter(user_id__gt=1)
-        if not self.request.GET.get("q"):
-            return query
-        else:
+            query = query.filter(
+                center=self.request.user.person.center
+            ).exclude(user__id=1)
+        if self.request.GET.get("q"):
             return query.filter(name_sa__icontains=self.request.GET.get("q"))
+        return query
 
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "people"
@@ -129,7 +130,11 @@ class PersonDelete(
     success_url = reverse_lazy("person:list")
 
     def test_func(self):
-        return self.request.user.is_superuser or (
+        if self.request.user.is_superuser:
+            return True
+        return (
             self.request.user.person.center == self.get_object().center
             and self.get_object().pk > 1
+            and "admin"
+            in self.request.user.groups.values_list("name", flat=True)
         )

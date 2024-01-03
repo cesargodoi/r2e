@@ -1,0 +1,57 @@
+{% load static %}
+{% load my_tags %}
+<div class="card shadow">
+  <div class="card-header py-3">
+    {% include 'base/list_search.html' with list_title="Staff" placeholder="Search by name..." %}
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      <table class="table my-0" id="dataTable">
+        {% if object_list %}
+          <tr>
+            <th width="35px">#</th>
+            <th>Name</th>
+            <th></th>
+          </tr>
+        {% endif %}
+        <tbody>
+          {% for obj in object_list  %}
+            <tr>
+              <td>{{ forloop.counter }}</td>
+              <td>{{ obj.name }}</td>
+              <td class="text-end">
+                {% if user.is_authenticated and user.is_superuser %}
+                  <button 
+                    type="button" 
+                    class="btn btn-outline-secondary btn-sm"
+                    data-bs-toggle="offcanvas" 
+                    data-bs-target="#offcanvasForm" 
+                    aria-controls="offcanvasForm"
+                    onclick="manageForm('{% url 'person:staff_update' obj.pk %}')"
+                  >
+                    <i class="bi bi-pencil-square"></i>
+                    Edit
+                  </button>
+                  <button 
+                    type="button" 
+                    class="btn btn-outline-danger btn-sm"
+                    data-bs-toggle="modal" 
+                    data-bs-target="#baseModal"
+                    onclick="manageData('{% url 'person:staff_delete' obj.pk %}')"
+                  >
+                    <i class="bi bi-trash3"></i>
+                    Delete
+                  </button>
+                {% endif %}
+              </td>
+            </tr>
+          {% empty %}
+            <div class="alert alert-warning" role="alert">
+              no <strong>staff</strong> was found in the database
+            </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

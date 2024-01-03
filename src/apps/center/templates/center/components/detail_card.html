@@ -33,7 +33,7 @@
     </table>
     <br>
     <div class="text-end mb-3">
-      {% if user.is_authenticated and user|has_group:'admin' %}
+      {% if user.is_authenticated and user|has_group:'admin' and user|same_center:object.id %}
         <button 
           type="button"
           class="btn btn-outline-secondary" 
