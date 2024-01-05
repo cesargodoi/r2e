@@ -1,8 +1,10 @@
+from django.utils import timezone
+from datetime import timedelta
 from decimal import Decimal
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from ..models import Accommodation
+from ..models import Accommodation, Event
 
 from apps.register.models import Register
 
@@ -17,7 +19,7 @@ class ReportByAccommodation(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["event"] = self.object_list.first().event
+        context["event"] = Event.objects.get(pk=self.kwargs.get("pk"))
         return context
 
 
@@ -30,10 +32,11 @@ class ReportByRegister(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["event"] = self.object_list.first().order.event
+        context["event"] = Event.objects.get(pk=self.kwargs.get("pk"))
         return context
 
 
+# Reports
 class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": "Mapping of Accommodations"}
@@ -75,7 +78,12 @@ class CashBalance(ReportByRegister):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        form_of_payments = get_form_of_payments(self.object_list)
+        days = self.request.GET.get("days")
+        context["days"] = days if days == "today" else f"{days} days"
+        object_list = self.object_list.filter(
+            order__center=self.request.user.person.center
+        )
+        form_of_payments = get_form_of_payments(object_list, days=days)
         summary = {"total": 0, "types": []}
         for fpay in form_of_payments:
             summary["types"].append(
@@ -169,7 +177,17 @@ def payer_type(age, payed):
 
 
 #  helpers
-def get_form_of_payments(object_list):
+def get_form_of_payments(object_list, days):
+    if days:
+        today = timezone.now().date()
+        if days == "today":
+            object_list = object_list.filter(created_on__date=today)
+        elif days != "all":
+            older_date = today - timedelta(days=int(days) - 1)
+            object_list = object_list.filter(
+                created_on__date__range=(older_date, today)
+            )
+
     form_of_payments = []
     for item in object_list:
         if item.order.pk not in [x["order"] for x in form_of_payments]:

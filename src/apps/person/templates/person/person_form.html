@@ -11,7 +11,11 @@
         <label for="#" class="form-label">{{ field.label_tag }}</label>
       {% else %}
         <label for="#" class="form-label">{{ field.label_tag }}</label>
-        {% render_field field class="form-control" %}
+        {% if field.name == 'center' and not user.is_superuser %}
+          {% render_field field class="form-control" disabled=disabled %}
+        {% else %}
+          {% render_field field class="form-control" %}
+        {% endif %}
       {% endif %}
       {% for error in field.errors %}
         <span class="text-muted">{{ error }}</span>

@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load my_tags %}
 {% block content %}
   {% include 'event/components/list_table.html' %}
   {% include 'base/modal.html' %}
@@ -7,16 +8,18 @@
 {% endblock %}
 
 {% block float_buttoms %}
-  <button 
-    type="button"
-    class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
-    data-bs-toggle="offcanvas" 
-    data-bs-target="#offcanvasForm" 
-    aria-controls="offcanvasForm"
-    onclick="manageForm('{% url 'event:create' %}')"
-  >
-    <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
-  </button>
+  {% if user|has_group:"admin" %}
+    <button 
+      type="button"
+      class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
+      data-bs-toggle="offcanvas" 
+      data-bs-target="#offcanvasForm" 
+      aria-controls="offcanvasForm"
+      onclick="manageForm('{% url 'event:create' %}')"
+    >
+      <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+    </button>
+  {% endif %}
 {% endblock %}
 
 {% block scripts %}

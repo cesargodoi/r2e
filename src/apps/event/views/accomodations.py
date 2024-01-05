@@ -1,6 +1,10 @@
 import json
 from django.shortcuts import render, redirect, HttpResponse
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+)
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.views.generic import View
@@ -16,9 +20,20 @@ from apps.center.models import Bedroom
 from r2e.commom import clear_session, get_pagination_url, get_paginator
 
 
-class Accommodations(LoginRequiredMixin, DetailView):
+class Accommodations(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+    DetailView,
+):
     model = Event
     template_name = "event/accommodation/list.html"
+    permission_required = "event.view_accommodation"
+
+    def test_func(self):
+        return self.request.user.is_superuser or (
+            self.request.user.person.center == self.get_object().center
+        )
 
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "event"
@@ -49,7 +64,17 @@ class Accommodations(LoginRequiredMixin, DetailView):
         return context
 
 
-class RebuildTheMapping(LoginRequiredMixin, View):
+class RebuildTheMapping(
+    LoginRequiredMixin, PermissionRequiredMixin, UserPassesTestMixin, View
+):
+    permission_required = "event.add_accommodation"
+
+    def test_func(self):
+        if self.request.user.is_superuser:
+            return True
+        event = Event.objects.get(id=self.kwargs.get("event_id"))
+        return self.request.user.person.center == event.center
+
     def get(self, request, *args, **kwargs):
         template_name = "event/accommodation/confirm_rebuild.html"
         return render(request, template_name)

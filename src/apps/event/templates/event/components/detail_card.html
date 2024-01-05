@@ -6,7 +6,7 @@
       <div class="col-lg-4">
         <table class="table table-sm">
           <tr>
-            <th>periodo:</th>
+            <th width="32%">periodo:</th>
             <td class="lead">{{ object.date|date:"d/M" }} à {{ object.end_date|date:"d/M" }} de {{ object.date|date:"Y" }}</td>
           </tr>
           <tr>
@@ -18,7 +18,7 @@
       <div class="col-lg-4">
         <table class="table table-sm">
           <tr>
-            <th>taxa de registro:</th>
+            <th width="32%">taxa de registro:</th>
             <td class="lead">{{ object.ref_value }} &nbsp;&nbsp; <small class="text-warning"><em>(min. {{ object.min_value }})</em></small></td>
           </tr>
           <tr>
@@ -39,7 +39,7 @@
       <div class="col-lg-4">
         <table class="table table-sm">
           <tr>
-            <th>total no evento:</th>
+            <th width="32%">total no evento:</th>
             <td class="h4"><strong>{% if total_registers > 0 %}{{ total_registers }}{% endif %}</strong></td>
           </tr>
           <tr>

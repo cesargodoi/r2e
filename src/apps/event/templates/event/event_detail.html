@@ -1,10 +1,12 @@
 {% extends "base/base.html" %}
 {% load static %}
-
+{% load my_tags %}
 {% block content %}
   <div class="mb-3">
     {% include 'event/components/detail_card.html' %}
-    {% include 'event/components/navbar.html' %}
+    {% if user|has_group:"admin" %}
+      {% include 'event/components/navbar.html' %}
+    {% endif %}
     {% include 'event/components/register_list.html' %}
   </div>
   {% include 'base/modal.html' %}

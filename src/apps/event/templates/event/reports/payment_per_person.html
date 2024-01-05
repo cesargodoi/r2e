@@ -5,45 +5,51 @@
 
 {% block content %}
   <div class="table-responsive table mt-2 mb-4">
-    <table class="table table-sm">
-      <thead>
-        <tr>
-          <th scope="col" width="2%">#</th>
-          <th scope="col" width="28%" colspan="2">{% trans 'Person' %}</th>
-          {% comment %} <th scope="col" width="2%"></th> {% endcomment %}
-          <th scope="col" width="55%">{% trans 'Form of payment' %}</th>
-          <th scope="col" width="13%" class="text-end">{% trans 'Value' %} $</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for obj in object_list %}
+    {% if object_list %}
+      <table class="table table-sm">
+        <thead>
           <tr>
-            <th>{{ forloop.counter }}</th>
-            <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
-            <td>
-              {% if obj.order.registers.all|length > 1 %}
-                <i class="bi bi-link"></i>
-              {% endif %}
-            </td>
-            <td>
-              {% for pf in obj.order.form_of_payments.all %}
-                [ {{ pf.payment_type }} {{ pf.value }}
-                {% if pf.payment_type not in 'CSHFRE' %}
-                  - {{ pf.bank_flag }} | {{ pf.ctrl }}
-                {% endif %}
-                ]&nbsp;&nbsp;
-              {% endfor %}
-            </td>
-            <td class="fw-bolder text-end">{{ obj.value }}</td>
+            <th scope="col" width="2%">#</th>
+            <th scope="col" width="28%" colspan="2">{% trans 'Person' %}</th>
+            {% comment %} <th scope="col" width="2%"></th> {% endcomment %}
+            <th scope="col" width="55%">{% trans 'Form of payment' %}</th>
+            <th scope="col" width="13%" class="text-end">{% trans 'Value' %} $</th>
           </tr>
-        {% endfor %}
-      </tbody>
-      <tfoot>
-        <tr class="lead">
-          <th class="text-end" colspan="4">TOTAL</th>
-          <th width="120px" class="text-end">{{ total }}</th>
-        </tr>
-      </tfoot>
-    </table>
+        </thead>
+        <tbody>
+          {% for obj in object_list %}
+            <tr>
+              <th>{{ forloop.counter }}</th>
+              <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
+              <td>
+                {% if obj.order.registers.all|length > 1 %}
+                  <i class="bi bi-link"></i>
+                {% endif %}
+              </td>
+              <td>
+                {% for pf in obj.order.form_of_payments.all %}
+                  [ {{ pf.payment_type }} {{ pf.value }}
+                  {% if pf.payment_type not in 'CSHFRE' %}
+                    - {{ pf.bank_flag }} | {{ pf.ctrl }}
+                  {% endif %}
+                  ]&nbsp;&nbsp;
+                {% endfor %}
+              </td>
+              <td class="fw-bolder text-end">{{ obj.value }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="lead">
+            <th class="text-end" colspan="4">TOTAL</th>
+            <th width="120px" class="text-end">{{ total }}</th>
+          </tr>
+        </tfoot>
+      </table>
+    {% else %}
+      <div class="alert alert-warning" role="alert">
+        no data was found in the database
+      </div>
+    {% endif %}
   </div>
 {% endblock %}

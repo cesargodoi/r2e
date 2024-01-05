@@ -163,15 +163,16 @@ def search_person(request):
         reg.person_id
         for reg in Register.objects.filter(order__event_id=event_id)
     ]
-    results = (
-        Person.objects.filter(
-            name_sa__icontains=request.GET.get("term"),
-            center=request.user.person.center,
-            is_active=True,
-        )[:10]
-        if request.GET.get("term")
-        else None
-    )
+
+    results = None
+    if request.GET.get("term"):
+        results = Person.objects.filter(
+            name_sa__icontains=request.GET.get("term"), is_active=True
+        )
+        if not request.user.is_superuser:
+            results = results.filter(center=request.user.person.center)
+        results = results[:10]
+
     context = {"results": results, "registers": registers}
     return render(request, template_name, context)
 
