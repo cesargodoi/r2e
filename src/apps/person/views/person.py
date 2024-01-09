@@ -1,5 +1,5 @@
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import (
     ListView,
     DetailView,
@@ -28,7 +28,7 @@ class PersonList(LoginRequiredMixin, ListView):
         query = Person.objects.all()
         if not self.request.user.is_superuser:
             query = query.filter(
-                center=self.request.user.person.center
+                center=self.request.user.person.center, is_active=True
             ).exclude(user__id=1)
         if self.request.GET.get("q"):
             return query.filter(name_sa__icontains=self.request.GET.get("q"))
@@ -138,3 +138,13 @@ class PersonDelete(
             and "admin"
             in self.request.user.groups.values_list("name", flat=True)
         )
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.registers.exists():
+            self.object.is_active = False
+            self.object.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            form = self.get_form()
+            return self.form_valid(form)

@@ -39,4 +39,9 @@ urlpatterns += [
         views.Staff.as_view(),
         name="report_staff",
     ),
+    path(
+        "<int:pk>/report/people-per-meal/",
+        views.PeoplePerMeal.as_view(),
+        name="report_people_per_meal",
+    ),
 ]

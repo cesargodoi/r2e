@@ -68,24 +68,68 @@ ARRIVAL_DATE = [
     ("D2", _("2nd day")),
 ]
 
+"""
+ARRIVAL_TIME | DEPARTURE_TIME | TAKE_MEAL
+
+ "AEBD"
+  └┼┼┼-> A = Arrive | D = Departure
+   └┼┼-> E = Eve day | F = First day | L = Last day
+    └┼-> B = Before | A = After
+     └-> B = Breakfast | L = Lunch | D = Dinner
+"""
+
 ARRIVAL_TIME = [
-    ("0BD", _("Eve day, before dinner.")),
-    ("0AD", _("Eve day, after dinner.")),
-    ("1BB", _("First day, before breakfast.")),
-    ("1BL", _("First day, before lunch.")),
-    ("1BD", _("First day, before dinner.")),
-    ("1AD", _("First day, after dinner.")),
-    ("2BB", _("Second day, before breakfast.")),
+    ("AEBD", _("Eve day, before dinner.")),
+    ("AEAD", _("Eve day, after dinner.")),
+    ("AFBB", _("First day, before breakfast.")),
+    ("AFBL", _("First day, before lunch.")),
+    ("AFBD", _("First day, before dinner.")),
+    ("AFAD", _("First day, after dinner.")),
+    ("ALBB", _("Last day, before breakfast.")),
 ]
 
 DEPARTURE_TIME = [
-    ("1BL", _("First day, before lunch.")),
-    ("1BD", _("First day, before dinner.")),
-    ("1AD", _("First day, after dinner.")),
-    ("2BB", _("Second day, before breakfast.")),
-    ("2BL", _("Second day, before lunch.")),
-    ("2AL", _("Second day, after lunch.")),
+    ("DFBL", _("First day, before lunch.")),
+    ("DFBD", _("First day, before dinner.")),
+    ("DFAD", _("First day, after dinner.")),
+    ("DLBB", _("Last day, before breakfast.")),
+    ("DLBL", _("Last day, before lunch.")),
+    ("DLAL", _("Last day, after lunch.")),
 ]
+
+TAKE_MEAL = {
+    "AEBD": 0,  # eve dinner
+    "AEAD": 1,  # 1 breakfast
+    "AFBB": 1,  #     "
+    "AFBL": 2,  # 1 lunch
+    "AFBD": 3,  # 1 dinner
+    "AFAD": 4,  # 2 breakfast
+    "ALBB": 4,  #     "
+    "DFBL": 1,  # 1 breakfast
+    "DFBD": 2,  # 1 lunch
+    "DFAD": 3,  # 1 dinner
+    "DLBB": 3,  #     "
+    "DLBL": 4,  # 2 breakfast
+    "DLAL": 5,  # 2 lunch
+}
+
+"""
+MEALS
+
+ "MED"
+  └┼┼-> M = Meal
+   └┼-> E = Eve day | F = First day | L = Last day
+    └-> B = Breakfast | L = Lunch | D = Dinner
+"""
+
+MEALS = {
+    "MED": _("Dinner on the eve day"),
+    "MFB": _("Breakfast on the first day"),
+    "MFL": _("Lunch on the first day"),
+    "MFD": _("Dinner on the first day"),
+    "MLB": _("Breakfast on the last day"),
+    "MLL": _("Lunch on the last day"),
+}
 
 
 # helpers
@@ -179,3 +223,17 @@ def get_pagination_url(request):
     preserved_qs = request.GET.copy()
     preserved_qs.pop("page", None)
     return f"{request.path}?{preserved_qs.urlencode()}"
+
+
+def get_meals(stay):
+    meals = [0, 0, 0, 0, 0, 0]
+    if not stay.take_meals:
+        return meals
+    first_meal = TAKE_MEAL[stay.arrival_time]
+    last_meal = TAKE_MEAL[stay.departure_time]
+    if last_meal >= first_meal:
+        meals[first_meal : last_meal + 1] = [
+            1 for _ in meals[first_meal : last_meal + 1]
+        ]
+        return meals
+    return meals

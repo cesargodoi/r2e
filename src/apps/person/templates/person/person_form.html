@@ -10,10 +10,10 @@
         {% render_field field class="form-check-input" %}
         <label for="#" class="form-label">{{ field.label_tag }}</label>
       {% else %}
-        <label for="#" class="form-label">{{ field.label_tag }}</label>
-        {% if field.name == 'center' and not user.is_superuser %}
-          {% render_field field class="form-control" disabled=disabled %}
+        {% if field.name == 'center' and 'create' in request.path and not user.is_superuser %}
+          {% render_field field class="form-control" hidden=hidden %}
         {% else %}
+          <label for="#" class="form-label">{{ field.label_tag }}</label>
           {% render_field field class="form-control" %}
         {% endif %}
       {% endif %}

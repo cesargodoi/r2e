@@ -92,14 +92,16 @@ class Register(models.Model):
     no_stairs = models.BooleanField(_("no stairs"), default=False)
     no_bunk = models.BooleanField(_("no bunk"), default=False)
     arrival_time = models.CharField(
-        _("arrival time"), max_length=3, choices=ARRIVAL_TIME, default="1BL"
+        _("arrival time"), max_length=4, choices=ARRIVAL_TIME, default="AFBL"
     )
     departure_time = models.CharField(
         _("departure time"),
-        max_length=3,
+        max_length=4,
         choices=DEPARTURE_TIME,
-        default="2AL",
+        default="DLAL",
     )
+    take_meals = models.BooleanField(_("take meals?"), default=True)
+    meals = models.JSONField(_("meals"), editable=False, null=True, blank=True)
     accommodation = models.OneToOneField(
         "event.Accommodation",
         on_delete=models.SET_NULL,

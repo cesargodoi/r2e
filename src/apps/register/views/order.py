@@ -13,7 +13,7 @@ from apps.event.models import Event
 from apps.person.models import Person
 from apps.person.views import StayCreate, StayUpdate, PersonCreate
 
-from r2e.commom import clear_session, get_bedroom_type
+from r2e.commom import clear_session, get_bedroom_type, get_meals
 
 
 class CreateOrder(LoginRequiredMixin, View):
@@ -235,6 +235,7 @@ class AddStay(StayCreate):
         stay = form.save(commit=False)
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
+        stay.meals = get_meals(stay)
         stay.save()
         staff_objs = form.cleaned_data["staff"]
         stay.staff.set(staff_objs)
@@ -267,6 +268,7 @@ class EditStay(StayUpdate):
         staff_objs = form.cleaned_data["staff"]
         stay.staff.clear()
         stay.staff.set(staff_objs)
+        stay.meals = get_meals(stay)
         stay.save()
 
         old_register = utils.get_register(

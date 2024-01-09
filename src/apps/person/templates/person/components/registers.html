@@ -19,7 +19,7 @@
             <td>{{ reg.order.event.activity.name }} ({{ reg.order.event.center.short_name }})</td>
             <td>{{ reg.get_lodge_display }}</td>
             <td>
-              {{ reg.get_arrival_date_display }}, {{ reg.get_arrival_time_display }}
+              <small>{{ reg.get_arrival_time_display }} | {{ reg.get_departure_time_display }}</small>
             </td>
             <td class="text-end">{{ reg.value }}</td>
           </tr>

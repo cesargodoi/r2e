@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.db.models import Count
 from django.urls import reverse_lazy, reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
@@ -26,11 +26,13 @@ class EventList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
-            return Event.objects.all().annotate(num_orders=Count("orders"))
+            return Event.objects.filter(is_active=True).annotate(
+                num_orders=Count("orders")
+            )
         else:
             date = datetime.strptime(self.request.GET.get("q"), "%m/%y")
             events = Event.objects.filter(
-                date__month=date.month, date__year=date.year
+                is_active=True, date__month=date.month, date__year=date.year
             ).annotate(num_orders=Count("orders"))
             return events
 
@@ -82,6 +84,7 @@ class EventCreate(LoginRequiredMixin, CreateView):
 
     def get_initial(self):
         initial = super().get_initial()
+        initial["center"] = self.request.user.person.center
         initial["created_by"] = self.request.user
         initial["modified_by"] = self.request.user
         return initial
@@ -119,3 +122,13 @@ class EventDelete(LoginRequiredMixin, DeleteView):
     model = Event
     template_name = "base/generics/confirm_delete.html"
     success_url = reverse_lazy("event:list")
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.orders.exists():
+            self.object.is_active = False
+            self.object.save()
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            form = self.get_form()
+            return self.form_valid(form)

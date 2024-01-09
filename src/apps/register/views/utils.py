@@ -47,6 +47,8 @@ def get_dict_register(person, stay, ref_value, alt_mapping):
         )
         if stay
         else "",
+        take_meals=stay.take_meals if stay else None,
+        meals=stay.meals if stay else [],
         staff=" | ".join([st.name for st in stay.staff.all()]) if stay else "",
         bedroom=bedroom,
         bedroom_type=stay.bedroom_type if stay else "",
@@ -71,6 +73,8 @@ def get_dict_register_update(register, event_center_pk, alt_mapping):
             name=register.get_departure_time_display(),
             id=register.departure_time,
         ),
+        take_meals=stay.take_meals,
+        meals=stay.meals,
         staff=" | ".join([st.name for st in stay.staff.all()]) if stay else "",
         bedroom=stay.bedroom_alt if alt_mapping else stay.bedroom,
         bedroom_type=stay.bedroom_type,
@@ -190,6 +194,8 @@ def get_dict_register_to_db(request, register, order_id, update=False):
         no_bunk=register["no_bunk"],
         arrival_time=register["arrival_time"]["id"],
         departure_time=register["departure_time"]["id"],
+        take_meals=register["take_meals"],
+        meals=register["meals"],
         staff=register["staff"],
         observations=register["observations"],
         value=register["value"],

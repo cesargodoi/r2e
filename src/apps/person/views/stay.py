@@ -10,7 +10,7 @@ from django.contrib.auth.mixins import (
 from ..models import Person, PersonStay
 from ..forms import StayForm
 
-from r2e.commom import get_bedroom_type
+from r2e.commom import get_bedroom_type, get_meals, TAKE_MEAL
 
 
 class StayCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
@@ -24,6 +24,7 @@ class StayCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
         stay = form.save(commit=False)
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
+        stay.meals = get_meals(stay)
         stay.save()
         staff_objs = form.cleaned_data["staff"]
         stay.staff.set(staff_objs)
@@ -47,6 +48,7 @@ class StayUpdate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
         stay = form.save(commit=False)
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
+        stay.meals = get_meals(stay)
         staff_objs = form.cleaned_data["staff"]
         stay.staff.clear()
         stay.staff.set(staff_objs)

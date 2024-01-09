@@ -49,6 +49,11 @@ urlpatterns += [
         views.RebuildTheMapping.as_view(),
         name="rebuild_the_mapping",
     ),
+    path(
+        "<int:evenid>/reload_session/",
+        views.reload_session,
+        name="reload_session",
+    ),
     #     path(
     #         "<int:event_id>/accommodations/buildings/",
     #         views.BuildingsView.as_view(),

@@ -35,4 +35,5 @@ def delete_permission(user, link):
     if user.is_superuser:
         return True
     groups = user.groups.values_list("name", flat=True)
-    return link.split("/")[1] not in ["person", "event"] and "admin" in groups
+    app = link.split("/")[1]
+    return "admin" in groups and app not in ["event"]

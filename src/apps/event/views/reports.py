@@ -8,7 +8,7 @@ from ..models import Accommodation, Event
 
 from apps.register.models import Register
 
-from r2e.commom import get_age
+from r2e.commom import get_age, MEALS
 
 
 class ReportByAccommodation(LoginRequiredMixin, ListView):
@@ -116,6 +116,37 @@ class TotalCollectedInTheCenter(ReportByRegister):
         return context
 
 
+class PeoplePerMeal(ReportByRegister):
+    template_name = "event/reports/people_per_meal.html"
+    extra_context = {"title": "People per meal"}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_list"] = get_people_per_meal(self.object_list)
+        return context
+
+
+#  helpers
+def get_people_per_meal(registers):
+    meals = [
+        [MEALS["MED"], 0],
+        [MEALS["MFB"], 0],
+        [MEALS["MFL"], 0],
+        [MEALS["MFD"], 0],
+        [MEALS["MLB"], 0],
+        [MEALS["MLL"], 0],
+    ]
+    for register in registers:
+        meals[0][1] += register.meals[0]
+        meals[1][1] += register.meals[1]
+        meals[2][1] += register.meals[2]
+        meals[3][1] += register.meals[3]
+        meals[4][1] += register.meals[4]
+        meals[5][1] += register.meals[5]
+
+    return meals
+
+
 def get_totals(payers_by_type):
     return dict(
         payed=sum(x["payed"] for x in payers_by_type),
@@ -176,7 +207,6 @@ def payer_type(age, payed):
         return "half"
 
 
-#  helpers
 def get_form_of_payments(object_list, days):
     if days:
         today = timezone.now().date()

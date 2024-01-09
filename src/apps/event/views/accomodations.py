@@ -40,7 +40,9 @@ class Accommodations(
         context = super().get_context_data(**kwargs)
 
         queryset = get_queryset_and_totals(
-            self.request, self.object.pk, q=self.request.GET.get("q")
+            self.request,
+            self.object.pk,
+            q=self.request.GET.get("q"),
         )
 
         if self.request.GET.get("filter") in ["HSE", "HTL"]:
@@ -159,6 +161,12 @@ class AddToBedroom(LoginRequiredMixin, View):
             request, register.order.event.id, get_totals=True
         )
         return HttpResponse(headers={"HX-Refresh": "true"})
+
+
+@login_required
+def reload_session(request, evenid):
+    get_queryset_and_totals(request, evenid, get_totals=True)
+    return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 @login_required
