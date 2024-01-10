@@ -41,6 +41,11 @@ class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": "Mapping of Accommodations"}
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["event"] = Event.objects.get(pk=self.kwargs.get("pk"))
+        return context
+
 
 class MappingPerPerson(ReportByAccommodation):
     template_name = "event/reports/mapping_per_person.html"

@@ -18,7 +18,7 @@
 </div>
 
 <div class="modal-body">
-  <h5>Camas de baixo</h5>
+  <h5>{% trans "Bottom beds" %}</h5>
   <ul class="list-group">
     {% for bed in bottoms %}
       <li class="list-group-item">
@@ -28,17 +28,17 @@
               <img class="icon-style me-2" src="{% static 'img/icons/bed_BN.png' %}">
               {{ bed.register.person.name }} 
             </div>
-            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} years</span>
+            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} {% trans "years" %}</span>
           </div>
         {% else %}
           <img class="icon-style me-2" src="{% static 'img/icons/bed_BY.png' %}">
-          <span class="text-muted">livre</span>
+          <span class="text-muted">{% trans "free" %}</span>
         {% endif %}
       </li>
     {% endfor %}
   </ul>
   <br>
-  <h5>Camas de cima</h5>
+  <h5>{% trans "Top beds" %}</h5>
   <ul class="list-group">
     {% for bed in tops %}
       <li class="list-group-item">
@@ -48,11 +48,11 @@
               <img class="icon-style me-2" src="{% static 'img/icons/bed_TN.png' %}">
               {{ bed.register.person.name }}
             </div>
-            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} years</span>
+            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} {% trans "years" %}</span>
           </div>
         {% else %}
           <img class="icon-style me-2" src="{% static 'img/icons/bed_TY.png' %}">
-          <span class="text-muted">livre</span>
+          <span class="text-muted">{% trans "free" %}</span>
         {% endif %}
       </li>
     {% endfor %}

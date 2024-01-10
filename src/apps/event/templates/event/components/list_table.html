@@ -1,9 +1,9 @@
 {% load static %}
+{% load i18n %}
 {% load my_tags %}
-
 <div class="card shadow">
   <div class="card-header py-3">
-    {% include 'base/list_search.html' with list_title="Events" placeholder="Search by MM/YY..." %}
+    {% include 'base/list_search.html' with list_title=_("Events") placeholder=_("Search by MM/YY...") %}
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
@@ -11,11 +11,11 @@
         {% if object_list %}
           <tr>
             <th>#</th>
-            <th>Event</th>
-            <th>Local</th>
-            <th>Date</th>
-            <th class="text-end">Registers</th>
-            <th class="text-end">Status</th>
+            <th>{% trans "Event" %}</th>
+            <th>{% trans "Local" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th class="text-end">{% trans "Registers" %}</th>
+            <th class="text-end">{% trans "Status" %}</th>
           </tr>
         {% endif %}
         <tbody>
@@ -42,9 +42,7 @@
               </td>
             </tr>
           {% empty %}
-            <div class="alert alert-warning" role="alert">
-              no <strong>Events</strong> was found in the database
-            </div>
+            {% include "base/generics/no_data_was_found.html" %}
           {% endfor %}
         </tbody>
       </table>

@@ -1,46 +1,51 @@
 {% extends 'base/base_report.html' %}
 {% load static %}
+{% load i18n %}
 {% load my_tags %}
 
 {% block content %}
-  <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
-    <table class="table table-sm">
-      <thead>
-        <tr>
-          <th scope="col" width="2%">#</th>
-          <th scope="col" width="14%">Nome</th>
-          <th scope="col" width="18%">Hospedagem</th>
-          <th scope="col" width="15%">Chegada</th>
-          <th scope="col" width="15%">Partida</th>
-          <th scope="col" width="18%">Obs</th>
-          <th scope="col" width="18%">Staff</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for obj in object_list %}
+  <div class="table-responsive table mt-2">
+    {% if object_list %}
+      <table class="table table-sm">
+        <thead>
           <tr>
-            <th>{{ forloop.counter }}</th>
-            <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
-            <td>
-              {% if obj.lodge == 'HSE' %}
-                CASA
-              {% elif obj.lodge == 'HTL' %}
-                HOTEL
-              {% else %}
-                {% if obj.accommodation %}
-                  {{ obj.accommodation.bedroom.building.name }} | {{ obj.accommodation.bedroom.name }} | {{ obj.accommodation.bottom_or_top }}
-                {% else %}
-                  Não alocado
-                {% endif %}
-              {% endif %}
-            </td>
-            <td>{{ obj.get_arrival_time_display }}</td>
-            <td>{{ obj.get_departure_time_display }}</td>
-            <td>{{ obj.observations|default:""|truncatechars:25 }}</td>
-            <td>{{ obj.staff|default:"" }}</td>
+            <th scope="col" width="2%">#</th>
+            <th scope="col" width="14%">{% trans "Name" %}</th>
+            <th scope="col" width="18%">{% trans "Accommodation" %}</th>
+            <th scope="col" width="15%">{% trans "Arrive" %}</th>
+            <th scope="col" width="15%">{% trans "Departure" %}</th>
+            <th scope="col" width="18%">{% trans "Observations" %}</th>
+            <th scope="col" width="18%">{% trans "Staff" %}</th>
           </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {% for obj in object_list %}
+            <tr>
+              <th>{{ forloop.counter }}</th>
+              <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
+              <td>
+                {% if obj.lodge == 'HSE' %}
+                  {% trans "HOUSE" %}
+                {% elif obj.lodge == 'HTL' %}
+                  {% trans "HOTEL" %}
+                {% else %}
+                  {% if obj.accommodation %}
+                    {{ obj.accommodation.bedroom.building.name }} | {{ obj.accommodation.bedroom.name }} | {{ obj.accommodation.bottom_or_top }}
+                  {% else %}
+                    {% trans "Unallocated" %}
+                  {% endif %}
+                {% endif %}
+              </td>
+              <td>{{ obj.get_arrival_time_display }}</td>
+              <td>{{ obj.get_departure_time_display }}</td>
+              <td>{{ obj.observations|default:""|truncatechars:25 }}</td>
+              <td>{{ obj.staff|default:"" }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      {% include "base/generics/no_data_was_found.html" %}
+    {% endif %}
   </div>
 {% endblock %}

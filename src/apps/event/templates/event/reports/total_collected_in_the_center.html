@@ -4,37 +4,41 @@
 {% load my_tags %}
 
 {% block content %}
-  <div class="table-responsive table mt-2 mb-4" role="grid" aria-describedby="dataTable_info">
-    <table class="table table-sm">
-      <thead>
-        <tr>
-          <th scope="col">{% trans 'Payment type' %}</th>
-          <th scope="col" class="text-center">{% trans 'Records' %}</th>
-          <th scope="col" class="text-end">{% trans 'Payed' %} $</th>
-          <th scope="col" class="text-end">{% trans 'Expected' %} $</th>
-          <th scope="col" class="text-end">{% trans 'Difference' %} $</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for item in payers_by_type %}
+  {% if payers_by_type %}
+    <div class="table-responsive table mt-2 mb-4">
+      <table class="table table-sm">
+        <thead>
           <tr>
-            <th>{{ item.pg_type|upper }}</th>
-            <td class="text-center">{{ item.payers|length }}</td>
-            <td class="fw-bolder text-end">{{ item.payed|floatformat:2 }}</td>
-            <td class="fw-bolder text-end">{{ item.expected|floatformat:2 }}</td>
-            <td class="fw-bolder text-end">{{ item.difference|floatformat:2 }}</td>
+            <th scope="col">{% trans 'Payment type' %}</th>
+            <th scope="col" class="text-center">{% trans 'Records' %}</th>
+            <th scope="col" class="text-end">{% trans 'Payed' %} $</th>
+            <th scope="col" class="text-end">{% trans 'Expected' %} $</th>
+            <th scope="col" class="text-end">{% trans 'Difference' %} $</th>
           </tr>
-        {% endfor %}
-      </tbody>
-      <tfoot>
-        <tr class="lead">
-          <th class="text-end">TOTAL</th>
-          <td class="text-center">{{ object_list|length }}</td>
-          <td class="fw-bolder text-end">{{ totals.payed }}</td>
-          <td class="fw-bolder text-end">{{ totals.expected }}</td>
-          <td class="fw-bolder text-end">{{ totals.difference }}</td>
-        </tr>
-      </tfoot>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          {% for item in payers_by_type %}
+            <tr>
+              <th>{{ item.pg_type|upper }}</th>
+              <td class="text-center">{{ item.payers|length }}</td>
+              <td class="fw-bolder text-end">{{ item.payed|floatformat:2 }}</td>
+              <td class="fw-bolder text-end">{{ item.expected|floatformat:2 }}</td>
+              <td class="fw-bolder text-end">{{ item.difference|floatformat:2 }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot>
+          <tr class="lead">
+            <th class="text-end">TOTAL</th>
+            <td class="text-center">{{ object_list|length }}</td>
+            <td class="fw-bolder text-end">{{ totals.payed }}</td>
+            <td class="fw-bolder text-end">{{ totals.expected }}</td>
+            <td class="fw-bolder text-end">{{ totals.difference }}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  {% else %}
+    {% include "base/generics/no_data_was_found.html" %}
+  {% endif %}
 {% endblock %}

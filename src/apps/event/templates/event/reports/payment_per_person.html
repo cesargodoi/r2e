@@ -47,9 +47,7 @@
         </tfoot>
       </table>
     {% else %}
-      <div class="alert alert-warning" role="alert">
-        no data was found in the database
-      </div>
+      {% include "base/generics/no_data_was_found.html" %}
     {% endif %}
   </div>
 {% endblock %}

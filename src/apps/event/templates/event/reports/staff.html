@@ -3,14 +3,18 @@
 {% load my_tags %}
 
 {% block content %}
-  {% with stf="" %}
-    {% for staff in staff_list %}
-      {% ifchanged staff.stf %}
-        {% with stf=staff.stf %}
-          <h4 class="mt-4 fw-bolder">{{ staff.stf }}</h4>
-        {% endwith %}
-      {% endifchanged %}
-      &nbsp; • {{ staff.person }} &nbsp;&nbsp;
-    {% endfor %}
-  {% endwith %}
+  {% if staff_list %}
+    {% with stf="" %}
+      {% for staff in staff_list %}
+        {% ifchanged staff.stf %}
+          {% with stf=staff.stf %}
+            <h4 class="mt-4 fw-bolder border-bottom">{{ staff.stf }}</h4>
+          {% endwith %}
+        {% endifchanged %}
+        &nbsp; <span class="fs-6"> ☑ {{ staff.person }}</span> &nbsp;&nbsp;
+      {% endfor %}
+    {% endwith %}
+  {% else %}
+    {% include "base/generics/no_data_was_found.html" %}
+  {% endif %}
 {% endblock %}

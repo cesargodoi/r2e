@@ -1,8 +1,9 @@
 <!-- Stays | start -->
+{% load i18n %}
 <div class="card shadow mb-3">
   <div class="card-header py-3">
     <div class="card-header py-3">
-      {% include 'base/list_search.html' with list_title="Registers" placeholder="Search by name..." %}
+      {% include 'base/list_search.html' with list_title=_("Registers") placeholder=_("Search by name...") %}
     </div>
   </div>
   <div class="card-body">
@@ -11,12 +12,12 @@
         <table class="table table-sm">
           <tr>
             <th>#</th>
-            <th>Person</th>
-            <th>Lodge</th>
-            <th>Arrival</th>
-            <th>Departure</th>
-            <th>Restrictions</th>
-            <th class="text-end">Value $</th>
+            <th>{% trans "Person" %}</th>
+            <th>{% trans "Lodge" %}</th>
+            <th>{% trans "Arrival" %}</th>
+            <th>{% trans "Departure" %}</th>
+            <th>{% trans "Restrictions" %}</th>
+            <th class="text-end">{% trans "Value" %} $</th>
             <th></th>
           </tr>
           <tbody id="stay_list">
@@ -26,9 +27,7 @@
           </tbody>
         </table>
       {% else %}
-        <div class="alert alert-secondary" role="alert">
-          Register not found.
-        </div>
+        {% include "base/generics/no_data_was_found.html" %}
       {% endif %}
     </div>
   </div>
