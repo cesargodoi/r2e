@@ -1,4 +1,7 @@
 from django.urls import reverse_lazy, reverse
+
+# from django.shortcuts import render
+from django.template.loader import render_to_string
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import (
     ListView,
@@ -16,7 +19,7 @@ from django.contrib.auth.mixins import (
 from ..models import Person
 from ..forms import PersonForm
 
-from r2e.commom import get_pagination_url
+from r2e.commom import get_pagination_url, us_inter_char
 
 
 class PersonList(LoginRequiredMixin, ListView):
@@ -84,6 +87,18 @@ class PersonCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         form.save()
         return HttpResponse(headers={"HX-Refresh": "true"})
+
+
+def check_name(request):
+    if len(request.GET.get("name")) < 3:
+        return HttpResponse()
+    typed_name = us_inter_char(request.GET.get("name").lower())
+    object_list = Person.objects.filter(name_sa__icontains=typed_name)
+    if not object_list:
+        return HttpResponse()
+    template_name = "person/components/check_name_result.html"
+    context = {"object_list": object_list}
+    return HttpResponse(render_to_string(template_name, context, request))
 
 
 class PersonUpdate(

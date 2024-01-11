@@ -8,12 +8,14 @@
     <div class="{% if field.errors %}has-error{% endif %} mt-3">
       {% if field|field_type == "booleanfield" %}
         {% render_field field class="form-check-input" %}
-        <label for="#" class="form-label">{{ field.label_tag }}</label>
+        {{ field.label_tag }}
       {% else %}
         {% if field.name == 'center' and 'create' in request.path and not user.is_superuser %}
           {% render_field field class="form-control" hidden=hidden %}
+        {% elif field.name == 'name' and 'create' in request.path %}
+          {% include "person/components/check_name.html" %}
         {% else %}
-          <label for="#" class="form-label">{{ field.label_tag }}</label>
+          {{ field.label_tag }}
           {% render_field field class="form-control" %}
         {% endif %}
       {% endif %}
