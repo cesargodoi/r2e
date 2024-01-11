@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% for event in events %}
   <tr>
     <td>{{ forloop.counter }}</td>
@@ -10,7 +11,7 @@
       </span>
     </td>
     <td class="text-end">
-      <a href="{% url 'event:detail' event.pk %}">go to event</a>
+      <a href="{% url 'event:detail' event.pk %}">{% trans "go to event" %}</a>
     </td>
   </tr> 
 {% endfor %}

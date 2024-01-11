@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load my_tags %}
+{% load i18n %}
 <div 
   id="offcanvasForm" 
   class="offcanvas offcanvas-end" 
@@ -12,7 +13,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div id="offcanvasContent" class="offcanvas-body" hx-target="this">
-    Loading...
+    {% trans "Loading..." %}
   </div>
   <div class="offcanvas-footer text-end m-4">
     <button 

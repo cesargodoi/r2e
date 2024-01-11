@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 <tr>
   <td>{{ forloop.counter }}</td>
   <td>{{ reg.person.name }}</td>
@@ -19,7 +20,7 @@
     </td>
     <td>{% if reg.observations %}{{ reg.observations }}{% endif %}</td>
   {% else %}
-    <td colspan="2" class="text-danger">Por favor, insira uma estadia.</td>
+    <td colspan="2" class="text-danger">{% trans "Please, enter a stay." %}</td>
   {% endif %}
   <td class="text-end">
     {% if reg.lodge %}

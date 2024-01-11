@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
   {% include 'base/generics/header.html' %}
 
@@ -9,7 +9,7 @@
     <div class="card-header py-3">
       <div class="d-flex justify-content-between flex-wrap" style="width: 100%">
         <div class="col-sm-6 mb-3">
-          <p class="text-primary m-0 fw-bold h5">Registers</p>
+          <p class="text-primary m-0 fw-bold h5">{% trans "Registers" %}</p>
         </div>
         <div class="col-sm-6 search-inline input-group" id="searchPerson">
           {% include "register/components/search_person.html" %}
@@ -30,7 +30,7 @@
       <!-- Forms of Payment -->
       <div class="card shadow mb-3">
         <div class="card-header py-3 d-flex justify-content-between">
-          <p class="text-primary m-0 fw-bold h5">Forms of Payment</p>
+          <p class="text-primary m-0 fw-bold h5">{% trans "Forms of Payment" %}</p>
           {% if request.session.order.registers.0.lodge %}
             <button 
               type="button" 
@@ -40,7 +40,7 @@
               aria-controls="offcanvasForm"
               onclick="manageForm('{% url 'register:add_payform' %}')"
             >
-              <i class="bi bi-plus-lg"></i> Add
+              <i class="bi bi-plus-lg"></i> {% trans "Add" %}
             </button>
           {% endif %}
         </div>
@@ -57,7 +57,7 @@
       <!-- Details -->
       <div class="card shadow mb-3">
         <div class="card-header py-3 d-flex justify-content-between">
-          <p class="text-primary m-0 fw-bold h5">Details</p>
+          <p class="text-primary m-0 fw-bold h5">{% trans "Details" %}</p>
         </div>
         <div class="card-body" id="formsOfPayment">
           <form action="{{ request.path }}" method="post">
@@ -68,7 +68,7 @@
             <div class="text-end">
               {% if request.session.order.total_registers != 0 and request.session.order.missing == 0  or request.session.order.free == 'true' %}
                 <button type="submit" class="btn btn-outline-primary">
-                  <i class="bi bi-check"></i>Registrar
+                  <i class="bi bi-check"></i>{% trans "Register" %}
                 </button>
               {% else %}
                 <br>

@@ -1,6 +1,7 @@
+{% load i18n %}
 <div class="card shadow mb-3">
   <div class="card-header py-3">
-    <p class="text-primary m-0 fw-bold">Events</p>
+    <p class="text-primary m-0 fw-bold">{% trans "Events" %}</p>
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
@@ -8,9 +9,9 @@
         <table class="table table-sm">
           <tr>
             <th>#</th>
-            <th>Event</th>
-            <th>Date</th>
-            <th>Status</th>
+            <th>{% trans "Event" %}</th>
+            <th>{% trans "Date" %}</th>
+            <th>{% trans "Status" %}</th>
             <th></th>
           </tr>
           <tbody id="event_list">
@@ -18,9 +19,7 @@
           </tbody>
         </table>
       {% else %}
-        <div class="alert alert-warning" role="alert">
-          no <strong>Events</strong> was found in the database
-        </div>
+        {% include "base/generics/no_data_was_found.html" %}
       {% endif %}
     </div>
   </div>

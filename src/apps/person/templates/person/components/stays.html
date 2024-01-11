@@ -1,19 +1,20 @@
+{% load i18n %}
 <!-- Stays | start -->
 <div class="card shadow mb-3">
   <div class="card-header py-3">
-    <p class="text-primary m-0 fw-bold">Stays</p>
+    <p class="text-primary m-0 fw-bold">{% trans "Stays" %}</p>
   </div>
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
       {% if stays %}
         <table class="table table-sm">
           <tr>
-            <th>Stay</th>
-            <th>Lodge</th>
-            <th>Arrival</th>
-            <th>Departure</th>
-            <th>Restr.</th>
-            <th>Staff</th>
+            <th>{% trans "Stay" %}</th>
+            <th>{% trans "Lodge" %}</th>
+            <th>{% trans "Arrival" %}</th>
+            <th>{% trans "Departure" %}</th>
+            <th>{% trans "Restr." %}</th>
+            <th>{% trans "Staff" %}</th>
             <th></th>
           </tr>
           <tbody id="stay_list">
@@ -33,7 +34,7 @@
         aria-controls="offcanvasForm"
         onclick="manageForm('{% url 'person:stay_create' object.pk %}')"
       >
-        <i class="bi bi-plus-lg"></i> Add 
+        <i class="bi bi-plus-lg"></i> {% trans "Add" %} 
       </button>
     </div>
   </div>

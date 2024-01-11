@@ -1,14 +1,15 @@
 {% load static %}
+{% load i18n %}
 <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
   <table class="table my-0" id="dataTable">
     {% if object_list %}
       <tr>
         <th>#</th>
-        <th>Name</th>
-        <th>Gender</th>
-        <th>Floor</th>
-        <th>Beds</th>
-        <th>Active</th>
+        <th>{% trans "Name" %}</th>
+        <th>{% trans "Gender" %}</th>
+        <th>{% trans "Floor" %}</th>
+        <th>{% trans "Beds" %}</th>
+        <th>{% trans "Active" %}</th>
         <th></th>
       </tr>
     {% endif %}
@@ -25,9 +26,11 @@
           </td>
           <td>
             {% if obj.floor == 0 %}
-              terreo
+              {% trans "ground floor" %}
+            {% elif obj.floor == 1 %}
+              {{ obj.floor }}{% trans "st. floor" %}
             {% else %}
-              {{ obj.floor }}o. andar
+              {{ obj.floor }}{% trans "nd. floor" %}
             {% endif %}
           </td>
           <td>
@@ -46,7 +49,7 @@
                 onclick="manageForm('{% url 'center:bedroom_update' obj.building_id obj.pk %}')"
               >
                 <i class="bi bi-pencil-square"></i>
-                Edit
+                {% trans "Edit" %}
               </button>
               <button 
                 type="button" 
@@ -56,15 +59,13 @@
                 onclick="manageData('{% url 'center:bedroom_delete' obj.building_id obj.pk %}')"
               >
                 <i class="bi bi-trash3"></i>
-                Delete
+                {% trans "Delete" %}
               </button>
             {% endif %}
           </td>
         </tr>
       {% empty %}
-        <div class="alert alert-warning" role="alert">
-          no buildings were found in the database
-        </div>
+        {% include "base/generics/no_data_was_found.html" %}
       {% endfor %}
     </tbody>
   </table>

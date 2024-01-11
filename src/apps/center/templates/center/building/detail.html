@@ -1,6 +1,6 @@
 {% extends "base/base.html" %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
   <div class="mb-3">
     {% include "center/building/components/detail_card.html" %}
@@ -8,7 +8,7 @@
   <div class="card shadow">
     <div class="card-header py-3">
       <div class="row">
-        <div class="col-md-4"><p class="text-primary m-0 mb-3 fw-bold">Bedrooms</p></div>
+        <div class="col-md-4"><p class="text-primary m-0 mb-3 fw-bold">{% trans "Bedrooms" %}</p></div>
         <div class="col-md-4 text-center">
           {% include "center/building/components/get_bedrooms.html" %}
         </div>
@@ -17,7 +17,7 @@
     </div>
     <div class="card-body">
       <div hx-get="{% url 'center:bedroom_list' object.pk %}" hx-target="#bedrooms" hx-swap="innerHTML" hx-trigger="load"></div>
-      <div id="bedrooms">Loading...</div>
+      <div id="bedrooms">{% trans "Loading..." %}</div>
     </div>
   </div>
 
