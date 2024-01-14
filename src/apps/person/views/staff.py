@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
@@ -12,7 +13,7 @@ from ..forms import StaffForm
 class StaffList(LoginRequiredMixin, ListView):
     model = Staff
     template_name = "person/staff/list.html"
-    extra_context = {"title": "Staff"}
+    extra_context = {"title": _("Staff")}
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
@@ -31,7 +32,7 @@ class StaffCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     form_class = StaffForm
     template_name = "person/staff/form.html"
     success_url = reverse_lazy("person:staff_list")
-    extra_context = {"title": "Create Staff"}
+    extra_context = {"title": _("Create Staff")}
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -45,7 +46,7 @@ class StaffUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Staff
     form_class = StaffForm
     template_name = "person/staff/form.html"
-    extra_context = {"title": "Update Staff"}
+    extra_context = {"title": _("Update Staff")}
     success_url = reverse_lazy("person:staff_list")
 
     def test_func(self):

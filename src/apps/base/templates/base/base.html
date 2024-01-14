@@ -1,6 +1,9 @@
   {% load static %}
+  {% load i18n %}
+  {% get_current_language as LANGUAGE_CODE %}
+  
   <!DOCTYPE html>
-  <html lang="en">
+  <html lang="{{ LANGUAGE_CODE }}">
   
     <head>
       <meta charset="utf-8">
@@ -32,6 +35,7 @@
             </a>
             <hr class="sidebar-divider my-0">
               {% include 'base/sidebar.html' %}
+              {{ LANGUAGE_CODE }}
             <div class="text-center d-none d-md-inline">
               <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
             </div>

@@ -1,5 +1,6 @@
 import json
 from django.shortcuts import render, redirect, HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -56,7 +57,7 @@ class Accommodations(
 
         page_obj = get_paginator(self.request, queryset)
 
-        context["title"] = "Accommodation management"
+        context["title"] = _("Accommodation management")
         context["event_id"] = self.object.pk
         context["filter"] = self.request.GET.get("filter") or "all"
         context["q"] = self.request.GET.get("q", "")
@@ -88,11 +89,11 @@ class RebuildTheMapping(
 
 
 @login_required
-def bedroom_details(request, bedroom_id):
+def bedroom_details(request, event_id, bedroom_id):
     template_name = "event/accommodation/bedroom_details.html"
-    bedroom = Accommodation.objects.filter(bedroom_id=bedroom_id).order_by(
-        "bottom_or_top"
-    )
+    bedroom = Accommodation.objects.filter(
+        event_id=event_id, bedroom_id=bedroom_id
+    ).order_by("bottom_or_top")
     context = {
         "bedroom": bedroom[0],
         "tops": [b for b in bedroom if b.bottom_or_top == "T"],
@@ -287,7 +288,7 @@ class ManagingStaff(LoginRequiredMixin, View):
             stay_center=register.order.event.center
         )
         form = StaffForm(instance=stay)
-        context = {"title": "Managing Staff", "form": form}
+        context = {"title": _("Managing Staff"), "form": form}
         return render(request, template_name, context)
 
     def post(self, request, *args, **kwargs):

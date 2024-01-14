@@ -7,23 +7,23 @@
       <div class="col-lg-4">
         <table class="table table-sm">
           <tr>
-            <th width="32%">{% trans "periodo" %}:</th>
-            <td class="lead">{{ object.date|date:"d/M" }} à {{ object.end_date|date:"d/M" }} de {{ object.date|date:"Y" }}</td>
+            <th width="32%">{% trans "period" %}:</th>
+            <td class="lead">{{ object.date|date:"d/M" }} {% trans "to" %} {{ object.end_date|date:"d/M" }} {% trans "of" %} {{ object.date|date:"Y" }}</td>
           </tr>
           <tr>
-            <th>{% trans "inscrições até" %}:</th>
-            <td class="lead">{{ object.deadline|date:"d/m/Y" }} às {{ object.deadline|date:"H:i" }}</td>
+            <th>{% trans "registrations up to" %}:</th>
+            <td class="lead">{{ object.deadline|date:"d/m/Y" }} {% trans "at" %} {{ object.deadline|date:"H:i" }}</td>
           </tr>
         </table>
       </div>
       <div class="col-lg-4">
         <table class="table table-sm">
           <tr>
-            <th width="32%">{% trans "taxa de registro" %}:</th>
+            <th width="32%">{% trans "registration fee" %}:</th>
             <td class="lead">{{ object.ref_value }} &nbsp;&nbsp; <small class="text-warning"><em>(min. {{ object.min_value }})</em></small></td>
           </tr>
           <tr>
-            <th>{% trans "obs" %}:</th>
+            <th>{% trans "ps" %}:</th>
             <td class="lead">
               <span 
                 class="lead mb-4"
@@ -40,11 +40,11 @@
       <div class="col-lg-4">
         <table class="table table-sm">
           <tr>
-            <th width="32%">{% trans "total no evento" %}:</th>
+            <th width="32%">{% trans "total at the event" %}:</th>
             <td class="h4"><strong>{% if total_registers > 0 %}{{ total_registers }}{% endif %}</strong></td>
           </tr>
           <tr>
-            <th>{% trans "inscritos no núcleo" %}:</th>
+            <th>{% trans "enrolled in the center" %}:</th>
             <td class="h4"><strong>{% if registers|length > 0 %}{{ registers|length }}{% endif %}</strong></td>
           </tr>
         </table>

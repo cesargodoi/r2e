@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import DeleteView
 from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import (
@@ -17,7 +18,7 @@ class StayCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
     form_class = StayForm
     template_name = "person/components/stay_form.html"
     permission_required = "person.add_personstay"
-    extra_context = {"title": "Create a new Stay"}
+    extra_context = {"title": _("Create a new Stay")}
     success_url = reverse_lazy("person:list")
 
     def form_valid(self, form):
@@ -35,7 +36,7 @@ class StayUpdate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
     form_class = StayForm
     template_name = "person/components/stay_form.html"
     permission_required = "person.change_personstay"
-    extra_context = {"title": "Update Stay"}
+    extra_context = {"title": _("Update Stay")}
     success_url = reverse_lazy("person:list")
 
     def get_form_kwargs(self):

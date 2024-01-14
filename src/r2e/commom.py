@@ -12,7 +12,6 @@ COUNTRIES_CHOICES = [
 
 ACTIVITY_TYPES = [
     ("CNF", _("Conference")),
-    ("SCF", _("Special Conference")),
     ("ODD", _("Open Doors Day")),
     ("OTR", _("Others")),
 ]
@@ -37,23 +36,11 @@ ASPECTS = [
     ("A6", _("6st. Aspect")),
 ]
 
-CREDIT_OPERATIONS = [
-    ("ADJ", _("Adjustment")),
-    ("GEN", _("Generation")),
-    ("USE", _("Used")),
-    ("CAN", _("Cancel")),
-    ("EXC", _("Exclusion")),
-    ("DEV", _("Devolution")),
-    ("CML", _("Cancel Multiple")),
-    ("RPY", _("Repayment")),
-]
-
 PAYMENT_TYPES = [
     ("CSH", _("Cash")),
     ("CHK", _("Check")),
     ("PRE", _("Pre Check")),
     ("DBT", _("Debit")),
-    ("CDT", _("Credit")),
     ("DPT", _("Deposit")),
     ("TRF", _("Transfer")),
     ("PIX", _("Pix")),
@@ -61,12 +48,6 @@ PAYMENT_TYPES = [
 ]
 
 LODGE_TYPES = [("LDG", _("Lodge")), ("HSE", _("House")), ("HTL", _("Hotel"))]
-
-ARRIVAL_DATE = [
-    ("D0", _("Eve day")),
-    ("D1", _("1st day")),
-    ("D2", _("2nd day")),
-]
 
 """
 ARRIVAL_TIME | DEPARTURE_TIME | TAKE_MEAL

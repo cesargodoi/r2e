@@ -59,7 +59,7 @@
             class="btn btn-light text-info btn-sm" 
             data-bs-toggle="modal" 
             data-bs-target="#baseModal"
-            onclick="manageData('{% url 'event:bedroom_details' reg.accommodation.bedroom.id %}')"
+            onclick="manageData('{% url 'event:bedroom_details' reg.order.event.id reg.accommodation.bedroom.id %}')"
           >
             <i class="bi bi-eye"></i>
           </button>

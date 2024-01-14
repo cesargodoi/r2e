@@ -1,6 +1,5 @@
 from django.urls import reverse_lazy, reverse
-
-# from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 from django.template.loader import render_to_string
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic import (
@@ -25,7 +24,7 @@ from r2e.commom import get_pagination_url, us_inter_char
 class PersonList(LoginRequiredMixin, ListView):
     model = Person
     paginate_by = 10
-    extra_context = {"title": "People"}
+    extra_context = {"title": _("People")}
 
     def get_queryset(self):
         query = Person.objects.all()
@@ -48,7 +47,7 @@ class PersonList(LoginRequiredMixin, ListView):
 
 class PersonDetail(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Person
-    extra_context = {"title": "Person detail"}
+    extra_context = {"title": _("Person detail")}
 
     def test_func(self):
         return self.request.user.is_superuser or (
@@ -75,7 +74,7 @@ class PersonCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     form_class = PersonForm
     permission_required = "person.add_person"
     success_url = reverse_lazy("person:list")
-    extra_context = {"title": "Create Person"}
+    extra_context = {"title": _("Create Person")}
 
     def get_initial(self):
         initial = super().get_initial()
@@ -110,7 +109,7 @@ class PersonUpdate(
     model = Person
     form_class = PersonForm
     permission_required = "person.change_person"
-    extra_context = {"title": "Update Person"}
+    extra_context = {"title": _("Update Person")}
 
     def test_func(self):
         return self.request.user.is_superuser or (
