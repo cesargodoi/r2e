@@ -14,7 +14,7 @@ urlpatterns += [
         name="bedrooms_on_event",
     ),
     path(
-        "<int:event_id>accommodations/<int:bedroom_id>/bedroom_details/",
+        "<int:event_id>/accommodations/<int:bedroom_id>/bedroom_details/",
         views.bedroom_details,
         name="bedroom_details",
     ),

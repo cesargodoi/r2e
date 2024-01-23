@@ -9,11 +9,17 @@
       <li class="list-group-item">
         {% if bed.register %}
           <div class="d-flex justify-content-between align-items-center">
-            <div>
+            <div style="flex:8;">
               <img class="icon-style me-2" src="{% static 'img/icons/bed_BN.png' %}">
-              {{ bed.register.person.name }} 
+              {{ bed.register.person.name|shortname }} 
             </div>
-            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} {% trans "years" %}</span>
+            <small class="badge text-bg-primary" style="flex:1;">
+              {{ bed.register.person.aspect }}
+            </small>
+            <small class="text-secondary text-center" style="flex:5;">{{ bed.register.person.center.short_name }}</small>
+            <div style="flex:2;">
+              <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} {% trans "years" %}</span>
+            </div>
           </div>
         {% else %}
           <img class="icon-style me-2" src="{% static 'img/icons/bed_BY.png' %}">
@@ -31,11 +37,17 @@
       <li class="list-group-item">
         {% if bed.register %}
           <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <img class="icon-style me-2" src="{% static 'img/icons/bed_TN.png' %}">
-              {{ bed.register.person.name }}
+            <div style="flex:8;">
+              <img class="icon-style me-2" src="{% static 'img/icons/bed_BN.png' %}">
+              {{ bed.register.person.name|shortname }} 
             </div>
-            <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} {% trans "years" %}</span>
+            <small class="badge text-bg-primary" style="flex:1;">
+              {{ bed.register.person.aspect }}
+            </small>
+            <small class="text-secondary text-center" style="flex:5;">{{ bed.register.person.center.short_name }}</small>
+            <div style="flex:2;">
+              <span class="badge text-bg-secondary">{{ bed.register.person.birth|age }} {% trans "years" %}</span>
+            </div>
           </div>
         {% else %}
           <img class="icon-style me-2" src="{% static 'img/icons/bed_TY.png' %}">

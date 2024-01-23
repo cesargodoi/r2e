@@ -310,6 +310,7 @@ class AddToBedroom(LoginRequiredMixin, View):
             else to_bedroom["bedroom_type"]
         )
         accommodations = Accommodation.objects.filter(
+            event_id=kwargs["event_id"],
             bedroom_id=to_bedroom["bedroom_id"],
             bottom_or_top=bedroom_type,
             register__isnull=True,
@@ -498,7 +499,7 @@ class ManagingStaff(LoginRequiredMixin, View):
 def generate_mapping(event_id):
     event = Event.objects.get(id=event_id)
     for bed in Bedroom.objects.filter(
-        building__center=event.center, is_active=True
+        building__center=event.center, building__is_active=True, is_active=True
     ):
         bedroom = {"event": event, "bedroom": bed, "gender": bed.gender}
         for _ in range(bed.bottom_beds):
