@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-14 06:28-0300\n"
+"POT-Creation-Date: 2024-01-18 16:38-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,6 +38,7 @@ msgstr ""
 
 #: src/apps/base/templates/base/generics/confirm_delete.html:3
 #: src/apps/event/templates/event/accommodation/confirm_rebuild.html:3
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:3
 #: src/apps/event/templates/event/accommodation/confirm_to_remove.html:3
 #: src/apps/register/templates/register/order_delete.html:3
 msgid "Atention"
@@ -53,6 +54,7 @@ msgstr ""
 #: src/apps/base/templates/base/offcanvas.html:26
 #: src/apps/event/templates/event/accommodation/add_to_bedroom.html:52
 #: src/apps/event/templates/event/accommodation/confirm_rebuild.html:22
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:22
 #: src/apps/event/templates/event/accommodation/confirm_to_remove.html:22
 #: src/apps/register/templates/register/order_delete.html:24
 msgid "Cancel"
@@ -165,7 +167,7 @@ msgstr ""
 #: src/apps/event/templates/event/accommodation/components/person_list.html:19
 #: src/apps/event/templates/event/reports/mapping_per_person.html:15
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:68
+#: src/apps/event/views/reports.py:65
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -274,10 +276,12 @@ msgid "Name"
 msgstr ""
 
 #: src/apps/center/templates/center/bedroom/list.html:9
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:15
 msgid "Gender"
 msgstr ""
 
 #: src/apps/center/templates/center/bedroom/list.html:10
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:16
 msgid "Floor"
 msgstr ""
 
@@ -290,14 +294,17 @@ msgid "Active"
 msgstr ""
 
 #: src/apps/center/templates/center/bedroom/list.html:29
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:20
 msgid "ground floor"
 msgstr ""
 
 #: src/apps/center/templates/center/bedroom/list.html:31
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:22
 msgid "st. floor"
 msgstr ""
 
 #: src/apps/center/templates/center/bedroom/list.html:33
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:24
 msgid "nd. floor"
 msgstr ""
 
@@ -314,6 +321,7 @@ msgstr ""
 
 #: src/apps/center/templates/center/building/detail.html:11
 #: src/apps/center/views/bedroom.py:20
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:5
 msgid "Bedrooms"
 msgstr ""
 
@@ -492,6 +500,7 @@ msgid "Choose a bedroom gender"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/add_to_bedroom.html:31
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:45
 #: src/r2e/commom.py:22
 msgid "Mixed"
 msgstr ""
@@ -501,6 +510,7 @@ msgid "Put in the bedroom"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/bedroom_details.html:21
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:17
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:6
 msgid "Bottom beds"
 msgstr ""
@@ -523,6 +533,7 @@ msgid "free"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/bedroom_details.html:41
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:18
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:28
 msgid "Top beds"
 msgstr ""
@@ -532,15 +543,46 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:2
-msgid "Choose a Bedroom"
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:5
+msgid "Search by building..."
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:13
+#: src/apps/event/templates/event/reports/mapping_per_person.html:14
+msgid "Building"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:14
+#: src/apps/event/templates/event/reports/mapping_by_room.html:18
+#: src/apps/event/templates/event/reports/mapping_per_person.html:13
+msgid "Bedroom"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:19
+msgid "Beds in use"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:20
+msgid "Free beds"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:30
+msgid "TOTAL"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:26
+msgid "rd. floor"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:59
 msgid "Force the use of top bed"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/building_list.html:2
+#: src/apps/event/templates/event/accommodation/components/bedrooms.html:2
+msgid "Choose a Bedroom"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/buildings.html:2
 msgid "Choose a building"
 msgstr ""
 
@@ -567,6 +609,20 @@ msgstr ""
 msgid "Hotel"
 msgstr ""
 
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:12
+msgid "All bedrooms"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:23
+#: src/r2e/commom.py:21 src/r2e/commom.py:22
+msgid "Male"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:34
+#: src/r2e/commom.py:21 src/r2e/commom.py:22
+msgid "Female"
+msgstr ""
+
 #: src/apps/event/templates/event/accommodation/components/navbar.html:4
 msgid "Reports an Actions"
 msgstr ""
@@ -589,7 +645,7 @@ msgid "People on event"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:38
-#: src/apps/event/views/reports.py:127
+#: src/apps/event/views/reports.py:124
 msgid "People per meal"
 msgstr ""
 
@@ -599,6 +655,10 @@ msgid "Actions"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:53
+msgid "Reload mapping"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:63
 msgid "Reset mapping"
 msgstr ""
 
@@ -651,6 +711,14 @@ msgstr ""
 
 #: src/apps/event/templates/event/accommodation/confirm_rebuild.html:29
 msgid "Rebuild"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:8
+msgid "Are you shure you want to reload the mapping of event"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:29
+msgid "Reload"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/confirm_to_remove.html:29
@@ -722,6 +790,7 @@ msgstr ""
 #: src/apps/event/templates/event/components/list_table.html:17
 #: src/apps/event/templates/event/components/register_list.html:6
 #: src/apps/person/templates/person/components/registers.html:5
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:2
 #: src/apps/register/templates/register/order_form.html:12
 msgid "Registers"
 msgstr ""
@@ -755,7 +824,7 @@ msgid "Payment per person"
 msgstr ""
 
 #: src/apps/event/templates/event/components/navbar.html:66
-#: src/apps/event/views/reports.py:116
+#: src/apps/event/views/reports.py:113
 msgid "Total collected in the center"
 msgstr ""
 
@@ -808,21 +877,12 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: src/apps/event/templates/event/reports/mapping_by_room.html:18
-#: src/apps/event/templates/event/reports/mapping_per_person.html:13
-msgid "Bedroom"
-msgstr ""
-
 #: src/apps/event/templates/event/reports/mapping_by_room.html:24
 msgid "top bed"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/mapping_by_room.html:24
 msgid "bottom bed"
-msgstr ""
-
-#: src/apps/event/templates/event/reports/mapping_per_person.html:14
-msgid "Building"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/payment_per_person.html:14
@@ -874,7 +934,11 @@ msgstr ""
 msgid "Accommodation management"
 msgstr ""
 
-#: src/apps/event/views/accomodations.py:291
+#: src/apps/event/views/accomodations.py:105
+msgid "Bedrooms on event"
+msgstr ""
+
+#: src/apps/event/views/accomodations.py:477
 msgid "Managing Staff"
 msgstr ""
 
@@ -898,23 +962,23 @@ msgstr ""
 msgid "Update Event"
 msgstr ""
 
-#: src/apps/event/views/reports.py:43
+#: src/apps/event/views/reports.py:45
 msgid "Mapping of Accommodations"
 msgstr ""
 
-#: src/apps/event/views/reports.py:53
+#: src/apps/event/views/reports.py:50
 msgid "Mapping per Person"
 msgstr ""
 
-#: src/apps/event/views/reports.py:63
+#: src/apps/event/views/reports.py:60
 msgid "People at the Event"
 msgstr ""
 
-#: src/apps/event/views/reports.py:83
+#: src/apps/event/views/reports.py:80
 msgid "Cash Balance"
 msgstr ""
 
-#: src/apps/event/views/reports.py:106
+#: src/apps/event/views/reports.py:103
 msgid "Payment per Person"
 msgstr ""
 
@@ -1111,11 +1175,6 @@ msgstr ""
 msgid "Bank and Flags"
 msgstr ""
 
-#: src/apps/register/templates/register/components/detail_registers_payforms.html:2
-#: src/apps/register/templates/register/order_form.html:71
-msgid "Register"
-msgstr ""
-
 #: src/apps/register/templates/register/components/detail_registers_payforms.html:7
 #: src/apps/register/templates/register/components/detail_registers_payforms.html:23
 #: src/apps/register/templates/register/components/payform_table.html:10
@@ -1156,6 +1215,10 @@ msgstr ""
 msgid "Forms of Payment"
 msgstr ""
 
+#: src/apps/register/templates/register/order_form.html:71
+msgid "Register"
+msgstr ""
+
 #: src/apps/register/templates/register/order_show.html:3
 msgid "Order Detail"
 msgstr ""
@@ -1172,15 +1235,15 @@ msgstr ""
 msgid "Create Order"
 msgstr ""
 
-#: src/apps/register/views/order.py:82
+#: src/apps/register/views/order.py:83
 msgid "Update Order"
 msgstr ""
 
-#: src/apps/register/views/order.py:129
+#: src/apps/register/views/order.py:130
 msgid "Delete Order"
 msgstr ""
 
-#: src/apps/register/views/order.py:305
+#: src/apps/register/views/order.py:310
 msgid "Add Form of Payment"
 msgstr ""
 
@@ -1210,14 +1273,6 @@ msgstr ""
 
 #: src/r2e/commom.py:19
 msgid "closed"
-msgstr ""
-
-#: src/r2e/commom.py:21 src/r2e/commom.py:22
-msgid "Male"
-msgstr ""
-
-#: src/r2e/commom.py:21 src/r2e/commom.py:22
-msgid "Female"
 msgstr ""
 
 #: src/r2e/commom.py:23

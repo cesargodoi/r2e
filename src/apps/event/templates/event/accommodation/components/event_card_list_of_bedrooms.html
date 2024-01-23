@@ -1,0 +1,75 @@
+{% load static %}
+{% load i18n %}
+<div class="card mb-3">
+  <div class="card-body shadow">
+    {% include 'event/accommodation/components/page_header.html' %}
+    <ul class="nav nav-pills nav-fill mt-2 mb-2 bg-light">
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'all' %}active{% endif %}" 
+          href="{% url 'event:bedrooms_on_event' event_id %}"
+        >
+          {% trans "All bedrooms" %}  
+          <span class="badge text-bg-secondary">
+            {{ request.session.bedrooms_on_event.all }}
+          </span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'M' %}active{% endif %}" 
+          href="{% url 'event:bedrooms_on_event' event_id %}?filter=M"
+        >
+          {% trans "Male" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.bedrooms_on_event.M }}
+          </span>
+        </a> 
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'F' %}active{% endif %}" 
+          href="{% url 'event:bedrooms_on_event' event_id %}?filter=F"
+        >
+          {% trans "Female" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.bedrooms_on_event.F }}
+          </span>
+        </a> 
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'X' %}active{% endif %}" 
+          href="{% url 'event:bedrooms_on_event' event_id %}?filter=X"
+        >
+          {% trans "Mixed" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.bedrooms_on_event.X }}
+          </span>
+        </a> 
+      </li>
+      {% comment %} <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'bottom' %}active{% endif %}" 
+          href="{% url 'event:bedrooms_on_event' event_id %}?filter=bottom"
+        >
+          {% trans "Bottom Beds" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.bedrooms_on_event.bottom }}
+          </span>
+        </a> 
+      </li>
+      <li class="nav-item">
+        <a 
+          class="nav-link {% if filter == 'top' %}active{% endif %}" 
+          href="{% url 'event:bedrooms_on_event' event_id %}?filter=top"
+        >
+          {% trans "Top Beds" %}
+          <span class="badge text-bg-secondary">
+            {{ request.session.bedrooms_on_event.top }}
+          </span>
+        </a> 
+      </li> {% endcomment %}
+    </ul>
+  </div>
+</div>

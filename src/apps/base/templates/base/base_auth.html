@@ -15,17 +15,17 @@
     <!-- Fontawesome icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   </head>
-  <body class="bg-gradient-primary">
+  <body class="bg-gradient-primary" style="display: flex; justify-content: center; align-items: center;">
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-9 col-lg-12 col-xl-10">
           <div class="card shadow-lg o-hidden border-0 my-5">
             <div class="card-body p-0">
               <div class="row">
-                <div class="col-lg-6 d-none d-lg-flex">
+                <div class="col-lg-6 d-none d-lg-flex" style="background-color: #32489E;">
                   <div 
                     class="flex-grow-1 bg-login-image text-center p-4" 
-                    style="background-color: #32489E;"
+                    
                   >
                     <img src="{% static 'img/rca_logo.png' %}" width="50%"><br>
                     <h1 class="mt-4">
@@ -33,7 +33,7 @@
                     </h1>
                   </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6 bg-light">
                   {% block content %}{% endblock %}
                 </div>
               </div>

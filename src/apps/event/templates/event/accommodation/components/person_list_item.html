@@ -32,9 +32,9 @@
       >
         {% if reg.accommodation %}
           <!-- gender -->
-          {% if reg.accommodation.bedroom.gender == 'M'%}<img src="{% static 'img/male.png' %}" alt="male" style="width:22px;height:22px;">{% endif %}
-          {% if reg.accommodation.bedroom.gender == 'F'%}<img src="{% static 'img/female.png' %}" alt="female" style="width:22px;height:22px;">{% endif %}
-          {% if reg.accommodation.bedroom.gender == 'X'%}<img src="{% static 'img/mixed.png' %}" alt="mixed" style="width:22px;height:22px;">{% endif %}
+          {% if reg.accommodation.gender == 'M'%}<img src="{% static 'img/male.png' %}" alt="male" style="width:22px;height:22px;">{% endif %}
+          {% if reg.accommodation.gender == 'F'%}<img src="{% static 'img/female.png' %}" alt="female" style="width:22px;height:22px;">{% endif %}
+          {% if reg.accommodation.gender == 'X'%}<img src="{% static 'img/mixed.png' %}" alt="mixed" style="width:22px;height:22px;">{% endif %}
           <!-- button or top -->
           {% if reg.accommodation.bottom_or_top == 'T' %} 
             <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}" alt="no stairs">

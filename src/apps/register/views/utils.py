@@ -24,14 +24,15 @@ def init_session(request):
     }
 
 
-def get_dict_register(event_id, person, stay, ref_value, alt_mapping):
+def get_dict_register(person, stay, ref_value, alt_mapping, event_id=None):
     if stay:
         _bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
         accommodations = Accommodation.objects.filter(
-            event_id=event_id,
             gender=person.gender,
             bedroom_id=_bedroom,
         )
+        if event_id:
+            accommodations.filter(event_id=event_id)
         bedroom = _bedroom if accommodations else ""
     else:
         bedroom = ""
@@ -183,10 +184,8 @@ def get_dict_order_to_db(request, order, update=False):
         center_id=order["center"],
         event_id=order["event"],
         value=order["total_registers"],
-        late_payment=True
-        if datetime.now()
-        > datetime.strptime(order["deadline"], "%Y-%m-%d %H:%M")
-        else False,
+        late_payment=datetime.now()
+        > datetime.strptime(order["deadline"], "%Y-%m-%d %H:%M"),
         observations=request.POST.get("observations"),
     )
     _order.update(who_made_what(request, update))
@@ -194,7 +193,9 @@ def get_dict_order_to_db(request, order, update=False):
     return _order
 
 
-def get_dict_register_to_db(request, register, order_id, update=False):
+def get_dict_register_to_db(
+    request, register, order_id, event_id, update=False
+):
     _register = dict(
         person_id=register["person"]["id"],
         order_id=order_id,
@@ -212,6 +213,7 @@ def get_dict_register_to_db(request, register, order_id, update=False):
     if register["bedroom"] and register["lodge"]["id"] == "LDG":
         try:
             accommodation = Accommodation.objects.filter(
+                event_id=event_id,
                 bedroom_id=register["bedroom"],
                 bottom_or_top=register["bedroom_type"],
                 register__isnull=True,

@@ -1,0 +1,34 @@
+{% load static %}
+{% load i18n %}
+<tr 
+  class="align-middle"
+  data-bs-toggle="modal" 
+  data-bs-target="#baseModal"
+  onclick="manageData('{% url 'event:bedroom_details' event.id bedroom.id %}')"
+>
+  <td>{{ forloop.counter }}</td>
+  <td class="h6 fw-bold text-dark">{{ bedroom.building }}</td>
+  <td class="h6 fw-bold">{{ bedroom.name }}</td>
+  <td class="text-center">
+    <!-- gender -->
+    {% if bedroom.gender == 'M'%}<img src="{% static 'img/male.png' %}" alt="male" style="width:22px;height:22px;">{% endif %}
+    {% if bedroom.gender == 'F'%}<img src="{% static 'img/female.png' %}" alt="female" style="width:22px;height:22px;">{% endif %}
+    {% if bedroom.gender == 'X'%}<img src="{% static 'img/mixed.png' %}" alt="mixed" style="width:22px;height:22px;">{% endif %}
+  </td>
+  <td class="h6 fw-bold text-center">
+    {% if bedroom.floor == 0 %}
+      {% trans 'ground floor' %}
+    {% elif bedroom.floor == 1 %} 
+      {{ bedroom.floor }}{% trans "st. floor" %}
+    {% elif bedroom.floor == 2 %}
+      {{ bedroom.floor }}{% trans "nd. floor" %}
+    {% elif bedroom.floor >= 3 %}
+      {{ bedroom.floor }}{% trans "rd. floor" %}
+    {% endif %}
+  </td>
+  <td class="h5 fw-bold text-center"><span class="text-success">{% if bedroom.bottom_free > 0 %}{{ bedroom.bottom_free }}{% endif %}</span></td>
+  <td class="h5 fw-bold text-center"><span class="text-success">{% if bedroom.top_free > 0 %}{{ bedroom.top_free }}{% endif %}</span></td>
+
+  <td class="h5 fw-bold text-end text-primary">{% if bedroom.used > 0 %}{{ bedroom.used }}{% endif %}</td>
+  <td class="h5 fw-bold text-end text-success">{{ bedroom.unused }}</td>
+</tr>

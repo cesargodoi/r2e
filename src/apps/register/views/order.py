@@ -43,6 +43,7 @@ class CreateOrder(LoginRequiredMixin, View):
         if request.session["order"]["order"]:
             Order.objects.filter(pk=request.session["order"]["order"]).delete()
         new_order = request.session["order"]
+        event_id = new_order["event"]
         # Order
         order_dict = utils.get_dict_order_to_db(request, new_order)
         order = Order(**order_dict)
@@ -50,7 +51,7 @@ class CreateOrder(LoginRequiredMixin, View):
         # Register
         for reg in new_order["registers"]:
             register_dict = utils.get_dict_register_to_db(
-                request, reg, order.id
+                request, reg, order.id, event_id
             )
             register = Register(**register_dict)
             register.save()
@@ -196,7 +197,11 @@ def add_person(request):
     ref_value = request.session["order"]["ref_value"]
     alt_mapping = request.session["order"]["alt_mapping"]
     register_stay = utils.get_dict_register(
-        request.session["order"]["event"], person, stay, ref_value, alt_mapping
+        person,
+        stay,
+        ref_value,
+        alt_mapping,
+        event_id=request.session["order"]["event"],
     )
     request.session["order"]["registers"].append(register_stay)
     utils.total_registers_add(request.session["order"], register_stay["value"])
@@ -260,7 +265,11 @@ class AddStay(StayCreate):
         ref_value = self.request.session["order"]["ref_value"]
         alt_mapping = self.request.session["order"]["alt_mapping"]
         register_stay = utils.get_dict_register(
-            stay.person, stay, ref_value, alt_mapping
+            stay.person,
+            stay,
+            ref_value,
+            alt_mapping,
+            self.request.session["order"]["event"],
         )
         self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(

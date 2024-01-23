@@ -17,7 +17,7 @@
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
             <span 
-              class="nav-link" 
+              class="nav-link is-link" 
               aria-current="page" 
               href="#"
               onclick="togleBalanceType();"
@@ -70,7 +70,7 @@
         <br>
         {% if user|same_center:object.center_id %}
           <h5 class="offcanvas-title mb-3 border-bottom">{% trans "Actions" %}</h5>
-          <div class="text-end">
+          <div class="d-grid gap-2">
             <button 
               type="button" 
               class="btn btn-outline-success"
