@@ -31,6 +31,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -77,10 +78,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
+LANGUAGES = [("en", "English"), ("pt-br", "Portuguese")]
+LOCALE_PATHS = [BASE_DIR / "locale"]
+
 TIME_ZONE = "America/Sao_Paulo"
 USE_I18N = True
+USE_L10N = True
 USE_TZ = True
+
+USE_THOUSAND_SEPARATOR = True
+DECIMAL_SEPARATOR = ","
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR.parent / "www/static/"

@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
@@ -45,7 +46,7 @@ class ActivityCreate(
     template_name = "event/activity/form.html"
     permission_required = "event.add_activity"
     success_url = reverse_lazy("event:activity_list")
-    extra_context = {"title": "Create Activity"}
+    extra_context = {"title": _("Create Activity")}
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -66,7 +67,7 @@ class ActivityUpdate(
     template_name = "event/activity/form.html"
     permission_required = "event.change_activity"
     success_url = reverse_lazy("event:activity_list")
-    extra_context = {"title": "Update Activity"}
+    extra_context = {"title": _("Update Activity")}
 
     def test_func(self):
         return self.request.user.is_superuser

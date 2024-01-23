@@ -1,31 +1,44 @@
 {% extends 'base/base_report.html' %}
 {% load static %}
+{% load i18n %}
 {% load my_tags %}
 
 {% block content %}
-  {% with building="" name="" bottom_or_top=""%}
-    {% for obj in object_list %}
-      {% ifchanged obj.bedroom.building %}
-        {% with building=obj.bedroom.building %}
-          <h3 class="mt-4 fw-bolder">{{ obj.bedroom.building }}</h3>
-        {% endwith %}
-      {% endifchanged %}
-      {% ifchanged obj.bedroom.name %}
-        {% with name=obj.bedroom.name %}
-          <h5 class="mt-4">Quarto:  &nbsp;&nbsp;<strong>{{ obj.bedroom.name }}</strong></h3>
-        {% endwith %}
-      {% endifchanged %}
-      {% ifchanged obj.bottom_or_top %}
-        {% with bottom_or_top=obj.bottom_or_op %}
-          {% if obj.bottom_or_top == 'T' %}<br>cama de cima<br>{% else %}cama de baixo<br>{% endif %}
-        {% endwith %}
-      {% endifchanged %}
-      {% if obj.bottom_or_top == 'T' %} 
-        <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}">
-      {% else %}
-        <img class="icon-style" src="{% static 'img/icons/bed_BY.png' %}">
-      {% endif %}
-      {% if obj.register.person %} {{ obj.register.person.name }}{% else %} unused{% endif %}</span> &nbsp;&nbsp;
-    {% endfor %}
-  {% endwith %}
+  {% if object_list %}
+    {% with building="" name="" bottom_or_top=""%}
+      {% for obj in object_list %}
+        {% ifchanged obj.bedroom.building %}
+          {% with building=obj.bedroom.building %}
+            <h2 class="mt-4 fw-bolder">{{ building }}</h2>
+          {% endwith %}
+        {% endifchanged %}
+        
+        {% ifchanged obj.bedroom.name %}
+          {% with name=obj.bedroom.name %}
+            <h4 class="mt-4 border-bottom">{% trans "Bedroom" %}:  &nbsp;&nbsp;<strong>{{ name }}</strong></h4>
+          {% endwith %}
+        {% endifchanged %}
+
+        {% ifchanged obj.bottom_or_top %}
+          {% with bottom_or_top=obj.bottom_or_top %}
+          <h5 class="mt-2">{% if bottom_or_top == 'T' %}{% trans "top bed" %}{% else %}{% trans "bottom bed" %}{% endif %}</h5>
+          {% endwith %}
+        {% endifchanged %}
+
+        {% if obj.bottom_or_top == 'T' %} 
+          <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}">
+        {% else %}
+          <img class="icon-style" src="{% static 'img/icons/bed_BY.png' %}">
+        {% endif %}
+        {% if obj.register.person %} 
+          <span class="text-primary fw-bolder fs-6"> {{ obj.register.person.name|shortname }}</span>
+        {% else %} 
+          <span class="text-secondary fw-light fst-italic fs-6"> {% trans "free" %}</span>
+        {% endif %} 
+        &nbsp;&nbsp;&nbsp;&nbsp;
+      {% endfor %}
+    {% endwith %}
+  {% else %}
+    {% include "base/generics/no_data_was_found.html" %}
+  {% endif %}
 {% endblock %}

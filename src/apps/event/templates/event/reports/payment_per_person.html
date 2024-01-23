@@ -11,7 +11,6 @@
           <tr>
             <th scope="col" width="2%">#</th>
             <th scope="col" width="28%" colspan="2">{% trans 'Person' %}</th>
-            {% comment %} <th scope="col" width="2%"></th> {% endcomment %}
             <th scope="col" width="55%">{% trans 'Form of payment' %}</th>
             <th scope="col" width="13%" class="text-end">{% trans 'Value' %} $</th>
           </tr>
@@ -47,9 +46,7 @@
         </tfoot>
       </table>
     {% else %}
-      <div class="alert alert-warning" role="alert">
-        no data was found in the database
-      </div>
+      {% include "base/generics/no_data_was_found.html" %}
     {% endif %}
   </div>
 {% endblock %}

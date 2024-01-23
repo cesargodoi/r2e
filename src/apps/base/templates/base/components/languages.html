@@ -1,0 +1,21 @@
+{% load i18n %}
+<form action="{% url 'set_language' %}" method="post">
+  {% csrf_token %}
+  <input name="next" type="hidden" value="{{ redirect_to }}">
+  <div class="d-flex align-items-center dropdown-item" style="background-color: transparent">
+    <i class="fa fa-language fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;
+    <select class="form-control form-control-sm" name="language" onchange="this.form.submit()">
+      {% get_current_language as LANGUAGE_CODE %}
+      {% get_available_languages as LANGUAGES %}
+      {% get_language_info_list for LANGUAGES as languages %}
+      {% for language in languages %}
+        <option 
+          value="{{ language.code }}"
+          {% if language.code == LANGUAGE_CODE %} selected {% endif %}
+        >
+          {{ language.name_local }}
+        </option>
+      {% endfor %}
+    </select>
+  </div>
+</form>

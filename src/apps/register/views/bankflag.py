@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
@@ -11,7 +12,7 @@ from ..forms import BankFlagForm
 class BankFlagList(LoginRequiredMixin, ListView):
     model = BankFlag
     template_name = "register/bankflag/list.html"
-    extra_context = {"title": "Bank and Flags"}
+    extra_context = {"title": _("Bank and Flags")}
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
@@ -32,7 +33,7 @@ class BankFlagCreate(LoginRequiredMixin, CreateView):
     form_class = BankFlagForm
     template_name = "register/bankflag/form.html"
     success_url = reverse_lazy("register:bankflag_list")
-    extra_context = {"title": "Create Bank or Flag"}
+    extra_context = {"title": _("Create Bank or Flag")}
 
     def form_valid(self, form):
         form.save()
@@ -43,7 +44,7 @@ class BankFlagUpdate(LoginRequiredMixin, UpdateView):
     model = BankFlag
     form_class = BankFlagForm
     template_name = "register/bankflag/form.html"
-    extra_context = {"title": "Update Bank or Flag"}
+    extra_context = {"title": _("Update Bank or Flag")}
     success_url = reverse_lazy("register:bankflag_list")
 
     def get_context_data(self, **kwargs):

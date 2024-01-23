@@ -24,11 +24,19 @@ def init_session(request):
     }
 
 
-def get_dict_register(person, stay, ref_value, alt_mapping):
+def get_dict_register(person, stay, ref_value, alt_mapping, event_id=None):
     if stay:
-        bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
+        _bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
+        accommodations = Accommodation.objects.filter(
+            gender=person.gender,
+            bedroom_id=_bedroom,
+        )
+        if event_id:
+            accommodations.filter(event_id=event_id)
+        bedroom = _bedroom if accommodations else ""
     else:
         bedroom = ""
+
     return dict(
         regid=stay.id if stay else secrets.token_hex(3)[:6],
         person=dict(name=person.name, id=person.id),
@@ -60,6 +68,7 @@ def get_dict_register(person, stay, ref_value, alt_mapping):
 def get_dict_register_update(register, event_center_pk, alt_mapping):
     person = register.person
     stay = person.stays.filter(stay_center__pk=event_center_pk).first()
+
     return dict(
         regid=stay.id,
         person=dict(name=person.name, id=person.id),
@@ -90,6 +99,7 @@ def get_dict_payform(payform):
         if payform["bank_flag"]
         else None
     )
+
     return dict(
         pfid=secrets.token_hex(3)[:6],
         person=dict(name=person.name, id=person.id),
@@ -128,10 +138,9 @@ def get_register(order, regid):
 
 
 def get_payform(order, pfid):
-    print(type(pfid))
-    return [reg for reg in order["payforms"] if str(reg["pfid"]) == str(pfid)][
-        0
-    ]
+    regs = [reg for reg in order["payforms"] if str(reg["pfid"]) == str(pfid)]
+
+    return regs[0]
 
 
 def adjust_missing_value(order):
@@ -166,8 +175,8 @@ def total_payforms_del(order, value):
 def who_made_what(request, update):
     if update:
         return dict(updated_by=request.user)
-    else:
-        return dict(created_by=request.user, updated_by=request.user)
+
+    return dict(created_by=request.user, updated_by=request.user)
 
 
 def get_dict_order_to_db(request, order, update=False):
@@ -175,17 +184,18 @@ def get_dict_order_to_db(request, order, update=False):
         center_id=order["center"],
         event_id=order["event"],
         value=order["total_registers"],
-        late_payment=True
-        if datetime.now()
-        > datetime.strptime(order["deadline"], "%Y-%m-%d %H:%M")
-        else False,
+        late_payment=datetime.now()
+        > datetime.strptime(order["deadline"], "%Y-%m-%d %H:%M"),
         observations=request.POST.get("observations"),
     )
     _order.update(who_made_what(request, update))
+
     return _order
 
 
-def get_dict_register_to_db(request, register, order_id, update=False):
+def get_dict_register_to_db(
+    request, register, order_id, event_id, update=False
+):
     _register = dict(
         person_id=register["person"]["id"],
         order_id=order_id,
@@ -203,6 +213,7 @@ def get_dict_register_to_db(request, register, order_id, update=False):
     if register["bedroom"] and register["lodge"]["id"] == "LDG":
         try:
             accommodation = Accommodation.objects.filter(
+                event_id=event_id,
                 bedroom_id=register["bedroom"],
                 bottom_or_top=register["bedroom_type"],
                 register__isnull=True,
@@ -213,6 +224,7 @@ def get_dict_register_to_db(request, register, order_id, update=False):
             accommodation[0] if accommodation else None
         )
     _register.update(who_made_what(request, update))
+
     return _register
 
 
@@ -228,4 +240,5 @@ def get_dict_payforn_to_db(request, payform, order_id, update=False):
         value=payform["value"],
     )
     _payform.update(who_made_what(request, update))
+
     return _payform

@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load my_tags %}
 <div class="card mb-3">
   <div class="card-body shadow">
@@ -13,35 +14,35 @@
     <hr>
     <table class="table table-sm table-hover">
       <tr>
-        <th>local</th>
+        <th>{% trans "local" %}</th>
         <td>
           {% if object.city %}{{ object.city }}{% endif %} ({% if object.state %}{{ object.state }}-{% endif %}{{ object.country }})
         </td>
       </tr>
       <tr>
-        <th>phone</th>
+        <th>{% trans "phone" %}</th>
         <td>{% if object.phone %}{{ object.phone }}{% endif %}</td>
       </tr>
       <tr>
-        <th>email</th>
+        <th>{% trans "email" %}</th>
         <td>{% if object.email %}{{ object.email }}{% endif %}</td>
       </tr>
       <tr class="text-danger">
-        <th>sos contact</th>
+        <th>{% trans "sos contact" %}</th>
         <td>{% if object.sos_contact %}{{ object.sos_contact }}{% endif %}</td>
       </tr>
       <tr class="text-danger">
-        <th>sos phone</th>
+        <th>{% trans "sos phone" %}</th>
         <td>{% if object.sos_phone %}{{ object.sos_phone }}{% endif %}</td>
       </tr>
       <tr>
-        <th>age</th>
+        <th>{% trans "age" %}</th>
         <td>
-          {{ object.birth|age }} anos &nbsp;&nbsp; <small>({{ object.birth|date:"d/m/Y" }})</small>
+          {{ object.birth|age }} {% trans "years" %} &nbsp;&nbsp; <small>({{ object.birth|date:"d/m/Y" }})</small>
         </td>
       </tr>
       <tr>
-        <th>id card</th>
+        <th>{% trans "id card" %}</th>
         <td>{% if object.id_card %}{{ object.id_card }}{% endif %}</td>
       </tr>
     </table>
@@ -55,7 +56,7 @@
         aria-controls="offcanvasForm"
         onclick="manageForm('{% url 'person:update' object.pk %}')"
       >
-        <i class="bi bi-pencil"></i> Editar
+        <i class="bi bi-pencil"></i> {% trans "Edit" %}
       </button>
     </div>
   </div>

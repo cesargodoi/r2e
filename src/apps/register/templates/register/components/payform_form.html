@@ -9,9 +9,9 @@
       <div class="{% if field.errors %}has-error{% endif %} mt-3">
         {% if field|field_type == "booleanfield" %}
           {% render_field field class="form-check-input" %}
-          <label for="#" class="form-label">{{ field.label_tag }}</label>
+          {{ field.label_tag }}
         {% else %}
-          <label for="#" class="form-label">{{ field.label_tag }}</label>
+          {{ field.label_tag }}
           {% render_field field class="form-control" %}
         {% endif %}
         {% for error in field.errors %}

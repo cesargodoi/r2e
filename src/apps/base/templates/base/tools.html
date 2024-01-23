@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load my_tags %}
+{% load i18n %}
 {% block content %}
   <h3 class="text-dark">{{ title }}</h3>
   <br>
@@ -11,8 +12,8 @@
         onclick="location.href='{% url 'register:bankflag_list' %}'"
       >
         <div class="card-body">
-          <h4 class="card-title">Bank or Flag</h4>
-          <p class="card-text">manage bank names or credit card flags</p>
+          <h4 class="card-title">{% trans "Bank or Flag" %}</h4>
+          <p class="card-text">{% trans "manage bank names or credit card flags" %}</p>
         </div>
       </div>
       <div 
@@ -21,8 +22,8 @@
         onclick="location.href='{% url 'center:list' %}'"
       >
         <div class="card-body">
-          <h4 class="card-title">Centers</h4>
-          <p class="card-text">manage centers and conference centers</p>
+          <h4 class="card-title">{% trans "Centers" %}</h4>
+          <p class="card-text">{% trans "manage centers and conference centers" %}</p>
         </div>
       </div>
       <div 
@@ -31,8 +32,8 @@
         onclick="location.href='{% url 'center:building_list' %}'"
       >
         <div class="card-body">
-          <h4 class="card-title">Buildings</h4>
-          <p class="card-text">manage the buildings in your center</p>
+          <h4 class="card-title">{% trans "Buildings" %}</h4>
+          <p class="card-text">{% trans "manage the buildings in your center" %}</p>
         </div>
       </div>
       <div 
@@ -41,8 +42,8 @@
         onclick="location.href='{% url 'event:activity_list' %}'"
       >
         <div class="card-body">
-          <h4 class="card-title">Activities</h4>
-          <p class="card-text">manage activities</p>
+          <h4 class="card-title">{% trans "Activities" %}</h4>
+          <p class="card-text">{% trans "manage activities" %}</p>
         </div>
       </div>
       <div 
@@ -51,8 +52,8 @@
         onclick="location.href='{% url 'person:staff_list' %}'"
       >
         <div class="card-body">
-          <h4 class="card-title">Staff</h4>
-          <p class="card-text">manage staff</p>
+          <h4 class="card-title">{% trans "Staff" %}</h4>
+          <p class="card-text">{% trans "manage staff" %}</p>
         </div>
       </div>
     {% endif %}

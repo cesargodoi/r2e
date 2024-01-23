@@ -1,4 +1,5 @@
+{% load i18n %}
 {% extends 'base/generics/header.html' %}
 {% block header_end %}
-  {% include 'base/generics/search.html' with placeholder='Search for ...' %}
+  {% include 'base/generics/search.html' with placeholder=_('Search for ...') %}
 {% endblock %}

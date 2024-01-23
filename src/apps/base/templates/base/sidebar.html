@@ -1,11 +1,12 @@
 {% load my_tags %}
+{% load i18n %}
 <ul class="navbar-nav text-light" id="accordionSidebar">
   <li class="nav-item">
     <a 
       class="nav-link {% if request.session.nav_item == 'event' %}active{% else %}{% endif %}" 
       href="{% url 'event:list' %}"
     >
-      <i class="bi bi-calendar-event"></i><span>Events</span>
+      <i class="bi bi-calendar-event"></i><span>{% trans "Events" %}</span>
     </a>
   </li>
   <li class="nav-item">
@@ -13,14 +14,14 @@
       class="nav-link {% if request.session.nav_item == 'people' %}active{% else %}{% endif %}" 
       href="{% url 'person:list' %}"
     >
-      <i class="fa fa-users"></i><span>People</span>
+      <i class="fa fa-users"></i><span>{% trans "People" %}</span>
     </a>
   </li>
   {% if user|has_group:'admin,office' %}
     <div class="border-bottom border-1 border-secondary border-opacity-50 ms-3 me-3"></div>
     <li class="nav-item">
       <a class="nav-link" href="{% url 'base:tools' %}">
-        <i class="fa fa-tools"></i><span>Tools</span>
+        <i class="fa fa-tools"></i><span>{% trans "Tools" %}</span>
       </a>
     </li>
   {% endif %}

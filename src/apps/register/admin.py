@@ -47,12 +47,10 @@ class OrderAdmin(admin.ModelAdmin):
         "center",
         "event",
         "value",
-        "credit_launch",
         "late_payment",
         "canceled_payment",
     )
     list_filter = (
-        "credit_launch",
         "late_payment",
         "canceled_payment",
         "center",

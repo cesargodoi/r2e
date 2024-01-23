@@ -1,0 +1,14 @@
+{% load i18n %}
+<label for="id_name">{% trans "Name" %}:</label>
+<input 
+  id="id_name"
+  name="name" 
+  type="text" 
+  maxlength="50" 
+  class="form-control" 
+  required="" 
+  hx-get="{% url 'person:check_name' %}"
+  hx-target="#result"
+  hx-trigger="change"
+>
+<div id="result"></div>

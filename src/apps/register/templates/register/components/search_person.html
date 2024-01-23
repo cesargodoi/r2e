@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="input-group">
   <input 
     type="text"
@@ -17,7 +18,7 @@
     aria-controls="offcanvasForm"
     onclick="manageForm('{% url 'register:create_person' %}')"
   >
-    <i class="bi bi-plus-lg"></i> Add
+    <i class="bi bi-plus-lg"></i> {% trans "Add" %}
   </button>
 </div>
 <div class="float-end suggestion-list">

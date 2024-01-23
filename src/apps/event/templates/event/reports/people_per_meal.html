@@ -1,6 +1,7 @@
 {% extends 'base/base_report.html' %}
 {% load i18n %}
 {% load static %}
+{% load i18n %}
 {% load my_tags %}
 
 {% block content %}
@@ -8,7 +9,7 @@
     {% for obj in object_list %}
       <div class="card border-dark mb-3 text-center" style="width: 20rem;">
         <div class="card-body">
-          <h4 class="card-title"><span class="h1 fw-bolder">{{ obj.1 }}</span> &nbsp;<small>people</small></h4>
+          <h4 class="card-title"><span class="h1 fw-bolder">{{ obj.1 }}</span> &nbsp;<small>{% trans "people" %}</small></h4>
           <p class="card-text h5">{{ obj.0 }}</p>
         </div>
       </div>

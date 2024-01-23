@@ -3,6 +3,7 @@ from django.http import QueryDict
 from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.translation import gettext_lazy as _
 from django.views import View
 
 from ..models import Order, Register, FormOfPayment
@@ -18,7 +19,7 @@ from r2e.commom import clear_session, get_bedroom_type, get_meals
 
 class CreateOrder(LoginRequiredMixin, View):
     template_name = "register/order_form.html"
-    basic_context = {"title": "Create Order"}
+    basic_context = {"title": _("Create Order")}
 
     def get(self, request, *args, **kwargs):
         if request.session.get("order"):
@@ -42,6 +43,7 @@ class CreateOrder(LoginRequiredMixin, View):
         if request.session["order"]["order"]:
             Order.objects.filter(pk=request.session["order"]["order"]).delete()
         new_order = request.session["order"]
+        event_id = new_order["event"]
         # Order
         order_dict = utils.get_dict_order_to_db(request, new_order)
         order = Order(**order_dict)
@@ -49,7 +51,7 @@ class CreateOrder(LoginRequiredMixin, View):
         # Register
         for reg in new_order["registers"]:
             register_dict = utils.get_dict_register_to_db(
-                request, reg, order.id
+                request, reg, order.id, event_id
             )
             register = Register(**register_dict)
             register.save()
@@ -73,11 +75,12 @@ def show_order(request, pk):
         "payforms": order.form_of_payments.all(),
         "title": "Order",
     }
+
     return render(request, "register/order_show.html", context)
 
 
 class UpdateOrder(CreateOrder):
-    basic_context = {"title": "Update Order"}
+    basic_context = {"title": _("Update Order")}
 
     def get(self, request, *args, **kwargs):
         if request.session.get("order"):
@@ -124,7 +127,7 @@ class UpdateOrder(CreateOrder):
 
 class DeleteOrder(LoginRequiredMixin, View):
     template_name = "register/order_delete.html"
-    basic_context = {"title": "Delete Order"}
+    basic_context = {"title": _("Delete Order")}
 
     def get(self, request, *args, **kwargs):
         order = Order.objects.get(pk=kwargs["pk"])
@@ -174,6 +177,7 @@ def search_person(request):
         results = results[:10]
 
     context = {"results": results, "registers": registers}
+
     return render(request, template_name, context)
 
 
@@ -193,17 +197,27 @@ def add_person(request):
     ref_value = request.session["order"]["ref_value"]
     alt_mapping = request.session["order"]["alt_mapping"]
     register_stay = utils.get_dict_register(
-        person, stay, ref_value, alt_mapping
+        person,
+        stay,
+        ref_value,
+        alt_mapping,
+        event_id=request.session["order"]["event"],
     )
     request.session["order"]["registers"].append(register_stay)
     utils.total_registers_add(request.session["order"], register_stay["value"])
     request.session.modified = True
+
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 @login_required
 def adj_register_value(request):
-    value = float(request.GET.get("value"))
+    _value = request.GET.get("value")
+    value = (
+        float(_value)
+        if request.LANGUAGE_CODE == "en"
+        else float(_value.replace(",", "."))
+    )
     register = utils.get_register(
         request.session["order"], request.GET.get("regid")
     )
@@ -211,6 +225,7 @@ def adj_register_value(request):
     register["value"] = value
     utils.total_registers_add(request.session["order"], value)
     request.session.modified = True
+
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
@@ -222,6 +237,7 @@ def del_register(request):
     utils.total_registers_del(request.session["order"], register["value"])
     request.session["order"]["registers"].remove(register)
     request.session.modified = True
+
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 
@@ -249,7 +265,11 @@ class AddStay(StayCreate):
         ref_value = self.request.session["order"]["ref_value"]
         alt_mapping = self.request.session["order"]["alt_mapping"]
         register_stay = utils.get_dict_register(
-            stay.person, stay, ref_value, alt_mapping
+            stay.person,
+            stay,
+            ref_value,
+            alt_mapping,
+            self.request.session["order"]["event"],
         )
         self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(
@@ -291,7 +311,7 @@ class EditStay(StayUpdate):
 #  Forms of Payment  ##########################################################
 class AddPayForm(LoginRequiredMixin, View):
     template_name = "register/components/payform_form.html"
-    basic_context = {"title": "Add Form of Payment"}
+    basic_context = {"title": _("Add Form of Payment")}
 
     def get(self, *args, **kwargs):
         people = [
@@ -327,7 +347,12 @@ class AddPayForm(LoginRequiredMixin, View):
 
 @login_required
 def adj_payform_value(request):
-    value = float(request.GET.get("value"))
+    _value = request.GET.get("value")
+    value = (
+        float(_value)
+        if request.LANGUAGE_CODE == "en"
+        else float(_value.replace(",", "."))
+    )
     payform = utils.get_payform(
         request.session["order"], request.GET.get("pfid")
     )
@@ -335,6 +360,7 @@ def adj_payform_value(request):
     payform["value"] = value
     utils.total_payforms_add(request.session["order"], value)
     request.session.modified = True
+
     return HttpResponse(headers={"HX-Refresh": "true"})
 
 

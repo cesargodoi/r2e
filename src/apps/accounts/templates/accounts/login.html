@@ -5,7 +5,7 @@
 {% block content %}
   <div class="p-5">
     <div class="text-center">
-      <h4 class="text-dark mb-4">Welcome Back!</h4>
+      <h4 class="text-dark mb-4">{% trans "Welcome Back!" %}</h4>
     </div>
     <form class="user" id="form" method="post">
       {% csrf_token %}
@@ -18,7 +18,7 @@
         </div>
       {% endfor %}
       <br>
-      <button class="btn btn-primary d-block btn-user w-100" type="submit">Login</button>
+      <button class="btn btn-primary d-block btn-user w-100" type="submit">{% trans "Login" %}</button>
     </form>
   </div>
 {% endblock %}

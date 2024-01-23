@@ -2,6 +2,7 @@ from datetime import datetime
 from django.db.models import Count
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import (
     ListView,
@@ -22,7 +23,7 @@ from r2e.commom import clear_session, get_pagination_url, get_paginator
 class EventList(LoginRequiredMixin, ListView):
     model = Event
     paginate_by = 10
-    extra_context = {"title": "Events"}
+    extra_context = {"title": _("Events")}
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
@@ -46,7 +47,7 @@ class EventList(LoginRequiredMixin, ListView):
 
 class EventDetail(LoginRequiredMixin, DetailView):
     model = Event
-    extra_context = {"title": "Records management"}
+    extra_context = {"title": _("Records management")}
 
     def get_context_data(self, **kwargs):
         if "accommodation" in self.request.session:
@@ -80,7 +81,7 @@ class EventCreate(LoginRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
     success_url = reverse_lazy("event:list")
-    extra_context = {"title": "Create Event"}
+    extra_context = {"title": _("Create Event")}
 
     def get_initial(self):
         initial = super().get_initial()
@@ -97,7 +98,7 @@ class EventCreate(LoginRequiredMixin, CreateView):
 class EventUpdate(LoginRequiredMixin, UpdateView):
     model = Event
     form_class = EventForm
-    extra_context = {"title": "Update Event"}
+    extra_context = {"title": _("Update Event")}
 
     def get_initial(self):
         initial = super().get_initial()

@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     ListView,
     DetailView,
@@ -22,7 +23,7 @@ from r2e.commom import get_pagination_url
 class BuildingList(LoginRequiredMixin, ListView):
     model = Building
     paginate_by = 10
-    extra_context = {"title": "Buildings"}
+    extra_context = {"title": _("Buildings")}
     template_name = "center/building/list.html"
 
     def get_queryset(self):
@@ -44,7 +45,7 @@ class BuildingList(LoginRequiredMixin, ListView):
 
 class BuildingDetail(LoginRequiredMixin, DetailView):
     model = Building
-    extra_context = {"title": "Building Detail"}
+    extra_context = {"title": _("Building Detail")}
     template_name = "center/building/detail.html"
 
     def get_context_data(self, **kwargs):
@@ -62,7 +63,7 @@ class BuildingCreate(
     form_class = BuildingForm
     template_name = "center/building/form.html"
     permission_required = "center.add_building"
-    extra_context = {"title": "Create Building"}
+    extra_context = {"title": _("Create Building")}
     success_url = reverse_lazy("center:building_list")
 
     def test_func(self):
@@ -77,7 +78,7 @@ class BuildingUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Building
     form_class = BuildingForm
     template_name = "center/building/form.html"
-    extra_context = {"title": "Update Building"}
+    extra_context = {"title": _("Update Building")}
     success_url = reverse_lazy("center:building_list")
 
     def test_func(self):

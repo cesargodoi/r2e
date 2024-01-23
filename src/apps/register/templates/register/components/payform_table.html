@@ -1,12 +1,13 @@
+{% load i18n %}
 <div class="table-responsive table mt-2">
   <table class="table table-sm">
     {% if request.session.order.payforms %}
       <thead>
         <tr>
           <th>#</th>
-          <th>Type</th>
-          <th colspan="2">Detail</th>
-          <th class="text-end">Value R$</th>
+          <th>{% trans "Type" %}</th>
+          <th colspan="2">{% trans "Detail" %}</th>
+          <th class="text-end">{% trans "Value R$" %}</th>
         </tr>
       </thead>
     {% endif %}
@@ -18,10 +19,9 @@
     <tfoot>
       {% if request.session.order.payforms %}
         <tr>
-          <th colspan="4" class="text-end h4">Total:</th>
+          <th colspan="4" class="text-end h4">{% trans "Total" %}:</th>
           <th class="text-end total-value">
             <input 
-              type="number" 
               class="form-control form-control-lg"
               style="width: 8.7rem; text-align:right;"
               value="{{ request.session.order.total_payforms|floatformat:2 }}" 
@@ -32,7 +32,7 @@
       {% endif %}
       {% if request.session.order.missing != 0 %}
       <tr class="text-danger">
-        <th colspan="4" class="text-end">Missing:</th>
+        <th colspan="4" class="text-end">{% trans "Missing" %}:</th>
         <th class="text-end text-center">
           {{ request.session.order.missing|floatformat:2 }}
         </th>

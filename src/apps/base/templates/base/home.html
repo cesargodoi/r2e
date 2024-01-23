@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load i18n %}
 {% block content %}
   <h3 class="text-dark">{{ title }}</h3>
   <br>
@@ -14,13 +15,13 @@
           <p>{{ obj.center.name }} <br> {{ obj.center.city }} ({{ obj.center.state }}/{{ obj.center.country }})</p>
           <table class="table text-start">
             <tr>
-              <td class="text-light">period:</td><td class="text-light">{{ obj.date|date:"d/m/y" }} to {{ obj.end_date|date:"d/m/y" }}</td>
+              <td class="text-light">{% trans "period" %}:</td><td class="text-light">{{ obj.date|date:"d/m/y" }} to {{ obj.end_date|date:"d/m/y" }}</td>
             </tr>
             <tr>
-              <td class="text-light">deadline:</td><td class="text-light">{{ obj.deadline|date:"d/m/y H:i" }}</td>
+              <td class="text-light">{% trans "deadline" %}:</td><td class="text-light">{{ obj.deadline|date:"d/m/y H:i" }}</td>
             </tr>
             <tr>
-              <td class="text-light">value:</td><td class="text-light">{{ obj.ref_value }}</td>
+              <td class="text-light">{% trans "value" %}:</td><td class="text-light">{{ obj.ref_value }}</td>
             </tr>
           </table>
         </div>

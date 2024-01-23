@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -16,7 +17,7 @@ from r2e.commom import get_pagination_url
 class BedroomList(LoginRequiredMixin, ListView):
     model = Bedroom
     paginate_by = 10
-    extra_context = {"title": "Bedrooms"}
+    extra_context = {"title": _("Bedrooms")}
     template_name = "center/bedroom/list.html"
 
     def get_queryset(self):
@@ -45,7 +46,7 @@ class BedroomCreate(
     form_class = BedroomForm
     template_name = "center/bedroom/form.html"
     permission_required = "center.add_bedroom"
-    extra_context = {"title": "Create Bedroom"}
+    extra_context = {"title": _("Create Bedroom")}
 
     def test_func(self):
         return self.request.user.is_superuser
@@ -71,7 +72,7 @@ class BedroomUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Bedroom
     form_class = BedroomForm
     template_name = "center/bedroom/form.html"
-    extra_context = {"title": "Update Bedroom"}
+    extra_context = {"title": _("Update Bedroom")}
 
     def test_func(self):
         return self.request.user.is_superuser

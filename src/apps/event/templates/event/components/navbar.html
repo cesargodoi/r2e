@@ -3,7 +3,7 @@
 {% load i18n %}
 <nav class="navbar bg-light mb-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Reports and Actions</a>
+    <a class="navbar-brand" href="#">{% trans "Reports and Actions" %}</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,11 +13,11 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
-        <h5 class="offcanvas-title mb-3 border-bottom">Reports</h5>
+        <h5 class="offcanvas-title mb-3 border-bottom">{% trans "Reports" %}</h5>
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
           <li class="nav-item">
             <span 
-              class="nav-link" 
+              class="nav-link is-link" 
               aria-current="page" 
               href="#"
               onclick="togleBalanceType();"
@@ -32,19 +32,19 @@
                 href="{% url 'event:report_cash_balance' event.pk %}?days=today"
                 target="_blank"
               >
-                Today
+                {% trans "Today" %}
               </a>
               <span 
                 class="list-group-item list-group-item-action"
               >
-                Last <input id="nDays" type="number" class="single-form-control" style="width: 4rem;" value="7" /> 
+                {% trans "Last" %} <input id="nDays" type="number" class="single-form-control" style="width: 4rem;" value="7" /> 
                 <a 
                   class="btn btn-primary btn-sm" 
                   href="#"
                   style="text-decoration: none;"
                   onclick="get_days()"
                 >
-                  Days
+                  {% trans "Days" %}
                 </a>
               </span>
               <a 
@@ -52,7 +52,7 @@
                 href="{% url 'event:report_cash_balance' event.pk %}?days=all"
                 target="_blank"
               >
-                All
+                {% trans "All" %}
               </a>
             </div>
           </li>
@@ -69,8 +69,8 @@
         </ul>
         <br>
         {% if user|same_center:object.center_id %}
-          <h5 class="offcanvas-title mb-3 border-bottom">Actions</h5>
-          <div class="text-end">
+          <h5 class="offcanvas-title mb-3 border-bottom">{% trans "Actions" %}</h5>
+          <div class="d-grid gap-2">
             <button 
               type="button" 
               class="btn btn-outline-success"

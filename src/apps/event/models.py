@@ -95,7 +95,7 @@ class Accommodation(models.Model):
         _("gender"), max_length=1, choices=BEDROOM_GENDER, default="M"
     )
     bottom_or_top = models.CharField(
-        _("bottom or topn"), max_length=1, choices=BEDROOM_TYPE, default="B"
+        _("bottom or top"), max_length=1, choices=BEDROOM_TYPE, default="B"
     )
     is_active = models.BooleanField(default=True)
 

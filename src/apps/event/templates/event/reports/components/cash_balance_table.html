@@ -1,7 +1,7 @@
 {% load i18n %}
 {% block content %}
   <h3>{{ obj.type|upper }}</h3>
-  {% if obj.type == 'Cash' and obj.objects|length >= 0 %}
+  {% if obj.type in 'CashDinheiro' and obj.objects|length >= 0 %}
     <div class="table-responsive table mt-2 mb-4">
       <table class="table table-sm">
         <tr class="border-top">
@@ -33,7 +33,7 @@
               <td>{{ fp.bank_flag|default:' ' }}</td>
               <td>{{ fp.ctrl|default:' ' }}</td>
               <td>{{ fp.user }}</td>
-              <td>{{ fp.on }}</td>
+              <td>{{ fp.on|date:"d/m/y H:i:s" }}</td>
               <td class="fw-bolder text-end">{{ fp.value }}</td>
             </tr>
           {% endfor %}

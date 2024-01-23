@@ -1,0 +1,42 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block content %}
+  <div class="mb-3">
+    {% include 'event/accommodation/components/event_card_list_of_bedrooms.html' %}
+    {% comment %} {% include 'event/accommodation/components/navbar.html' %}{% endcomment %}
+    {% include 'event/accommodation/components/bedroom_list.html' %}
+  </div>
+
+  {% include 'base/modal.html' %}
+  {% include 'base/offcanvas.html' %}
+{% endblock  %}
+
+{% block float_buttoms %}
+  <button 
+    type="button"
+    class="float-buttom border btn btn-warning btn-lg rounded-circle fw-bold text-center" 
+    hx-get="{% url 'event:reload_session_bedrooms' object.pk %}"
+  >
+    <i class="fas fa-sync text-center" style="color: rgb(0,0,0); vertical-align: middle;"></i>
+  </button>
+  <button 
+    type="button"
+    class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
+    onclick="location.href='{% url 'event:accommodations' object.pk %}';"
+  >
+    <i class="fa fa-angle-left text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+  </button>
+{% endblock  %}
+
+{% block scripts %}
+  <script src="{% static 'js/modal_form.js' %}"></script>
+  <script>
+    function manageData(url) {
+      htmx.ajax('GET', url, '#baseModalContent')
+    }
+    function manageForm(url) {
+      htmx.ajax('GET', url, '#offcanvasContent')
+    }
+  </script>
+{% endblock %}

@@ -32,7 +32,6 @@ class Order(models.Model):
         related_name="orders",
     )
     value = models.DecimalField(_("value"), max_digits=7, decimal_places=2)
-    credit_launch = models.BooleanField(_("credit launch"), default=False)
     late_payment = models.BooleanField(_("late payment"), default=False)
     canceled_payment = models.BooleanField(
         _("canceled payment"), default=False

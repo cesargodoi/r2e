@@ -9,7 +9,12 @@ urlpatterns += [
         name="accommodations",
     ),
     path(
-        "accommodations/<int:bedroom_id>/bedroom_details/",
+        "<int:pk>/accommodations/bedrooms-on-event/",
+        views.BedroomsOnEvent.as_view(),
+        name="bedrooms_on_event",
+    ),
+    path(
+        "<int:event_id>/accommodations/<int:bedroom_id>/bedroom_details/",
         views.bedroom_details,
         name="bedroom_details",
     ),
@@ -50,13 +55,18 @@ urlpatterns += [
         name="rebuild_the_mapping",
     ),
     path(
-        "<int:evenid>/reload_session/",
+        "<int:event_id>/accommodations/reload_the_mapping/",
+        views.ReloadTheMapping.as_view(),
+        name="reload_the_mapping",
+    ),
+    path(
+        "<int:evenid>/reload-session/",
         views.reload_session,
         name="reload_session",
     ),
-    #     path(
-    #         "<int:event_id>/accommodations/buildings/",
-    #         views.BuildingsView.as_view(),
-    #         name="buildings",
-    #     ),
+    path(
+        "<int:evenid>/reload-session-bedrooms/",
+        views.reload_session_bedrooms,
+        name="reload_session_bedrooms",
+    ),
 ]

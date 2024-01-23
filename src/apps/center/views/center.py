@@ -1,5 +1,6 @@
 from django.urls import reverse_lazy
 from django.http import HttpResponse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
     ListView,
     DetailView,
@@ -18,7 +19,7 @@ from ..forms import CenterForm
 class CenterList(LoginRequiredMixin, ListView):
     model = Center
     paginate_by = 10
-    extra_context = {"title": "Centers"}
+    extra_context = {"title": _("Centers")}
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
@@ -34,7 +35,7 @@ class CenterList(LoginRequiredMixin, ListView):
 
 class CenterDetail(LoginRequiredMixin, DetailView):
     model = Center
-    extra_context = {"title": "Center Detail"}
+    extra_context = {"title": _("Center Detail")}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +46,7 @@ class CenterCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
     model = Center
     form_class = CenterForm
     permission_required = "center.add_center"
-    extra_context = {"title": "Create Center"}
+    extra_context = {"title": _("Create Center")}
     success_url = reverse_lazy("center:list")
 
     def form_valid(self, form):
@@ -56,7 +57,7 @@ class CenterCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 class CenterUpdate(LoginRequiredMixin, UpdateView):
     model = Center
     form_class = CenterForm
-    extra_context = {"title": "Update Center"}
+    extra_context = {"title": _("Update Center")}
     success_url = reverse_lazy("center:list")
 
     def get_context_data(self, **kwargs):

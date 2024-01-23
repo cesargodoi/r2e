@@ -1,6 +1,7 @@
 from django.utils import timezone
 from datetime import timedelta
 from decimal import Decimal
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -28,7 +29,9 @@ class ReportByRegister(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.order_by("person__name")
+        return queryset.filter(
+            order__event__pk=self.kwargs.get("pk")
+        ).order_by("person__name")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -39,12 +42,12 @@ class ReportByRegister(LoginRequiredMixin, ListView):
 # Reports
 class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
-    extra_context = {"title": "Mapping of Accommodations"}
+    extra_context = {"title": _("Mapping of Accommodations")}
 
 
 class MappingPerPerson(ReportByAccommodation):
     template_name = "event/reports/mapping_per_person.html"
-    extra_context = {"title": "Mapping per Person"}
+    extra_context = {"title": _("Mapping per Person")}
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -54,12 +57,12 @@ class MappingPerPerson(ReportByAccommodation):
 
 class PeopleAtTheEvent(ReportByRegister):
     template_name = "event/reports/people_at_the_event.html"
-    extra_context = {"title": "People at the Event"}
+    extra_context = {"title": _("People at the Event")}
 
 
 class Staff(ReportByRegister):
     template_name = "event/reports/staff.html"
-    extra_context = {"title": "Staff"}
+    extra_context = {"title": _("Staff")}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -74,7 +77,7 @@ class Staff(ReportByRegister):
 
 class CashBalance(ReportByRegister):
     template_name = "event/reports/cash_balance.html"
-    extra_context = {"title": "Cash Balance"}
+    extra_context = {"title": _("Cash Balance")}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -97,7 +100,7 @@ class CashBalance(ReportByRegister):
 
 class PaymentPerPerson(ReportByRegister):
     template_name = "event/reports/payment_per_person.html"
-    extra_context = {"title": "Payment per Person"}
+    extra_context = {"title": _("Payment per Person")}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -107,7 +110,7 @@ class PaymentPerPerson(ReportByRegister):
 
 class TotalCollectedInTheCenter(ReportByRegister):
     template_name = "event/reports/total_collected_in_the_center.html"
-    extra_context = {"title": "Total collected in the center"}
+    extra_context = {"title": _("Total collected in the center")}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,7 +121,7 @@ class TotalCollectedInTheCenter(ReportByRegister):
 
 class PeoplePerMeal(ReportByRegister):
     template_name = "event/reports/people_per_meal.html"
-    extra_context = {"title": "People per meal"}
+    extra_context = {"title": _("People per meal")}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

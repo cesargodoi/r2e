@@ -1,15 +1,42 @@
+<!-- Stays | start -->
 {% load i18n %}
-<h5>{% trans 'Choose a Bedroom' %}: </h5>
-<select 
-  class="form-select" 
-  name="bedroom_id"
-  hx-get="{% url 'event:get_bedroom_mapping' event_id %}" 
-  hx-target="#mapping"
->
-  <option selected>---</option>
-  {% for bedroom in bedrooms %}
-    <option value="{{ bedroom.0 }}">
-      {{ bedroom.1 }}
-    </option>
-  {% endfor %}
-</select>
+<div class="card shadow mb-3">
+  <div class="card-header py-3">
+    {% include 'base/list_search.html' with list_title=_("Bedrooms") placeholder=_("Search by building...") %}
+  </div>
+  <div class="card-body">
+    <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+      {% if bedrooms|length > 0 %}
+        <table class="table table-sm">
+          <tr>
+            <th>#</th>
+            <th>{% trans "Building" %}</th>
+            <th>{% trans "Bedroom" %}</th>
+            <th class="text-center">{% trans "Gender" %}</th>
+            <th class="text-center">{% trans "Floor" %}</th>
+            <th class="text-center">{% trans "Bottom beds" %}</th>
+            <th class="text-center">{% trans "Top beds" %}</th>
+            <th class="text-end">{% trans "Beds in use" %}</th>
+            <th class="text-end">{% trans "Free beds" %}</th>
+          </tr>
+          <tbody id="stay_list">
+            {% for bedroom in bedrooms %}
+              {% include 'event/accommodation/components/bedroom_list_item.html' %}
+            {% endfor %}
+          </tbody>
+          <tfoot class="h4">
+            <tr>
+              <th colspan="6"></th>
+              <th class="text-end">{% trans "TOTAL" %}:</th>
+              <th class="text-end text-primary">{{ total_used }}</th>
+              <th class="text-end text-success">{{ total_unused }}</th>
+            </tr>
+          </tfoot>
+        </table>
+      {% else %}
+        {% include "base/generics/no_data_was_found.html" %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- Stays | end -->

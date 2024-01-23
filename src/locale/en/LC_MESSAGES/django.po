@@ -1,0 +1,1416 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-18 16:38-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: src/apps/accounts/templates/accounts/change_password.html:8
+#: src/apps/accounts/templates/accounts/change_password.html:21
+#: src/apps/base/templates/base/menu_profile.html:18
+msgid "Change Password"
+msgstr ""
+
+#: src/apps/accounts/templates/accounts/change_password.html:24
+msgid "go back"
+msgstr ""
+
+#: src/apps/accounts/templates/accounts/login.html:8
+msgid "Welcome Back!"
+msgstr ""
+
+#: src/apps/accounts/templates/accounts/login.html:21
+msgid "Login"
+msgstr ""
+
+#: src/apps/base/templates/base/generics/confirm_delete.html:3
+#: src/apps/event/templates/event/accommodation/confirm_rebuild.html:3
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:3
+#: src/apps/event/templates/event/accommodation/confirm_to_remove.html:3
+#: src/apps/register/templates/register/order_delete.html:3
+msgid "Atention"
+msgstr ""
+
+#: src/apps/base/templates/base/generics/confirm_delete.html:8
+#: src/apps/event/templates/event/accommodation/confirm_to_remove.html:8
+#: src/apps/register/templates/register/order_delete.html:8
+msgid "Are you shure you want to remove"
+msgstr ""
+
+#: src/apps/base/templates/base/generics/confirm_delete.html:23
+#: src/apps/base/templates/base/offcanvas.html:26
+#: src/apps/event/templates/event/accommodation/add_to_bedroom.html:52
+#: src/apps/event/templates/event/accommodation/confirm_rebuild.html:22
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:22
+#: src/apps/event/templates/event/accommodation/confirm_to_remove.html:22
+#: src/apps/register/templates/register/order_delete.html:24
+msgid "Cancel"
+msgstr ""
+
+#: src/apps/base/templates/base/generics/confirm_delete.html:30
+#: src/apps/base/templates/base/offcanvas.html:48
+#: src/apps/center/templates/center/bedroom/list.html:62
+#: src/apps/event/templates/event/activity/components/list_table.html:45
+#: src/apps/event/templates/event/activity/components/table.html:32
+#: src/apps/person/templates/person/staff/components/list_table.html:44
+#: src/apps/register/templates/register/bankflag/components/list_table.html:44
+#: src/apps/register/templates/register/order_delete.html:31
+msgid "Delete"
+msgstr ""
+
+#: src/apps/base/templates/base/generics/no_data_was_found.html:3
+msgid "no data was found in the database"
+msgstr ""
+
+#: src/apps/base/templates/base/home.html:18
+#: src/apps/event/templates/event/components/detail_card.html:10
+msgid "period"
+msgstr ""
+
+#: src/apps/base/templates/base/home.html:21 src/apps/event/models.py:40
+msgid "deadline"
+msgstr ""
+
+#: src/apps/base/templates/base/home.html:24 src/apps/register/models.py:34
+#: src/apps/register/models.py:114 src/apps/register/models.py:174
+msgid "value"
+msgstr ""
+
+#: src/apps/base/templates/base/menu_profile.html:15
+msgid "Profile"
+msgstr ""
+
+#: src/apps/base/templates/base/menu_profile.html:23
+msgid "Logout"
+msgstr ""
+
+#: src/apps/base/templates/base/modal.html:5
+#: src/apps/base/templates/base/modal_xl.html:5
+#: src/apps/base/templates/base/offcanvas.html:16
+#: src/apps/center/templates/center/building/detail.html:20
+msgid "Loading..."
+msgstr ""
+
+#: src/apps/base/templates/base/offcanvas.html:35
+#: src/apps/event/templates/event/activity/confirm_delete.html:9
+#: src/apps/event/templates/event/components/confirm_delete.html:9
+msgid "Confirm"
+msgstr ""
+
+#: src/apps/base/templates/base/sidebar.html:9
+#: src/apps/center/templates/center/components/events.html:4
+#: src/apps/event/templates/event/components/list_table.html:6
+#: src/apps/event/views/event.py:26
+msgid "Events"
+msgstr ""
+
+#: src/apps/base/templates/base/sidebar.html:17
+#: src/apps/person/templates/person/components/list_table.html:6
+#: src/apps/person/views/person.py:27
+msgid "People"
+msgstr ""
+
+#: src/apps/base/templates/base/sidebar.html:24 src/apps/base/views.py:19
+msgid "Tools"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:15
+msgid "Bank or Flag"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:16
+msgid "manage bank names or credit card flags"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:25
+#: src/apps/center/views/center.py:22
+msgid "Centers"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:26
+msgid "manage centers and conference centers"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:35
+#: src/apps/center/views/building.py:26
+msgid "Buildings"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:36
+msgid "manage the buildings in your center"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:45
+#: src/apps/event/templates/event/activity/components/list_table.html:5
+msgid "Activities"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:46
+msgid "manage activities"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:55
+#: src/apps/event/templates/event/accommodation/components/navbar.html:33
+#: src/apps/event/templates/event/accommodation/components/person_list.html:19
+#: src/apps/event/templates/event/reports/mapping_per_person.html:15
+#: src/apps/event/templates/event/reports/people_at_the_event.html:18
+#: src/apps/event/views/reports.py:65
+#: src/apps/person/templates/person/components/stays.html:17
+#: src/apps/person/templates/person/staff/components/list_table.html:6
+#: src/apps/person/views/staff.py:16
+msgid "Staff"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:56
+msgid "manage staff"
+msgstr ""
+
+#: src/apps/base/views.py:11
+msgid "Open Events"
+msgstr ""
+
+#: src/apps/center/models.py:9 src/apps/center/models.py:42
+#: src/apps/center/models.py:58 src/apps/event/models.py:16
+#: src/apps/person/models.py:31 src/apps/register/models.py:9
+msgid "name"
+msgstr ""
+
+#: src/apps/center/models.py:10
+#: src/apps/center/templates/center/components/detail_card.html:13
+msgid "short name"
+msgstr ""
+
+#: src/apps/center/models.py:11 src/apps/person/models.py:40
+msgid "city"
+msgstr ""
+
+#: src/apps/center/models.py:12 src/apps/person/models.py:41
+msgid "state"
+msgstr ""
+
+#: src/apps/center/models.py:14 src/apps/person/models.py:43
+msgid "country"
+msgstr ""
+
+#: src/apps/center/models.py:17
+#: src/apps/center/templates/center/components/detail_card.html:23
+#: src/apps/person/models.py:49
+#: src/apps/person/templates/person/components/detail_card.html:23
+msgid "phone"
+msgstr ""
+
+#: src/apps/center/models.py:21
+#: src/apps/center/templates/center/components/detail_card.html:31
+msgid "contact"
+msgstr ""
+
+#: src/apps/center/models.py:35 src/apps/register/models.py:26
+msgid "center"
+msgstr ""
+
+#: src/apps/center/models.py:36
+msgid "centers"
+msgstr ""
+
+#: src/apps/center/models.py:43 src/apps/center/models.py:65
+msgid "active"
+msgstr ""
+
+#: src/apps/center/models.py:49
+msgid "building"
+msgstr ""
+
+#: src/apps/center/models.py:50
+msgid "buildings"
+msgstr ""
+
+#: src/apps/center/models.py:60 src/apps/event/models.py:95
+#: src/apps/person/models.py:37
+msgid "gender"
+msgstr ""
+
+#: src/apps/center/models.py:62
+msgid "floor"
+msgstr ""
+
+#: src/apps/center/models.py:63
+msgid "bottom beds"
+msgstr ""
+
+#: src/apps/center/models.py:64
+msgid "top beds"
+msgstr ""
+
+#: src/apps/center/models.py:75 src/apps/person/models.py:137
+msgid "bedroom"
+msgstr ""
+
+#: src/apps/center/models.py:76
+msgid "bedrooms"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:8
+#: src/apps/center/templates/center/components/list_table.html:13
+#: src/apps/event/templates/event/activity/components/list_table.html:13
+#: src/apps/event/templates/event/reports/mapping_per_person.html:12
+#: src/apps/event/templates/event/reports/people_at_the_event.html:13
+#: src/apps/person/templates/person/components/check_name.html:2
+#: src/apps/person/templates/person/components/list_table.html:14
+#: src/apps/person/templates/person/staff/components/list_table.html:14
+#: src/apps/register/templates/register/bankflag/components/list_table.html:14
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:6
+msgid "Name"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:9
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:15
+msgid "Gender"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:10
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:16
+msgid "Floor"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:11
+msgid "Beds"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:12
+msgid "Active"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:29
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:20
+msgid "ground floor"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:31
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:22
+msgid "st. floor"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:33
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:24
+msgid "nd. floor"
+msgstr ""
+
+#: src/apps/center/templates/center/bedroom/list.html:52
+#: src/apps/center/templates/center/components/detail_card.html:46
+#: src/apps/event/templates/event/activity/components/list_table.html:35
+#: src/apps/event/templates/event/activity/components/table.html:24
+#: src/apps/event/templates/event/components/navbar.html:90
+#: src/apps/person/templates/person/components/detail_card.html:59
+#: src/apps/person/templates/person/staff/components/list_table.html:34
+#: src/apps/register/templates/register/bankflag/components/list_table.html:34
+msgid "Edit"
+msgstr ""
+
+#: src/apps/center/templates/center/building/detail.html:11
+#: src/apps/center/views/bedroom.py:20
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:5
+msgid "Bedrooms"
+msgstr ""
+
+#: src/apps/center/templates/center/components/detail_card.html:17
+#: src/apps/person/templates/person/components/detail_card.html:17
+msgid "local"
+msgstr ""
+
+#: src/apps/center/templates/center/components/detail_card.html:27
+#: src/apps/person/templates/person/components/detail_card.html:27
+msgid "email"
+msgstr ""
+
+#: src/apps/center/templates/center/components/event_row.html:14
+msgid "go to event"
+msgstr ""
+
+#: src/apps/center/templates/center/components/events.html:12
+#: src/apps/event/templates/event/components/list_table.html:14
+#: src/apps/person/templates/person/components/registers.html:12
+msgid "Event"
+msgstr ""
+
+#: src/apps/center/templates/center/components/events.html:13
+#: src/apps/event/templates/event/components/list_table.html:16
+#: src/apps/person/templates/person/components/registers.html:11
+msgid "Date"
+msgstr ""
+
+#: src/apps/center/templates/center/components/events.html:14
+#: src/apps/event/templates/event/components/list_table.html:18
+msgid "Status"
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_header.html:4
+#: src/apps/person/templates/person/components/-----list_header-----.html:3
+msgid "Search for ..."
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_table.html:5
+msgid "Center"
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_table.html:5
+#: src/apps/event/templates/event/accommodation/components/person_list.html:5
+#: src/apps/event/templates/event/activity/components/list_table.html:5
+#: src/apps/event/templates/event/components/register_list.html:6
+#: src/apps/person/templates/person/components/list_table.html:6
+#: src/apps/person/templates/person/staff/components/list_table.html:6
+#: src/apps/register/templates/register/bankflag/components/list_table.html:6
+msgid "Search by name..."
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_table.html:14
+#: src/apps/event/templates/event/components/list_table.html:15
+#: src/apps/person/templates/person/components/list_table.html:15
+msgid "Local"
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_table.html:15
+#: src/apps/person/templates/person/components/list_table.html:18
+msgid "Email"
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_table.html:16
+#: src/apps/person/templates/person/components/list_table.html:17
+msgid "Phone"
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_table.html:17
+msgid "Contact"
+msgstr ""
+
+#: src/apps/center/templates/center/components/list_table.html:41
+msgid "View"
+msgstr ""
+
+#: src/apps/center/views/bedroom.py:49
+msgid "Create Bedroom"
+msgstr ""
+
+#: src/apps/center/views/bedroom.py:75
+msgid "Update Bedroom"
+msgstr ""
+
+#: src/apps/center/views/building.py:48
+msgid "Building Detail"
+msgstr ""
+
+#: src/apps/center/views/building.py:66
+msgid "Create Building"
+msgstr ""
+
+#: src/apps/center/views/building.py:81
+msgid "Update Building"
+msgstr ""
+
+#: src/apps/center/views/center.py:38
+msgid "Center Detail"
+msgstr ""
+
+#: src/apps/center/views/center.py:49
+msgid "Create Center"
+msgstr ""
+
+#: src/apps/center/views/center.py:60
+msgid "Update Center"
+msgstr ""
+
+#: src/apps/event/models.py:18
+msgid "type"
+msgstr ""
+
+#: src/apps/event/models.py:25
+msgid "activity"
+msgstr ""
+
+#: src/apps/event/models.py:26
+msgid "activities"
+msgstr ""
+
+#: src/apps/event/models.py:36
+msgid "description"
+msgstr ""
+
+#: src/apps/event/models.py:38
+msgid "date"
+msgstr ""
+
+#: src/apps/event/models.py:39
+msgid "end date"
+msgstr ""
+
+#: src/apps/event/models.py:42
+msgid "reference value"
+msgstr ""
+
+#: src/apps/event/models.py:45
+msgid "minimum value"
+msgstr ""
+
+#: src/apps/event/models.py:48
+msgid "status"
+msgstr ""
+
+#: src/apps/event/models.py:50
+msgid "alternate mapping"
+msgstr ""
+
+#: src/apps/event/models.py:76
+msgid "event"
+msgstr ""
+
+#: src/apps/event/models.py:77
+msgid "events"
+msgstr ""
+
+#: src/apps/event/models.py:98
+msgid "bottom or top"
+msgstr ""
+
+#: src/apps/event/models.py:114 src/apps/register/models.py:110
+msgid "accommodation"
+msgstr ""
+
+#: src/apps/event/models.py:115
+msgid "accommodations"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/add_to_bedroom.html:3
+msgid "Let's add person on bedroom"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/add_to_bedroom.html:8
+msgid "Choose a bedroom gender"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/add_to_bedroom.html:31
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:45
+#: src/r2e/commom.py:22
+msgid "Mixed"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/add_to_bedroom.html:60
+msgid "Put in the bedroom"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:21
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:17
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:6
+msgid "Bottom beds"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:31
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:51
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:16
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:38
+#: src/apps/person/templates/person/components/detail_card.html:41
+#: src/apps/person/templates/person/components/list_table.html:36
+msgid "years"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:35
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:55
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:20
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:42
+#: src/apps/event/templates/event/reports/mapping_by_room.html:36
+msgid "free"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:41
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:18
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:28
+msgid "Top beds"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:71
+#: src/apps/register/templates/register/order_show.html:26
+msgid "Close"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:5
+msgid "Search by building..."
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:13
+#: src/apps/event/templates/event/reports/mapping_per_person.html:14
+msgid "Building"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:14
+#: src/apps/event/templates/event/reports/mapping_by_room.html:18
+#: src/apps/event/templates/event/reports/mapping_per_person.html:13
+msgid "Bedroom"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:19
+msgid "Beds in use"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:20
+msgid "Free beds"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list.html:30
+msgid "TOTAL"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:26
+msgid "rd. floor"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:59
+msgid "Force the use of top bed"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/bedrooms.html:2
+msgid "Choose a Bedroom"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/buildings.html:2
+msgid "Choose a building"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card.html:12
+msgid "Registered"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card.html:23
+msgid "Allocated"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card.html:34
+#: src/apps/event/templates/event/reports/people_at_the_event.html:35
+msgid "Unallocated"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card.html:45
+#: src/r2e/commom.py:50
+msgid "House"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card.html:56
+#: src/r2e/commom.py:50
+msgid "Hotel"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:12
+msgid "All bedrooms"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:23
+#: src/r2e/commom.py:21 src/r2e/commom.py:22
+msgid "Male"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:34
+#: src/r2e/commom.py:21 src/r2e/commom.py:22
+msgid "Female"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:4
+msgid "Reports an Actions"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:14
+#: src/apps/event/templates/event/components/navbar.html:16
+msgid "Reports"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:18
+msgid "Accommodation mapping by room"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:23
+msgid "Accommodation mapping per person"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:28
+msgid "People on event"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:38
+#: src/apps/event/views/reports.py:124
+msgid "People per meal"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:43
+#: src/apps/event/templates/event/components/navbar.html:72
+msgid "Actions"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:53
+msgid "Reload mapping"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:63
+msgid "Reset mapping"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/page_header.html:7
+msgid "EVENT"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/person_list.html:5
+#: src/apps/event/templates/event/components/navbar.html:80
+msgid "Accommodations"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/person_list.html:13
+#: src/apps/event/templates/event/components/register_list.html:15
+#: src/apps/event/templates/event/reports/payment_per_person.html:13
+#: src/apps/register/templates/register/components/register_table.html:7
+msgid "Person"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/person_list.html:14
+msgid "Housed in"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/person_list.html:15
+#: src/apps/event/templates/event/components/register_list.html:17
+#: src/apps/person/templates/person/components/registers.html:14
+#: src/apps/person/templates/person/components/stays.html:14
+msgid "Arrival"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/person_list.html:16
+#: src/apps/event/templates/event/components/register_list.html:18
+#: src/apps/event/templates/event/reports/people_at_the_event.html:16
+#: src/apps/person/templates/person/components/stays.html:15
+msgid "Departure"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/person_list.html:17
+#: src/apps/person/templates/person/components/stays.html:16
+msgid "Restr."
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/person_list.html:18
+msgid "Ps"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/confirm_rebuild.html:8
+msgid "Are you shure you want to rebuild the mapping of event"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/confirm_rebuild.html:29
+msgid "Rebuild"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:8
+msgid "Are you shure you want to reload the mapping of event"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/confirm_reload.html:29
+msgid "Reload"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/confirm_to_remove.html:29
+msgid "Remove"
+msgstr ""
+
+#: src/apps/event/templates/event/activity/components/list_table.html:14
+#: src/apps/event/templates/event/activity/components/table.html:7
+#: src/apps/event/templates/event/reports/cash_balance.html:13
+#: src/apps/event/templates/event/reports/components/cash_balance_table.html:20
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:21
+#: src/apps/register/templates/register/components/payform_table.html:8
+msgid "Type"
+msgstr ""
+
+#: src/apps/event/templates/event/activity/components/table.html:6
+msgid "Activity"
+msgstr ""
+
+#: src/apps/event/templates/event/activity/confirm_delete.html:4
+msgid "Delete Activity"
+msgstr ""
+
+#: src/apps/event/templates/event/activity/confirm_delete.html:8
+#: src/apps/event/templates/event/components/confirm_delete.html:8
+msgid "Are you sure you want to delete"
+msgstr ""
+
+#: src/apps/event/templates/event/components/confirm_delete.html:4
+msgid "Delete Event"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:11
+msgid "to"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:11
+msgid "of"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:14
+msgid "registrations up to"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:15
+msgid "at"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:22
+msgid "registration fee"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:26
+msgid "ps"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:43
+msgid "total at the event"
+msgstr ""
+
+#: src/apps/event/templates/event/components/detail_card.html:47
+msgid "enrolled in the center"
+msgstr ""
+
+#: src/apps/event/templates/event/components/list_table.html:6
+msgid "Search by MM/YY..."
+msgstr ""
+
+#: src/apps/event/templates/event/components/list_table.html:17
+#: src/apps/event/templates/event/components/register_list.html:6
+#: src/apps/person/templates/person/components/registers.html:5
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:2
+#: src/apps/register/templates/register/order_form.html:12
+msgid "Registers"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:6
+msgid "Reports and Actions"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:25
+msgid "Cash balance"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:35
+msgid "Today"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:40
+msgid "Last"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:47
+msgid "Days"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:55
+msgid "All"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:61
+msgid "Payment per person"
+msgstr ""
+
+#: src/apps/event/templates/event/components/navbar.html:66
+#: src/apps/event/views/reports.py:113
+msgid "Total collected in the center"
+msgstr ""
+
+#: src/apps/event/templates/event/components/register_list.html:16
+#: src/apps/person/templates/person/components/registers.html:13
+#: src/apps/person/templates/person/components/stays.html:13
+#: src/r2e/commom.py:50
+msgid "Lodge"
+msgstr ""
+
+#: src/apps/event/templates/event/components/register_list.html:19
+msgid "Restrictions"
+msgstr ""
+
+#: src/apps/event/templates/event/components/register_list.html:20
+#: src/apps/event/templates/event/reports/components/cash_balance_table.html:25
+#: src/apps/event/templates/event/reports/payment_per_person.html:15
+#: src/apps/person/templates/person/components/registers.html:15
+msgid "Value"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/cash_balance.html:8
+msgid "Summary"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/cash_balance.html:14
+#: src/apps/register/templates/register/components/payform_table.html:22
+#: src/apps/register/templates/register/components/register_table.html:19
+msgid "Total"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/components/cash_balance_table.html:8
+#: src/apps/event/templates/event/reports/total_collected_in_the_center.html:13
+msgid "Records"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/components/cash_balance_table.html:21
+msgid "Bank/Flag"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/components/cash_balance_table.html:22
+msgid "Control"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/components/cash_balance_table.html:23
+msgid "User"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/components/cash_balance_table.html:24
+msgid "On"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/mapping_by_room.html:24
+msgid "top bed"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/mapping_by_room.html:24
+msgid "bottom bed"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/payment_per_person.html:14
+msgid "Form of payment"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/people_at_the_event.html:14
+msgid "Accommodation"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/people_at_the_event.html:15
+msgid "Arrive"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/people_at_the_event.html:17
+msgid "Observations"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/people_at_the_event.html:28
+msgid "HOUSE"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/people_at_the_event.html:30
+msgid "HOTEL"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/people_per_meal.html:12
+#: src/apps/person/models.py:95
+msgid "people"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_in_the_center.html:12
+msgid "Payment type"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_in_the_center.html:14
+msgid "Payed"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_in_the_center.html:15
+msgid "Expected"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_in_the_center.html:16
+msgid "Difference"
+msgstr ""
+
+#: src/apps/event/views/accomodations.py:60
+msgid "Accommodation management"
+msgstr ""
+
+#: src/apps/event/views/accomodations.py:105
+msgid "Bedrooms on event"
+msgstr ""
+
+#: src/apps/event/views/accomodations.py:477
+msgid "Managing Staff"
+msgstr ""
+
+#: src/apps/event/views/activity.py:49
+msgid "Create Activity"
+msgstr ""
+
+#: src/apps/event/views/activity.py:70
+msgid "Update Activity"
+msgstr ""
+
+#: src/apps/event/views/event.py:50
+msgid "Records management"
+msgstr ""
+
+#: src/apps/event/views/event.py:84
+msgid "Create Event"
+msgstr ""
+
+#: src/apps/event/views/event.py:101
+msgid "Update Event"
+msgstr ""
+
+#: src/apps/event/views/reports.py:45
+msgid "Mapping of Accommodations"
+msgstr ""
+
+#: src/apps/event/views/reports.py:50
+msgid "Mapping per Person"
+msgstr ""
+
+#: src/apps/event/views/reports.py:60
+msgid "People at the Event"
+msgstr ""
+
+#: src/apps/event/views/reports.py:80
+msgid "Cash Balance"
+msgstr ""
+
+#: src/apps/event/views/reports.py:103
+msgid "Payment per Person"
+msgstr ""
+
+#: src/apps/person/models.py:34
+#: src/apps/person/templates/person/components/detail_card.html:45
+msgid "id card"
+msgstr ""
+
+#: src/apps/person/models.py:39
+msgid "birth"
+msgstr ""
+
+#: src/apps/person/models.py:46
+msgid "aspect"
+msgstr ""
+
+#: src/apps/person/models.py:51
+#: src/apps/person/templates/person/components/detail_card.html:31
+msgid "sos contact"
+msgstr ""
+
+#: src/apps/person/models.py:54
+#: src/apps/person/templates/person/components/detail_card.html:35
+msgid "sos phone"
+msgstr ""
+
+#: src/apps/person/models.py:57 src/apps/person/models.py:144
+#: src/apps/register/models.py:40 src/apps/register/models.py:116
+msgid "observations"
+msgstr ""
+
+#: src/apps/person/models.py:94 src/apps/person/models.py:112
+msgid "person"
+msgstr ""
+
+#: src/apps/person/models.py:119
+msgid "stay center"
+msgstr ""
+
+#: src/apps/person/models.py:122 src/apps/register/models.py:89
+msgid "lodge"
+msgstr ""
+
+#: src/apps/person/models.py:125 src/apps/register/models.py:94
+msgid "arrival time"
+msgstr ""
+
+#: src/apps/person/models.py:128 src/apps/register/models.py:97
+msgid "departure time"
+msgstr ""
+
+#: src/apps/person/models.py:133 src/apps/register/models.py:102
+msgid "take meals?"
+msgstr ""
+
+#: src/apps/person/models.py:134 src/apps/register/models.py:103
+msgid "meals"
+msgstr ""
+
+#: src/apps/person/models.py:135 src/apps/register/models.py:91
+msgid "no stairs"
+msgstr ""
+
+#: src/apps/person/models.py:136 src/apps/register/models.py:92
+msgid "no bunk"
+msgstr ""
+
+#: src/apps/person/models.py:138
+msgid "bedroom alt"
+msgstr ""
+
+#: src/apps/person/models.py:140
+msgid "bedroom type"
+msgstr ""
+
+#: src/apps/person/models.py:142 src/apps/register/models.py:113
+msgid "staff"
+msgstr ""
+
+#: src/apps/person/models.py:156
+msgid "person stay"
+msgstr ""
+
+#: src/apps/person/models.py:157
+msgid "person stays"
+msgstr ""
+
+#: src/apps/person/templates/person/components/detail_card.html:39
+msgid "age"
+msgstr ""
+
+#: src/apps/person/templates/person/components/list_table.html:16
+msgid "Age"
+msgstr ""
+
+#: src/apps/person/templates/person/components/stays.html:5
+msgid "Stays"
+msgstr ""
+
+#: src/apps/person/templates/person/components/stays.html:12
+#: src/apps/register/templates/register/components/register_table.html:8
+msgid "Stay"
+msgstr ""
+
+#: src/apps/person/templates/person/components/stays.html:37
+#: src/apps/register/templates/register/components/search_person.html:21
+#: src/apps/register/templates/register/order_form.html:43
+msgid "Add"
+msgstr ""
+
+#: src/apps/person/views/person.py:50
+msgid "Person detail"
+msgstr ""
+
+#: src/apps/person/views/person.py:77
+msgid "Create Person"
+msgstr ""
+
+#: src/apps/person/views/person.py:112
+msgid "Update Person"
+msgstr ""
+
+#: src/apps/person/views/staff.py:35
+msgid "Create Staff"
+msgstr ""
+
+#: src/apps/person/views/staff.py:49
+msgid "Update Staff"
+msgstr ""
+
+#: src/apps/person/views/stay.py:21
+msgid "Create a new Stay"
+msgstr ""
+
+#: src/apps/person/views/stay.py:39
+msgid "Update Stay"
+msgstr ""
+
+#: src/apps/register/models.py:15
+msgid "bank flag"
+msgstr ""
+
+#: src/apps/register/models.py:16
+msgid "bank flags"
+msgstr ""
+
+#: src/apps/register/models.py:35
+msgid "late payment"
+msgstr ""
+
+#: src/apps/register/models.py:37
+msgid "canceled payment"
+msgstr ""
+
+#: src/apps/register/models.py:69 src/apps/register/models.py:86
+#: src/apps/register/models.py:159
+msgid "order"
+msgstr ""
+
+#: src/apps/register/models.py:70
+msgid "orders"
+msgstr ""
+
+#: src/apps/register/models.py:112
+msgid "housed"
+msgstr ""
+
+#: src/apps/register/models.py:142
+msgid "register"
+msgstr ""
+
+#: src/apps/register/models.py:143
+msgid "registers"
+msgstr ""
+
+#: src/apps/register/models.py:162
+msgid "payment type"
+msgstr ""
+
+#: src/apps/register/models.py:172
+msgid "control number"
+msgstr ""
+
+#: src/apps/register/models.py:209
+msgid "form of payment"
+msgstr ""
+
+#: src/apps/register/models.py:210
+msgid "form of payments"
+msgstr ""
+
+#: src/apps/register/templates/register/bankflag/components/list_table.html:6
+#: src/apps/register/views/bankflag.py:15
+msgid "Bank and Flags"
+msgstr ""
+
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:7
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:23
+#: src/apps/register/templates/register/components/payform_table.html:10
+#: src/apps/register/templates/register/components/register_table.html:9
+msgid "Value R$"
+msgstr ""
+
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:17
+msgid "Form"
+msgstr ""
+
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:17
+msgid "of payment"
+msgstr ""
+
+#: src/apps/register/templates/register/components/detail_registers_payforms.html:22
+#: src/apps/register/templates/register/order_form.html:60
+msgid "Details"
+msgstr ""
+
+#: src/apps/register/templates/register/components/payform_table.html:9
+msgid "Detail"
+msgstr ""
+
+#: src/apps/register/templates/register/components/payform_table.html:35
+msgid "Missing"
+msgstr ""
+
+#: src/apps/register/templates/register/components/register_row.html:23
+msgid "Please, enter a stay."
+msgstr ""
+
+#: src/apps/register/templates/register/components/search_results.html:22
+msgid "No search results"
+msgstr ""
+
+#: src/apps/register/templates/register/order_form.html:33
+msgid "Forms of Payment"
+msgstr ""
+
+#: src/apps/register/templates/register/order_form.html:71
+msgid "Register"
+msgstr ""
+
+#: src/apps/register/templates/register/order_show.html:3
+msgid "Order Detail"
+msgstr ""
+
+#: src/apps/register/views/bankflag.py:36
+msgid "Create Bank or Flag"
+msgstr ""
+
+#: src/apps/register/views/bankflag.py:47
+msgid "Update Bank or Flag"
+msgstr ""
+
+#: src/apps/register/views/order.py:22
+msgid "Create Order"
+msgstr ""
+
+#: src/apps/register/views/order.py:83
+msgid "Update Order"
+msgstr ""
+
+#: src/apps/register/views/order.py:130
+msgid "Delete Order"
+msgstr ""
+
+#: src/apps/register/views/order.py:310
+msgid "Add Form of Payment"
+msgstr ""
+
+#: src/r2e/commom.py:9
+msgid "Brazil"
+msgstr ""
+
+#: src/r2e/commom.py:10
+msgid "United States"
+msgstr ""
+
+#: src/r2e/commom.py:14
+msgid "Conference"
+msgstr ""
+
+#: src/r2e/commom.py:15
+msgid "Open Doors Day"
+msgstr ""
+
+#: src/r2e/commom.py:16
+msgid "Others"
+msgstr ""
+
+#: src/r2e/commom.py:19
+msgid "open"
+msgstr ""
+
+#: src/r2e/commom.py:19
+msgid "closed"
+msgstr ""
+
+#: src/r2e/commom.py:23
+msgid "Bottom"
+msgstr ""
+
+#: src/r2e/commom.py:23
+msgid "Top"
+msgstr ""
+
+#: src/r2e/commom.py:27
+msgid "Public Work"
+msgstr ""
+
+#: src/r2e/commom.py:28
+msgid "Youth Work"
+msgstr ""
+
+#: src/r2e/commom.py:29
+msgid "Guest of Pupil"
+msgstr ""
+
+#: src/r2e/commom.py:30
+msgid "1st. Aspect"
+msgstr ""
+
+#: src/r2e/commom.py:31
+msgid "2st. Aspect"
+msgstr ""
+
+#: src/r2e/commom.py:32
+msgid "3st. Aspect"
+msgstr ""
+
+#: src/r2e/commom.py:33
+msgid "4st. Aspect"
+msgstr ""
+
+#: src/r2e/commom.py:34
+msgid "Grail"
+msgstr ""
+
+#: src/r2e/commom.py:35
+msgid "5st. Aspect"
+msgstr ""
+
+#: src/r2e/commom.py:36
+msgid "6st. Aspect"
+msgstr ""
+
+#: src/r2e/commom.py:40
+msgid "Cash"
+msgstr ""
+
+#: src/r2e/commom.py:41
+msgid "Check"
+msgstr ""
+
+#: src/r2e/commom.py:42
+msgid "Pre Check"
+msgstr ""
+
+#: src/r2e/commom.py:43
+msgid "Debit"
+msgstr ""
+
+#: src/r2e/commom.py:44
+msgid "Deposit"
+msgstr ""
+
+#: src/r2e/commom.py:45
+msgid "Transfer"
+msgstr ""
+
+#: src/r2e/commom.py:46
+msgid "Pix"
+msgstr ""
+
+#: src/r2e/commom.py:47
+msgid "Free"
+msgstr ""
+
+#: src/r2e/commom.py:63
+msgid "Eve day, before dinner."
+msgstr ""
+
+#: src/r2e/commom.py:64
+msgid "Eve day, after dinner."
+msgstr ""
+
+#: src/r2e/commom.py:65
+msgid "First day, before breakfast."
+msgstr ""
+
+#: src/r2e/commom.py:66 src/r2e/commom.py:73
+msgid "First day, before lunch."
+msgstr ""
+
+#: src/r2e/commom.py:67 src/r2e/commom.py:74
+msgid "First day, before dinner."
+msgstr ""
+
+#: src/r2e/commom.py:68 src/r2e/commom.py:75
+msgid "First day, after dinner."
+msgstr ""
+
+#: src/r2e/commom.py:69 src/r2e/commom.py:76
+msgid "Last day, before breakfast."
+msgstr ""
+
+#: src/r2e/commom.py:77
+msgid "Last day, before lunch."
+msgstr ""
+
+#: src/r2e/commom.py:78
+msgid "Last day, after lunch."
+msgstr ""
+
+#: src/r2e/commom.py:107
+msgid "Dinner on the eve day"
+msgstr ""
+
+#: src/r2e/commom.py:108
+msgid "Breakfast on the first day"
+msgstr ""
+
+#: src/r2e/commom.py:109
+msgid "Lunch on the first day"
+msgstr ""
+
+#: src/r2e/commom.py:110
+msgid "Dinner on the first day"
+msgstr ""
+
+#: src/r2e/commom.py:111
+msgid "Breakfast on the last day"
+msgstr ""
+
+#: src/r2e/commom.py:112
+msgid "Lunch on the last day"
+msgstr ""
