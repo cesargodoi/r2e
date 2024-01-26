@@ -269,7 +269,7 @@ class AddStay(StayCreate):
             stay,
             ref_value,
             alt_mapping,
-            self.request.session["order"]["event"],
+            event_id=self.request.session["order"]["event"],
         )
         self.request.session["order"]["registers"].append(register_stay)
         utils.total_registers_add(
@@ -300,7 +300,11 @@ class EditStay(StayUpdate):
         _stay = person.stays.get(pk=self.kwargs["pk"])
         alt_mapping = self.request.session["order"]["alt_mapping"]
         register_stay = utils.get_dict_register(
-            person, _stay, old_value, alt_mapping
+            person,
+            _stay,
+            old_value,
+            alt_mapping,
+            event_id=self.request.session["order"]["event"],
         )
         self.request.session["order"]["registers"].append(register_stay)
 

@@ -3,7 +3,7 @@ from datetime import datetime
 
 from ..models import BankFlag
 from apps.person.models import Person
-from apps.event.models import Accommodation
+from apps.event.models import Accommodation, Event
 from r2e.commom import PAYMENT_TYPES
 
 
@@ -25,17 +25,18 @@ def init_session(request):
 
 
 def get_dict_register(person, stay, ref_value, alt_mapping, event_id=None):
+    bedroom = ""
     if stay:
         _bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
-        accommodations = Accommodation.objects.filter(
-            gender=person.gender,
-            bedroom_id=_bedroom,
-        )
         if event_id:
-            accommodations.filter(event_id=event_id)
+            accommodations = Accommodation.objects.filter(
+                gender=person.gender, bedroom_id=_bedroom, event_id=event_id
+            )
+        else:
+            accommodations = Accommodation.objects.filter(
+                gender=person.gender, bedroom_id=_bedroom
+            )
         bedroom = _bedroom if accommodations else ""
-    else:
-        bedroom = ""
 
     return dict(
         regid=stay.id if stay else secrets.token_hex(3)[:6],
@@ -71,7 +72,7 @@ def get_dict_register_update(register, event_center_pk, alt_mapping):
 
     return dict(
         regid=stay.id,
-        person=dict(name=person.name, id=person.id),
+        person=dict(name=register.person.name, id=register.person.id),
         lodge=dict(name=register.get_lodge_display(), id=register.lodge),
         no_stairs=register.no_stairs,
         no_bunk=register.no_bunk,
@@ -85,7 +86,9 @@ def get_dict_register_update(register, event_center_pk, alt_mapping):
         take_meals=stay.take_meals,
         meals=stay.meals,
         staff=" | ".join([st.name for st in stay.staff.all()]) if stay else "",
-        bedroom=stay.bedroom_alt if alt_mapping else stay.bedroom,
+        bedroom=register.accommodation.bedroom_id
+        if register.accommodation
+        else "",
         bedroom_type=stay.bedroom_type,
         observations=register.observations,
         value=float(register.value),
@@ -193,9 +196,29 @@ def get_dict_order_to_db(request, order, update=False):
     return _order
 
 
+def get_event_days(event_id):
+    event = Event.objects.get(pk=event_id)
+    dt1, dt2 = event.date, event.end_date
+    date_diff = dt2 - dt1
+    return date_diff.days + 1
+
+
 def get_dict_register_to_db(
     request, register, order_id, event_id, update=False
 ):
+    event_days = get_event_days(event_id)
+
+    meals = register["meals"]
+    if event_days > 2:
+        extra_days = event_days - 2
+        to_take = (
+            0
+            if register["departure_time"]["id"] in ["DFBL", "DFBD", "DFAD"]
+            else 1
+        )
+        for _ in range(extra_days * 3):
+            meals.insert(4, to_take)
+
     _register = dict(
         person_id=register["person"]["id"],
         order_id=order_id,
@@ -205,7 +228,7 @@ def get_dict_register_to_db(
         arrival_time=register["arrival_time"]["id"],
         departure_time=register["departure_time"]["id"],
         take_meals=register["take_meals"],
-        meals=register["meals"],
+        meals=meals,
         staff=register["staff"],
         observations=register["observations"],
         value=register["value"],

@@ -9,14 +9,17 @@ from ..models import Accommodation, Event
 
 from apps.register.models import Register
 
-from r2e.commom import get_age, MEALS
+from r2e.commom import get_age, MEALS, EXTRA_MEALS
 
 
 class ReportByAccommodation(LoginRequiredMixin, ListView):
     model = Accommodation
 
-    def get_object(self, queryset=None):
-        return Accommodation.objects.filter(event__pk=self.kwargs.get("pk"))
+    def get_queryset(self):
+        queryset = Accommodation.objects.filter(
+            event__pk=self.kwargs.get("pk")
+        ).order_by("bedroom__name")
+        return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -43,6 +46,11 @@ class ReportByRegister(LoginRequiredMixin, ListView):
 class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": _("Mapping of Accommodations")}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context
 
 
 class MappingPerPerson(ReportByAccommodation):
@@ -131,22 +139,19 @@ class PeoplePerMeal(ReportByRegister):
 
 #  helpers
 def get_people_per_meal(registers):
-    meals = [
-        [MEALS["MED"], 0],
-        [MEALS["MFB"], 0],
-        [MEALS["MFL"], 0],
-        [MEALS["MFD"], 0],
-        [MEALS["MLB"], 0],
-        [MEALS["MLL"], 0],
-    ]
-    for register in registers:
-        meals[0][1] += register.meals[0]
-        meals[1][1] += register.meals[1]
-        meals[2][1] += register.meals[2]
-        meals[3][1] += register.meals[3]
-        meals[4][1] += register.meals[4]
-        meals[5][1] += register.meals[5]
+    meals = [[MEALS[meal], 0] for meal in MEALS]
+    _extras = list(EXTRA_MEALS.keys())
 
+    if len(registers[0].meals) > 6:
+        extra_meals = [
+            [EXTRA_MEALS[m], 0]
+            for m in _extras[0 : len(registers[0].meals) - 6]
+        ]
+        meals[4:4] = extra_meals
+
+    for register in registers:
+        for i in range(len(register.meals)):
+            meals[i][1] += register.meals[i]
     return meals
 
 

@@ -24,6 +24,7 @@ BEDROOM_TYPE = [("B", _("Bottom")), ("T", _("Top"))]
 
 
 ASPECTS = [
+    ("21", _("Project 21")),
     ("PW", _("Public Work")),
     ("YW", _("Youth Work")),
     ("PG", _("Guest of Pupil")),
@@ -78,7 +79,24 @@ DEPARTURE_TIME = [
     ("DLAL", _("Last day, after lunch.")),
 ]
 
+"""
+To calculate meals
+
+meals = [0, 0, 0, 0, 0, 0]  # 0 = False   1 = True 
+
+if not stay.take_meals:
+    return meals
+
+first_meal = TAKE_MEAL[stay.arrival_time]
+last_meal = TAKE_MEAL[stay.departure_time]
+
+meals[first_meal : len(meals) - last_meal] = [
+    1 for _ in meals[first_meal : len(meals) - last_meal]
+]
+"""
+
 TAKE_MEAL = {
+    # arrival_time
     "AEBD": 0,  # eve dinner
     "AEAD": 1,  # 1 breakfast
     "AFBB": 1,  #     "
@@ -86,12 +104,13 @@ TAKE_MEAL = {
     "AFBD": 3,  # 1 dinner
     "AFAD": 4,  # 2 breakfast
     "ALBB": 4,  #     "
-    "DFBL": 1,  # 1 breakfast
-    "DFBD": 2,  # 1 lunch
-    "DFAD": 3,  # 1 dinner
-    "DLBB": 3,  #     "
-    "DLBL": 4,  # 2 breakfast
-    "DLAL": 5,  # 2 lunch
+    # departure_time
+    "DFBL": 4,  # 1 breakfast
+    "DFBD": 3,  # 1 lunch
+    "DFAD": 2,  # 1 dinner
+    "DLBB": 2,  #     "
+    "DLBL": 1,  # 2 breakfast
+    "DLAL": 0,  # 2 lunch
 }
 
 """
@@ -110,6 +129,18 @@ MEALS = {
     "MFD": _("Dinner on the first day"),
     "MLB": _("Breakfast on the last day"),
     "MLL": _("Lunch on the last day"),
+}
+
+EXTRA_MEALS = {
+    "M2B": _("Breakfast on the second day"),
+    "M2L": _("Lunch on the second day"),
+    "M2D": _("Dinner on the second day"),
+    "M3B": _("Breakfast on the third day"),
+    "M3L": _("Lunch on the third day"),
+    "M3D": _("Dinner on the third day"),
+    "M4B": _("Breakfast on the fourfth day"),
+    "M4L": _("Lunch on the fourfth day"),
+    "M4D": _("Dinner on the fourfth day"),
 }
 
 
@@ -208,13 +239,15 @@ def get_pagination_url(request):
 
 def get_meals(stay):
     meals = [0, 0, 0, 0, 0, 0]
+
     if not stay.take_meals:
         return meals
+
     first_meal = TAKE_MEAL[stay.arrival_time]
     last_meal = TAKE_MEAL[stay.departure_time]
-    if last_meal >= first_meal:
-        meals[first_meal : last_meal + 1] = [
-            1 for _ in meals[first_meal : last_meal + 1]
+
+    if first_meal <= (len(meals) - last_meal - 1):
+        meals[first_meal : len(meals) - last_meal] = [
+            1 for _ in meals[first_meal : len(meals) - last_meal]
         ]
-        return meals
     return meals

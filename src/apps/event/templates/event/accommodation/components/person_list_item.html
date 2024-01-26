@@ -1,12 +1,18 @@
 {% load static %}
 <tr>
   <td>{{ forloop.counter }}</td>
-  <th>{{ reg.person.name }}</th>
+  <th class="d-flex justify-content-between align-items-center">
+    <span class="fw-bolder" style="flex:10;">{{ reg.person.name|shortname }}</span>
+    <small class="badge rounded-pill text-bg-primary" style="flex:1;">
+      {{ reg.person.aspect }}
+    </small>
+    <small class="text-secondary text-center" style="flex:5;">{{ reg.person.center.short_name }}</small>
+  </th>
   <th>
     {% if reg.lodge == 'HSE' %}
       <span
         data-bs-toggle="tooltip" 
-        data-bs-placement="left"
+        data-bs-placement="bottom"
         data-bs-custom-class="custom-tooltip"
         data-bs-title="house"
       >
@@ -16,7 +22,7 @@
     {% if reg.lodge == 'HTL' %}
       <span
         data-bs-toggle="tooltip" 
-        data-bs-placement="left"
+        data-bs-placement="bottom"
         data-bs-custom-class="custom-tooltip"
         data-bs-title="hotel"
       >
@@ -26,7 +32,7 @@
     {% if reg.lodge == 'LDG' %}
       <div 
         data-bs-toggle="tooltip" 
-        data-bs-placement="left"
+        data-bs-placement="bottom"
         data-bs-custom-class="custom-tooltip"
         data-bs-title="{% if reg.accommodation %}{{ reg.accommodation.bedroom.building.name }}{% else %}not alocated{% endif %}"
       >
@@ -96,12 +102,14 @@
       <img class="icon-style" src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk">
     {% endif %}
   </td>
-  <td {% if reg.observations %}
-    data-bs-toggle="tooltip" 
-    data-bs-placement="top"
-    data-bs-custom-class="custom-tooltip"
-    data-bs-title="{{ reg.observations }}"
-  {% endif %}>
+  <td 
+    {% if reg.observations|length > 20 %}
+      data-bs-toggle="tooltip" 
+      data-bs-placement="bottom"
+      data-bs-custom-class="custom-tooltip"
+      data-bs-title="{{ reg.observations }}"
+    {% endif %}
+  >
     {% if reg.observations %}{{ reg.observations|truncatechars:20 }}{% endif %}
   </td>
   <td>
@@ -116,7 +124,16 @@
       >
         <i class="bi bi-pencil"></i>
       </button>
-      {{ reg.staff }}
+      <div
+        {% if reg.staff|wordcount > 4 %}
+          data-bs-toggle="tooltip" 
+          data-bs-placement="bottom"
+          data-bs-custom-class="custom-tooltip"
+          data-bs-title="{{ reg.staff }}"
+        {% endif %}
+      >
+        {{ reg.staff|truncatewords_html:4 }}
+      </div>
     </div>
   </td>
 </tr>
