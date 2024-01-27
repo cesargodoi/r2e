@@ -139,12 +139,12 @@ class PeoplePerMeal(ReportByRegister):
 
 #  helpers
 def get_people_per_meal(registers):
-    meals = [[MEALS[meal], 0] for meal in MEALS]
+    meals = [[MEALS[meal], 0, []] for meal in MEALS]
     _extras = list(EXTRA_MEALS.keys())
 
     if len(registers[0].meals) > 6:
         extra_meals = [
-            [EXTRA_MEALS[m], 0]
+            [EXTRA_MEALS[m], 0, []]
             for m in _extras[0 : len(registers[0].meals) - 6]
         ]
         meals[4:4] = extra_meals
@@ -152,6 +152,9 @@ def get_people_per_meal(registers):
     for register in registers:
         for i in range(len(register.meals)):
             meals[i][1] += register.meals[i]
+            if register.meals[i]:
+                meals[i][2].append(register.person.name)
+
     return meals
 
 
