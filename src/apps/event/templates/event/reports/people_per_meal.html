@@ -29,7 +29,7 @@
         >
           <div class="accordion-body d-flex flex-wrap">
             {% for name in obj.2 %}
-              <span class="h6 p-1"> ▪️ {{ name|shortname }} &nbsp;&nbsp;</span> 
+              <span class="h6 p-1"> <small>{{ forloop.counter }}.</small> {{ name|shortname }} &nbsp;&nbsp;&nbsp;</span> 
             {% empty %}
               <span class="h5 p-1">{% trans "no people for this meal" %}</span>
             {% endfor %}

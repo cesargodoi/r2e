@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load my_tags %}
 <div class="card shadow">
   <div class="card-header py-3">
@@ -10,9 +11,9 @@
         {% if object_list %}
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Center</th>
-            <th>Active</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Center" %}</th>
+            <th class="text-center">{% trans "Active" %}</th>
             <th></th>
           </tr>
         {% endif %}
@@ -22,8 +23,12 @@
               <td>{{ forloop.counter }}</td>
               <td>{{ obj.name }}</td>
               <td>{{ obj.center }}</td>
-              <td>
-                {{ obj.is_active }}
+              <td class="text-center">
+                {% if obj.is_active %}
+                  <span class="badge rounded-pill text-bg-success text-light">{% trans "active" %}</span>
+                {% else %}
+                  <span class="badge rounded-pill text-bg-danger">{% trans "inactive" %}</span>
+                {% endif %}
               </td>
               <td class="text-end">
                 <button 
@@ -32,7 +37,7 @@
                   onclick="location.href='{% url 'center:building_detail' obj.pk %}'"
                 >
                   <i class="bi bi-eye"></i>
-                  View
+                  {% trans "View" %}
                 </button>
                 {% if user.is_superuser %}
                   <button 
@@ -44,7 +49,7 @@
                     onclick="manageForm('{% url 'center:building_update' obj.pk %}')"
                   >
                     <i class="bi bi-pencil-square"></i>
-                    Edit
+                    {% trans "Edit" %}
                   </button>
                   <button 
                     type="button" 
@@ -54,7 +59,7 @@
                     onclick="manageData('{% url 'center:building_delete' obj.pk %}')"
                   >
                     <i class="bi bi-trash3"></i>
-                    Delete
+                    {% trans "Delete" %}
                   </button>
                 {% endif %}
               </td>

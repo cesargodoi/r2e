@@ -1,9 +1,9 @@
 {% load i18n %}
 <nav class="navbar bg-light mb-3">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">{% trans "Reports an Actions" %}</a>
+    <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon"></span>
+      <span class="navbar-toggler-icon"></span> {% trans "Reports an Actions" %}
     </button>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
@@ -29,13 +29,18 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'event:report_staff' event.pk %}" target="_blank">
-              <i class="bi bi-file-earmark-ruled"></i> {% trans "Staff" %}
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_people_per_aspect' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans "People per aspect" %}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'event:report_people_per_meal' event.pk %}" target="_blank">
               <i class="bi bi-file-earmark-ruled"></i> {% trans "People per meal" %}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_staff' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans "Staff" %}
             </a>
           </li>
         </ul>
@@ -49,26 +54,6 @@
           >
             <i class="bi bi-building"></i> 
             {% trans "View bedrooms" %}
-          </button>
-          <button 
-            type="button"
-            class="btn btn-outline-warning" 
-            data-bs-toggle="modal" 
-            data-bs-target="#baseModal"
-            onclick="manageData('{% url 'event:reload_the_mapping' event.pk %}')"
-          >
-            <i class="bi bi-building"></i> 
-            {% trans "Reload mapping" %}
-          </button>
-          <button 
-            type="button"
-            class="btn btn-outline-danger" 
-            data-bs-toggle="modal" 
-            data-bs-target="#baseModal"
-            onclick="manageData('{% url 'event:rebuild_the_mapping' event.pk %}')"
-          >
-            <i class="bi bi-building"></i> 
-            {% trans "Reset mapping" %}
           </button>
         </div>
       </div>

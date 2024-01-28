@@ -1,0 +1,17 @@
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% include 'base/hx/offcanvas_title.html' %}
+<form id="form" hx-post="{{ request.path }}">
+  {% csrf_token %}
+  {% for field in form.visible_fields %}
+    <div class="{% if field.errors %}has-error{% endif %} mt-3">
+      {{ field.label_tag }}
+      {% render_field field class="form-control" %}
+      {% for error in field.errors %}
+        <span class="text-muted">{{ error }}</span>
+      {% endfor %}
+    </div>
+  {% endfor %}
+  {% render_field form.modified_by type="hidden" %}
+</form>

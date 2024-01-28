@@ -170,10 +170,10 @@ def search_person(request):
     results = None
     if request.GET.get("term"):
         results = Person.objects.filter(
-            name_sa__icontains=request.GET.get("term"), is_active=True
-        )
-        if not request.user.is_superuser:
-            results = results.filter(center=request.user.person.center)
+            center=request.user.person.center,
+            name_sa__icontains=request.GET.get("term"),
+            is_active=True,
+        ).exclude(user__id=1)
         results = results[:10]
 
     context = {"results": results, "registers": registers}

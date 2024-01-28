@@ -9,7 +9,7 @@ from ..models import Accommodation, Event
 
 from apps.register.models import Register
 
-from r2e.commom import get_age, MEALS, EXTRA_MEALS
+from r2e.commom import get_age, ASPECTS, MEALS, EXTRA_MEALS
 
 
 class ReportByAccommodation(LoginRequiredMixin, ListView):
@@ -43,6 +43,59 @@ class ReportByRegister(LoginRequiredMixin, ListView):
 
 
 # Reports
+class CashBalance(ReportByRegister):
+    template_name = "event/reports/cash_balance.html"
+    extra_context = {"title": _("Cash Balance")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(order__center=self.request.user.person.center)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        days = self.request.GET.get("days")
+        context["days"] = days if days == "today" else f"{days} days"
+        form_of_payments = get_form_of_payments(self.object_list, days=days)
+        summary = {"total": 0, "types": []}
+        for fpay in form_of_payments:
+            summary["types"].append(
+                {"type": fpay["type"], "total": fpay["total"]}
+            )
+            summary["total"] += fpay["total"]
+        context["summary"] = summary
+        context["object_list"] = form_of_payments
+        return context
+
+
+class PaymentPerPerson(ReportByRegister):
+    template_name = "event/reports/payment_per_person.html"
+    extra_context = {"title": _("Payment per Person")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(order__center=self.request.user.person.center)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["total"] = sum(x.value for x in self.object_list)
+        return context
+
+
+class TotalCollectedInTheCenter(ReportByRegister):
+    template_name = "event/reports/total_collected_in_the_center.html"
+    extra_context = {"title": _("Total collected in the center")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(order__center=self.request.user.person.center)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["payers_by_type"] = get_payers_by_type(self.object_list)
+        context["totals"] = get_totals(context["payers_by_type"])
+        return context
+
+
 class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": _("Mapping of Accommodations")}
@@ -68,6 +121,37 @@ class PeopleAtTheEvent(ReportByRegister):
     extra_context = {"title": _("People at the Event")}
 
 
+class PeoplePerAspect(ReportByRegister):
+    template_name = "event/reports/people_per_aspect.html"
+    extra_context = {"title": _("People per Aspect")}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        aspect_list = []
+        aspects = dict(ASPECTS)
+        for item in self.object_list.order_by(
+            "person__aspect", "person__name"
+        ):
+            for aspect in aspects:
+                if item.person.aspect == aspect:
+                    aspect_list.append(
+                        {"aspect": aspects[aspect], "person": item.person.name}
+                    )
+        context["aspect_list"] = aspect_list
+        # sorted(aspect_list, key=lambda x: x["aspect"])
+        return context
+
+
+class PeoplePerMeal(ReportByRegister):
+    template_name = "event/reports/people_per_meal.html"
+    extra_context = {"title": _("People per meal")}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_list"] = get_people_per_meal(self.object_list)
+        return context
+
+
 class Staff(ReportByRegister):
     template_name = "event/reports/staff.html"
     extra_context = {"title": _("Staff")}
@@ -80,60 +164,6 @@ class Staff(ReportByRegister):
                 for stf in item.staff.split(" | "):
                     staff_list.append({"stf": stf, "person": item.person.name})
         context["staff_list"] = sorted(staff_list, key=lambda x: x["stf"])
-        return context
-
-
-class CashBalance(ReportByRegister):
-    template_name = "event/reports/cash_balance.html"
-    extra_context = {"title": _("Cash Balance")}
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        days = self.request.GET.get("days")
-        context["days"] = days if days == "today" else f"{days} days"
-        object_list = self.object_list.filter(
-            order__center=self.request.user.person.center
-        )
-        form_of_payments = get_form_of_payments(object_list, days=days)
-        summary = {"total": 0, "types": []}
-        for fpay in form_of_payments:
-            summary["types"].append(
-                {"type": fpay["type"], "total": fpay["total"]}
-            )
-            summary["total"] += fpay["total"]
-        context["summary"] = summary
-        context["object_list"] = form_of_payments
-        return context
-
-
-class PaymentPerPerson(ReportByRegister):
-    template_name = "event/reports/payment_per_person.html"
-    extra_context = {"title": _("Payment per Person")}
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["total"] = sum(x.value for x in self.object_list)
-        return context
-
-
-class TotalCollectedInTheCenter(ReportByRegister):
-    template_name = "event/reports/total_collected_in_the_center.html"
-    extra_context = {"title": _("Total collected in the center")}
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["payers_by_type"] = get_payers_by_type(self.object_list)
-        context["totals"] = get_totals(context["payers_by_type"])
-        return context
-
-
-class PeoplePerMeal(ReportByRegister):
-    template_name = "event/reports/people_per_meal.html"
-    extra_context = {"title": _("People per meal")}
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["object_list"] = get_people_per_meal(self.object_list)
         return context
 
 

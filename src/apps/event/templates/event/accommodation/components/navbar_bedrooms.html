@@ -1,0 +1,40 @@
+{% load i18n %}
+<nav class="navbar bg-light mb-3">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span> {% trans "Actions" %}
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <h5 class="offcanvas-title mb-3 border-bottom">{% trans "Actions" %}</h5>
+        <div class="d-grid gap-2">
+          <button 
+            type="button"
+            class="btn btn-outline-warning" 
+            data-bs-toggle="modal" 
+            data-bs-target="#baseModal"
+            onclick="manageData('{% url 'event:reload_the_mapping' event.pk %}')"
+          >
+            <i class="bi bi-building"></i> 
+            {% trans "Reload mapping" %}
+          </button>
+          <button 
+            type="button"
+            class="btn btn-outline-danger" 
+            data-bs-toggle="modal" 
+            data-bs-target="#baseModal"
+            onclick="manageData('{% url 'event:rebuild_the_mapping' event.pk %}')"
+          >
+            <i class="bi bi-building"></i> 
+            {% trans "Reset mapping" %}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

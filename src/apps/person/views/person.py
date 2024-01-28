@@ -16,7 +16,7 @@ from django.contrib.auth.mixins import (
 )
 
 from ..models import Person
-from ..forms import PersonForm
+from ..forms import PersonForm, ChangeCenterForm
 
 from r2e.commom import get_pagination_url, us_inter_char
 
@@ -27,11 +27,11 @@ class PersonList(LoginRequiredMixin, ListView):
     extra_context = {"title": _("People")}
 
     def get_queryset(self):
-        query = Person.objects.all()
-        if not self.request.user.is_superuser:
-            query = query.filter(
-                center=self.request.user.person.center, is_active=True
-            ).exclude(user__id=1)
+        # query = Person.objects.all()
+        # if not self.request.user.is_superuser:
+        query = Person.objects.filter(
+            center=self.request.user.person.center, is_active=True
+        ).exclude(user__id=1)
         if self.request.GET.get("q"):
             return query.filter(name_sa__icontains=self.request.GET.get("q"))
         return query
@@ -162,3 +162,22 @@ class PersonDelete(
         else:
             form = self.get_form()
             return self.form_valid(form)
+
+
+class ChangeCenter(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Person
+    form_class = ChangeCenterForm
+    template_name = "person/change_center_form.html"
+    extra_context = {"title": _("Change Center")}
+
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial["modified_by"] = self.request.user
+        return initial
+
+    def form_valid(self, form):
+        form.save()
+        return HttpResponse(headers={"HX-Refresh": "true"})

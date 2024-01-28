@@ -1,4 +1,5 @@
 {% extends 'base/base.html' %}
+{% load static %}
 {% load my_tags %}
 {% load i18n %}
 {% block content %}
@@ -57,5 +58,33 @@
         </div>
       </div>
     {% endif %}
+    {% if user.is_superuser %}
+      <div 
+        class="card text-bg-primary mb-3 is-link" 
+        style="width: 18rem;"
+        data-bs-toggle="offcanvas" 
+        data-bs-target="#offcanvasForm" 
+        aria-controls="offcanvasForm"
+        onclick="manageForm('{% url 'person:change_center' request.user.person.pk %}')"
+      >
+        <div class="card-body">
+          <h4 class="card-title">{% trans "Change Center" %}</h4>
+          <p class="card-text">{% trans "log into another center as admin" %}</p>
+        </div>
+      </div>
+    {% endif %}
   </div>
+  {% include 'base/offcanvas.html' %}
 {% endblock  %}
+
+{% block scripts %}
+  <script src="{% static 'js/modal_form.js' %}"></script>
+  <script>
+    function manageData(url) {
+      htmx.ajax('GET', url, '#baseModalContent')
+    }
+    function manageForm(url) {
+      htmx.ajax('GET', url, '#offcanvasContent')
+    }
+  </script>
+{% endblock %}
