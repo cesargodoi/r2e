@@ -21,7 +21,7 @@
               <td>{{ forloop.counter }}</td>
               <td>{{ obj.name }}</td>
               <td class="text-end">
-                {% if user.is_authenticated and user|has_group:'admin' %}
+                {% if user.is_superuser %}
                   <button 
                     type="button" 
                     class="btn btn-outline-secondary btn-sm"

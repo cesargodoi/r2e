@@ -10,6 +10,7 @@ from django.views.generic import (
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
+    UserPassesTestMixin,
 )
 
 from ..models import Center
@@ -42,21 +43,24 @@ class CenterDetail(LoginRequiredMixin, DetailView):
         return context
 
 
-class CenterCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+class CenterCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Center
     form_class = CenterForm
-    permission_required = "center.add_center"
     extra_context = {"title": _("Create Center")}
     success_url = reverse_lazy("center:list")
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def form_valid(self, form):
         form.save()
         return HttpResponse(headers={"HX-Refresh": "true"})
 
 
-class CenterUpdate(LoginRequiredMixin, UpdateView):
+class CenterUpdate(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Center
     form_class = CenterForm
+    permission_required = "center.change_center"
     extra_context = {"title": _("Update Center")}
     success_url = reverse_lazy("center:list")
 
