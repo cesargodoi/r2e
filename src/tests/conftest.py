@@ -161,7 +161,6 @@ def create_group(db, get_perms):
 def get_perms(db):
     office = [
         "view_center",  # center
-        "view_event",  # event
         "view_building",  # building
         "view_bedroom",  # bedroom
         "view_activity",  # activity
@@ -189,8 +188,51 @@ def get_perms(db):
         "delete_formofpayment",
     ]
 
+    admin = [
+        "view_center",  # center
+        "change_center",
+        "view_building",  # building
+        "add_building",
+        "change_building",
+        "delete_building",
+        "view_bedroom",  # bedroom
+        "add_bedroom",
+        "change_bedroom",
+        "delete_bedroom",
+        "view_activity",  # activity
+        "view_event",  # event
+        "add_event",
+        "change_event",
+        "delete_event",
+        "view_accommodation",  # accommodation
+        "add_accommodation",
+        "change_accommodation",
+        "delete_accommodation",
+        "view_person",  # person
+        "add_person",
+        "change_person",
+        "view_staff",  # staff
+        "view_personstay",  # personstay
+        "add_personstay",
+        "change_personstay",
+        "delete_personstay",
+        "view_bankflag",  # bankflag
+        "view_order",  # order
+        "add_order",
+        "change_order",
+        "delete_order",
+        "view_register",  # register
+        "add_register",
+        "change_register",
+        "delete_register",
+        "view_formofpayment",  # formofpayment
+        "add_formofpayment",
+        "change_formofpayment",
+        "delete_formofpayment",
+    ]
+
     perms = {
-        "admin": [perm for perm in Permission.objects.all()],
+        "admin": [Permission.objects.get(codename=perm) for perm in admin],
         "office": [Permission.objects.get(codename=perm) for perm in office],
     }
 
