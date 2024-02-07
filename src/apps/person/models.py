@@ -31,7 +31,7 @@ class Person(models.Model):
     name = models.CharField(_("name"), max_length=50, unique=True)
     name_sa = models.CharField(max_length=50, editable=False)
     id_card = models.CharField(
-        _("id card"), max_length=40, unique=True, null=True, blank=True
+        _("id card"), max_length=40, null=True, blank=True
     )
     gender = models.CharField(
         _("gender"), max_length=1, choices=GENDER, default="M"

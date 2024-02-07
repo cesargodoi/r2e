@@ -9,7 +9,7 @@
           <a 
             class="page-link" 
             href="#"
-            hx-get="{{ pagination_url }}&page={{ page_obj.previous_page_number }}" 
+            hx-get="{{ pagination_url }}?&page={{ page_obj.previous_page_number }}" 
             hx-target="#bedrooms" 
             hx-swap="innerHTML"
           >&lsaquo;</a>
@@ -25,7 +25,7 @@
             <a 
               class="page-link" 
               href="#"
-              hx-get="{{ pagination_url }}&page={{ num }}"
+              hx-get="{{ pagination_url }}?&page={{ num }}"
               hx-target="#bedrooms" 
               hx-swap="innerHTML"
             >{{ num }}</a>
@@ -37,7 +37,7 @@
           <a 
             class="page-link" 
             href="#"
-            hx-get="{{ pagination_url }}&page={{ page_obj.next_page_number }}"
+            hx-get="{{ pagination_url }}?&page={{ page_obj.next_page_number }}"
             hx-target="#bedrooms" 
             hx-swap="innerHTML"
           >&rsaquo;</a>
