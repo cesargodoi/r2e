@@ -14,6 +14,12 @@
     <hr>
     <table class="table table-sm table-hover">
       <tr>
+        <th width="40%">{% trans "aspect" %}</th>
+        <td>
+          {{ object.get_aspect_display }}
+        </td>
+      </tr>
+      <tr>
         <th>{% trans "local" %}</th>
         <td>
           {% if object.city %}{{ object.city }}{% endif %} ({% if object.state %}{{ object.state }}-{% endif %}{{ object.country }})

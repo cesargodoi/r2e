@@ -5,7 +5,41 @@
 {% load my_tags %}
 
 {% block content %}
-  <div class="d-flex flex-wrap" style="gap: 1em;">
+  <div class="accordion mt-4" id="mealsAccordion">
+    {% for obj in object_list %}
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+          <button 
+            class="accordion-button d-flex fw-bolder {% if forloop.counter != 1 %}collapsed{% endif %}" 
+            type="button" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#collapse{{ forloop.counter }}" 
+            aria-expanded="true" 
+            aria-controls="collapse{{ forloop.counter }}"
+          >
+            <span class="h5 p-2 flex-grow-1">{{ obj.0 }}</span>
+            <span class="h5 p-2 me-4">{{ obj.1 }} <small>{% trans "people" %}</small></span>
+          </button>
+        </h2>
+        <div 
+          id="collapse{{ forloop.counter }}" 
+          class="accordion-collapse collapse {% if forloop.counter == 1 %}show{% endif %}" 
+          aria-labelledby="heading{{ forloop.counter }}" 
+          data-bs-parent="#mealsAccordion"
+        >
+          <div class="accordion-body d-flex flex-wrap">
+            {% for name in obj.2 %}
+              <span class="h6 p-1"> <small>{{ forloop.counter }}.</small> {{ name|shortname }} &nbsp;&nbsp;&nbsp;</span> 
+            {% empty %}
+              <span class="h5 p-1">{% trans "no people for this meal" %}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  {% comment %} <div class="d-flex flex-wrap" style="gap: 1em;">
     {% for obj in object_list %}
       <div class="card border-dark mb-3 text-center" style="width: 20rem;">
         <div class="card-body">
@@ -14,5 +48,5 @@
         </div>
       </div>
     {% endfor %}
-  </div>
+  </div> {% endcomment %}
 {% endblock %}

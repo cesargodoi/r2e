@@ -56,10 +56,9 @@ class Order(models.Model):
     )
 
     def __str__(self):
-        return "{} ${} | cr:{} | lt:{} | cc:{} | at:{}".format(
+        return "{} ${} | lt:{} | cc:{} | at:{}".format(
             self.event,
             self.value,
-            self.credit_launch,
             self.late_payment,
             self.canceled_payment,
             self.created_on.strftime("%m/%d/%Y %H:%M:%S"),

@@ -9,7 +9,7 @@
         <th>{% trans "Gender" %}</th>
         <th>{% trans "Floor" %}</th>
         <th>{% trans "Beds" %}</th>
-        <th>{% trans "Active" %}</th>
+        <th class="text-center">{% trans "Active" %}</th>
         <th></th>
       </tr>
     {% endif %}
@@ -37,7 +37,13 @@
             {{ obj.bottom_beds }} <img class="icon-style" src="{% static 'img/icons/bed_BY.png' %}"> &nbsp;&nbsp;
             {{ obj.top_beds }} <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}">
           </td>
-          <td>{{ obj.is_active }}</td>
+          <td class="text-center">
+            {% if obj.is_active %}
+              <span class="badge rounded-pill text-bg-success text-light">{% trans "active" %}</span>
+            {% else %}
+              <span class="badge rounded-pill text-bg-danger">{% trans "inactive" %}</span>
+            {% endif %}
+          </td>
           <td class="text-end">
             {% if user.is_superuser %}
               <button 

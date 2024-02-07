@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-18 16:38-0300\n"
+"POT-Creation-Date: 2024-01-28 11:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,7 +62,8 @@ msgstr "Cancelar"
 
 #: src/apps/base/templates/base/generics/confirm_delete.html:30
 #: src/apps/base/templates/base/offcanvas.html:48
-#: src/apps/center/templates/center/bedroom/list.html:62
+#: src/apps/center/templates/center/bedroom/list.html:68
+#: src/apps/center/templates/center/building/components/list_table.html:62
 #: src/apps/event/templates/event/activity/components/list_table.html:45
 #: src/apps/event/templates/event/activity/components/table.html:32
 #: src/apps/person/templates/person/staff/components/list_table.html:44
@@ -85,7 +86,7 @@ msgid "deadline"
 msgstr "prazo final"
 
 #: src/apps/base/templates/base/home.html:24 src/apps/register/models.py:34
-#: src/apps/register/models.py:114 src/apps/register/models.py:174
+#: src/apps/register/models.py:113 src/apps/register/models.py:173
 msgid "value"
 msgstr "valor"
 
@@ -163,11 +164,11 @@ msgid "manage activities"
 msgstr "gerenciar atividades"
 
 #: src/apps/base/templates/base/tools.html:55
-#: src/apps/event/templates/event/accommodation/components/navbar.html:33
+#: src/apps/event/templates/event/accommodation/components/navbar.html:38
 #: src/apps/event/templates/event/accommodation/components/person_list.html:19
 #: src/apps/event/templates/event/reports/mapping_per_person.html:15
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:65
+#: src/apps/event/views/reports.py:73
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -208,7 +209,7 @@ msgstr "país"
 #: src/apps/center/models.py:17
 #: src/apps/center/templates/center/components/detail_card.html:23
 #: src/apps/person/models.py:49
-#: src/apps/person/templates/person/components/detail_card.html:23
+#: src/apps/person/templates/person/components/detail_card.html:29
 msgid "phone"
 msgstr "telefone"
 
@@ -226,6 +227,8 @@ msgid "centers"
 msgstr "núcleos"
 
 #: src/apps/center/models.py:43 src/apps/center/models.py:65
+#: src/apps/center/templates/center/bedroom/list.html:42
+#: src/apps/center/templates/center/building/components/list_table.html:28
 msgid "active"
 msgstr "ativo"
 
@@ -263,6 +266,7 @@ msgid "bedrooms"
 msgstr "quartos"
 
 #: src/apps/center/templates/center/bedroom/list.html:8
+#: src/apps/center/templates/center/building/components/list_table.html:14
 #: src/apps/center/templates/center/components/list_table.html:13
 #: src/apps/event/templates/event/activity/components/list_table.html:13
 #: src/apps/event/templates/event/reports/mapping_per_person.html:12
@@ -290,6 +294,7 @@ msgid "Beds"
 msgstr "Camas"
 
 #: src/apps/center/templates/center/bedroom/list.html:12
+#: src/apps/center/templates/center/building/components/list_table.html:16
 msgid "Active"
 msgstr "Ativo"
 
@@ -308,16 +313,32 @@ msgstr "o. piso"
 msgid "nd. floor"
 msgstr "o. piso"
 
-#: src/apps/center/templates/center/bedroom/list.html:52
+#: src/apps/center/templates/center/bedroom/list.html:44
+#: src/apps/center/templates/center/building/components/list_table.html:30
+msgid "inactive"
+msgstr "inativo"
+
+#: src/apps/center/templates/center/bedroom/list.html:58
+#: src/apps/center/templates/center/building/components/list_table.html:52
 #: src/apps/center/templates/center/components/detail_card.html:46
 #: src/apps/event/templates/event/activity/components/list_table.html:35
 #: src/apps/event/templates/event/activity/components/table.html:24
 #: src/apps/event/templates/event/components/navbar.html:90
-#: src/apps/person/templates/person/components/detail_card.html:59
+#: src/apps/person/templates/person/components/detail_card.html:65
 #: src/apps/person/templates/person/staff/components/list_table.html:34
 #: src/apps/register/templates/register/bankflag/components/list_table.html:34
 msgid "Edit"
 msgstr "Editar"
+
+#: src/apps/center/templates/center/building/components/list_table.html:15
+#: src/apps/center/templates/center/components/list_table.html:5
+msgid "Center"
+msgstr "Núcleo"
+
+#: src/apps/center/templates/center/building/components/list_table.html:40
+#: src/apps/center/templates/center/components/list_table.html:41
+msgid "View"
+msgstr "Visualizar"
 
 #: src/apps/center/templates/center/building/detail.html:11
 #: src/apps/center/views/bedroom.py:20
@@ -326,12 +347,12 @@ msgid "Bedrooms"
 msgstr "Quartos"
 
 #: src/apps/center/templates/center/components/detail_card.html:17
-#: src/apps/person/templates/person/components/detail_card.html:17
+#: src/apps/person/templates/person/components/detail_card.html:23
 msgid "local"
 msgstr "local"
 
 #: src/apps/center/templates/center/components/detail_card.html:27
-#: src/apps/person/templates/person/components/detail_card.html:27
+#: src/apps/person/templates/person/components/detail_card.html:33
 msgid "email"
 msgstr "email"
 
@@ -362,10 +383,6 @@ msgid "Search for ..."
 msgstr "Procurar ..."
 
 #: src/apps/center/templates/center/components/list_table.html:5
-msgid "Center"
-msgstr "Núcleo"
-
-#: src/apps/center/templates/center/components/list_table.html:5
 #: src/apps/event/templates/event/accommodation/components/person_list.html:5
 #: src/apps/event/templates/event/activity/components/list_table.html:5
 #: src/apps/event/templates/event/components/register_list.html:6
@@ -377,27 +394,23 @@ msgstr "Procurar por nome..."
 
 #: src/apps/center/templates/center/components/list_table.html:14
 #: src/apps/event/templates/event/components/list_table.html:15
-#: src/apps/person/templates/person/components/list_table.html:15
+#: src/apps/person/templates/person/components/list_table.html:16
 msgid "Local"
 msgstr "Local"
 
 #: src/apps/center/templates/center/components/list_table.html:15
-#: src/apps/person/templates/person/components/list_table.html:18
+#: src/apps/person/templates/person/components/list_table.html:19
 msgid "Email"
 msgstr "Email"
 
 #: src/apps/center/templates/center/components/list_table.html:16
-#: src/apps/person/templates/person/components/list_table.html:17
+#: src/apps/person/templates/person/components/list_table.html:18
 msgid "Phone"
 msgstr "Telefone"
 
 #: src/apps/center/templates/center/components/list_table.html:17
 msgid "Contact"
 msgstr "Contato"
-
-#: src/apps/center/templates/center/components/list_table.html:41
-msgid "View"
-msgstr "Visualizar"
 
 #: src/apps/center/views/bedroom.py:49
 msgid "Create Bedroom"
@@ -483,7 +496,7 @@ msgstr "eventos"
 msgid "bottom or top"
 msgstr "embaixo ou em cima"
 
-#: src/apps/event/models.py:114 src/apps/register/models.py:110
+#: src/apps/event/models.py:114 src/apps/register/models.py:109
 msgid "accommodation"
 msgstr "acomodação"
 
@@ -515,30 +528,30 @@ msgstr "Coloque no quarto"
 msgid "Bottom beds"
 msgstr "Camas de baixo"
 
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:31
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:51
-#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:16
-#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:38
-#: src/apps/person/templates/person/components/detail_card.html:41
-#: src/apps/person/templates/person/components/list_table.html:36
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:36
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:62
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:21
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:49
+#: src/apps/person/templates/person/components/detail_card.html:47
+#: src/apps/person/templates/person/components/list_table.html:40
 msgid "years"
 msgstr "anos"
 
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:35
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:55
-#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:20
-#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:42
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:41
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:67
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:26
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:54
 #: src/apps/event/templates/event/reports/mapping_by_room.html:36
 msgid "free"
 msgstr "livre"
 
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:41
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:47
 #: src/apps/event/templates/event/accommodation/components/bedroom_list.html:18
-#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:28
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:34
 msgid "Top beds"
 msgstr "Camas de cima"
 
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:71
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:83
 #: src/apps/register/templates/register/order_show.html:26
 msgid "Close"
 msgstr "Fechar"
@@ -574,7 +587,7 @@ msgstr "TOTAL"
 msgid "rd. floor"
 msgstr "o. piso"
 
-#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:59
+#: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:71
 msgid "Force the use of top bed"
 msgstr "Forçar o uso da cama de cima"
 
@@ -600,12 +613,12 @@ msgid "Unallocated"
 msgstr "Não alocados"
 
 #: src/apps/event/templates/event/accommodation/components/event_card.html:45
-#: src/r2e/commom.py:50
+#: src/r2e/commom.py:51
 msgid "House"
 msgstr "Em casa"
 
 #: src/apps/event/templates/event/accommodation/components/event_card.html:56
-#: src/r2e/commom.py:50
+#: src/r2e/commom.py:51
 msgid "Hotel"
 msgstr "Em hotel"
 
@@ -644,21 +657,29 @@ msgstr "Mapeamento de acomodações por quarto"
 msgid "People on event"
 msgstr "Pessoas no evento"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:38
-#: src/apps/event/views/reports.py:124
+#: src/apps/event/templates/event/accommodation/components/navbar.html:33
+msgid "People per aspect"
+msgstr "Pessoas por discipulado"
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:43
+#: src/apps/event/views/reports.py:153
 msgid "People per meal"
 msgstr "Pessoas por refeições"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:43
+#: src/apps/event/templates/event/accommodation/components/navbar.html:48
 #: src/apps/event/templates/event/components/navbar.html:72
 msgid "Actions"
 msgstr "Ações"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:53
+#: src/apps/event/templates/event/accommodation/components/navbar.html:56
+msgid "View bedrooms"
+msgstr "Ver quartos"
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:66
 msgid "Reload mapping"
 msgstr "Recarregar o mapeamento"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:63
+#: src/apps/event/templates/event/accommodation/components/navbar.html:76
 msgid "Reset mapping"
 msgstr "Redefinir o mapeamento"
 
@@ -824,14 +845,14 @@ msgid "Payment per person"
 msgstr "Pagamento por pessoa"
 
 #: src/apps/event/templates/event/components/navbar.html:66
-#: src/apps/event/views/reports.py:113
+#: src/apps/event/views/reports.py:142
 msgid "Total collected in the center"
 msgstr "Total coletado no núcleo"
 
 #: src/apps/event/templates/event/components/register_list.html:16
 #: src/apps/person/templates/person/components/registers.html:13
 #: src/apps/person/templates/person/components/stays.html:13
-#: src/r2e/commom.py:50
+#: src/r2e/commom.py:51
 msgid "Lodge"
 msgstr "alojamento"
 
@@ -909,10 +930,14 @@ msgstr "CASA"
 msgid "HOTEL"
 msgstr "HOTEL"
 
-#: src/apps/event/templates/event/reports/people_per_meal.html:12
+#: src/apps/event/templates/event/reports/people_per_meal.html:21
 #: src/apps/person/models.py:95
 msgid "people"
 msgstr "pessoas"
+
+#: src/apps/event/templates/event/reports/people_per_meal.html:34
+msgid "no people for this meal"
+msgstr "nenhuma pessoa para esta refeição"
 
 #: src/apps/event/templates/event/reports/total_collected_in_the_center.html:12
 msgid "Payment type"
@@ -930,15 +955,15 @@ msgstr "Esperado"
 msgid "Difference"
 msgstr "Diferença"
 
-#: src/apps/event/views/accomodations.py:60
+#: src/apps/event/views/accommodations.py:60
 msgid "Accommodation management"
 msgstr "Gerenciamento de acomodações"
 
-#: src/apps/event/views/accomodations.py:105
+#: src/apps/event/views/accommodations.py:105
 msgid "Bedrooms on event"
 msgstr "Quartos no evento"
 
-#: src/apps/event/views/accomodations.py:477
+#: src/apps/event/views/accommodations.py:478
 msgid "Managing Staff"
 msgstr "Gerenciar o Staff"
 
@@ -962,28 +987,32 @@ msgstr "Criar Evento"
 msgid "Update Event"
 msgstr "Atualizar Evento"
 
-#: src/apps/event/views/reports.py:45
+#: src/apps/event/views/reports.py:48
 msgid "Mapping of Accommodations"
 msgstr "Mapeamento de Acomodações"
 
-#: src/apps/event/views/reports.py:50
+#: src/apps/event/views/reports.py:58
 msgid "Mapping per Person"
 msgstr "Mapeamento por Pessoa"
 
-#: src/apps/event/views/reports.py:60
+#: src/apps/event/views/reports.py:68
 msgid "People at the Event"
 msgstr "Pessoas no evento"
 
-#: src/apps/event/views/reports.py:80
+#: src/apps/event/views/reports.py:88
+msgid "People per Aspect"
+msgstr "Pessoas por Discipulado"
+
+#: src/apps/event/views/reports.py:109
 msgid "Cash Balance"
 msgstr "Fechamento de Caixa"
 
-#: src/apps/event/views/reports.py:103
+#: src/apps/event/views/reports.py:132
 msgid "Payment per Person"
 msgstr "Pagamento por Pessoa"
 
 #: src/apps/person/models.py:34
-#: src/apps/person/templates/person/components/detail_card.html:45
+#: src/apps/person/templates/person/components/detail_card.html:51
 msgid "id card"
 msgstr "identidade"
 
@@ -992,21 +1021,22 @@ msgid "birth"
 msgstr "nascimento"
 
 #: src/apps/person/models.py:46
+#: src/apps/person/templates/person/components/detail_card.html:17
 msgid "aspect"
 msgstr "aspecto"
 
 #: src/apps/person/models.py:51
-#: src/apps/person/templates/person/components/detail_card.html:31
+#: src/apps/person/templates/person/components/detail_card.html:37
 msgid "sos contact"
 msgstr "contato de emergência"
 
 #: src/apps/person/models.py:54
-#: src/apps/person/templates/person/components/detail_card.html:35
+#: src/apps/person/templates/person/components/detail_card.html:41
 msgid "sos phone"
 msgstr "telefone de emergência"
 
 #: src/apps/person/models.py:57 src/apps/person/models.py:144
-#: src/apps/register/models.py:40 src/apps/register/models.py:116
+#: src/apps/register/models.py:40 src/apps/register/models.py:115
 msgid "observations"
 msgstr "observações"
 
@@ -1018,31 +1048,31 @@ msgstr "pessoa"
 msgid "stay center"
 msgstr "estadia no núcleo"
 
-#: src/apps/person/models.py:122 src/apps/register/models.py:89
+#: src/apps/person/models.py:122 src/apps/register/models.py:88
 msgid "lodge"
 msgstr "alojamento"
 
-#: src/apps/person/models.py:125 src/apps/register/models.py:94
+#: src/apps/person/models.py:125 src/apps/register/models.py:93
 msgid "arrival time"
 msgstr "chegada"
 
-#: src/apps/person/models.py:128 src/apps/register/models.py:97
+#: src/apps/person/models.py:128 src/apps/register/models.py:96
 msgid "departure time"
 msgstr "partida"
 
-#: src/apps/person/models.py:133 src/apps/register/models.py:102
+#: src/apps/person/models.py:133 src/apps/register/models.py:101
 msgid "take meals?"
 msgstr "tomará refeições"
 
-#: src/apps/person/models.py:134 src/apps/register/models.py:103
+#: src/apps/person/models.py:134 src/apps/register/models.py:102
 msgid "meals"
 msgstr "refeições"
 
-#: src/apps/person/models.py:135 src/apps/register/models.py:91
+#: src/apps/person/models.py:135 src/apps/register/models.py:90
 msgid "no stairs"
 msgstr "não pode subir escadas"
 
-#: src/apps/person/models.py:136 src/apps/register/models.py:92
+#: src/apps/person/models.py:136 src/apps/register/models.py:91
 msgid "no bunk"
 msgstr "não pode cama de cima"
 
@@ -1054,7 +1084,7 @@ msgstr "qualrto alternativo"
 msgid "bedroom type"
 msgstr "tipo de quarto"
 
-#: src/apps/person/models.py:142 src/apps/register/models.py:113
+#: src/apps/person/models.py:142 src/apps/register/models.py:112
 msgid "staff"
 msgstr "staff"
 
@@ -1066,11 +1096,15 @@ msgstr "estadia da pessoa"
 msgid "person stays"
 msgstr "estadias da pessoa"
 
-#: src/apps/person/templates/person/components/detail_card.html:39
+#: src/apps/person/templates/person/components/detail_card.html:45
 msgid "age"
 msgstr "idade"
 
-#: src/apps/person/templates/person/components/list_table.html:16
+#: src/apps/person/templates/person/components/list_table.html:15
+msgid "Aspect"
+msgstr "Aspecto"
+
+#: src/apps/person/templates/person/components/list_table.html:17
 msgid "Age"
 msgstr "Idade"
 
@@ -1133,40 +1167,40 @@ msgstr "pagamento atrasado"
 msgid "canceled payment"
 msgstr "pagamento cancelado"
 
-#: src/apps/register/models.py:69 src/apps/register/models.py:86
-#: src/apps/register/models.py:159
+#: src/apps/register/models.py:68 src/apps/register/models.py:85
+#: src/apps/register/models.py:158
 msgid "order"
 msgstr "ordem"
 
-#: src/apps/register/models.py:70
+#: src/apps/register/models.py:69
 msgid "orders"
 msgstr "ordens"
 
-#: src/apps/register/models.py:112
+#: src/apps/register/models.py:111
 msgid "housed"
 msgstr "alojado"
 
-#: src/apps/register/models.py:142
+#: src/apps/register/models.py:141
 msgid "register"
 msgstr "registro"
 
-#: src/apps/register/models.py:143
+#: src/apps/register/models.py:142
 msgid "registers"
 msgstr "registros"
 
-#: src/apps/register/models.py:162
+#: src/apps/register/models.py:161
 msgid "payment type"
 msgstr "tipo de pagamento"
 
-#: src/apps/register/models.py:172
+#: src/apps/register/models.py:171
 msgid "control number"
 msgstr "núm. controle"
 
-#: src/apps/register/models.py:209
+#: src/apps/register/models.py:208
 msgid "form of payment"
 msgstr "forma de pagamento"
 
-#: src/apps/register/models.py:210
+#: src/apps/register/models.py:209
 msgid "form of payments"
 msgstr "formas de pagamento"
 
@@ -1243,7 +1277,7 @@ msgstr "Atualizar pedido"
 msgid "Delete Order"
 msgstr "Excluir pedido"
 
-#: src/apps/register/views/order.py:310
+#: src/apps/register/views/order.py:318
 msgid "Add Form of Payment"
 msgstr "Adicionar Forma de Pagamento"
 
@@ -1284,136 +1318,176 @@ msgid "Top"
 msgstr "Em cima"
 
 #: src/r2e/commom.py:27
+msgid "Project 21"
+msgstr "Projeto 21"
+
+#: src/r2e/commom.py:28
 msgid "Public Work"
 msgstr "Trabalho público"
 
-#: src/r2e/commom.py:28
+#: src/r2e/commom.py:29
 msgid "Youth Work"
 msgstr "Trabalho da juventude"
 
-#: src/r2e/commom.py:29
+#: src/r2e/commom.py:30
 msgid "Guest of Pupil"
 msgstr "Convidado de aluno"
 
-#: src/r2e/commom.py:30
+#: src/r2e/commom.py:31
 msgid "1st. Aspect"
 msgstr "1o. Aspecto"
 
-#: src/r2e/commom.py:31
+#: src/r2e/commom.py:32
 msgid "2st. Aspect"
 msgstr "2o. Aspecto"
 
-#: src/r2e/commom.py:32
+#: src/r2e/commom.py:33
 msgid "3st. Aspect"
 msgstr "3o. Aspecto"
 
-#: src/r2e/commom.py:33
+#: src/r2e/commom.py:34
 msgid "4st. Aspect"
 msgstr "4o. Aspecto"
 
-#: src/r2e/commom.py:34
+#: src/r2e/commom.py:35
 msgid "Grail"
 msgstr "Graal"
 
-#: src/r2e/commom.py:35
+#: src/r2e/commom.py:36
 msgid "5st. Aspect"
 msgstr "5o. Aspecto"
 
-#: src/r2e/commom.py:36
+#: src/r2e/commom.py:37
 msgid "6st. Aspect"
 msgstr "6o. Aspecto"
 
-#: src/r2e/commom.py:40
+#: src/r2e/commom.py:41
 msgid "Cash"
 msgstr "Dinheiro"
 
-#: src/r2e/commom.py:41
+#: src/r2e/commom.py:42
 msgid "Check"
 msgstr "Cheque"
 
-#: src/r2e/commom.py:42
+#: src/r2e/commom.py:43
 msgid "Pre Check"
 msgstr "Cheque pré"
 
-#: src/r2e/commom.py:43
+#: src/r2e/commom.py:44
 msgid "Debit"
 msgstr "Débito"
 
-#: src/r2e/commom.py:44
+#: src/r2e/commom.py:45
 msgid "Deposit"
 msgstr "Depósito"
 
-#: src/r2e/commom.py:45
+#: src/r2e/commom.py:46
 msgid "Transfer"
 msgstr "Transfer."
 
-#: src/r2e/commom.py:46
+#: src/r2e/commom.py:47
 msgid "Pix"
 msgstr "Pix"
 
-#: src/r2e/commom.py:47
+#: src/r2e/commom.py:48
 msgid "Free"
 msgstr "Isenção"
 
-#: src/r2e/commom.py:63
+#: src/r2e/commom.py:64
 msgid "Eve day, before dinner."
 msgstr "Véspera, antes do jantar"
 
-#: src/r2e/commom.py:64
+#: src/r2e/commom.py:65
 msgid "Eve day, after dinner."
 msgstr "Véspera, depois do jantar"
 
-#: src/r2e/commom.py:65
+#: src/r2e/commom.py:66
 msgid "First day, before breakfast."
 msgstr "1o. dia, antes do café da manhã"
 
-#: src/r2e/commom.py:66 src/r2e/commom.py:73
-msgid "First day, before lunch."
-msgstr "1o. dia, depois do café da manhã"
-
 #: src/r2e/commom.py:67 src/r2e/commom.py:74
-msgid "First day, before dinner."
+msgid "First day, before lunch."
 msgstr "1o. dia, antes do almoço"
 
 #: src/r2e/commom.py:68 src/r2e/commom.py:75
-msgid "First day, after dinner."
+msgid "First day, before dinner."
 msgstr "1o. dia, antes do jantar"
 
 #: src/r2e/commom.py:69 src/r2e/commom.py:76
+msgid "First day, after dinner."
+msgstr "1o. dia, depois do jantar"
+
+#: src/r2e/commom.py:70 src/r2e/commom.py:77
 msgid "Last day, before breakfast."
 msgstr "Último dia, antes do café da manhã"
 
-#: src/r2e/commom.py:77
+#: src/r2e/commom.py:78
 msgid "Last day, before lunch."
 msgstr "Último dia, antes do almoço"
 
-#: src/r2e/commom.py:78
+#: src/r2e/commom.py:79
 msgid "Last day, after lunch."
-msgstr "Último dia, depois do café da manhã"
+msgstr "Último dia, depois do almoço"
 
-#: src/r2e/commom.py:107
+#: src/r2e/commom.py:126
 msgid "Dinner on the eve day"
 msgstr "Jantar da véspera"
 
-#: src/r2e/commom.py:108
+#: src/r2e/commom.py:127
 msgid "Breakfast on the first day"
 msgstr "Café da manhã do 1o. dia"
 
-#: src/r2e/commom.py:109
+#: src/r2e/commom.py:128
 msgid "Lunch on the first day"
 msgstr "Almoço do 1o. dia"
 
-#: src/r2e/commom.py:110
+#: src/r2e/commom.py:129
 msgid "Dinner on the first day"
 msgstr "Jantar do 1o. dia"
 
-#: src/r2e/commom.py:111
+#: src/r2e/commom.py:130
 msgid "Breakfast on the last day"
 msgstr "Café da manhã do último dia"
 
-#: src/r2e/commom.py:112
+#: src/r2e/commom.py:131
 msgid "Lunch on the last day"
 msgstr "Almoço do último dia"
+
+#: src/r2e/commom.py:135
+msgid "Breakfast on the second day"
+msgstr "Café da manhã do 2o. dia"
+
+#: src/r2e/commom.py:136
+msgid "Lunch on the second day"
+msgstr "Almoço do 2o. dia"
+
+#: src/r2e/commom.py:137
+msgid "Dinner on the second day"
+msgstr "Jantar do 2o. dia"
+
+#: src/r2e/commom.py:138
+msgid "Breakfast on the third day"
+msgstr "Café da manhã do 3o. dia"
+
+#: src/r2e/commom.py:139
+msgid "Lunch on the third day"
+msgstr "Almoço do 3o. dia"
+
+#: src/r2e/commom.py:140
+msgid "Dinner on the third day"
+msgstr "Jantar do 3o. dia"
+
+#: src/r2e/commom.py:141
+msgid "Breakfast on the fourfth day"
+msgstr "Café da manhã do 4. dia"
+
+#: src/r2e/commom.py:142
+msgid "Lunch on the fourfth day"
+msgstr "Almoço do 4. dia"
+
+#: src/r2e/commom.py:143
+msgid "Dinner on the fourfth day"
+msgstr "Jantar do 4. dia"
 
 #~ msgid "Bottom bed"
 #~ msgstr "Cama de baixo"

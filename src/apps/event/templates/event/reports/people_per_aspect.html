@@ -1,0 +1,20 @@
+{% extends 'base/base_report.html' %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+  {% if aspect_list %}
+    {% with aspect="" %}
+      {% for row in aspect_list %}
+        {% ifchanged row.aspect %}
+          {% with aspect=row.aspect %}
+            <h4 class="mt-4 fw-bolder border-bottom">{{ row.aspect }}</h4>
+          {% endwith %}
+        {% endifchanged %}
+        &nbsp; <span class="fs-6"> ☑ {{ row.person }}</span> &nbsp;&nbsp;
+      {% endfor %}
+    {% endwith %}
+  {% else %}
+    {% include "base/generics/no_data_was_found.html" %}
+  {% endif %}
+{% endblock %}

@@ -40,6 +40,11 @@ urlpatterns += [
         name="report_staff",
     ),
     path(
+        "<int:pk>/report/people-per-aspect/",
+        views.PeoplePerAspect.as_view(),
+        name="report_people_per_aspect",
+    ),
+    path(
         "<int:pk>/report/people-per-meal/",
         views.PeoplePerMeal.as_view(),
         name="report_people_per_meal",

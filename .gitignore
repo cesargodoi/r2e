@@ -113,3 +113,6 @@ poetry.lock
 poetry.toml
 settings.yaml
 .secrets.yaml
+
+*.xlsx
+*.csv

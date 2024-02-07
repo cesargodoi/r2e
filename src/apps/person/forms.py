@@ -34,3 +34,12 @@ class StayForm(forms.ModelForm):
             "bedroom_alt": forms.HiddenInput(),
             "bedroom_type": forms.HiddenInput(),
         }
+
+
+class ChangeCenterForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = ("center", "modified_by")
+        widgets = {
+            "modified_by": forms.HiddenInput(),
+        }

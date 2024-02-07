@@ -23,6 +23,8 @@ class Center(models.Model):
 
     def save(self, *args, **kwargs):
         self.phone = phone_format(self.phone)
+        if self.state:
+            self.state = self.state.upper()
         super(Center, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
