@@ -59,7 +59,7 @@ CENTERS_ID = {
     "SAL": 25,
 }
 
-COLUMNS_INDEXES = [0, 2, 4, 5, 9, 10, 13, 14, 15, 20, 21, 24, 25, 26, 35]
+COLUMNS_INDEXES = [0, 2, 4, 5, 9, 10, 13, 14, 15, 20, 21, 24, 25, 26, 35, 40]
 
 COLUMNS = {
     0: "center_ref",
@@ -77,9 +77,11 @@ COLUMNS = {
     12: "sos_type",
     13: "sos_phone",
     14: "aspect",
+    15: "p21",
 }
 
 ASPECTS = {
+    "P": "21",
     "1o. Aspecto": "A1",
     "2o. Aspecto": "A2",
     "E.C.S.": "A3",
