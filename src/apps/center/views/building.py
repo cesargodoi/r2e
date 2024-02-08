@@ -22,7 +22,7 @@ from r2e.commom import get_pagination_url
 
 class BuildingList(LoginRequiredMixin, ListView):
     model = Building
-    paginate_by = 10
+    paginate_by = 15
     extra_context = {"title": _("Buildings")}
     template_name = "center/building/list.html"
 
