@@ -22,7 +22,7 @@ from r2e.commom import clear_session, get_pagination_url, get_paginator
 # Event Views
 class EventList(LoginRequiredMixin, ListView):
     model = Event
-    paginate_by = 10
+    paginate_by = 15
     extra_context = {"title": _("Events")}
 
     def get_queryset(self):

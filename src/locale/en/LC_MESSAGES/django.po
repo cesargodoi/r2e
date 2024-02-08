@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-28 11:15-0300\n"
+"POT-Creation-Date: 2024-02-08 08:23-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/apps/accounts/templates/accounts/change_password.html:8
 #: src/apps/accounts/templates/accounts/change_password.html:21
-#: src/apps/base/templates/base/menu_profile.html:18
+#: src/apps/base/templates/base/menu_profile.html:21
 msgid "Change Password"
 msgstr ""
 
@@ -90,11 +90,15 @@ msgstr ""
 msgid "value"
 msgstr ""
 
-#: src/apps/base/templates/base/menu_profile.html:15
+#: src/apps/base/templates/base/menu_profile.html:8
+msgid "on"
+msgstr ""
+
+#: src/apps/base/templates/base/menu_profile.html:18
 msgid "Profile"
 msgstr ""
 
-#: src/apps/base/templates/base/menu_profile.html:23
+#: src/apps/base/templates/base/menu_profile.html:26
 msgid "Logout"
 msgstr ""
 
@@ -128,63 +132,71 @@ msgstr ""
 msgid "Tools"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:15
+#: src/apps/base/templates/base/tools.html:16
 msgid "Bank or Flag"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:16
+#: src/apps/base/templates/base/tools.html:17
 msgid "manage bank names or credit card flags"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:25
-#: src/apps/center/views/center.py:22
+#: src/apps/base/templates/base/tools.html:26
+#: src/apps/center/views/center.py:24
 msgid "Centers"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:26
+#: src/apps/base/templates/base/tools.html:27
 msgid "manage centers and conference centers"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:35
+#: src/apps/base/templates/base/tools.html:36
 #: src/apps/center/views/building.py:26
 msgid "Buildings"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:36
+#: src/apps/base/templates/base/tools.html:37
 msgid "manage the buildings in your center"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:45
+#: src/apps/base/templates/base/tools.html:46
 #: src/apps/event/templates/event/activity/components/list_table.html:5
 msgid "Activities"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:46
+#: src/apps/base/templates/base/tools.html:47
 msgid "manage activities"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:55
-#: src/apps/event/templates/event/accommodation/components/navbar.html:38
+#: src/apps/base/templates/base/tools.html:56
+#: src/apps/event/templates/event/accommodation/components/navbar.html:43
 #: src/apps/event/templates/event/accommodation/components/person_list.html:19
 #: src/apps/event/templates/event/reports/mapping_per_person.html:15
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:73
+#: src/apps/event/views/reports.py:157
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
 msgid "Staff"
 msgstr ""
 
-#: src/apps/base/templates/base/tools.html:56
+#: src/apps/base/templates/base/tools.html:57
 msgid "manage staff"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:71
+msgid "View another center"
+msgstr ""
+
+#: src/apps/base/templates/base/tools.html:72
+msgid "view another center as admin"
 msgstr ""
 
 #: src/apps/base/views.py:11
 msgid "Open Events"
 msgstr ""
 
-#: src/apps/center/models.py:9 src/apps/center/models.py:42
-#: src/apps/center/models.py:58 src/apps/event/models.py:16
+#: src/apps/center/models.py:9 src/apps/center/models.py:44
+#: src/apps/center/models.py:60 src/apps/event/models.py:16
 #: src/apps/person/models.py:31 src/apps/register/models.py:9
 msgid "name"
 msgstr ""
@@ -218,50 +230,50 @@ msgstr ""
 msgid "contact"
 msgstr ""
 
-#: src/apps/center/models.py:35 src/apps/register/models.py:26
+#: src/apps/center/models.py:37 src/apps/register/models.py:26
 msgid "center"
 msgstr ""
 
-#: src/apps/center/models.py:36
+#: src/apps/center/models.py:38
 msgid "centers"
 msgstr ""
 
-#: src/apps/center/models.py:43 src/apps/center/models.py:65
+#: src/apps/center/models.py:45 src/apps/center/models.py:67
 #: src/apps/center/templates/center/bedroom/list.html:42
 #: src/apps/center/templates/center/building/components/list_table.html:28
 msgid "active"
 msgstr ""
 
-#: src/apps/center/models.py:49
+#: src/apps/center/models.py:51
 msgid "building"
 msgstr ""
 
-#: src/apps/center/models.py:50
+#: src/apps/center/models.py:52
 msgid "buildings"
 msgstr ""
 
-#: src/apps/center/models.py:60 src/apps/event/models.py:95
+#: src/apps/center/models.py:62 src/apps/event/models.py:95
 #: src/apps/person/models.py:37
 msgid "gender"
 msgstr ""
 
-#: src/apps/center/models.py:62
+#: src/apps/center/models.py:64
 msgid "floor"
 msgstr ""
 
-#: src/apps/center/models.py:63
+#: src/apps/center/models.py:65
 msgid "bottom beds"
 msgstr ""
 
-#: src/apps/center/models.py:64
+#: src/apps/center/models.py:66
 msgid "top beds"
 msgstr ""
 
-#: src/apps/center/models.py:75 src/apps/person/models.py:137
+#: src/apps/center/models.py:77 src/apps/person/models.py:137
 msgid "bedroom"
 msgstr ""
 
-#: src/apps/center/models.py:76
+#: src/apps/center/models.py:78
 msgid "bedrooms"
 msgstr ""
 
@@ -432,15 +444,15 @@ msgstr ""
 msgid "Update Building"
 msgstr ""
 
-#: src/apps/center/views/center.py:38
+#: src/apps/center/views/center.py:41
 msgid "Center Detail"
 msgstr ""
 
-#: src/apps/center/views/center.py:49
+#: src/apps/center/views/center.py:51
 msgid "Create Center"
 msgstr ""
 
-#: src/apps/center/views/center.py:60
+#: src/apps/center/views/center.py:66
 msgid "Update Center"
 msgstr ""
 
@@ -636,7 +648,7 @@ msgstr ""
 msgid "Female"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:4
+#: src/apps/event/templates/event/accommodation/components/navbar.html:6
 msgid "Reports an Actions"
 msgstr ""
 
@@ -661,12 +673,14 @@ msgstr ""
 msgid "People per aspect"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:43
-#: src/apps/event/views/reports.py:153
+#: src/apps/event/templates/event/accommodation/components/navbar.html:38
+#: src/apps/event/views/reports.py:147
 msgid "People per meal"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:48
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:6
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:14
 #: src/apps/event/templates/event/components/navbar.html:72
 msgid "Actions"
 msgstr ""
@@ -675,11 +689,11 @@ msgstr ""
 msgid "View bedrooms"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:66
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:24
 msgid "Reload mapping"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:76
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:34
 msgid "Reset mapping"
 msgstr ""
 
@@ -816,7 +830,7 @@ msgstr ""
 msgid "Registers"
 msgstr ""
 
-#: src/apps/event/templates/event/components/navbar.html:6
+#: src/apps/event/templates/event/components/navbar.html:8
 msgid "Reports and Actions"
 msgstr ""
 
@@ -845,7 +859,7 @@ msgid "Payment per person"
 msgstr ""
 
 #: src/apps/event/templates/event/components/navbar.html:66
-#: src/apps/event/views/reports.py:142
+#: src/apps/event/views/reports.py:86
 msgid "Total collected in the center"
 msgstr ""
 
@@ -988,27 +1002,27 @@ msgid "Update Event"
 msgstr ""
 
 #: src/apps/event/views/reports.py:48
-msgid "Mapping of Accommodations"
-msgstr ""
-
-#: src/apps/event/views/reports.py:58
-msgid "Mapping per Person"
-msgstr ""
-
-#: src/apps/event/views/reports.py:68
-msgid "People at the Event"
-msgstr ""
-
-#: src/apps/event/views/reports.py:88
-msgid "People per Aspect"
-msgstr ""
-
-#: src/apps/event/views/reports.py:109
 msgid "Cash Balance"
 msgstr ""
 
-#: src/apps/event/views/reports.py:132
+#: src/apps/event/views/reports.py:72
 msgid "Payment per Person"
+msgstr ""
+
+#: src/apps/event/views/reports.py:101
+msgid "Mapping of Accommodations"
+msgstr ""
+
+#: src/apps/event/views/reports.py:111
+msgid "Mapping per Person"
+msgstr ""
+
+#: src/apps/event/views/reports.py:121
+msgid "People at the Event"
+msgstr ""
+
+#: src/apps/event/views/reports.py:126
+msgid "People per Aspect"
 msgstr ""
 
 #: src/apps/person/models.py:34
@@ -1133,6 +1147,10 @@ msgstr ""
 
 #: src/apps/person/views/person.py:112
 msgid "Update Person"
+msgstr ""
+
+#: src/apps/person/views/person.py:171
+msgid "View other center"
 msgstr ""
 
 #: src/apps/person/views/staff.py:35

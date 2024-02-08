@@ -23,7 +23,7 @@ from r2e.commom import get_pagination_url, us_inter_char
 
 class PersonList(LoginRequiredMixin, ListView):
     model = Person
-    paginate_by = 10
+    paginate_by = 15
     extra_context = {"title": _("People")}
 
     def get_queryset(self):
@@ -168,7 +168,7 @@ class ChangeCenter(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Person
     form_class = ChangeCenterForm
     template_name = "person/change_center_form.html"
-    extra_context = {"title": _("Change Center")}
+    extra_context = {"title": _("View other center")}
 
     def test_func(self):
         return self.request.user.is_superuser

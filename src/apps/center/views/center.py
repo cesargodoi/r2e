@@ -15,11 +15,12 @@ from django.contrib.auth.mixins import (
 
 from ..models import Center
 from ..forms import CenterForm
+from r2e.commom import get_pagination_url
 
 
 class CenterList(LoginRequiredMixin, ListView):
     model = Center
-    paginate_by = 10
+    paginate_by = 15
     extra_context = {"title": _("Centers")}
 
     def get_queryset(self):
@@ -29,6 +30,7 @@ class CenterList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["pagination_url"] = get_pagination_url(self.request)
         if self.request.GET.get("q"):
             context["q"] = self.request.GET.get("q")
         return context

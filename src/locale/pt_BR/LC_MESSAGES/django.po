@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-28 11:15-0300\n"
+"POT-Creation-Date: 2024-02-08 08:23-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/apps/accounts/templates/accounts/change_password.html:8
 #: src/apps/accounts/templates/accounts/change_password.html:21
-#: src/apps/base/templates/base/menu_profile.html:18
+#: src/apps/base/templates/base/menu_profile.html:21
 msgid "Change Password"
 msgstr "Alterar a Senha"
 
@@ -90,11 +90,15 @@ msgstr "prazo final"
 msgid "value"
 msgstr "valor"
 
-#: src/apps/base/templates/base/menu_profile.html:15
+#: src/apps/base/templates/base/menu_profile.html:8
+msgid "on"
+msgstr "em"
+
+#: src/apps/base/templates/base/menu_profile.html:18
 msgid "Profile"
 msgstr "Perfil"
 
-#: src/apps/base/templates/base/menu_profile.html:23
+#: src/apps/base/templates/base/menu_profile.html:26
 msgid "Logout"
 msgstr "Sair"
 
@@ -128,63 +132,71 @@ msgstr "Pessoas"
 msgid "Tools"
 msgstr "Ferramentas"
 
-#: src/apps/base/templates/base/tools.html:15
+#: src/apps/base/templates/base/tools.html:16
 msgid "Bank or Flag"
 msgstr "Banco ou Cartão"
 
-#: src/apps/base/templates/base/tools.html:16
+#: src/apps/base/templates/base/tools.html:17
 msgid "manage bank names or credit card flags"
 msgstr "gerenciar nomes de bancos ou bandeiras de cartão de crédito"
 
-#: src/apps/base/templates/base/tools.html:25
-#: src/apps/center/views/center.py:22
+#: src/apps/base/templates/base/tools.html:26
+#: src/apps/center/views/center.py:24
 msgid "Centers"
 msgstr "Núcleos"
 
-#: src/apps/base/templates/base/tools.html:26
+#: src/apps/base/templates/base/tools.html:27
 msgid "manage centers and conference centers"
 msgstr "gerenciar centros e centros de conferências"
 
-#: src/apps/base/templates/base/tools.html:35
+#: src/apps/base/templates/base/tools.html:36
 #: src/apps/center/views/building.py:26
 msgid "Buildings"
 msgstr "Prédios"
 
-#: src/apps/base/templates/base/tools.html:36
+#: src/apps/base/templates/base/tools.html:37
 msgid "manage the buildings in your center"
 msgstr "gerencie os edifícios em seu centro"
 
-#: src/apps/base/templates/base/tools.html:45
+#: src/apps/base/templates/base/tools.html:46
 #: src/apps/event/templates/event/activity/components/list_table.html:5
 msgid "Activities"
 msgstr "Atividades"
 
-#: src/apps/base/templates/base/tools.html:46
+#: src/apps/base/templates/base/tools.html:47
 msgid "manage activities"
 msgstr "gerenciar atividades"
 
-#: src/apps/base/templates/base/tools.html:55
-#: src/apps/event/templates/event/accommodation/components/navbar.html:38
+#: src/apps/base/templates/base/tools.html:56
+#: src/apps/event/templates/event/accommodation/components/navbar.html:43
 #: src/apps/event/templates/event/accommodation/components/person_list.html:19
 #: src/apps/event/templates/event/reports/mapping_per_person.html:15
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:73
+#: src/apps/event/views/reports.py:157
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
 msgid "Staff"
 msgstr "Staff"
 
-#: src/apps/base/templates/base/tools.html:56
+#: src/apps/base/templates/base/tools.html:57
 msgid "manage staff"
 msgstr "gerenciar o staff"
+
+#: src/apps/base/templates/base/tools.html:71
+msgid "View another center"
+msgstr "Ver outro núcleo"
+
+#: src/apps/base/templates/base/tools.html:72
+msgid "view another center as admin"
+msgstr "ver outro núcleo como admin"
 
 #: src/apps/base/views.py:11
 msgid "Open Events"
 msgstr "Eventos abertos"
 
-#: src/apps/center/models.py:9 src/apps/center/models.py:42
-#: src/apps/center/models.py:58 src/apps/event/models.py:16
+#: src/apps/center/models.py:9 src/apps/center/models.py:44
+#: src/apps/center/models.py:60 src/apps/event/models.py:16
 #: src/apps/person/models.py:31 src/apps/register/models.py:9
 msgid "name"
 msgstr "nome"
@@ -218,50 +230,50 @@ msgstr "telefone"
 msgid "contact"
 msgstr "contato"
 
-#: src/apps/center/models.py:35 src/apps/register/models.py:26
+#: src/apps/center/models.py:37 src/apps/register/models.py:26
 msgid "center"
 msgstr "núcleo"
 
-#: src/apps/center/models.py:36
+#: src/apps/center/models.py:38
 msgid "centers"
 msgstr "núcleos"
 
-#: src/apps/center/models.py:43 src/apps/center/models.py:65
+#: src/apps/center/models.py:45 src/apps/center/models.py:67
 #: src/apps/center/templates/center/bedroom/list.html:42
 #: src/apps/center/templates/center/building/components/list_table.html:28
 msgid "active"
 msgstr "ativo"
 
-#: src/apps/center/models.py:49
+#: src/apps/center/models.py:51
 msgid "building"
 msgstr "prédio"
 
-#: src/apps/center/models.py:50
+#: src/apps/center/models.py:52
 msgid "buildings"
 msgstr "prédios"
 
-#: src/apps/center/models.py:60 src/apps/event/models.py:95
+#: src/apps/center/models.py:62 src/apps/event/models.py:95
 #: src/apps/person/models.py:37
 msgid "gender"
 msgstr "gênero"
 
-#: src/apps/center/models.py:62
+#: src/apps/center/models.py:64
 msgid "floor"
 msgstr "piso"
 
-#: src/apps/center/models.py:63
+#: src/apps/center/models.py:65
 msgid "bottom beds"
 msgstr "camas de baixo"
 
-#: src/apps/center/models.py:64
+#: src/apps/center/models.py:66
 msgid "top beds"
 msgstr "camas de cima"
 
-#: src/apps/center/models.py:75 src/apps/person/models.py:137
+#: src/apps/center/models.py:77 src/apps/person/models.py:137
 msgid "bedroom"
 msgstr "quarto"
 
-#: src/apps/center/models.py:76
+#: src/apps/center/models.py:78
 msgid "bedrooms"
 msgstr "quartos"
 
@@ -432,15 +444,15 @@ msgstr "Criar Prédio"
 msgid "Update Building"
 msgstr "Atualizar Prédio"
 
-#: src/apps/center/views/center.py:38
+#: src/apps/center/views/center.py:41
 msgid "Center Detail"
 msgstr "Detalhes do Núcleo"
 
-#: src/apps/center/views/center.py:49
+#: src/apps/center/views/center.py:51
 msgid "Create Center"
 msgstr "Criar Núcleo"
 
-#: src/apps/center/views/center.py:60
+#: src/apps/center/views/center.py:66
 msgid "Update Center"
 msgstr "Atualizar Núcleo"
 
@@ -636,7 +648,7 @@ msgstr "Masculino"
 msgid "Female"
 msgstr "Feminino"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:4
+#: src/apps/event/templates/event/accommodation/components/navbar.html:6
 msgid "Reports an Actions"
 msgstr "Relatórios e Ações"
 
@@ -661,12 +673,14 @@ msgstr "Pessoas no evento"
 msgid "People per aspect"
 msgstr "Pessoas por discipulado"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:43
-#: src/apps/event/views/reports.py:153
+#: src/apps/event/templates/event/accommodation/components/navbar.html:38
+#: src/apps/event/views/reports.py:147
 msgid "People per meal"
 msgstr "Pessoas por refeições"
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:48
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:6
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:14
 #: src/apps/event/templates/event/components/navbar.html:72
 msgid "Actions"
 msgstr "Ações"
@@ -675,11 +689,11 @@ msgstr "Ações"
 msgid "View bedrooms"
 msgstr "Ver quartos"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:66
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:24
 msgid "Reload mapping"
 msgstr "Recarregar o mapeamento"
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:76
+#: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:34
 msgid "Reset mapping"
 msgstr "Redefinir o mapeamento"
 
@@ -816,7 +830,7 @@ msgstr "Procurar por MM/YY..."
 msgid "Registers"
 msgstr "Registros"
 
-#: src/apps/event/templates/event/components/navbar.html:6
+#: src/apps/event/templates/event/components/navbar.html:8
 msgid "Reports and Actions"
 msgstr "Relatórios e Ações"
 
@@ -845,7 +859,7 @@ msgid "Payment per person"
 msgstr "Pagamento por pessoa"
 
 #: src/apps/event/templates/event/components/navbar.html:66
-#: src/apps/event/views/reports.py:142
+#: src/apps/event/views/reports.py:86
 msgid "Total collected in the center"
 msgstr "Total coletado no núcleo"
 
@@ -988,28 +1002,28 @@ msgid "Update Event"
 msgstr "Atualizar Evento"
 
 #: src/apps/event/views/reports.py:48
-msgid "Mapping of Accommodations"
-msgstr "Mapeamento de Acomodações"
-
-#: src/apps/event/views/reports.py:58
-msgid "Mapping per Person"
-msgstr "Mapeamento por Pessoa"
-
-#: src/apps/event/views/reports.py:68
-msgid "People at the Event"
-msgstr "Pessoas no evento"
-
-#: src/apps/event/views/reports.py:88
-msgid "People per Aspect"
-msgstr "Pessoas por Discipulado"
-
-#: src/apps/event/views/reports.py:109
 msgid "Cash Balance"
 msgstr "Fechamento de Caixa"
 
-#: src/apps/event/views/reports.py:132
+#: src/apps/event/views/reports.py:72
 msgid "Payment per Person"
 msgstr "Pagamento por Pessoa"
+
+#: src/apps/event/views/reports.py:101
+msgid "Mapping of Accommodations"
+msgstr "Mapeamento de Acomodações"
+
+#: src/apps/event/views/reports.py:111
+msgid "Mapping per Person"
+msgstr "Mapeamento por Pessoa"
+
+#: src/apps/event/views/reports.py:121
+msgid "People at the Event"
+msgstr "Pessoas no evento"
+
+#: src/apps/event/views/reports.py:126
+msgid "People per Aspect"
+msgstr "Pessoas por Discipulado"
 
 #: src/apps/person/models.py:34
 #: src/apps/person/templates/person/components/detail_card.html:51
@@ -1134,6 +1148,10 @@ msgstr "Criar Pessoa"
 #: src/apps/person/views/person.py:112
 msgid "Update Person"
 msgstr "Atualizar Pessoa"
+
+#: src/apps/person/views/person.py:171
+msgid "View other center"
+msgstr "Ver outro núcleo"
 
 #: src/apps/person/views/staff.py:35
 msgid "Create Staff"
@@ -1488,6 +1506,9 @@ msgstr "Almoço do 4. dia"
 #: src/r2e/commom.py:143
 msgid "Dinner on the fourfth day"
 msgstr "Jantar do 4. dia"
+
+#~ msgid "Change Center"
+#~ msgstr "Atualizar Núcleo"
 
 #~ msgid "Bottom bed"
 #~ msgstr "Cama de baixo"

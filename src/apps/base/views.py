@@ -9,7 +9,7 @@ from apps.event.models import Event
 def home(request):
     context = {
         "title": _("Open Events"),
-        "object_list": Event.objects.filter(status="OPN"),
+        "object_list": Event.objects.filter(status="OPN", is_active=True),
     }
     return render(request, "base/home.html", context)
 

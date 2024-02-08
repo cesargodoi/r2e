@@ -16,7 +16,7 @@ from r2e.commom import get_pagination_url
 
 class BedroomList(LoginRequiredMixin, ListView):
     model = Bedroom
-    paginate_by = 10
+    paginate_by = 15
     extra_context = {"title": _("Bedrooms")}
     template_name = "center/bedroom/list.html"
 
