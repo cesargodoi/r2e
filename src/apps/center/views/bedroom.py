@@ -22,7 +22,9 @@ class BedroomList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if not self.request.GET.get("q"):
-            return Bedroom.objects.filter(building_id=self.kwargs["id"])
+            return Bedroom.objects.filter(
+                building_id=self.kwargs["id"]
+            ).order_by("floor", "name")
         return Bedroom.objects.filter(
             building_id=self.kwargs["id"],
             name__icontains=self.request.GET.get("q"),
