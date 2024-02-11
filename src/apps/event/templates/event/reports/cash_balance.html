@@ -4,7 +4,7 @@
 
 {% block content %}
   {% if object_list %}
-    <div class="text-center mb-4 h4"><small>date: </small>{{ days }}</div>
+    <div class="text-center mb-4 h4"><small>{% trans "date" %}: </small>{{ days }}</div>
     <h3>{% trans 'Summary'|upper %}</h3>
     <div class="table-responsive table mt-2 mb-4" role="grid" aria-describedby="dataTable_info">
       <table class="table table-sm">
@@ -16,11 +16,19 @@
         </thead>
         <tbody>
           {% for item in summary.types %}
-            {% if item.type != 'Free' %}
-              <tr>
-                <th>{{ item.type }}</th>
-                <td width="120px" class="fw-bolder text-end">{{ item.total }}</td>
-              </tr>
+            {% if item.type != _('Free') %}
+              {% if item.type == _('Pending') %}
+                <tr class="text-secondary">
+                  <th>{{ item.type }}</th>
+                  <td width="120px" class="fw-bolder text-end">{{ item.total }}</td>
+                </tr>
+              {% else %}
+                <tr>
+                  <th>{{ item.type }}</th>
+                  <td width="120px" class="fw-bolder text-end">{{ item.total }}</td>
+                </tr>
+              {% endif %}
+              
             {% endif %}
           {% endfor %}
         </tbody>

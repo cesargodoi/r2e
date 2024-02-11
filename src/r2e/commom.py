@@ -46,6 +46,7 @@ PAYMENT_TYPES = [
     ("TRF", _("Transfer")),
     ("PIX", _("Pix")),
     ("FRE", _("Free")),
+    ("PND", _("Pending")),
 ]
 
 LODGE_TYPES = [("LDG", _("Lodge")), ("HSE", _("House")), ("HTL", _("Hotel"))]

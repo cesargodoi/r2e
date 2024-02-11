@@ -54,7 +54,13 @@ class CashBalance(ReportByRegister):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         days = self.request.GET.get("days")
-        context["days"] = days if days == "today" else f"{days} days"
+        context["days"] = (
+            _("today")
+            if days == "today"
+            else "{} {}".format(
+                days if days != "all" else _("every"), _("days")
+            )
+        )
         form_of_payments = get_form_of_payments(self.object_list, days=days)
         summary = {"total": 0, "types": []}
         for fpay in form_of_payments:
