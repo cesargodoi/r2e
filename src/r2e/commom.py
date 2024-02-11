@@ -42,10 +42,13 @@ PAYMENT_TYPES = [
     ("CHK", _("Check")),
     ("PRE", _("Pre Check")),
     ("DBT", _("Debit")),
+    ("CDT", _("Credit")),
     ("DPT", _("Deposit")),
     ("TRF", _("Transfer")),
     ("PIX", _("Pix")),
     ("FRE", _("Free")),
+    ("PND", _("Pending")),
+    ("PCD", _("Person Credit")),
 ]
 
 LODGE_TYPES = [("LDG", _("Lodge")), ("HSE", _("House")), ("HTL", _("Hotel"))]

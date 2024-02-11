@@ -96,9 +96,9 @@ class UpdateOrder(CreateOrder):
             request.session["order"]["event_center"] = order.event.center.pk
             request.session["order"]["alt_mapping"] = order.event.alt_mapping
             request.session["order"]["center"] = order.center.pk
-            request.session["order"][
-                "deadline"
-            ] = order.event.deadline.strftime("%Y-%m-%d %H:%M")
+            request.session["order"]["deadline"] = (
+                order.event.deadline.strftime("%Y-%m-%d %H:%M")
+            )
             request.session["order"]["observations"] = order.observations
             request.session["order"]["ref_value"] = float(
                 order.event.ref_value
@@ -338,6 +338,8 @@ class AddPayForm(LoginRequiredMixin, View):
             payform = utils.get_dict_payform(_payform)
             if payform["payment_type"]["id"] == "FRE":
                 self.request.session["order"]["free"] = "true"
+            if payform["payment_type"]["id"] == "PND":
+                self.request.session["order"]["pending"] = "true"
             self.request.session["order"]["payforms"].append(payform)
             utils.total_payforms_add(
                 self.request.session["order"], payform["value"]

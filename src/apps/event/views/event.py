@@ -73,6 +73,10 @@ class EventDetail(LoginRequiredMixin, DetailView):
         context["pagination_url"] = get_pagination_url(self.request)
         context["page_obj"] = page_obj
         context["registers"] = list(page_obj.object_list)
+        context["center_registers"] = Register.objects.filter(
+            order__event=self.object.pk,
+            order__center=self.request.user.person.center_id,
+        ).count()
         context["delete_link"] = reverse("event:delete", args=[self.object.pk])
         return context
 

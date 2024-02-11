@@ -135,17 +135,17 @@ def get_bedrooms(queryset):
                 gender=row.gender,
                 floor=row.bedroom.floor,
                 bottom=1 if row.bottom_or_top == "B" else 0,
-                bottom_used=1
-                if (row.bottom_or_top == "B" and row.used)
-                else 0,
-                bottom_free=1
-                if (row.bottom_or_top == "B" and not row.used)
-                else 0,
+                bottom_used=(
+                    1 if (row.bottom_or_top == "B" and row.used) else 0
+                ),
+                bottom_free=(
+                    1 if (row.bottom_or_top == "B" and not row.used) else 0
+                ),
                 top=1 if row.bottom_or_top == "T" else 0,
                 top_used=1 if (row.bottom_or_top == "T" and row.used) else 0,
-                top_free=1
-                if (row.bottom_or_top == "T" and not row.used)
-                else 0,
+                top_free=(
+                    1 if (row.bottom_or_top == "T" and not row.used) else 0
+                ),
                 used=1 if row.used else 0,
                 unused=1 if not row.used else 0,
             )
@@ -429,9 +429,11 @@ def get_bedroom_mapping(request, event_id):
     return HttpResponse(
         render_to_string(template_name, context, request),
         headers={
-            "HX-Trigger": json.dumps({"showSubmitButton": True})
-            if not force_top_bed
-            else None
+            "HX-Trigger": (
+                json.dumps({"showSubmitButton": True})
+                if not force_top_bed
+                else None
+            )
         },
     )
 

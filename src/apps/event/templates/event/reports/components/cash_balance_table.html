@@ -1,7 +1,7 @@
 {% load i18n %}
 {% block content %}
-  <h3>{{ obj.type|upper }}</h3>
-  {% if obj.type in 'CashDinheiro' and obj.objects|length >= 0 %}
+  <h3 {% if obj.type in _('Pending') %}class="text-secondary"{% endif %}>{{ obj.type|upper }}</h3>
+  {% if obj.type in _('Cash') and obj.objects|length >= 0 %}
     <div class="table-responsive table mt-2 mb-4">
       <table class="table table-sm">
         <tr class="border-top">
@@ -10,12 +10,12 @@
           <th width="120px" class="text-end lead fw-bolder">{{ obj.total }}</th>
         </tr>
       </table>
-    </div>
+    </div>    
   {% else %}
     <div class="table-responsive table mt-2 mb-4">
       <table class="table table-sm">
         <thead>
-          <tr>
+          <tr {% if obj.type in _('Pending') %}class="text-secondary"{% endif %}>
             <th scope="col" width="2%">#</th>
             <th scope="col" width="17%">{% trans 'Type' %}</th>
             <th scope="col" width="17%">{% trans 'Bank/Flag' %}</th>
@@ -27,7 +27,7 @@
         </thead>
         <tbody>
           {% for fp in obj.objects %}
-            <tr>
+            <tr {% if obj.type in _('Pending') %}class="text-secondary"{% endif %}>
               <th>{{ forloop.counter }}</th>
               <td class="fw-bolder">{{ fp.type }}</td>
               <td>{{ fp.bank_flag|default:' ' }}</td>
@@ -39,7 +39,7 @@
           {% endfor %}
         </tbody>
         <tfoot>
-          <tr class="lead">
+          <tr class="lead {% if obj.type in _('Pending') %}text-secondary{% endif %}">
             <th class="text-end" colspan="6">TOTAL</th>
             <th width="120px" class="text-end">{{ obj.total }}</th>
           </tr>
