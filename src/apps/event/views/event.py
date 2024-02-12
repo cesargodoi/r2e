@@ -26,16 +26,21 @@ class EventList(LoginRequiredMixin, ListView):
     extra_context = {"title": _("Events")}
 
     def get_queryset(self):
-        if not self.request.GET.get("q"):
-            return Event.objects.filter(is_active=True).annotate(
-                num_orders=Count("orders")
-            )
-        else:
+        events = Event.objects.filter(is_active=True)
+
+        if self.request.GET.get("q"):
             date = datetime.strptime(self.request.GET.get("q"), "%m/%y")
-            events = Event.objects.filter(
-                is_active=True, date__month=date.month, date__year=date.year
-            ).annotate(num_orders=Count("orders"))
-            return events
+            events = events.filter(
+                date__month=date.month, date__year=date.year
+            )
+
+        for event in events:
+            registers = 0
+            for order in event.orders.all():
+                registers += order.registers.filter(is_active=True).count()
+            event.registers = registers
+
+        return events
 
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "event"
@@ -73,10 +78,13 @@ class EventDetail(LoginRequiredMixin, DetailView):
         context["pagination_url"] = get_pagination_url(self.request)
         context["page_obj"] = page_obj
         context["registers"] = list(page_obj.object_list)
-        context["center_registers"] = Register.objects.filter(
-            order__event=self.object.pk,
-            order__center=self.request.user.person.center_id,
-        ).count()
+
+        center_registers = 0
+        for order in self.object.orders.all():
+            center_registers += order.registers.filter(is_active=True).count()
+
+        context["center_registers"] = center_registers
+
         context["delete_link"] = reverse("event:delete", args=[self.object.pk])
         return context
 

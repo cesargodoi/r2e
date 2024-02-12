@@ -31,7 +31,7 @@
               <td>{{ obj.center }}</td>
               <td>{{ obj.date|date:"d/m" }} to {{ obj.end_date|date:"d/m" }} of {{ obj.end_date|date:"Y" }}</td>
               <td class="text-end fw-bolder">
-                {% if obj.num_orders %}{{ obj.num_orders }}{% endif %}
+                {% if obj.registers %}{{ obj.registers }}{% endif %}
               </td>
               <td class="text-end">
                 {% if obj.status == 'OPN' %}
