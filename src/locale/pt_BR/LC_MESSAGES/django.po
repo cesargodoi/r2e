@@ -1317,15 +1317,15 @@ msgstr "Atualizar Banco ou Cartão"
 
 #: src/apps/register/views/order.py:22
 msgid "Create Order"
-msgstr "Criar pedido"
+msgstr "Criar Ordem de Pagamento"
 
 #: src/apps/register/views/order.py:83
 msgid "Update Order"
-msgstr "Atualizar pedido"
+msgstr "Atualizar Ordem de Pagamento"
 
 #: src/apps/register/views/order.py:130
 msgid "Delete Order"
-msgstr "Excluir pedido"
+msgstr "Excluir Ordem de Pagamento"
 
 #: src/apps/register/views/order.py:318
 msgid "Add Form of Payment"
