@@ -1,10 +1,11 @@
 {% load static %}
+{% load my_tags %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}">
-
+  
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
@@ -21,7 +22,7 @@
     <!-- Fontawesome icons-->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
   </head>
-  
+    
   <body id="page-top">
     <div id="wrapper">
       <!-- Sidebar | start-->
@@ -34,7 +35,26 @@
             <div class="sidebar-brand-text mx-3">r2e</div>
           </a>
           <hr class="sidebar-divider my-0">
-            {% include 'base/sidebar.html' %}
+          
+          <ul class="navbar-nav text-light" id="accordionSidebar">
+            <li class="nav-item">
+              <a 
+                class="nav-link {% if request.session.nav_item == 'people' %}active{% else %}{% endif %}" 
+                href="{% url 'person:list' %}"
+              >
+                <i class="fa fa-users"></i><span>{% trans "People" %}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a 
+                class="nav-link {% if request.session.nav_item == 'event' %}active{% else %}{% endif %}" 
+                href="{% url 'event:list' %}"
+              >
+                <i class="bi bi-calendar-event"></i><span>{% trans "Events" %}</span>
+              </a>
+            </li>
+          </ul>
+
           <div class="text-center d-none d-md-inline">
             <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
           </div>
