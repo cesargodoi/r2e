@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load my_tags %}
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
@@ -34,7 +35,11 @@
             <div class="sidebar-brand-text mx-3">r2e</div>
           </a>
           <hr class="sidebar-divider my-0">
-            {% include 'base/sidebar.html' %}
+            {% if user|has_user %}
+              {% include 'base/sidebar_user.html' %}
+            {% else %}
+              {% include 'base/sidebar.html' %}
+            {% endif %}
           <div class="text-center d-none d-md-inline">
             <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
           </div>

@@ -1,0 +1,19 @@
+{% load i18n %}
+<ul class="navbar-nav text-light" id="accordionSidebar">
+  <li class="nav-item">
+    <a 
+      class="nav-link {% if request.session.nav_item == 'people' %}active{% else %}{% endif %}" 
+      href="{% url 'person:list' %}"
+    >
+      <i class="fa fa-user"></i><span>{% trans "Profile" %}</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a 
+      class="nav-link {% if request.session.nav_item == 'event' %}active{% else %}{% endif %}" 
+      href="{% url 'event:list' %}"
+    >
+      <i class="bi bi-calendar-event"></i><span>{% trans "Events" %}</span>
+    </a>
+  </li>
+</ul>

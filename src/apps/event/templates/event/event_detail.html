@@ -14,13 +14,15 @@
 {% endblock %}
 
 {% block float_buttoms %}
-  <button 
-    type="button"
-    class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
-    onclick="location.href='{% url 'register:create_order' user_center object.pk %}';"
-  >
-    <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
-  </button>
+  {% if event.status == "OPN" %}
+    <button 
+      type="button"
+      class="float-buttom border btn btn-primary btn-lg rounded-circle fw-bold text-center" 
+      onclick="location.href='{% url 'register:create_order' user_center object.pk %}';"
+    >
+      <i class="fa fa-plus text-center" style="color: rgb(255,255,255); vertical-align: middle;"></i>
+    </button>
+  {% endif %}
   <button 
     type="button"
     class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 

@@ -15,6 +15,12 @@ def shortname(name):
     return short_name(name)
 
 
+@register.filter(name="has_user")
+def has_user(user):
+    groups = user.groups.values_list("name", flat=True)
+    return "user" in groups
+
+
 @register.filter(name="has_group")
 def has_group(user, group_names):
     if user.is_superuser:
