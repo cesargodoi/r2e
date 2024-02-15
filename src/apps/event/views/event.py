@@ -81,7 +81,10 @@ class EventDetail(LoginRequiredMixin, DetailView):
 
         center_registers = 0
         for order in self.object.orders.all():
-            center_registers += order.registers.filter(is_active=True).count()
+            if user_center == order.center:
+                center_registers += order.registers.filter(
+                    is_active=True
+                ).count()
 
         context["center_registers"] = center_registers
 
