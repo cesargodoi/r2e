@@ -1,46 +1,51 @@
-  {% load static %}
-  {% load i18n %}
-  {% get_current_language as LANGUAGE_CODE %}
-  
-  <!DOCTYPE html>
-  <html lang="{{ LANGUAGE_CODE }}">
-  
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-      <title>R2E - {{ title }}</title>
-      
-      <!-- Bootstrap CDN -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-      <!-- Bootstrap local-->
-      <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
-      <link rel="stylesheet" href="{% static 'css/Nunito.css' %}">
-      <link rel="stylesheet" href="{% static 'css/main.css' %}">
-      <!-- Bootstrap icons -->
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-      <!-- Fontawesome icons-->
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
-    </head>
+{% load static %}
+{% load i18n %}
+{% load my_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>R2E - {{ title }}</title>
     
-    <body id="page-top">
-      <div id="wrapper">
-        <!-- Sidebar | start-->
-        <nav class="toggled navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
-          <div class="container-fluid d-flex flex-column p-0">
-            <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="{% url 'base:home' %}">
-              <div class="sidebar-brand-icon">
-                <img src="{% static 'img/rca_logo.png' %}" width="45em" height="45em">
-              </div>
-              <div class="sidebar-brand-text mx-3">r2e</div>
-            </a>
-            <hr class="sidebar-divider my-0">
-              {% include 'base/sidebar.html' %}
-            <div class="text-center d-none d-md-inline">
-              <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap local-->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/Nunito.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Fontawesome icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
+  </head>
+  
+  <body id="page-top">
+    <div id="wrapper">
+      <!-- Sidebar | start-->
+      <nav class="toggled navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+        <div class="container-fluid d-flex flex-column p-0">
+          <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="{% url 'base:home' %}">
+            <div class="sidebar-brand-icon">
+              <img src="{% static 'img/rca_logo.png' %}" width="45em" height="45em">
             </div>
+            <div class="sidebar-brand-text mx-3">r2e</div>
+          </a>
+          <hr class="sidebar-divider my-0">
+            {% if user|has_user %}
+              {% include 'base/sidebar_user.html' %}
+            {% else %}
+              {% include 'base/sidebar.html' %}
+            {% endif %}
+          <div class="text-center d-none d-md-inline">
+            <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>
           </div>
-        </nav>
-        <!-- Sidebar | end -->
+        </div>
+      </nav>
+      <!-- Sidebar | end -->
       <div class="d-flex flex-column" id="content-wrapper">
         <div id="content">
           <nav class="navbar navbar-light navbar-expand bg-white shadow mb-4 topbar static-top">
@@ -94,5 +99,4 @@
     <!-- Single Page Scripts -->
     {% block scripts %}{% endblock %}
   </body>
-
 </html>

@@ -16,7 +16,11 @@ ACTIVITY_TYPES = [
     ("OTR", _("Others")),
 ]
 
-EVENT_STATUS = [("OPN", _("open")), ("CLS", _("closed"))]
+EVENT_STATUS = [
+    ("OPN", _("open")),
+    ("CLS", _("closed")),
+    ("SRT", _("shortly")),
+]
 
 GENDER = [("M", _("Male")), ("F", _("Female"))]
 BEDROOM_GENDER = [("M", _("Male")), ("F", _("Female")), ("X", _("Mixed"))]
