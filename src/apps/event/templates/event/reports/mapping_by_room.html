@@ -34,7 +34,7 @@
           <img class="icon-style mt-2" src="{% static 'img/icons/bed_BY.png' %}">
         {% endif %}
         {% if obj.register.person %} 
-          <span class="text-primary fw-bolder fs-6"> {{ obj.register.person.name|shortname }}</span>
+          <span class="text-primary fw-bolder fs-6 align-bottom"> {{ obj.register.person.name|shortname }}</span>
         {% endif %} 
         &nbsp;&nbsp;&nbsp;&nbsp;
       {% endfor %}
