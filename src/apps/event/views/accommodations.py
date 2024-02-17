@@ -386,9 +386,9 @@ def get_bedrooms_by_building(request, event_id):
         register__isnull=True,
         bedroom__building_id=request.GET["building_id"],
     ).order_by("bedroom__name")
-    bedrooms = {(b.bedroom.id, b.bedroom.name) for b in _bedrooms}
+    bedrooms = list({(b.bedroom.id, b.bedroom.name) for b in _bedrooms})
     context = {
-        "bedrooms": bedrooms,
+        "bedrooms": sorted(bedrooms, key=lambda x: x[1]),
         "event_id": event_id,
         "gender": request.GET["gender"],
     }

@@ -18,7 +18,12 @@ class ReportByAccommodation(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = Accommodation.objects.filter(
             event__pk=self.kwargs.get("pk")
-        ).order_by("bedroom__name")
+        ).order_by(
+            "bedroom__building",
+            "bedroom__floor",
+            "bedroom__name",
+            "-bottom_or_top",
+        )
         return queryset
 
     def get_context_data(self, **kwargs):
@@ -106,20 +111,10 @@ class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": _("Mapping of Accommodations")}
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
 
-        return context
-
-
-class MappingPerPerson(ReportByAccommodation):
+class MappingPerPerson(ReportByRegister):
     template_name = "event/reports/mapping_per_person.html"
     extra_context = {"title": _("Mapping per Person")}
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(register__isnull=False)
-        return queryset
 
 
 class PeopleAtTheEvent(ReportByRegister):

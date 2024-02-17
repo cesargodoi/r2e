@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-13 16:05-0300\n"
+"POT-Creation-Date: 2024-02-17 07:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -172,9 +172,9 @@ msgstr ""
 #: src/apps/base/templates/base/tools.html:56
 #: src/apps/event/templates/event/accommodation/components/navbar.html:43
 #: src/apps/event/templates/event/accommodation/components/person_list.html:19
-#: src/apps/event/templates/event/reports/mapping_per_person.html:15
+#: src/apps/event/templates/event/reports/mapping_per_person.html:14
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:163
+#: src/apps/event/views/reports.py:158
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -556,7 +556,6 @@ msgstr ""
 #: src/apps/event/templates/event/accommodation/bedroom_details.html:67
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:26
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:54
-#: src/apps/event/templates/event/reports/mapping_by_room.html:36
 msgid "free"
 msgstr ""
 
@@ -576,13 +575,11 @@ msgid "Search by building..."
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/bedroom_list.html:13
-#: src/apps/event/templates/event/reports/mapping_per_person.html:14
 msgid "Building"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/bedroom_list.html:14
-#: src/apps/event/templates/event/reports/mapping_by_room.html:18
-#: src/apps/event/templates/event/reports/mapping_per_person.html:13
+#: src/apps/event/templates/event/reports/mapping_by_room.html:19
 msgid "Bedroom"
 msgstr ""
 
@@ -677,7 +674,7 @@ msgid "People per aspect"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:38
-#: src/apps/event/views/reports.py:153
+#: src/apps/event/views/reports.py:148
 msgid "People per meal"
 msgstr ""
 
@@ -717,6 +714,7 @@ msgid "Person"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/person_list.html:14
+#: src/apps/event/templates/event/reports/mapping_per_person.html:13
 msgid "Housed in"
 msgstr ""
 
@@ -833,17 +831,17 @@ msgstr ""
 msgid "Registers"
 msgstr ""
 
-#: src/apps/event/templates/event/components/list_table.html:38
+#: src/apps/event/templates/event/components/list_table.html:35
 #: src/r2e/commom.py:20
 msgid "open"
 msgstr ""
 
-#: src/apps/event/templates/event/components/list_table.html:40
+#: src/apps/event/templates/event/components/list_table.html:37
 #: src/r2e/commom.py:22
 msgid "shortly"
 msgstr ""
 
-#: src/apps/event/templates/event/components/list_table.html:42
+#: src/apps/event/templates/event/components/list_table.html:39
 #: src/r2e/commom.py:21
 msgid "closed"
 msgstr ""
@@ -877,7 +875,7 @@ msgid "Payment per person"
 msgstr ""
 
 #: src/apps/event/templates/event/components/navbar.html:66
-#: src/apps/event/views/reports.py:92
+#: src/apps/event/views/reports.py:97
 msgid "Total collected in the center"
 msgstr ""
 
@@ -949,12 +947,35 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: src/apps/event/templates/event/reports/mapping_by_room.html:24
+#: src/apps/event/templates/event/reports/mapping_by_room.html:20
+msgid "male"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/mapping_by_room.html:20
+msgid "female"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/mapping_by_room.html:20
+msgid "mixed"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/mapping_by_room.html:27
+#: src/apps/event/templates/event/reports/mapping_per_person.html:32
 msgid "top bed"
 msgstr ""
 
-#: src/apps/event/templates/event/reports/mapping_by_room.html:24
+#: src/apps/event/templates/event/reports/mapping_by_room.html:27
+#: src/apps/event/templates/event/reports/mapping_per_person.html:32
 msgid "bottom bed"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/mapping_per_person.html:25
+msgid "HOME"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/mapping_per_person.html:27
+#: src/apps/event/templates/event/reports/people_at_the_event.html:30
+msgid "HOTEL"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/payment_per_person.html:14
@@ -975,10 +996,6 @@ msgstr ""
 
 #: src/apps/event/templates/event/reports/people_at_the_event.html:28
 msgid "HOUSE"
-msgstr ""
-
-#: src/apps/event/templates/event/reports/people_at_the_event.html:30
-msgid "HOTEL"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/people_per_meal.html:21
@@ -1030,35 +1047,35 @@ msgstr ""
 msgid "Records management"
 msgstr ""
 
-#: src/apps/event/views/event.py:96
+#: src/apps/event/views/event.py:99
 msgid "Create Event"
 msgstr ""
 
-#: src/apps/event/views/event.py:113
+#: src/apps/event/views/event.py:116
 msgid "Update Event"
 msgstr ""
 
-#: src/apps/event/views/reports.py:48
+#: src/apps/event/views/reports.py:53
 msgid "Cash Balance"
 msgstr ""
 
-#: src/apps/event/views/reports.py:58
+#: src/apps/event/views/reports.py:63
 msgid "today"
 msgstr ""
 
-#: src/apps/event/views/reports.py:61
+#: src/apps/event/views/reports.py:66
 msgid "every"
 msgstr ""
 
-#: src/apps/event/views/reports.py:61
+#: src/apps/event/views/reports.py:66
 msgid "days"
 msgstr ""
 
-#: src/apps/event/views/reports.py:78
+#: src/apps/event/views/reports.py:83
 msgid "Payment per Person"
 msgstr ""
 
-#: src/apps/event/views/reports.py:107
+#: src/apps/event/views/reports.py:112
 msgid "Mapping of Accommodations"
 msgstr ""
 
@@ -1066,11 +1083,11 @@ msgstr ""
 msgid "Mapping per Person"
 msgstr ""
 
-#: src/apps/event/views/reports.py:127
+#: src/apps/event/views/reports.py:122
 msgid "People at the Event"
 msgstr ""
 
-#: src/apps/event/views/reports.py:132
+#: src/apps/event/views/reports.py:127
 msgid "People per Aspect"
 msgstr ""
 
