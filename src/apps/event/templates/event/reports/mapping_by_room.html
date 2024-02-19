@@ -14,26 +14,27 @@
         {% endifchanged %}
         
         {% ifchanged obj.bedroom.name %}
-          {% with name=obj.bedroom.name %}
-            <h4 class="mt-4 border-bottom">{% trans "Bedroom" %}:  &nbsp;&nbsp;<strong>{{ name }}</strong></h4>
+          {% with name=obj.bedroom.name gender=obj.gender %}
+            <h4 class="mt-4 border-bottom">
+              <small>{% trans "Bedroom" %}:</small>  &nbsp;&nbsp;<strong>{{ name }}</strong> &nbsp;&nbsp;
+              <small>{% trans "Gender" %}:</small>  &nbsp;&nbsp;<strong>{% if gender == "M" %}{% trans "male" %}{% elif gender == "F" %}{% trans "female" %}{% else %}{% trans "mixed" %}{% endif %}</strong>
+            </h4>
           {% endwith %}
         {% endifchanged %}
 
         {% ifchanged obj.bottom_or_top %}
           {% with bottom_or_top=obj.bottom_or_top %}
-          <h5 class="mt-2">{% if bottom_or_top == 'T' %}{% trans "top bed" %}{% else %}{% trans "bottom bed" %}{% endif %}</h5>
+          {% if bottom_or_top == 'B' %}<br>{% endif %}
           {% endwith %}
         {% endifchanged %}
 
         {% if obj.bottom_or_top == 'T' %} 
           <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}">
         {% else %}
-          <img class="icon-style" src="{% static 'img/icons/bed_BY.png' %}">
+          <img class="icon-style mt-2" src="{% static 'img/icons/bed_BY.png' %}">
         {% endif %}
         {% if obj.register.person %} 
           <span class="text-primary fw-bolder fs-6"> {{ obj.register.person.name|shortname }}</span>
-        {% else %} 
-          <span class="text-secondary fw-light fst-italic fs-6"> {% trans "free" %}</span>
         {% endif %} 
         &nbsp;&nbsp;&nbsp;&nbsp;
       {% endfor %}

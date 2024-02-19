@@ -16,7 +16,14 @@ from ..forms import EventForm
 
 from apps.register.models import Register
 
-from r2e.commom import clear_session, get_pagination_url, get_paginator
+from r2e.commom import (
+    clear_session,
+    get_pagination_url,
+    get_paginator,
+    LODGE_TYPES,
+    ARRIVAL_TIME,
+    DEPARTURE_TIME,
+)
 
 
 # Event Views
@@ -26,21 +33,20 @@ class EventList(LoginRequiredMixin, ListView):
     extra_context = {"title": _("Events")}
 
     def get_queryset(self):
-        events = Event.objects.filter(is_active=True)
+        queryset = super().get_queryset()
+        queryset = (
+            queryset.select_related("created_by", "modified_by")
+            .filter(is_active=True)
+            .annotate(registers=Count("orders__registers"))
+        )
 
         if self.request.GET.get("q"):
             date = datetime.strptime(self.request.GET.get("q"), "%m/%y")
-            events = events.filter(
+            queryset = queryset.filter(
                 date__month=date.month, date__year=date.year
             )
 
-        for event in events:
-            registers = 0
-            for order in event.orders.all():
-                registers += order.registers.filter(is_active=True).count()
-            event.registers = registers
-
-        return events
+        return queryset
 
     def get_context_data(self, **kwargs):
         self.request.session["nav_item"] = "event"
@@ -54,6 +60,13 @@ class EventDetail(LoginRequiredMixin, DetailView):
     model = Event
     extra_context = {"title": _("Records management")}
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        queryset = queryset.select_related("activity", "center").filter(
+            is_active=True
+        )
+        return queryset
+
     def get_context_data(self, **kwargs):
         if "accommodation" in self.request.session:
             del self.request.session["accommodation"]
@@ -65,28 +78,40 @@ class EventDetail(LoginRequiredMixin, DetailView):
         context["user_center"] = user_center.id
         q = self.request.GET.get("q")
 
-        queryset = Register.objects.filter(
-            order__event=self.object.pk, person__name__icontains=q if q else ""
-        ).order_by("person")
+        queryset = (
+            Register.objects.select_related("person")
+            .filter(
+                order__event=self.kwargs.get("pk"),
+                person__name__icontains=q if q else "",
+            )
+            .values(
+                "person__name",
+                "lodge",
+                "order__id",
+                "arrival_time",
+                "departure_time",
+                "no_stairs",
+                "no_bunk",
+                "value",
+            )
+            .order_by("person")
+        )
 
         page_obj = get_paginator(
             self.request, queryset.filter(order__center=user_center)
         )
 
-        context["total_registers"] = queryset.count()
+        context["total_registers"] = len(queryset)
         context["q"] = self.request.GET.get("q", "")
         context["pagination_url"] = get_pagination_url(self.request)
         context["page_obj"] = page_obj
         context["registers"] = list(page_obj.object_list)
-
-        center_registers = 0
-        for order in self.object.orders.all():
-            if user_center == order.center:
-                center_registers += order.registers.filter(
-                    is_active=True
-                ).count()
-
-        context["center_registers"] = center_registers
+        context["center_registers"] = Register.objects.filter(
+            order__center=user_center, order__event=self.kwargs.get("pk")
+        ).count()
+        context["arrivals"] = dict(ARRIVAL_TIME)
+        context["departures"] = dict(DEPARTURE_TIME)
+        context["lodges"] = dict(LODGE_TYPES)
 
         context["delete_link"] = reverse("event:delete", args=[self.object.pk])
         return context

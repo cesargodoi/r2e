@@ -1,15 +1,16 @@
 {% load static %}
+{% load my_tags %}
 <tr>
   <td>{{ forloop.counter }}</td>
-  <th>{{ reg.person.name }}</th>
+  <th>{{ reg.person__name }}</th>
   <td>
     {% if reg.lodge == 'HSE' %}🏠{% endif %}
     {% if reg.lodge == 'HTL' %}🏨{% endif %}
     {% if reg.lodge == 'LDG' %}🏢{% endif %}
-    {{ reg.get_lodge_display }}
+    {{ lodges|get_item:reg.lodge }}
   </td>
-  <td>⤵️ {{ reg.get_arrival_time_display }}</td>
-  <td>⤴️ {{ reg.get_departure_time_display }}</td>
+  <td>⤵️ {{ arrivals|get_item:reg.arrival_time }}</td>
+  <td>⤴️ {{ departures|get_item:reg.departure_time }}</td>
   <td>
     {% if reg.no_stairs %}
       <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;
@@ -26,14 +27,14 @@
         class="btn btn-light text-info btn-sm" 
         data-bs-toggle="modal" 
         data-bs-target="#baseModal"
-        onclick="manageData('{% url 'register:show_order' reg.order.id %}')"
+        onclick="manageData('{% url 'register:show_order' reg.order__id %}')"
       >
         <i class="bi bi-eye"></i>
       </button>
       <button 
         type="button"
         class="btn btn-light text-secondary btn-sm" 
-        onclick="location.href='{% url 'register:update_order' reg.order.id %}';"
+        onclick="location.href='{% url 'register:update_order' reg.order__id %}';"
       >
         <i class="bi bi-pencil"></i>
       </button>
@@ -42,7 +43,7 @@
         class="btn btn-light text-danger btn-sm" 
         data-bs-toggle="modal" 
         data-bs-target="#baseModal"
-        onclick="manageData('{% url 'register:delete_order' object.pk reg.order.id %}')"
+        onclick="manageData('{% url 'register:delete_order' object.pk reg.order__id %}')"
       >
         <i class="bi bi-trash"></i>
       </button>

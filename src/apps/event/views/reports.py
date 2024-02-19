@@ -16,10 +16,22 @@ class ReportByAccommodation(LoginRequiredMixin, ListView):
     model = Accommodation
 
     def get_queryset(self):
-        queryset = Accommodation.objects.filter(
-            event__pk=self.kwargs.get("pk")
-        ).order_by("bedroom__name")
-        return queryset
+        queryset = super().get_queryset()
+        return (
+            queryset.select_related(
+                "register",
+                "bedroom__building",
+                "bedroom__building__center",
+                "event",
+            )
+            .filter(event__pk=self.kwargs.get("pk"))
+            .order_by(
+                "bedroom__building",
+                "bedroom__floor",
+                "bedroom__name",
+                "-bottom_or_top",
+            )
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,7 +61,17 @@ class CashBalance(ReportByRegister):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(order__center=self.request.user.person.center)
+        return (
+            queryset.select_related(
+                "person",
+                "order__center",
+                "accommodation",
+                "created_by",
+                "updated_by",
+            )
+            .prefetch_related("order__form_of_payments")
+            .filter(order__center=self.request.user.person.center)
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -106,20 +128,10 @@ class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": _("Mapping of Accommodations")}
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
 
-        return context
-
-
-class MappingPerPerson(ReportByAccommodation):
+class MappingPerPerson(ReportByRegister):
     template_name = "event/reports/mapping_per_person.html"
     extra_context = {"title": _("Mapping per Person")}
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(register__isnull=False)
-        return queryset
 
 
 class PeopleAtTheEvent(ReportByRegister):

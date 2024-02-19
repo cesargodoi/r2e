@@ -18,7 +18,14 @@ from apps.person.models import PersonStay
 from apps.register.models import Register
 from apps.center.models import Bedroom
 
-from r2e.commom import clear_session, get_pagination_url, get_paginator
+from r2e.commom import (
+    clear_session,
+    get_pagination_url,
+    get_paginator,
+    ARRIVAL_TIME,
+    DEPARTURE_TIME,
+    LODGE_TYPES,
+)
 
 
 class Accommodations(
@@ -64,6 +71,9 @@ class Accommodations(
         context["pagination_url"] = get_pagination_url(self.request)
         context["page_obj"] = page_obj
         context["registers"] = list(page_obj.object_list)
+        context["arrivals"] = dict(ARRIVAL_TIME)
+        context["departures"] = dict(DEPARTURE_TIME)
+        context["lodges"] = dict(LODGE_TYPES)
         return context
 
 
@@ -106,7 +116,7 @@ class BedroomsOnEvent(
         context["event_id"] = self.object.pk
         context["filter"] = self.request.GET.get("filter") or "all"
         context["q"] = self.request.GET.get("q", "")
-        context["pagination_url"] = get_pagination_url(self.request)
+        # context["pagination_url"] = get_pagination_url(self.request)
         context["bedrooms"] = bedrooms
         context["total_used"] = total_used
         context["total_unused"] = total_unused
@@ -169,6 +179,9 @@ def get_bedrooms(queryset):
             bedroom["unused"] += 1 if not row.used else 0
             if i == len(queryset) - 1:
                 bedrooms.append(bedroom)
+    bedrooms.sort(key=lambda x: x["name"])
+    bedrooms.sort(key=lambda x: x["floor"])
+    bedrooms.sort(key=lambda x: x["building"])
     return bedrooms
 
 
@@ -386,9 +399,9 @@ def get_bedrooms_by_building(request, event_id):
         register__isnull=True,
         bedroom__building_id=request.GET["building_id"],
     ).order_by("bedroom__name")
-    bedrooms = {(b.bedroom.id, b.bedroom.name) for b in _bedrooms}
+    bedrooms = list({(b.bedroom.id, b.bedroom.name) for b in _bedrooms})
     context = {
-        "bedrooms": bedrooms,
+        "bedrooms": sorted(bedrooms, key=lambda x: x[1]),
         "event_id": event_id,
         "gender": request.GET["gender"],
     }
@@ -519,25 +532,57 @@ def kill_mapping(event_id):
 
 
 def get_queryset_and_totals(request, evenid, q=None, get_totals=False):
-    queryset = Register.objects.filter(
-        order__event=evenid, person__name__icontains=q if q else ""
-    ).order_by("person")
+    queryset = (
+        Register.objects.select_related(
+            "person",
+            "person__center",
+            "order__event",
+            "order__center",
+            "accommodation",
+            "accommodation__bedroom",
+        )
+        # .values(
+        #     "id",
+        #     "order__event__id",
+        #     "person__id",
+        #     "person__name",
+        #     "person__aspect",
+        #     "person__center__short_name",
+        #     "accommodation",
+        #     "accommodation__gender",
+        #     "accommodation__bottom_or_top",
+        #     "accommodation__bedroom__id",
+        #     "accommodation__bedroom__name",
+        #     "accommodation__bedroom__building__name",
+        #     "no_stairs",
+        #     "no_bunk",
+        #     "observations",
+        #     "lodge",
+        #     "order__id",
+        #     "arrival_time",
+        #     "departure_time",
+        #     "staff",
+        # )
+        .filter(
+            order__event=evenid, person__name__icontains=q if q else ""
+        ).order_by("person")
+    )
     if get_totals:
         del request.session["accommodation"]
     if "accommodation" not in request.session or get_totals:
         request.session["accommodation"] = {}
         request.session["accommodation"]["total_registers"] = len(queryset)
         request.session["accommodation"]["allocated"] = len(
-            [r for r in queryset if r.accommodation]
+            [_ for r in queryset if r.accommodation]
         )
         request.session["accommodation"]["unallocated"] = len(
-            [r for r in queryset if not r.accommodation and r.lodge == "LDG"]
+            [_ for r in queryset if not r.accommodation and r.lodge == "LDG"]
         )
         request.session["accommodation"]["house"] = len(
-            [r for r in queryset if r.lodge == "HSE"]
+            [_ for r in queryset if r.lodge == "HSE"]
         )
         request.session["accommodation"]["hotel"] = len(
-            [r for r in queryset if r.lodge == "HTL"]
+            [_ for r in queryset if r.lodge == "HTL"]
         )
     return queryset if not get_totals else None
 
@@ -545,9 +590,12 @@ def get_queryset_and_totals(request, evenid, q=None, get_totals=False):
 def get_queryset_and_totals_of_bedrooms(
     request, evenid, q=None, get_totals=False
 ):
-    queryset = Accommodation.objects.filter(
-        event=evenid, bedroom__building__name__icontains=q if q else ""
-    ).order_by("bedroom__name")
+    queryset = Accommodation.objects.select_related(
+        "bedroom",
+        "bedroom__building",
+        "bedroom__building__center",
+        "register",
+    ).filter(event=evenid, bedroom__building__name__icontains=q if q else "")
 
     if get_totals:
         del request.session["bedrooms_on_event"]

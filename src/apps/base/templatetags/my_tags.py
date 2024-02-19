@@ -43,3 +43,8 @@ def delete_permission(user, link):
     groups = user.groups.values_list("name", flat=True)
     app = link.split("/")[1]
     return "admin" in groups and app not in ["event"]
+
+
+@register.filter(name="get_item")
+def get_item(dictionary, key):
+    return dictionary.get(key)

@@ -10,19 +10,31 @@
         <tr>
           <th scope="col">#</th>
           <th scope="col">{% trans "Name" %}</th>
-          <th scope="col">{% trans "Bedroom" %}</th>
-          <th scope="col">{% trans "Building" %}</th>
+          <th scope="col">{% trans "Housed in" %}</th>
           <th scope="col">{% trans "Staff" %}</th>
         </tr>
       </thead>
       <tbody>
         {% for obj in object_list %}
-          <tr>
+          <tr class="align-middle">
             <th>{{ forloop.counter }}</th>
-            <td>{{ obj.register.person.name|shortname }}</td>
-            <td>{{ obj.bedroom.name }} | {{ obj.get_bottom_or_top_display }}</td>
-            <td>{{ obj.bedroom.building }}</td>
-            <td>{{ obj.register.staff }}</td>
+            <td>{{ obj.person.name|shortname }}</td>
+            <td>
+              <strong>
+                {% if obj.lodge == 'HSE' %}
+                  {% trans "HOME" %}
+                {% elif obj.lodge == 'HTL' %}
+                  {% trans "HOTEL" %}
+                {% else %}
+                  {% if obj.accommodation %}
+                    {{ obj.accommodation.bedroom.building.name }} | 
+                    {{ obj.accommodation.bedroom.name }} | 
+                    {% if obj.accommodation.bottom_or_top == 'B' %}{% trans "bottom bed" %}{% else %}{% trans "top bed" %}{% endif %}
+                  {% endif %}
+                {% endif %}
+              </strong>
+            </td>
+            <td>{{ obj.staff|default:"" }}</td>
           </tr>
         {% endfor %}
       </tbody>

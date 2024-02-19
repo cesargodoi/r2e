@@ -40,7 +40,9 @@ class Center(models.Model):
 
 
 class Building(models.Model):
-    center = models.ForeignKey(Center, on_delete=models.SET_NULL, null=True)
+    center = models.ForeignKey(
+        Center, on_delete=models.SET_NULL, null=True, db_index=True
+    )
     name = models.CharField(_("name"), max_length=30)
     is_active = models.BooleanField(_("active"), default=True)
 
@@ -55,7 +57,7 @@ class Building(models.Model):
 
 class Bedroom(models.Model):
     building = models.ForeignKey(
-        Building, on_delete=models.SET_NULL, null=True
+        Building, on_delete=models.SET_NULL, null=True, db_index=True
     )
     name = models.CharField(_("name"), max_length=20)
     gender = models.CharField(
