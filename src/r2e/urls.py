@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 
@@ -13,3 +14,9 @@ urlpatterns = [
 ]
 
 handler403 = "apps.base.views.permission_denied_403"
+
+if settings.DEBUG:
+    if "debug_toolbar" in settings.INSTALLED_APPS:
+        import debug_toolbar
+
+        urlpatterns.append(path("_debug_/", include(debug_toolbar.urls)))
