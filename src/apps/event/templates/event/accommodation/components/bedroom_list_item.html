@@ -1,4 +1,5 @@
 {% load static %}
+{% load my_tags %}
 {% load i18n %}
 <tr 
   class="align-middle"
@@ -16,7 +17,9 @@
     {% if bedroom.gender == 'X'%}<img src="{% static 'img/mixed.png' %}" alt="mixed" style="width:22px;height:22px;">{% endif %}
   </td>
   <td class="h6 fw-bold text-center">
-    {% if bedroom.floor == 0 %}
+    {% if bedroom.floor < 0 %}
+      {% trans 'underground' %} {{ bedroom.floor|get_abs }}
+    {% elif bedroom.floor == 0 %}
       {% trans 'ground floor' %}
     {% elif bedroom.floor == 1 %} 
       {{ bedroom.floor }}{% trans "st. floor" %}
@@ -30,5 +33,5 @@
   <td class="h5 fw-bold text-center"><span class="text-success">{% if bedroom.top_free > 0 %}{{ bedroom.top_free }}{% endif %}</span></td>
 
   <td class="h5 fw-bold text-end text-primary">{% if bedroom.used > 0 %}{{ bedroom.used }}{% endif %}</td>
-  <td class="h5 fw-bold text-end text-success">{{ bedroom.unused }}</td>
+  <td class="h5 fw-bold text-end text-success">{% if bedroom.unused > 0 %}{{ bedroom.unused }}{% endif %}</td>
 </tr>

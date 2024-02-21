@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-17 07:05-0300\n"
+"POT-Creation-Date: 2024-02-21 09:17-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,7 +120,7 @@ msgstr "Confirme"
 #: src/apps/base/templates/base/sidebar_user.html:16
 #: src/apps/center/templates/center/components/events.html:4
 #: src/apps/event/templates/event/components/list_table.html:6
-#: src/apps/event/views/event.py:26
+#: src/apps/event/views/event.py:33
 msgid "Events"
 msgstr "Eventos"
 
@@ -174,7 +174,7 @@ msgstr "gerenciar atividades"
 #: src/apps/event/templates/event/accommodation/components/person_list.html:19
 #: src/apps/event/templates/event/reports/mapping_per_person.html:14
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:158
+#: src/apps/event/views/reports.py:174
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -197,8 +197,8 @@ msgstr "ver outro núcleo como admin"
 msgid "Open Events"
 msgstr "Eventos abertos"
 
-#: src/apps/center/models.py:9 src/apps/center/models.py:44
-#: src/apps/center/models.py:60 src/apps/event/models.py:16
+#: src/apps/center/models.py:9 src/apps/center/models.py:46
+#: src/apps/center/models.py:62 src/apps/event/models.py:16
 #: src/apps/person/models.py:31 src/apps/register/models.py:9
 msgid "name"
 msgstr "nome"
@@ -240,42 +240,42 @@ msgstr "núcleo"
 msgid "centers"
 msgstr "núcleos"
 
-#: src/apps/center/models.py:45 src/apps/center/models.py:67
+#: src/apps/center/models.py:47 src/apps/center/models.py:69
 #: src/apps/center/templates/center/bedroom/list.html:42
 #: src/apps/center/templates/center/building/components/list_table.html:28
 msgid "active"
 msgstr "ativo"
 
-#: src/apps/center/models.py:51
+#: src/apps/center/models.py:53
 msgid "building"
 msgstr "prédio"
 
-#: src/apps/center/models.py:52
+#: src/apps/center/models.py:54
 msgid "buildings"
 msgstr "prédios"
 
-#: src/apps/center/models.py:62 src/apps/event/models.py:95
+#: src/apps/center/models.py:64 src/apps/event/models.py:95
 #: src/apps/person/models.py:37
 msgid "gender"
 msgstr "gênero"
 
-#: src/apps/center/models.py:64
+#: src/apps/center/models.py:66
 msgid "floor"
 msgstr "piso"
 
-#: src/apps/center/models.py:65
+#: src/apps/center/models.py:67
 msgid "bottom beds"
 msgstr "camas de baixo"
 
-#: src/apps/center/models.py:66
+#: src/apps/center/models.py:68
 msgid "top beds"
 msgstr "camas de cima"
 
-#: src/apps/center/models.py:77 src/apps/person/models.py:137
+#: src/apps/center/models.py:79 src/apps/person/models.py:137
 msgid "bedroom"
 msgstr "quarto"
 
-#: src/apps/center/models.py:78
+#: src/apps/center/models.py:80
 msgid "bedrooms"
 msgstr "quartos"
 
@@ -295,6 +295,7 @@ msgstr "Nome"
 
 #: src/apps/center/templates/center/bedroom/list.html:9
 #: src/apps/event/templates/event/accommodation/components/bedroom_list.html:15
+#: src/apps/event/templates/event/reports/mapping_by_room.html:20
 msgid "Gender"
 msgstr "Gênero"
 
@@ -313,17 +314,17 @@ msgid "Active"
 msgstr "Ativo"
 
 #: src/apps/center/templates/center/bedroom/list.html:29
-#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:20
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:23
 msgid "ground floor"
 msgstr "térreo"
 
 #: src/apps/center/templates/center/bedroom/list.html:31
-#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:22
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:25
 msgid "st. floor"
 msgstr "o. piso"
 
 #: src/apps/center/templates/center/bedroom/list.html:33
-#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:24
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:27
 msgid "nd. floor"
 msgstr "o. piso"
 
@@ -544,7 +545,7 @@ msgid "Bottom beds"
 msgstr "Camas de baixo"
 
 #: src/apps/event/templates/event/accommodation/bedroom_details.html:36
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:62
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:63
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:21
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:49
 #: src/apps/person/templates/person/components/detail_card.html:47
@@ -553,19 +554,19 @@ msgid "years"
 msgstr "anos"
 
 #: src/apps/event/templates/event/accommodation/bedroom_details.html:41
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:67
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:68
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:26
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:54
 msgid "free"
 msgstr "livre"
 
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:47
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:48
 #: src/apps/event/templates/event/accommodation/components/bedroom_list.html:18
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:34
 msgid "Top beds"
 msgstr "Camas de cima"
 
-#: src/apps/event/templates/event/accommodation/bedroom_details.html:83
+#: src/apps/event/templates/event/accommodation/bedroom_details.html:85
 #: src/apps/register/templates/register/order_show.html:26
 msgid "Close"
 msgstr "Fechar"
@@ -595,7 +596,11 @@ msgstr "Camas livres"
 msgid "TOTAL"
 msgstr "TOTAL"
 
-#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:26
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:21
+msgid "underground"
+msgstr "subsolo"
+
+#: src/apps/event/templates/event/accommodation/components/bedroom_list_item.html:29
 msgid "rd. floor"
 msgstr "o. piso"
 
@@ -674,7 +679,7 @@ msgid "People per aspect"
 msgstr "Pessoas por discipulado"
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:38
-#: src/apps/event/views/reports.py:148
+#: src/apps/event/views/reports.py:164
 msgid "People per meal"
 msgstr "Pessoas por refeições"
 
@@ -875,7 +880,7 @@ msgid "Payment per person"
 msgstr "Pagamento por pessoa"
 
 #: src/apps/event/templates/event/components/navbar.html:66
-#: src/apps/event/views/reports.py:97
+#: src/apps/event/views/reports.py:113
 msgid "Total collected in the center"
 msgstr "Total coletado no núcleo"
 
@@ -959,16 +964,6 @@ msgstr "feminino"
 msgid "mixed"
 msgstr "misto"
 
-#: src/apps/event/templates/event/reports/mapping_by_room.html:27
-#: src/apps/event/templates/event/reports/mapping_per_person.html:32
-msgid "top bed"
-msgstr "cama de cima"
-
-#: src/apps/event/templates/event/reports/mapping_by_room.html:27
-#: src/apps/event/templates/event/reports/mapping_per_person.html:32
-msgid "bottom bed"
-msgstr "cama de baixo"
-
 #: src/apps/event/templates/event/reports/mapping_per_person.html:25
 msgid "HOME"
 msgstr "CASA"
@@ -977,6 +972,14 @@ msgstr "CASA"
 #: src/apps/event/templates/event/reports/people_at_the_event.html:30
 msgid "HOTEL"
 msgstr "HOTEL"
+
+#: src/apps/event/templates/event/reports/mapping_per_person.html:32
+msgid "bottom bed"
+msgstr "cama de baixo"
+
+#: src/apps/event/templates/event/reports/mapping_per_person.html:32
+msgid "top bed"
+msgstr "cama de cima"
 
 #: src/apps/event/templates/event/reports/payment_per_person.html:14
 msgid "Form of payment"
@@ -1023,15 +1026,15 @@ msgstr "Esperado"
 msgid "Difference"
 msgstr "Diferença"
 
-#: src/apps/event/views/accommodations.py:60
+#: src/apps/event/views/accommodations.py:67
 msgid "Accommodation management"
 msgstr "Gerenciamento de acomodações"
 
-#: src/apps/event/views/accommodations.py:105
+#: src/apps/event/views/accommodations.py:115
 msgid "Bedrooms on event"
 msgstr "Quartos no evento"
 
-#: src/apps/event/views/accommodations.py:480
+#: src/apps/event/views/accommodations.py:493
 msgid "Managing Staff"
 msgstr "Gerenciar o Staff"
 
@@ -1043,51 +1046,51 @@ msgstr "Criar Atividade"
 msgid "Update Activity"
 msgstr "Atualizar Atividade"
 
-#: src/apps/event/views/event.py:55
+#: src/apps/event/views/event.py:61
 msgid "Records management"
 msgstr "Gerenciamento de registros"
 
-#: src/apps/event/views/event.py:99
+#: src/apps/event/views/event.py:124
 msgid "Create Event"
 msgstr "Criar Evento"
 
-#: src/apps/event/views/event.py:116
+#: src/apps/event/views/event.py:141
 msgid "Update Event"
 msgstr "Atualizar Evento"
 
-#: src/apps/event/views/reports.py:53
+#: src/apps/event/views/reports.py:69
 msgid "Cash Balance"
 msgstr "Fechamento de Caixa"
 
-#: src/apps/event/views/reports.py:63
+#: src/apps/event/views/reports.py:79
 msgid "today"
 msgstr "hoje"
 
-#: src/apps/event/views/reports.py:66
+#: src/apps/event/views/reports.py:82
 msgid "every"
 msgstr "todos os"
 
-#: src/apps/event/views/reports.py:66
+#: src/apps/event/views/reports.py:82
 msgid "days"
 msgstr "dias"
 
-#: src/apps/event/views/reports.py:83
+#: src/apps/event/views/reports.py:99
 msgid "Payment per Person"
 msgstr "Pagamento por Pessoa"
 
-#: src/apps/event/views/reports.py:112
+#: src/apps/event/views/reports.py:128
 msgid "Mapping of Accommodations"
 msgstr "Mapeamento de Acomodações"
 
-#: src/apps/event/views/reports.py:117
+#: src/apps/event/views/reports.py:133
 msgid "Mapping per Person"
 msgstr "Mapeamento por Pessoa"
 
-#: src/apps/event/views/reports.py:122
+#: src/apps/event/views/reports.py:138
 msgid "People at the Event"
 msgstr "Pessoas no evento"
 
-#: src/apps/event/views/reports.py:127
+#: src/apps/event/views/reports.py:143
 msgid "People per Aspect"
 msgstr "Pessoas por Discipulado"
 
