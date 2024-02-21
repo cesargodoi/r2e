@@ -44,9 +44,18 @@ class ReportByRegister(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return queryset.filter(
-            order__event__pk=self.kwargs.get("pk")
-        ).order_by("person__name")
+        return (
+            queryset.select_related(
+                "person",
+                "order__center",
+                "accommodation",
+                "created_by",
+                "updated_by",
+            )
+            .prefetch_related("order__form_of_payments")
+            .filter(order__event__pk=self.kwargs.get("pk"))
+            .order_by("person__name")
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -61,17 +70,7 @@ class CashBalance(ReportByRegister):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        return (
-            queryset.select_related(
-                "person",
-                "order__center",
-                "accommodation",
-                "created_by",
-                "updated_by",
-            )
-            .prefetch_related("order__form_of_payments")
-            .filter(order__center=self.request.user.person.center)
-        )
+        return queryset.filter(order__center=self.request.user.person.center)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
