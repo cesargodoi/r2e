@@ -48,3 +48,8 @@ def delete_permission(user, link):
 @register.filter(name="get_item")
 def get_item(dictionary, key):
     return dictionary.get(key)
+
+
+@register.filter(name="get_abs")
+def get_abs(num):
+    return abs(num)
