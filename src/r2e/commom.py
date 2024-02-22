@@ -164,7 +164,7 @@ def us_inter_char(txt, codif="utf-8"):
 
 
 def short_name(name):
-    words = name.split(" ")
+    words = name.strip().split(" ")
     if len(words) <= 2:
         return name
     # get first and last words of name
@@ -175,7 +175,9 @@ def short_name(name):
     # make a list to join
     to_join = [first_word]
     for word in words:
-        if len(word) <= 3:
+        if len(word) <= 3 and "." in word:
+            to_join.append(word)
+        elif len(word) <= 3:
             to_join.append(word.lower())
         else:
             to_join.append(f"{word[0]}.")

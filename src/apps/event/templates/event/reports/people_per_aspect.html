@@ -11,7 +11,7 @@
             <h4 class="mt-4 fw-bolder border-bottom">{{ row.aspect }}</h4>
           {% endwith %}
         {% endifchanged %}
-        <span class="fs-6">▪️ {{ row.person }}</span> &nbsp;&nbsp;&nbsp;
+        <span class="fs-6">▪️ {{ row.person|shortname }}</span> &nbsp;&nbsp;&nbsp;
       {% endfor %}
     {% endwith %}
   {% else %}
