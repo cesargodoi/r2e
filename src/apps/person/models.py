@@ -132,8 +132,12 @@ class PersonStay(models.Model):
     )
     take_meals = models.BooleanField(_("take meals?"), default=True)
     meals = models.JSONField(_("meals"), editable=False, null=True, blank=True)
+    # restrictions
     no_stairs = models.BooleanField(_("no stairs"), default=False)
     no_bunk = models.BooleanField(_("no bunk"), default=False)
+    no_gluten = models.BooleanField(_("no gluten"), default=False)
+    snorer = models.BooleanField(_("snorer"), default=False)
+
     bedroom = models.IntegerField(_("bedroom"), default=0)
     bedroom_alt = models.IntegerField(_("bedroom alt"), default=0)
     bedroom_type = models.CharField(

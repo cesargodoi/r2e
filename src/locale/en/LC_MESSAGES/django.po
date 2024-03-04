@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-21 09:17-0300\n"
+"POT-Creation-Date: 2024-03-04 10:55-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,7 +86,7 @@ msgid "deadline"
 msgstr ""
 
 #: src/apps/base/templates/base/home.html:24 src/apps/register/models.py:34
-#: src/apps/register/models.py:113 src/apps/register/models.py:173
+#: src/apps/register/models.py:115 src/apps/register/models.py:175
 msgid "value"
 msgstr ""
 
@@ -170,11 +170,11 @@ msgid "manage activities"
 msgstr ""
 
 #: src/apps/base/templates/base/tools.html:56
-#: src/apps/event/templates/event/accommodation/components/navbar.html:43
-#: src/apps/event/templates/event/accommodation/components/person_list.html:19
+#: src/apps/event/templates/event/accommodation/components/navbar.html:48
+#: src/apps/event/templates/event/accommodation/components/person_list.html:20
 #: src/apps/event/templates/event/reports/mapping_per_person.html:14
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:174
+#: src/apps/event/views/reports.py:185
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -271,7 +271,7 @@ msgstr ""
 msgid "top beds"
 msgstr ""
 
-#: src/apps/center/models.py:79 src/apps/person/models.py:137
+#: src/apps/center/models.py:79 src/apps/person/models.py:141
 msgid "bedroom"
 msgstr ""
 
@@ -393,7 +393,6 @@ msgid "Status"
 msgstr ""
 
 #: src/apps/center/templates/center/components/list_header.html:4
-#: src/apps/person/templates/person/components/-----list_header-----.html:3
 msgid "Search for ..."
 msgstr ""
 
@@ -512,7 +511,7 @@ msgstr ""
 msgid "bottom or top"
 msgstr ""
 
-#: src/apps/event/models.py:114 src/apps/register/models.py:109
+#: src/apps/event/models.py:114 src/apps/register/models.py:111
 msgid "accommodation"
 msgstr ""
 
@@ -530,7 +529,7 @@ msgstr ""
 
 #: src/apps/event/templates/event/accommodation/add_to_bedroom.html:31
 #: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:45
-#: src/r2e/commom.py:26
+#: src/r2e/commom.py:35
 msgid "Mixed"
 msgstr ""
 
@@ -630,12 +629,12 @@ msgid "Unallocated"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/event_card.html:45
-#: src/r2e/commom.py:58
+#: src/r2e/commom.py:67
 msgid "House"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/event_card.html:56
-#: src/r2e/commom.py:58
+#: src/r2e/commom.py:67
 msgid "Hotel"
 msgstr ""
 
@@ -644,12 +643,12 @@ msgid "All bedrooms"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:23
-#: src/r2e/commom.py:25 src/r2e/commom.py:26
+#: src/r2e/commom.py:34 src/r2e/commom.py:35
 msgid "Male"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:34
-#: src/r2e/commom.py:25 src/r2e/commom.py:26
+#: src/r2e/commom.py:34 src/r2e/commom.py:35
 msgid "Female"
 msgstr ""
 
@@ -683,14 +682,19 @@ msgstr ""
 msgid "People per meal"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:48
+#: src/apps/event/templates/event/accommodation/components/navbar.html:43
+#: src/apps/event/views/reports.py:174
+msgid "People who cannot eat gluten"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:53
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:6
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:14
 #: src/apps/event/templates/event/components/navbar.html:72
 msgid "Actions"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:56
+#: src/apps/event/templates/event/accommodation/components/navbar.html:61
 msgid "View bedrooms"
 msgstr ""
 
@@ -738,11 +742,11 @@ msgid "Departure"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/person_list.html:17
-#: src/apps/person/templates/person/components/stays.html:16
-msgid "Restr."
+#: src/apps/event/templates/event/components/register_list.html:19
+msgid "Restrictions"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/person_list.html:18
+#: src/apps/event/templates/event/accommodation/components/person_list.html:19
 msgid "Ps"
 msgstr ""
 
@@ -837,17 +841,17 @@ msgid "Registers"
 msgstr ""
 
 #: src/apps/event/templates/event/components/list_table.html:35
-#: src/r2e/commom.py:20
+#: src/r2e/commom.py:29
 msgid "open"
 msgstr ""
 
 #: src/apps/event/templates/event/components/list_table.html:37
-#: src/r2e/commom.py:22
+#: src/r2e/commom.py:31
 msgid "shortly"
 msgstr ""
 
 #: src/apps/event/templates/event/components/list_table.html:39
-#: src/r2e/commom.py:21
+#: src/r2e/commom.py:30
 msgid "closed"
 msgstr ""
 
@@ -887,12 +891,8 @@ msgstr ""
 #: src/apps/event/templates/event/components/register_list.html:16
 #: src/apps/person/templates/person/components/registers.html:13
 #: src/apps/person/templates/person/components/stays.html:13
-#: src/r2e/commom.py:58
+#: src/r2e/commom.py:67
 msgid "Lodge"
-msgstr ""
-
-#: src/apps/event/templates/event/components/register_list.html:19
-msgid "Restrictions"
 msgstr ""
 
 #: src/apps/event/templates/event/components/register_list.html:20
@@ -913,7 +913,7 @@ msgid "Total"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/cash_balance.html:19
-#: src/r2e/commom.py:53
+#: src/r2e/commom.py:62
 msgid "Free"
 msgstr ""
 
@@ -922,12 +922,12 @@ msgstr ""
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:18
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:30
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:42
-#: src/r2e/commom.py:54
+#: src/r2e/commom.py:63
 msgid "Pending"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:4
-#: src/r2e/commom.py:45
+#: src/r2e/commom.py:54
 msgid "Cash"
 msgstr ""
 
@@ -1002,11 +1002,13 @@ msgid "HOUSE"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/people_per_meal.html:21
+#: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:21
 #: src/apps/person/models.py:95
 msgid "people"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/people_per_meal.html:34
+#: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:34
 msgid "no people for this meal"
 msgstr ""
 
@@ -1026,15 +1028,19 @@ msgstr ""
 msgid "Difference"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:67
+#: src/apps/event/views/accommodations.py:68
 msgid "Accommodation management"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:115
+#: src/apps/event/views/accommodations.py:116
 msgid "Bedrooms on event"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:493
+#: src/apps/event/views/accommodations.py:491
+msgid "Changing Stay"
+msgstr ""
+
+#: src/apps/event/views/accommodations.py:528
 msgid "Managing Staff"
 msgstr ""
 
@@ -1050,11 +1056,11 @@ msgstr ""
 msgid "Records management"
 msgstr ""
 
-#: src/apps/event/views/event.py:124
+#: src/apps/event/views/event.py:126
 msgid "Create Event"
 msgstr ""
 
-#: src/apps/event/views/event.py:141
+#: src/apps/event/views/event.py:143
 msgid "Update Event"
 msgstr ""
 
@@ -1118,8 +1124,8 @@ msgstr ""
 msgid "sos phone"
 msgstr ""
 
-#: src/apps/person/models.py:57 src/apps/person/models.py:144
-#: src/apps/register/models.py:40 src/apps/register/models.py:115
+#: src/apps/person/models.py:57 src/apps/person/models.py:148
+#: src/apps/register/models.py:40 src/apps/register/models.py:117
 msgid "observations"
 msgstr ""
 
@@ -1135,47 +1141,55 @@ msgstr ""
 msgid "lodge"
 msgstr ""
 
-#: src/apps/person/models.py:125 src/apps/register/models.py:93
+#: src/apps/person/models.py:125 src/apps/register/models.py:95
 msgid "arrival time"
 msgstr ""
 
-#: src/apps/person/models.py:128 src/apps/register/models.py:96
+#: src/apps/person/models.py:128 src/apps/register/models.py:98
 msgid "departure time"
 msgstr ""
 
-#: src/apps/person/models.py:133 src/apps/register/models.py:101
+#: src/apps/person/models.py:133 src/apps/register/models.py:103
 msgid "take meals?"
 msgstr ""
 
-#: src/apps/person/models.py:134 src/apps/register/models.py:102
+#: src/apps/person/models.py:134 src/apps/register/models.py:104
 msgid "meals"
 msgstr ""
 
-#: src/apps/person/models.py:135 src/apps/register/models.py:90
+#: src/apps/person/models.py:136 src/apps/register/models.py:90
 msgid "no stairs"
 msgstr ""
 
-#: src/apps/person/models.py:136 src/apps/register/models.py:91
+#: src/apps/person/models.py:137 src/apps/register/models.py:91
 msgid "no bunk"
 msgstr ""
 
-#: src/apps/person/models.py:138
+#: src/apps/person/models.py:138 src/apps/register/models.py:92
+msgid "no gluten"
+msgstr ""
+
+#: src/apps/person/models.py:139 src/apps/register/models.py:93
+msgid "snorer"
+msgstr ""
+
+#: src/apps/person/models.py:142
 msgid "bedroom alt"
 msgstr ""
 
-#: src/apps/person/models.py:140
+#: src/apps/person/models.py:144
 msgid "bedroom type"
 msgstr ""
 
-#: src/apps/person/models.py:142 src/apps/register/models.py:112
+#: src/apps/person/models.py:146 src/apps/register/models.py:114
 msgid "staff"
 msgstr ""
 
-#: src/apps/person/models.py:156
+#: src/apps/person/models.py:160
 msgid "person stay"
 msgstr ""
 
-#: src/apps/person/models.py:157
+#: src/apps/person/models.py:161
 msgid "person stays"
 msgstr ""
 
@@ -1198,6 +1212,10 @@ msgstr ""
 #: src/apps/person/templates/person/components/stays.html:12
 #: src/apps/register/templates/register/components/register_table.html:8
 msgid "Stay"
+msgstr ""
+
+#: src/apps/person/templates/person/components/stays.html:16
+msgid "Restr."
 msgstr ""
 
 #: src/apps/person/templates/person/components/stays.html:37
@@ -1255,7 +1273,7 @@ msgid "canceled payment"
 msgstr ""
 
 #: src/apps/register/models.py:68 src/apps/register/models.py:85
-#: src/apps/register/models.py:158
+#: src/apps/register/models.py:160
 msgid "order"
 msgstr ""
 
@@ -1263,31 +1281,31 @@ msgstr ""
 msgid "orders"
 msgstr ""
 
-#: src/apps/register/models.py:111
+#: src/apps/register/models.py:113
 msgid "housed"
 msgstr ""
 
-#: src/apps/register/models.py:141
+#: src/apps/register/models.py:143
 msgid "register"
 msgstr ""
 
-#: src/apps/register/models.py:142
+#: src/apps/register/models.py:144
 msgid "registers"
 msgstr ""
 
-#: src/apps/register/models.py:161
+#: src/apps/register/models.py:163
 msgid "payment type"
 msgstr ""
 
-#: src/apps/register/models.py:171
+#: src/apps/register/models.py:173
 msgid "control number"
 msgstr ""
 
-#: src/apps/register/models.py:208
+#: src/apps/register/models.py:210
 msgid "form of payment"
 msgstr ""
 
-#: src/apps/register/models.py:209
+#: src/apps/register/models.py:211
 msgid "form of payments"
 msgstr ""
 
@@ -1324,7 +1342,7 @@ msgstr ""
 msgid "Missing"
 msgstr ""
 
-#: src/apps/register/templates/register/components/register_row.html:23
+#: src/apps/register/templates/register/components/register_row.html:29
 msgid "Please, enter a stay."
 msgstr ""
 
@@ -1373,197 +1391,233 @@ msgid "Brazil"
 msgstr ""
 
 #: src/r2e/commom.py:10
+msgid "Bolivia"
+msgstr ""
+
+#: src/r2e/commom.py:11
+msgid "Argentina"
+msgstr ""
+
+#: src/r2e/commom.py:12
 msgid "United States"
 msgstr ""
 
+#: src/r2e/commom.py:13
+msgid "Netherlands"
+msgstr ""
+
 #: src/r2e/commom.py:14
-msgid "Conference"
+msgid "Germany"
 msgstr ""
 
 #: src/r2e/commom.py:15
-msgid "Open Doors Day"
+msgid "France"
 msgstr ""
 
 #: src/r2e/commom.py:16
+msgid "Spain"
+msgstr ""
+
+#: src/r2e/commom.py:17
+msgid "Portugal"
+msgstr ""
+
+#: src/r2e/commom.py:18
+msgid "Italy"
+msgstr ""
+
+#: src/r2e/commom.py:19
+msgid "Other Country"
+msgstr ""
+
+#: src/r2e/commom.py:23
+msgid "Conference"
+msgstr ""
+
+#: src/r2e/commom.py:24
+msgid "Open Doors Day"
+msgstr ""
+
+#: src/r2e/commom.py:25
 msgid "Others"
 msgstr ""
 
-#: src/r2e/commom.py:27
+#: src/r2e/commom.py:36
 msgid "Bottom"
 msgstr ""
 
-#: src/r2e/commom.py:27
+#: src/r2e/commom.py:36
 msgid "Top"
 msgstr ""
 
-#: src/r2e/commom.py:31
+#: src/r2e/commom.py:40
 msgid "Project 21"
 msgstr ""
 
-#: src/r2e/commom.py:32
+#: src/r2e/commom.py:41
 msgid "Public Work"
 msgstr ""
 
-#: src/r2e/commom.py:33
+#: src/r2e/commom.py:42
 msgid "Youth Work"
 msgstr ""
 
-#: src/r2e/commom.py:34
+#: src/r2e/commom.py:43
 msgid "Guest of Pupil"
 msgstr ""
 
-#: src/r2e/commom.py:35
+#: src/r2e/commom.py:44
 msgid "1st. Aspect"
 msgstr ""
 
-#: src/r2e/commom.py:36
+#: src/r2e/commom.py:45
 msgid "2st. Aspect"
 msgstr ""
 
-#: src/r2e/commom.py:37
+#: src/r2e/commom.py:46
 msgid "3st. Aspect"
 msgstr ""
 
-#: src/r2e/commom.py:38
+#: src/r2e/commom.py:47
 msgid "4st. Aspect"
 msgstr ""
 
-#: src/r2e/commom.py:39
+#: src/r2e/commom.py:48
 msgid "Grail"
 msgstr ""
 
-#: src/r2e/commom.py:40
+#: src/r2e/commom.py:49
 msgid "5st. Aspect"
 msgstr ""
 
-#: src/r2e/commom.py:41
+#: src/r2e/commom.py:50
 msgid "6st. Aspect"
 msgstr ""
 
-#: src/r2e/commom.py:46
+#: src/r2e/commom.py:55
 msgid "Check"
 msgstr ""
 
-#: src/r2e/commom.py:47
+#: src/r2e/commom.py:56
 msgid "Pre Check"
 msgstr ""
 
-#: src/r2e/commom.py:48
+#: src/r2e/commom.py:57
 msgid "Debit"
 msgstr ""
 
-#: src/r2e/commom.py:49
+#: src/r2e/commom.py:58
 msgid "Credit"
 msgstr ""
 
-#: src/r2e/commom.py:50
+#: src/r2e/commom.py:59
 msgid "Deposit"
 msgstr ""
 
-#: src/r2e/commom.py:51
+#: src/r2e/commom.py:60
 msgid "Transfer"
 msgstr ""
 
-#: src/r2e/commom.py:52
+#: src/r2e/commom.py:61
 msgid "Pix"
 msgstr ""
 
-#: src/r2e/commom.py:55
+#: src/r2e/commom.py:64
 msgid "Person Credit"
 msgstr ""
 
-#: src/r2e/commom.py:71
+#: src/r2e/commom.py:80
 msgid "Eve day, before dinner."
 msgstr ""
 
-#: src/r2e/commom.py:72
+#: src/r2e/commom.py:81
 msgid "Eve day, after dinner."
 msgstr ""
 
-#: src/r2e/commom.py:73
+#: src/r2e/commom.py:82
 msgid "First day, before breakfast."
 msgstr ""
 
-#: src/r2e/commom.py:74 src/r2e/commom.py:81
+#: src/r2e/commom.py:83 src/r2e/commom.py:90
 msgid "First day, before lunch."
 msgstr ""
 
-#: src/r2e/commom.py:75 src/r2e/commom.py:82
+#: src/r2e/commom.py:84 src/r2e/commom.py:91
 msgid "First day, before dinner."
 msgstr ""
 
-#: src/r2e/commom.py:76 src/r2e/commom.py:83
+#: src/r2e/commom.py:85 src/r2e/commom.py:92
 msgid "First day, after dinner."
 msgstr ""
 
-#: src/r2e/commom.py:77 src/r2e/commom.py:84
+#: src/r2e/commom.py:86 src/r2e/commom.py:93
 msgid "Last day, before breakfast."
 msgstr ""
 
-#: src/r2e/commom.py:85
+#: src/r2e/commom.py:94
 msgid "Last day, before lunch."
 msgstr ""
 
-#: src/r2e/commom.py:86
+#: src/r2e/commom.py:95
 msgid "Last day, after lunch."
 msgstr ""
 
-#: src/r2e/commom.py:133
+#: src/r2e/commom.py:142
 msgid "Dinner on the eve day"
 msgstr ""
 
-#: src/r2e/commom.py:134
+#: src/r2e/commom.py:143
 msgid "Breakfast on the first day"
 msgstr ""
 
-#: src/r2e/commom.py:135
+#: src/r2e/commom.py:144
 msgid "Lunch on the first day"
 msgstr ""
 
-#: src/r2e/commom.py:136
+#: src/r2e/commom.py:145
 msgid "Dinner on the first day"
 msgstr ""
 
-#: src/r2e/commom.py:137
+#: src/r2e/commom.py:146
 msgid "Breakfast on the last day"
 msgstr ""
 
-#: src/r2e/commom.py:138
+#: src/r2e/commom.py:147
 msgid "Lunch on the last day"
 msgstr ""
 
-#: src/r2e/commom.py:142
+#: src/r2e/commom.py:151
 msgid "Breakfast on the second day"
 msgstr ""
 
-#: src/r2e/commom.py:143
+#: src/r2e/commom.py:152
 msgid "Lunch on the second day"
 msgstr ""
 
-#: src/r2e/commom.py:144
+#: src/r2e/commom.py:153
 msgid "Dinner on the second day"
 msgstr ""
 
-#: src/r2e/commom.py:145
+#: src/r2e/commom.py:154
 msgid "Breakfast on the third day"
 msgstr ""
 
-#: src/r2e/commom.py:146
+#: src/r2e/commom.py:155
 msgid "Lunch on the third day"
 msgstr ""
 
-#: src/r2e/commom.py:147
+#: src/r2e/commom.py:156
 msgid "Dinner on the third day"
 msgstr ""
 
-#: src/r2e/commom.py:148
+#: src/r2e/commom.py:157
 msgid "Breakfast on the fourfth day"
 msgstr ""
 
-#: src/r2e/commom.py:149
+#: src/r2e/commom.py:158
 msgid "Lunch on the fourfth day"
 msgstr ""
 
-#: src/r2e/commom.py:150
+#: src/r2e/commom.py:159
 msgid "Dinner on the fourfth day"
 msgstr ""

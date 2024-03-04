@@ -92,13 +92,15 @@ class EventDetail(LoginRequiredMixin, DetailView):
                 "departure_time",
                 "no_stairs",
                 "no_bunk",
+                "no_gluten",
+                "snorer",
                 "value",
             )
             .order_by("person")
         )
 
         page_obj = get_paginator(
-            self.request, queryset.filter(order__center=user_center)
+            self.request, queryset.filter(order__center=user_center), 20
         )
 
         context["total_registers"] = len(queryset)

@@ -10,10 +10,16 @@
   <td>⤴️ {{ stay.get_departure_time_display }}</td>
   <td>
     {% if stay.no_stairs %}
-      <img class="icon-style" src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs"> &nbsp;&nbsp;
+      <img class="icon-style" src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs"> 
     {% endif %}
     {% if stay.no_bunk %}
-      <img class="icon-style" src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk">
+      <img class="icon-style" src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk"> 
+    {% endif %}
+    {% if stay.no_gluten %}
+      <img class="icon-style" src="{% static 'img/icons/NoGluten.png' %}" alt="no gluten"> 
+    {% endif %}
+    {% if stay.snorer %}
+      <img class="icon-style" src="{% static 'img/icons/snorer.png' %}" alt="snorer"> 
     {% endif %}
   </td>
   {% if stay.staff.all|length > 2 %}

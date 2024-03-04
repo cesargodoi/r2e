@@ -12,10 +12,16 @@
       ⤵️ {{ reg.arrival_time.name }} &nbsp;&nbsp;&nbsp;
       ⤴️ {{ reg.departure_time.name }} &nbsp;&nbsp;&nbsp;
       {% if reg.no_stairs %}
-        <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;
+        <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> 
       {% endif %}
       {% if reg.no_bunk %}
-        <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;">
+        <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;"> 
+      {% endif %}
+      {% if reg.no_gluten %}
+        <img src="{% static 'img/icons/NoGluten.png' %}" alt="no gluten" style="width:20px;height:20px;"> 
+      {% endif %}
+      {% if reg.snorer %}
+        <img src="{% static 'img/icons/snorer.png' %}" alt="snorer" style="width:20px;height:20px;"> 
       {% endif %}
     </td>
     <td>{% if reg.observations %}{{ reg.observations }}{% endif %}</td>

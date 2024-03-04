@@ -41,21 +41,25 @@ def get_dict_register(person, stay, ref_value, alt_mapping, event_id=None):
     return dict(
         regid=stay.id if stay else secrets.token_hex(3)[:6],
         person=dict(name=person.name, id=person.id),
-        lodge=dict(name=stay.get_lodge_display(), id=stay.lodge)
-        if stay
-        else "",
+        lodge=(
+            dict(name=stay.get_lodge_display(), id=stay.lodge) if stay else ""
+        ),
         no_stairs=stay.no_stairs if stay else "",
         no_bunk=stay.no_bunk if stay else "",
-        arrival_time=dict(
-            name=stay.get_arrival_time_display(), id=stay.arrival_time
-        )
-        if stay
-        else "",
-        departure_time=dict(
-            name=stay.get_departure_time_display(), id=stay.departure_time
-        )
-        if stay
-        else "",
+        no_gluten=stay.no_gluten if stay else "",
+        snorer=stay.snorer if stay else "",
+        arrival_time=(
+            dict(name=stay.get_arrival_time_display(), id=stay.arrival_time)
+            if stay
+            else ""
+        ),
+        departure_time=(
+            dict(
+                name=stay.get_departure_time_display(), id=stay.departure_time
+            )
+            if stay
+            else ""
+        ),
         take_meals=stay.take_meals if stay else None,
         meals=stay.meals if stay else [],
         staff=" | ".join([st.name for st in stay.staff.all()]) if stay else "",
@@ -76,6 +80,8 @@ def get_dict_register_update(register, event_center_pk, alt_mapping):
         lodge=dict(name=register.get_lodge_display(), id=register.lodge),
         no_stairs=register.no_stairs,
         no_bunk=register.no_bunk,
+        no_gluten=register.no_gluten,
+        snorer=register.snorer,
         arrival_time=dict(
             name=register.get_arrival_time_display(), id=register.arrival_time
         ),
@@ -86,9 +92,9 @@ def get_dict_register_update(register, event_center_pk, alt_mapping):
         take_meals=stay.take_meals,
         meals=stay.meals,
         staff=" | ".join([st.name for st in stay.staff.all()]) if stay else "",
-        bedroom=register.accommodation.bedroom_id
-        if register.accommodation
-        else "",
+        bedroom=(
+            register.accommodation.bedroom_id if register.accommodation else ""
+        ),
         bedroom_type=stay.bedroom_type,
         observations=register.observations,
         value=float(register.value),
@@ -110,9 +116,9 @@ def get_dict_payform(payform):
             name=str(dict(PAYMENT_TYPES)[payform["payment_type"]]),
             id=payform["payment_type"],
         ),
-        bank_flag=dict(name=bank_flag.name, id=bank_flag.id)
-        if bank_flag
-        else "",
+        bank_flag=(
+            dict(name=bank_flag.name, id=bank_flag.id) if bank_flag else ""
+        ),
         ctrl=payform["ctrl"] or "",
         value=float(payform["value"]) or 0.0,
     )
@@ -126,9 +132,11 @@ def get_dict_payform_update(payform):
             name=str(dict(PAYMENT_TYPES)[payform.payment_type]),
             id=payform.payment_type,
         ),
-        bank_flag=dict(name=payform.bank_flag.name, id=payform.bank_flag.id)
-        if payform.bank_flag
-        else "",
+        bank_flag=(
+            dict(name=payform.bank_flag.name, id=payform.bank_flag.id)
+            if payform.bank_flag
+            else ""
+        ),
         ctrl=payform.ctrl or "",
         value=float(payform.value) or 0.0,
     )
@@ -225,6 +233,8 @@ def get_dict_register_to_db(
         lodge=register["lodge"]["id"],
         no_stairs=register["no_stairs"],
         no_bunk=register["no_bunk"],
+        no_gluten=register["no_gluten"],
+        snorer=register["snorer"],
         arrival_time=register["arrival_time"]["id"],
         departure_time=register["departure_time"]["id"],
         take_meals=register["take_meals"],
@@ -256,9 +266,9 @@ def get_dict_payforn_to_db(request, payform, order_id, update=False):
         person_id=payform["person"]["id"],
         order_id=order_id,
         payment_type=payform["payment_type"]["id"],
-        bank_flag_id=payform["bank_flag"]["id"]
-        if payform["bank_flag"]
-        else None,
+        bank_flag_id=(
+            payform["bank_flag"]["id"] if payform["bank_flag"] else None
+        ),
         ctrl=payform["ctrl"] or None,
         value=payform["value"],
     )

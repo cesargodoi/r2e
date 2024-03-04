@@ -49,4 +49,9 @@ urlpatterns += [
         views.PeoplePerMeal.as_view(),
         name="report_people_per_meal",
     ),
+    path(
+        "<int:pk>/report/people-who-cannot-eat-gluten/",
+        views.PeopleWhoCannotEatGluten.as_view(),
+        name="report_people_who_cannot_eat_gluten",
+    ),
 ]

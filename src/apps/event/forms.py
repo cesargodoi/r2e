@@ -1,6 +1,7 @@
 from django import forms
 from .models import Activity, Event
 from apps.person.models import PersonStay
+from apps.register.models import Register
 
 
 class ActivityForm(forms.ModelForm):
@@ -27,6 +28,40 @@ class EventForm(forms.ModelForm):
             ),
             "created_by": forms.HiddenInput(),
             "modified_by": forms.HiddenInput(),
+        }
+
+
+class StayForm(forms.ModelForm):
+    class Meta:
+        model = Register
+        fields = (
+            "person",
+            "lodge",
+            "arrival_time",
+            "departure_time",
+            "take_meals",
+            "no_stairs",
+            "no_bunk",
+            "no_gluten",
+            "snorer",
+            "accommodation",
+        )
+        # exclude = (
+        #     "stay_center",
+        #     "bedroom",
+        #     "bedroom_alt",
+        #     "bedroom_type",
+        #     "staff",
+        #     "observations",
+        # )
+        # labels = {"staff": ""}
+        widgets = {
+            "accommodation": forms.HiddenInput(),
+            #     "bedroom": forms.HiddenInput(),
+            #     "bedroom_alt": forms.HiddenInput(),
+            #     "bedroom_type": forms.HiddenInput(),
+            #     "staff": forms.HiddenInput(),
+            #     "observations": forms.HiddenInput(),
         }
 
 
