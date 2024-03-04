@@ -1,4 +1,5 @@
 import json
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect, HttpResponse
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (
@@ -9,9 +10,9 @@ from django.contrib.auth.mixins import (
 from django.contrib.auth.decorators import login_required
 from django.template.loader import render_to_string
 from django.views.generic import View
-from django.views.generic import DetailView
+from django.views.generic import DetailView, FormView
 
-from ..forms import StaffForm
+from ..forms import StayForm, StaffForm
 
 from apps.event.models import Event, Accommodation
 from apps.person.models import PersonStay
@@ -62,7 +63,7 @@ class Accommodations(
         elif self.request.GET.get("filter") == "unalloc":
             queryset = queryset.filter(lodge="LDG", accommodation__isnull=True)
 
-        page_obj = get_paginator(self.request, queryset)
+        page_obj = get_paginator(self.request, queryset, 20)
 
         context["title"] = _("Accommodation management")
         context["event_id"] = self.object.pk
@@ -482,6 +483,40 @@ class RemoveFromBedroom(LoginRequiredMixin, View):
         return redirect("event:accommodations", event_id)
 
 
+class ChangeStay(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        template_name = "event/accommodation/change_stay.html"
+        register = Register.objects.get(id=kwargs["reg_id"])
+        form = StayForm(instance=register)
+        context = {"title": _("Changing Stay"), "form": form}
+        return render(request, template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        register = Register.objects.get(id=kwargs["reg_id"])
+        form = StayForm(request.POST, instance=register)
+        form.is_valid()
+        data = form.cleaned_data
+        register.lodge = data["lodge"]
+        if data["lodge"] != "LDG":
+            register.accommodation = None
+        register.arrival_time = data["arrival_time"]
+        register.departure_time = data["departure_time"]
+        register.take_meals = data["take_meals"]
+        register.no_stairs = data["no_stairs"]
+        register.no_bunk = data["no_bunk"]
+        register.no_gluten = data["no_gluten"]
+        register.snorer = data["snorer"]
+
+        person_stay = register.person.stays.get(
+            stay_center=register.order.event.center
+        )
+        person_stay.snorer = data["snorer"]
+        person_stay.save()
+
+        register.save()
+        return HttpResponse(headers={"HX-Refresh": "true"})
+
+
 class ManagingStaff(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         template_name = "event/accommodation/managing_staff.html"
@@ -541,31 +576,8 @@ def get_queryset_and_totals(request, evenid, q=None, get_totals=False):
             "accommodation",
             "accommodation__bedroom",
         )
-        # .values(
-        #     "id",
-        #     "order__event__id",
-        #     "person__id",
-        #     "person__name",
-        #     "person__aspect",
-        #     "person__center__short_name",
-        #     "accommodation",
-        #     "accommodation__gender",
-        #     "accommodation__bottom_or_top",
-        #     "accommodation__bedroom__id",
-        #     "accommodation__bedroom__name",
-        #     "accommodation__bedroom__building__name",
-        #     "no_stairs",
-        #     "no_bunk",
-        #     "observations",
-        #     "lodge",
-        #     "order__id",
-        #     "arrival_time",
-        #     "departure_time",
-        #     "staff",
-        # )
-        .filter(
-            order__event=evenid, person__name__icontains=q if q else ""
-        ).order_by("person")
+        .filter(order__event=evenid, person__name__icontains=q if q else "")
+        .order_by("person")
     )
     if get_totals:
         del request.session["accommodation"]

@@ -29,9 +29,17 @@
         {% endifchanged %}
 
         {% if obj.bottom_or_top == 'T' %} 
-          <img class="icon-style" src="{% static 'img/icons/bed_TY.png' %}">
+          <img 
+            class="icon-style" 
+            src="{% if obj.register.person %}{% static 'img/icons/bed_TN.png' %}{% else %}{% static 'img/icons/bed_TY.png' %}{% endif %}" 
+            style="width:25px;height:25px;"
+          >
         {% else %}
-          <img class="icon-style mt-2" src="{% static 'img/icons/bed_BY.png' %}">
+          <img 
+            class="icon-style mt-2" 
+            src="{% if obj.register.person %}{% static 'img/icons/bed_BN.png' %}{% else %}{% static 'img/icons/bed_BY.png' %}{% endif %}" 
+            style="width:25px;height:25px;"
+          >
         {% endif %}
         {% if obj.register.person %} 
           <span class="text-primary fw-bolder fs-6 align-bottom"> {{ obj.register.person.name|shortname }}</span>

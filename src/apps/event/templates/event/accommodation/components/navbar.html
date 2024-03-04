@@ -39,6 +39,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_people_who_cannot_eat_gluten' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans "People who cannot eat gluten" %}
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'event:report_staff' event.pk %}" target="_blank">
               <i class="bi bi-file-earmark-ruled"></i> {% trans "Staff" %}
             </a>

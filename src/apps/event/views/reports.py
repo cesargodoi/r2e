@@ -169,6 +169,17 @@ class PeoplePerMeal(ReportByRegister):
         return context
 
 
+class PeopleWhoCannotEatGluten(ReportByRegister):
+    template_name = "event/reports/people_who_cannot_eat_gluten.html"
+    extra_context = {"title": _("People who cannot eat gluten")}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        gluten_free = self.object_list.filter(no_gluten=True)
+        context["object_list"] = get_people_per_meal(gluten_free)
+        return context
+
+
 class Staff(ReportByRegister):
     template_name = "event/reports/staff.html"
     extra_context = {"title": _("Staff")}

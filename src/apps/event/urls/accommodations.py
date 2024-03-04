@@ -45,6 +45,11 @@ urlpatterns += [
     ),
     path("force_top_bed/", views.force_top_bed, name="force_top_bed"),
     path(
+        "<int:reg_id>/change_stay/",
+        views.ChangeStay.as_view(),
+        name="change_stay",
+    ),
+    path(
         "<int:reg_id>/managing_staff/",
         views.ManagingStaff.as_view(),
         name="managing_staff",

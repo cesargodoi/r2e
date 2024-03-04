@@ -7,7 +7,16 @@ from datetime import date
 
 COUNTRIES_CHOICES = [
     ("BR", _("Brazil")),
+    ("BO", _("Bolivia")),
+    ("AR", _("Argentina")),
     ("US", _("United States")),
+    ("NL", _("Netherlands")),
+    ("DE", _("Germany")),
+    ("FR", _("France")),
+    ("ES", _("Spain")),
+    ("PT", _("Portugal")),
+    ("IT", _("Italy")),
+    ("OC", _("Other Country")),
 ]
 
 ACTIVITY_TYPES = [

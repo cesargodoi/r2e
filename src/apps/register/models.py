@@ -89,6 +89,8 @@ class Register(models.Model):
     )
     no_stairs = models.BooleanField(_("no stairs"), default=False)
     no_bunk = models.BooleanField(_("no bunk"), default=False)
+    no_gluten = models.BooleanField(_("no gluten"), default=False)
+    snorer = models.BooleanField(_("snorer"), default=False)
     arrival_time = models.CharField(
         _("arrival time"), max_length=4, choices=ARRIVAL_TIME, default="AFBL"
     )
