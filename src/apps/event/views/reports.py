@@ -176,7 +176,9 @@ class PeopleWhoCannotEatGluten(ReportByRegister):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         gluten_free = self.object_list.filter(no_gluten=True)
-        context["object_list"] = get_people_per_meal(gluten_free)
+        context["object_list"] = (
+            get_people_per_meal(gluten_free) if gluten_free else None
+        )
         return context
 
 
