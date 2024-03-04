@@ -48,6 +48,6 @@
       {% endfor %}
     {% endwith %}
   {% else %}
-    {% include "base/generics/no_data_was_found.html" %}
+    <div class="h5 p-1 text-center">{% trans "no data for this report" %}</div>
   {% endif %}
 {% endblock %}

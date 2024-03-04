@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 10:55-0300\n"
+"POT-Creation-Date: 2024-03-04 15:09-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,7 +174,7 @@ msgstr ""
 #: src/apps/event/templates/event/accommodation/components/person_list.html:20
 #: src/apps/event/templates/event/reports/mapping_per_person.html:14
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:185
+#: src/apps/event/views/reports.py:187
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -926,6 +926,19 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
+#: src/apps/event/templates/event/reports/cash_balance.html:50
+#: src/apps/event/templates/event/reports/mapping_by_room.html:51
+#: src/apps/event/templates/event/reports/mapping_per_person.html:43
+#: src/apps/event/templates/event/reports/payment_per_person.html:49
+#: src/apps/event/templates/event/reports/people_at_the_event.html:48
+#: src/apps/event/templates/event/reports/people_per_aspect.html:18
+#: src/apps/event/templates/event/reports/people_per_meal.html:43
+#: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:43
+#: src/apps/event/templates/event/reports/staff.html:18
+#: src/apps/event/templates/event/reports/total_collected_in_the_center.html:42
+msgid "no data for this report"
+msgstr ""
+
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:4
 #: src/r2e/commom.py:54
 msgid "Cash"
@@ -1001,14 +1014,14 @@ msgstr ""
 msgid "HOUSE"
 msgstr ""
 
-#: src/apps/event/templates/event/reports/people_per_meal.html:21
-#: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:21
+#: src/apps/event/templates/event/reports/people_per_meal.html:22
+#: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:22
 #: src/apps/person/models.py:95
 msgid "people"
 msgstr ""
 
-#: src/apps/event/templates/event/reports/people_per_meal.html:34
-#: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:34
+#: src/apps/event/templates/event/reports/people_per_meal.html:35
+#: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:35
 msgid "no people for this meal"
 msgstr ""
 

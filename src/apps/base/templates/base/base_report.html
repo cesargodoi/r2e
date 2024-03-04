@@ -29,7 +29,7 @@
       </div>
       <div class="text-end pt-2 pb-2">
         <b>user:</b> &nbsp; <i>{{ user.email }}</i><br>
-        <b>center:</b> &nbsp; <i>{{ user.centers.first }}</i><br>
+        <b>center:</b> &nbsp; <i>{{ user.person.center }}</i><br>
         <time datetime="{% now 'DATE_FORMAT' %}" pubdate>{% now 'd/m/y - H\hi' %}</time>
       </div>
     </div>
