@@ -13,6 +13,7 @@ from django.views.generic import (
 )
 from ..models import Event
 from ..forms import EventForm
+from ..views.accommodations import generate_mapping
 
 from apps.register.models import Register
 
@@ -133,7 +134,8 @@ class EventCreate(LoginRequiredMixin, CreateView):
         return initial
 
     def form_valid(self, form):
-        form.save()
+        event = form.save()
+        generate_mapping(event.id)
         return HttpResponse(headers={"HX-Redirect": reverse("event:list")})
 
 
