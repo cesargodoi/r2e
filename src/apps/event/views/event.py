@@ -4,6 +4,7 @@ from django.urls import reverse_lazy, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.cache import add_never_cache_headers
 from django.views.generic import (
     ListView,
     CreateView,
@@ -103,6 +104,11 @@ class EventDetail(LoginRequiredMixin, DetailView):
         ).count()
         context["delete_link"] = reverse("event:delete", args=[self.object.pk])
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        add_never_cache_headers(response)
+        return response
 
 
 class EventCreate(LoginRequiredMixin, CreateView):
