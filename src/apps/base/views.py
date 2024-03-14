@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.db.models import Count
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
 
@@ -9,7 +10,9 @@ from apps.event.models import Event
 def home(request):
     context = {
         "title": _("Open Events"),
-        "object_list": Event.objects.filter(status="OPN", is_active=True),
+        "object_list": Event.objects.filter(
+            status="OPN", is_active=True
+        ).annotate(registers=Count("orders__registers")),
     }
     return render(request, "base/home.html", context)
 

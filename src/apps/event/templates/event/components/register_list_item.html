@@ -3,42 +3,26 @@
 <tr>
   <td>{{ forloop.counter }}</td>
   <th>{{ reg.person__name }}</th>
-  <td>
-    {% if reg.lodge == 'HSE' %}🏠{% endif %}
-    {% if reg.lodge == 'HTL' %}🏨{% endif %}
-    {% if reg.lodge == 'LDG' %}🏢{% endif %}
-    {{ lodges|get_item:reg.lodge }}
-  </td>
-  <td>⤵️ {{ arrivals|get_item:reg.arrival_time }}</td>
-  <td>⤴️ {{ departures|get_item:reg.departure_time }}</td>
-  <td>
-    {% if reg.no_stairs %}
-      <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> 
-    {% endif %}
-    {% if reg.no_bunk %}
-      <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;"> 
-    {% endif %}
-    {% if reg.no_gluten %}
-      <img src="{% static 'img/icons/NoGluten.png' %}" alt="no gluten" style="width:20px;height:20px;"> 
-    {% endif %}
-    {% if reg.snorer %}
-      <img src="{% static 'img/icons/snorer.png' %}" alt="snorer" style="width:20px;height:20px;"> 
-    {% endif %}
-    {% if reg.observations %}
-      {{ reg.observations }}
-    {% endif %}
-  </td>
   <th class="text-end">{{ reg.value }}</th>
   <td class="text-end">
     <div class="btn-group" role="group">
       <button 
         type="button"
-        class="btn btn-light text-info btn-sm" 
+        class="btn btn-light text-primary btn-sm" 
+        data-bs-toggle="modal" 
+        data-bs-target="#baseModal"
+        onclick="manageData('{% url 'register:show_stay' reg.pk %}')"
+      >
+        <i class="bi bi-building"></i>
+      </button>
+      <button 
+        type="button"
+        class="btn btn-light text-success btn-sm" 
         data-bs-toggle="modal" 
         data-bs-target="#baseModal"
         onclick="manageData('{% url 'register:show_order' reg.order__id %}')"
       >
-        <i class="bi bi-eye"></i>
+        <i class="bi bi-cash"></i>
       </button>
       <button 
         type="button"

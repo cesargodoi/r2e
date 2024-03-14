@@ -9,14 +9,10 @@
   <div class="card-body">
     <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
       {% if registers|length > 0 %}
-        <table class="table table-sm">
+        <table class="table table-sm table-hover">
           <tr>
-            <th>#</th>
-            <th>{% trans "Person" %}</th>
-            <th>{% trans "Lodge" %}</th>
-            <th>{% trans "Arrival" %}</th>
-            <th>{% trans "Departure" %}</th>
-            <th>{% trans "Restrictions" %}</th>
+            <th width="3%">#</th>
+            <th width="85%">{% trans "Person" %}</th>
             <th class="text-end">{% trans "Value" %} $</th>
             <th></th>
           </tr>

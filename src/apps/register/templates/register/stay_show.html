@@ -1,0 +1,74 @@
+{% load i18n %}
+{% load static %}
+<div class="modal-header">
+  <h4 class="modal-title">{% trans 'Stay Detail' %} </h4>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+  <div class="d-flex justify-content-between small border-bottom pb-4">
+    <div><em>registrado por:</em> <strong>{{ register.order.updated_by }}</strong></div>
+    <div><em>em:</em> <strong>{{ register.order.updated_on|date:'d/m/y H:i' }}</strong></div>
+    <div><em>order:</em> <strong>{{ register.order.pk }}</strong></div>
+  </div>
+  <br>
+  <h5><strong>{{ register.person.name }}</strong></h5>
+  <table class="table table-sm">
+    <tr>
+      <th width="30%">{% trans "Lodge" %}</th>
+      <th>
+        {% if register.lodge == 'HSE' %}🏠{% endif %}
+        {% if register.lodge == 'HTL' %}🏨{% endif %}
+        {% if register.lodge == 'LDG' %}🏢{% endif %}
+        {{ register.get_lodge_display }}
+      </th>
+    </tr>
+    <tr>
+      <th>{% trans "Arrival" %}</th>
+      <th>⤵️ {{ register.get_arrival_time_display }}</th>
+    </tr>
+    <tr>
+      <th>{% trans "Departure" %}</th>
+      <th>⤴️ {{ register.get_departure_time_display }}</th>
+    </tr>
+    {% if register.no_stairs or register.no_bunk or register.no_gluten or register.snorer %}
+      <tr>
+        <th>{% trans "Restrictions" %}</th>
+        <th>
+          {% if register.no_stairs %}
+            <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;
+          {% endif %}
+          {% if register.no_bunk %}
+            <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;"> &nbsp;&nbsp;
+          {% endif %}
+          {% if register.no_gluten %}
+            <img src="{% static 'img/icons/NoGluten.png' %}" alt="no gluten" style="width:20px;height:20px;"> &nbsp;&nbsp;
+          {% endif %}
+          {% if register.snorer %}
+            <img src="{% static 'img/icons/snorer.png' %}" alt="snorer" style="width:20px;height:20px;"> 
+          {% endif %}
+        </th>
+      </tr>
+    {% endif %}
+    {% if register.observations %}
+      <tr>
+        <th>{% trans "Observations" %}</th>
+        <th class="small">{{ register.observations }}</th>
+      </tr>
+    {% endif %}
+  </table>
+</div>
+
+<div class="modal-footer">
+  <div class="btn-group text-right" role="group">
+    <button 
+      type="button" 
+      class="btn btn-outline-info" 
+      data-bs-dismiss="modal" 
+      aria-label="Close"
+    >
+      <i class="bi bi-x-lg"></i>
+      {% trans 'Close' %}
+    </button>
+  </div>
+</div>

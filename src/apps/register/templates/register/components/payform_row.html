@@ -1,23 +1,25 @@
 {% load static %}
-<tr>
-  <td>{{ forloop.counter }}</td>
-  <td>{{ payf.payment_type.name }}</td>
-  {% if payf.payform_type.id != 'CSH'  %}
-    <td>{{ payf.bank_flag.name }}</td>
-    <td>{{ payf.ctrl }}</td>
-  {% else %}
-    <td colspan="2"></td>
-  {% endif %}
-  <td class="text-end" style="width: 8rem;">
+<div class="row align-items-start mb-2 pb-2 border-bottom">
+  <div class="col-xl-2 mb-2">
+    <span class="small">{{ forloop.counter }}. </span> <strong>{{ payf.payment_type.name }}</strong>
+  </div>
+  <div class="col-xl-8 fst-italic">
+    {% if payf.payment_type.id != 'CSH' %}
+      {{ payf.bank_flag.name }} | {{ payf.ctrl }}
+    {% endif %}
+  </div>
+  <div class="col text-end">
     <div class="d-flex justify-content-end">
-      <input 
-        name="value"
-        class="form-control form-control-sm"
-        style="width: 6.5rem; text-align:right;"
-        hx-get="{% url 'register:adj_payform_value' %}"
-        hx-vals='{"pfid": "{{ payf.pfid }}"}'
-        value="{{ payf.value|floatformat:2 }}" 
-      />
+      <div>
+        <input 
+          name="value"
+          class="form-control form-control-sm"
+          style="width: 6.5rem; text-align:right;"
+          hx-get="{% url 'register:adj_payform_value' %}"
+          hx-vals='{"pfid": "{{ payf.pfid }}"}'
+          value="{{ payf.value|floatformat:2 }}"
+        />
+      </div>
       <button 
         type="button" 
         class="btn btn-light text-danger btn-sm ms-1"
@@ -28,5 +30,5 @@
         <i class="bi bi-trash"></i>
       </button>
     </div>
-  </td>
-</tr>
+  </div>
+</div>

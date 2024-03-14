@@ -67,6 +67,12 @@ class CreateOrder(LoginRequiredMixin, View):
         return redirect("event:detail", pk=new_order["event"])
 
 
+def show_stay(request, reg_id):
+    register = Register.objects.get(pk=reg_id)
+    context = {"register": register, "title": "Stay"}
+    return render(request, "register/stay_show.html", context)
+
+
 def show_order(request, pk):
     order = Order.objects.get(pk=pk)
     context = {
@@ -75,7 +81,6 @@ def show_order(request, pk):
         "payforms": order.form_of_payments.all(),
         "title": "Order",
     }
-
     return render(request, "register/order_show.html", context)
 
 

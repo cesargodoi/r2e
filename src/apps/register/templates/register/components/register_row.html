@@ -1,5 +1,91 @@
 {% load static %}
+{% load my_tags %}
 {% load i18n %}
+<div class="row align-items-start mb-2 pb-2 border-bottom">
+  <div class="col-xl-2 mb-2">
+    <span class="small">{{ forloop.counter }}. </span> <strong>{{ reg.person.name|shortname }}</strong>
+  </div>
+  <div class="col-xl-8 mb-2">
+    {% if reg.lodge %}
+      <div class="d-flex flex-wrap align-items-center">
+        <div class="me-4">
+          {% if reg.lodge.id == 'HSE' %}🏠{% endif %}
+          {% if reg.lodge.id == 'HTL' %}🏨{% endif %}
+          {% if reg.lodge.id == 'LDG' %}🏢{% endif %}
+          {{ reg.lodge.name }}
+        </div>
+        <div class="me-4">⤵️ {{ reg.arrival_time.name }}</div>
+        <div class="me-4">⤴️ {{ reg.departure_time.name }}</div>
+        <div class="me-4">
+          {% if reg.no_stairs %}
+            <img src="{% static 'img/icons/NoStairs.png' %}" alt="no stairs" style="width:20px;height:20px;"> &nbsp;&nbsp;
+          {% endif %}
+          {% if reg.no_bunk %}
+            <img src="{% static 'img/icons/NoBunk.png' %}" alt="no bunk" style="width:20px;height:20px;"> &nbsp;&nbsp;
+          {% endif %}
+          {% if reg.no_gluten %}
+            <img src="{% static 'img/icons/NoGluten.png' %}" alt="no gluten" style="width:20px;height:20px;"> &nbsp;&nbsp;
+          {% endif %}
+          {% if reg.snorer %}
+            <img src="{% static 'img/icons/snorer.png' %}" alt="snorer" style="width:20px;height:20px;"> &nbsp;&nbsp;
+          {% endif %}
+        </div>
+        <div class="me-4 fst-italic">{% if reg.observations %}{{ reg.observations }}{% endif %}</div>
+        <button 
+          type="button" 
+          class="btn btn-light text-secondary btn-sm"
+          data-bs-toggle="offcanvas" 
+          data-bs-target="#offcanvasForm" 
+          aria-controls="offcanvasForm"
+          onclick="manageForm('{% url 'register:edit_stay' reg.person.id reg.regid %}')"
+        >
+          <i class="bi bi-pencil"></i>
+        </button>
+      </div>
+    {% else %}
+      <div class="d-flex flex-wrap align-items-center">
+        <div class="text-danger me-4">{% trans "Please, enter a stay." %}</div>
+        <button 
+          type="button" 
+          class="btn btn-light text-primary btn-sm"
+          data-bs-toggle="offcanvas" 
+          data-bs-target="#offcanvasForm" 
+          aria-controls="offcanvasForm"
+          onclick="manageForm('{% url 'register:add_stay' request.session.order.event_center reg.person.id reg.regid %}')"
+        >
+          <i class="bi bi-plus-lg"></i>
+        </button>
+      </div>
+    {% endif %}
+  </div>
+  <div class="col text-end">
+    <div class="d-flex justify-content-end">
+      <div>
+        <input 
+          name="value"
+          class="form-control form-control-sm"
+          style="width: 6.5rem; text-align:right;"
+          hx-get="{% url 'register:adj_register_value' %}"
+          hx-vals='{"regid": "{{ reg.regid }}"}'
+          value="{{ reg.value|floatformat:2 }}" 
+          {% if not reg.lodge %}disabled{% endif %}
+        />
+      </div>
+      <button 
+        type="button" 
+        class="btn btn-light text-danger btn-sm ms-1"
+        hx-get="{% url 'register:del_register' %}"
+        hx-vals='{"regid": "{{ reg.regid }}"}'
+        hx-confirm="Are you sure?"
+      >
+        <i class="bi bi-trash"></i>
+      </button>
+    </div>
+  </div>
+</div>
+{% comment %} 
+
+
 <tr>
   <td>{{ forloop.counter }}</td>
   <td>{{ reg.person.name }}</td>
@@ -77,4 +163,4 @@
       </button>
     </div>
   </td>
-</tr>
+</tr> {% endcomment %}
