@@ -1,31 +1,17 @@
 {% load i18n %}
-<div class="table-responsive table mt-2">
-  <table class="table table-sm align-middle">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>{% trans "Person" %}</th>
-        <th colspan="3">{% trans "Stay" %}</th>
-        <th class="text-end">{% trans "Value R$" %}</th>
-      </tr>
-    </thead>
-    <tbody class="table-group-divider">
-      {% for reg in request.session.order.registers %} 
-        {% include 'register/components/register_row.html' %}
-      {% endfor %}
-    </tbody>
-    <tfoot>
-      <tr>
-        <th colspan="5" class="text-end h4">{% trans "Total" %}:</th>
-        <th class="text-end total-value">
-          <input 
-            class="form-control form-control-lg"
-            style="width: 8.7rem; text-align:right;"
-            value="{{ request.session.order.total_registers|floatformat:2 }}" 
-            readonly
-          />
-        </th>
-      </tr>
-    </tfoot>
-  </table>
+<div class="mt-2">
+  {% for reg in request.session.order.registers %} 
+    {% include 'register/components/register_row.html' %}
+  {% endfor %}
+  <div class="d-flex justify-content-end align-items-center">
+    <div class="text-end h4">{% trans "Total" %}: &nbsp;&nbsp;</div>
+    <div class="text-end total-value">
+      <input 
+        class="form-control form-control-lg"
+        style="width: 8.2rem; text-align:right; margin-right: .5rem;"
+        value="{{ request.session.order.total_registers|floatformat:2 }}" 
+        readonly
+      />
+    </div>
+  </div>
 </div>

@@ -85,18 +85,7 @@ class EventDetail(LoginRequiredMixin, DetailView):
                 order__event=self.kwargs.get("pk"),
                 person__name__icontains=q if q else "",
             )
-            .values(
-                "person__name",
-                "lodge",
-                "order__id",
-                "arrival_time",
-                "departure_time",
-                "no_stairs",
-                "no_bunk",
-                "no_gluten",
-                "snorer",
-                "value",
-            )
+            .values("person__name", "order__id", "pk", "value")
             .order_by("person")
         )
 
@@ -112,10 +101,6 @@ class EventDetail(LoginRequiredMixin, DetailView):
         context["center_registers"] = Register.objects.filter(
             order__center=user_center, order__event=self.kwargs.get("pk")
         ).count()
-        context["arrivals"] = dict(ARRIVAL_TIME)
-        context["departures"] = dict(DEPARTURE_TIME)
-        context["lodges"] = dict(LODGE_TYPES)
-
         context["delete_link"] = reverse("event:delete", args=[self.object.pk])
         return context
 

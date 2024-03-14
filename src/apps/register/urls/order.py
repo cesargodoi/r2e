@@ -20,6 +20,11 @@ urlpatterns = [
         name="delete_order",
     ),
     path(
+        "<int:reg_id>/show_stay/",
+        views.show_stay,
+        name="show_stay",
+    ),
+    path(
         "<int:pk>/show_order/",
         views.show_order,
         name="show_order",

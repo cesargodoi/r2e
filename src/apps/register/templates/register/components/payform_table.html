@@ -1,6 +1,29 @@
 {% load i18n %}
-<div class="table-responsive table mt-2">
-  <table class="table table-sm">
+<div class="mt-2">
+  {% if request.session.order.payforms %}
+    {% for payf in request.session.order.payforms %}
+      {% include 'register/components/payform_row.html' %}
+    {% endfor %}
+    <div class="d-flex justify-content-end align-items-center">
+      <div class="text-end h4">{% trans "Total" %}: &nbsp;&nbsp;</div>
+      <div class="text-end total-value">
+        <input 
+          class="form-control form-control-lg"
+          style="width: 8.2rem; text-align:right; margin-right: .5rem;"
+          value="{{ request.session.order.total_payforms|floatformat:2 }}" 
+          readonly
+        />
+      </div>
+    </div>
+    {% if request.session.order.missing != 0 %}
+      <div class="text-center text-danger mt-4">
+        {% trans "Missing" %}: &nbsp;&nbsp;{{ request.session.order.missing|floatformat:2 }}
+      </div>
+    {% endif %}
+
+  {% endif %}
+
+  {% comment %} <table class="table table-sm">
     {% if request.session.order.payforms %}
       <thead>
         <tr>
@@ -39,5 +62,5 @@
       </tr>
       {% endif %}
     </tfoot>
-  </table>
+  </table> {% endcomment %}
 </div>
