@@ -19,7 +19,12 @@
           {% for obj in object_list %}
             <tr>
               <th>{{ forloop.counter }}</th>
-              <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
+              <td class="d-flex justify-content-between"">
+                <strong>{{ obj.person.name|shortname }}</strong>
+                {% if obj.person.birth|age <= 18 %}
+                  <span class="badge text-bg-secondary">{{ obj.person.birth|age }} {% trans "years" %}</span>
+                {% endif %}
+              </td>
               <td>
                 {% if obj.order.registers.all|length > 1 %}
                   <i class="bi bi-link"></i>

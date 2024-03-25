@@ -1,5 +1,6 @@
 import secrets
 from datetime import datetime
+from django.db.models import Q
 
 from ..models import BankFlag
 from apps.person.models import Person
@@ -28,14 +29,15 @@ def get_dict_register(person, stay, ref_value, alt_mapping, event_id=None):
     bedroom = ""
     if stay:
         _bedroom = stay.bedroom_alt if alt_mapping else stay.bedroom
+
+        query = Q(gender=person.gender) | Q(gender="X") & Q(
+            bedroom_id=_bedroom
+        )
         if event_id:
-            accommodations = Accommodation.objects.filter(
-                gender=person.gender, bedroom_id=_bedroom, event_id=event_id
-            )
-        else:
-            accommodations = Accommodation.objects.filter(
-                gender=person.gender, bedroom_id=_bedroom
-            )
+            query &= Q(event_id=event_id)
+
+        accommodations = Accommodation.objects.filter(query)
+
         bedroom = _bedroom if accommodations else ""
 
     return dict(
