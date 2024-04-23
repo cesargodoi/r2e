@@ -510,6 +510,7 @@ class ChangeStay(LoginRequiredMixin, View):
         person_stay = register.person.stays.get(
             stay_center=register.order.event.center
         )
+        person_stay.bedroom_type = "B" if data["no_bunk"] else "T"
         person_stay.snorer = data["snorer"]
         person_stay.save()
 
