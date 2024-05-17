@@ -114,5 +114,8 @@ poetry.toml
 settings.yaml
 .secrets.yaml
 
+src/scripts/
+*.ipynb
+
 *.xlsx
 *.csv
