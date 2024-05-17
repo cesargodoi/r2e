@@ -114,7 +114,7 @@ class Register(models.Model):
     staff = models.CharField(_("staff"), max_length=120, null=True, blank=True)
     value = models.DecimalField(_("value"), max_digits=7, decimal_places=2)
     observations = models.CharField(
-        _("observations"), max_length=250, null=True, blank=True
+        _("observations"), max_length=255, null=True, blank=True
     )
     is_active = models.BooleanField(default=True)
     created_on = models.DateTimeField(auto_now_add=True)

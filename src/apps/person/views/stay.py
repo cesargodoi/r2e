@@ -22,7 +22,26 @@ class StayCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):
     success_url = reverse_lazy("person:list")
 
     def form_valid(self, form):
+        # verifying if current stay already exists
+        person = Person.objects.get(pk=self.kwargs["person_id"])
+        form_data = form.cleaned_data
+        stay_center = form_data["stay_center"]
+        for stay in person.stays.all():
+            if stay_center == stay.stay_center:
+                stay.lodge = form_data["lodge"]
+                stay.arrival_time = form_data["arrival_time"]
+                stay.departure_time = form_data["departure_time"]
+                stay.take_meals = form_data["take_meals"]
+                stay.no_stairs = form_data["no_stairs"]
+                stay.no_bunk = form_data["no_bunk"]
+                stay.no_gluten = form_data["no_gluten"]
+                stay.staff.set(form_data["staff"])
+                stay.observations = form_data["observations"]
+                stay.save()
+                return HttpResponse(headers={"HX-Refresh": "true"})
+
         stay = form.save(commit=False)
+        stay.person = person
         stay.person = Person.objects.get(pk=self.kwargs["person_id"])
         stay.bedroom_type = get_bedroom_type(stay)
         stay.meals = get_meals(stay)
