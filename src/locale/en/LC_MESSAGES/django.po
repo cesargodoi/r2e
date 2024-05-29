@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-04 15:09-0300\n"
+"POT-Creation-Date: 2024-05-29 10:25-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -90,6 +90,10 @@ msgstr ""
 msgid "value"
 msgstr ""
 
+#: src/apps/base/templates/base/home.html:27 src/apps/register/models.py:144
+msgid "registers"
+msgstr ""
+
 #: src/apps/base/templates/base/menu_profile.html:8
 msgid "on"
 msgstr ""
@@ -120,7 +124,7 @@ msgstr ""
 #: src/apps/base/templates/base/sidebar_user.html:16
 #: src/apps/center/templates/center/components/events.html:4
 #: src/apps/event/templates/event/components/list_table.html:6
-#: src/apps/event/views/event.py:33
+#: src/apps/event/views/event.py:35
 msgid "Events"
 msgstr ""
 
@@ -130,7 +134,7 @@ msgstr ""
 msgid "People"
 msgstr ""
 
-#: src/apps/base/templates/base/sidebar.html:24 src/apps/base/views.py:19
+#: src/apps/base/templates/base/sidebar.html:24 src/apps/base/views.py:22
 msgid "Tools"
 msgstr ""
 
@@ -193,7 +197,7 @@ msgstr ""
 msgid "view another center as admin"
 msgstr ""
 
-#: src/apps/base/views.py:11
+#: src/apps/base/views.py:12
 msgid "Open Events"
 msgstr ""
 
@@ -285,6 +289,7 @@ msgstr ""
 #: src/apps/event/templates/event/activity/components/list_table.html:13
 #: src/apps/event/templates/event/reports/mapping_per_person.html:12
 #: src/apps/event/templates/event/reports/people_at_the_event.html:13
+#: src/apps/event/templates/event/reports/sos_contacts.html:13
 #: src/apps/person/templates/person/components/check_name.html:2
 #: src/apps/person/templates/person/components/list_table.html:14
 #: src/apps/person/templates/person/staff/components/list_table.html:14
@@ -347,6 +352,7 @@ msgstr ""
 
 #: src/apps/center/templates/center/building/components/list_table.html:15
 #: src/apps/center/templates/center/components/list_table.html:5
+#: src/apps/event/templates/event/reports/sos_contacts.html:14
 msgid "Center"
 msgstr ""
 
@@ -547,6 +553,7 @@ msgstr ""
 #: src/apps/event/templates/event/accommodation/bedroom_details.html:63
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:21
 #: src/apps/event/templates/event/accommodation/components/bedroom_mapping.html:49
+#: src/apps/event/templates/event/reports/payment_per_person.html:25
 #: src/apps/person/templates/person/components/detail_card.html:47
 #: src/apps/person/templates/person/components/list_table.html:40
 msgid "years"
@@ -567,6 +574,7 @@ msgstr ""
 
 #: src/apps/event/templates/event/accommodation/bedroom_details.html:85
 #: src/apps/register/templates/register/order_show.html:26
+#: src/apps/register/templates/register/stay_show.html:71
 msgid "Close"
 msgstr ""
 
@@ -688,13 +696,17 @@ msgid "People who cannot eat gluten"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:53
+msgid "SOS contacts"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:58
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:6
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:14
 #: src/apps/event/templates/event/components/navbar.html:72
 msgid "Actions"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:61
+#: src/apps/event/templates/event/accommodation/components/navbar.html:66
 msgid "View bedrooms"
 msgstr ""
 
@@ -718,7 +730,6 @@ msgstr ""
 #: src/apps/event/templates/event/accommodation/components/person_list.html:13
 #: src/apps/event/templates/event/components/register_list.html:15
 #: src/apps/event/templates/event/reports/payment_per_person.html:13
-#: src/apps/register/templates/register/components/register_table.html:7
 msgid "Person"
 msgstr ""
 
@@ -728,21 +739,21 @@ msgid "Housed in"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/person_list.html:15
-#: src/apps/event/templates/event/components/register_list.html:17
 #: src/apps/person/templates/person/components/registers.html:14
 #: src/apps/person/templates/person/components/stays.html:14
+#: src/apps/register/templates/register/stay_show.html:27
 msgid "Arrival"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/person_list.html:16
-#: src/apps/event/templates/event/components/register_list.html:18
 #: src/apps/event/templates/event/reports/people_at_the_event.html:16
 #: src/apps/person/templates/person/components/stays.html:15
+#: src/apps/register/templates/register/stay_show.html:31
 msgid "Departure"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/person_list.html:17
-#: src/apps/event/templates/event/components/register_list.html:19
+#: src/apps/register/templates/register/stay_show.html:36
 msgid "Restrictions"
 msgstr ""
 
@@ -775,7 +786,6 @@ msgstr ""
 #: src/apps/event/templates/event/reports/cash_balance.html:13
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:20
 #: src/apps/register/templates/register/components/detail_registers_payforms.html:21
-#: src/apps/register/templates/register/components/payform_table.html:8
 msgid "Type"
 msgstr ""
 
@@ -889,13 +899,6 @@ msgid "Total collected in the center"
 msgstr ""
 
 #: src/apps/event/templates/event/components/register_list.html:16
-#: src/apps/person/templates/person/components/registers.html:13
-#: src/apps/person/templates/person/components/stays.html:13
-#: src/r2e/commom.py:67
-msgid "Lodge"
-msgstr ""
-
-#: src/apps/event/templates/event/components/register_list.html:20
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:25
 #: src/apps/event/templates/event/reports/payment_per_person.html:15
 #: src/apps/person/templates/person/components/registers.html:15
@@ -907,8 +910,8 @@ msgid "Summary"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/cash_balance.html:14
-#: src/apps/register/templates/register/components/payform_table.html:22
-#: src/apps/register/templates/register/components/register_table.html:19
+#: src/apps/register/templates/register/components/payform_table.html:8
+#: src/apps/register/templates/register/components/register_table.html:7
 msgid "Total"
 msgstr ""
 
@@ -929,12 +932,13 @@ msgstr ""
 #: src/apps/event/templates/event/reports/cash_balance.html:50
 #: src/apps/event/templates/event/reports/mapping_by_room.html:51
 #: src/apps/event/templates/event/reports/mapping_per_person.html:43
-#: src/apps/event/templates/event/reports/payment_per_person.html:49
+#: src/apps/event/templates/event/reports/payment_per_person.html:54
 #: src/apps/event/templates/event/reports/people_at_the_event.html:48
-#: src/apps/event/templates/event/reports/people_per_aspect.html:18
+#: src/apps/event/templates/event/reports/people_per_aspect.html:19
 #: src/apps/event/templates/event/reports/people_per_meal.html:43
 #: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:43
-#: src/apps/event/templates/event/reports/staff.html:18
+#: src/apps/event/templates/event/reports/sos_contacts.html:32
+#: src/apps/event/templates/event/reports/staff.html:19
 #: src/apps/event/templates/event/reports/total_collected_in_the_center.html:42
 msgid "no data for this report"
 msgstr ""
@@ -1007,6 +1011,7 @@ msgid "Arrive"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/people_at_the_event.html:17
+#: src/apps/register/templates/register/stay_show.html:55
 msgid "Observations"
 msgstr ""
 
@@ -1023,6 +1028,18 @@ msgstr ""
 #: src/apps/event/templates/event/reports/people_per_meal.html:35
 #: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:35
 msgid "no people for this meal"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/sos_contacts.html:14
+msgid "City"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/sos_contacts.html:15
+msgid "SOS Contact"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/sos_contacts.html:16
+msgid "SOS Phone"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/total_collected_in_the_center.html:12
@@ -1053,7 +1070,7 @@ msgstr ""
 msgid "Changing Stay"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:528
+#: src/apps/event/views/accommodations.py:529
 msgid "Managing Staff"
 msgstr ""
 
@@ -1065,15 +1082,15 @@ msgstr ""
 msgid "Update Activity"
 msgstr ""
 
-#: src/apps/event/views/event.py:61
+#: src/apps/event/views/event.py:63
 msgid "Records management"
 msgstr ""
 
-#: src/apps/event/views/event.py:126
+#: src/apps/event/views/event.py:118
 msgid "Create Event"
 msgstr ""
 
-#: src/apps/event/views/event.py:143
+#: src/apps/event/views/event.py:136
 msgid "Update Event"
 msgstr ""
 
@@ -1111,6 +1128,10 @@ msgstr ""
 
 #: src/apps/event/views/reports.py:143
 msgid "People per Aspect"
+msgstr ""
+
+#: src/apps/event/views/reports.py:202
+msgid "SOS Contacts"
 msgstr ""
 
 #: src/apps/person/models.py:34
@@ -1218,12 +1239,17 @@ msgstr ""
 msgid "Age"
 msgstr ""
 
+#: src/apps/person/templates/person/components/registers.html:13
+#: src/apps/person/templates/person/components/stays.html:13
+#: src/apps/register/templates/register/stay_show.html:18 src/r2e/commom.py:67
+msgid "Lodge"
+msgstr ""
+
 #: src/apps/person/templates/person/components/stays.html:5
 msgid "Stays"
 msgstr ""
 
 #: src/apps/person/templates/person/components/stays.html:12
-#: src/apps/register/templates/register/components/register_table.html:8
 msgid "Stay"
 msgstr ""
 
@@ -1265,7 +1291,7 @@ msgstr ""
 msgid "Create a new Stay"
 msgstr ""
 
-#: src/apps/person/views/stay.py:39
+#: src/apps/person/views/stay.py:58
 msgid "Update Stay"
 msgstr ""
 
@@ -1302,10 +1328,6 @@ msgstr ""
 msgid "register"
 msgstr ""
 
-#: src/apps/register/models.py:144
-msgid "registers"
-msgstr ""
-
 #: src/apps/register/models.py:163
 msgid "payment type"
 msgstr ""
@@ -1329,8 +1351,6 @@ msgstr ""
 
 #: src/apps/register/templates/register/components/detail_registers_payforms.html:7
 #: src/apps/register/templates/register/components/detail_registers_payforms.html:23
-#: src/apps/register/templates/register/components/payform_table.html:10
-#: src/apps/register/templates/register/components/register_table.html:9
 msgid "Value R$"
 msgstr ""
 
@@ -1347,15 +1367,11 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: src/apps/register/templates/register/components/payform_table.html:9
-msgid "Detail"
-msgstr ""
-
-#: src/apps/register/templates/register/components/payform_table.html:35
+#: src/apps/register/templates/register/components/payform_table.html:20
 msgid "Missing"
 msgstr ""
 
-#: src/apps/register/templates/register/components/register_row.html:29
+#: src/apps/register/templates/register/components/register_row.html:47
 msgid "Please, enter a stay."
 msgstr ""
 
@@ -1375,6 +1391,10 @@ msgstr ""
 msgid "Order Detail"
 msgstr ""
 
+#: src/apps/register/templates/register/stay_show.html:4
+msgid "Stay Detail"
+msgstr ""
+
 #: src/apps/register/views/bankflag.py:36
 msgid "Create Bank or Flag"
 msgstr ""
@@ -1387,15 +1407,15 @@ msgstr ""
 msgid "Create Order"
 msgstr ""
 
-#: src/apps/register/views/order.py:83
+#: src/apps/register/views/order.py:88
 msgid "Update Order"
 msgstr ""
 
-#: src/apps/register/views/order.py:130
+#: src/apps/register/views/order.py:135
 msgid "Delete Order"
 msgstr ""
 
-#: src/apps/register/views/order.py:318
+#: src/apps/register/views/order.py:323
 msgid "Add Form of Payment"
 msgstr ""
 

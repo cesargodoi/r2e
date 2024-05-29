@@ -54,4 +54,9 @@ urlpatterns += [
         views.PeopleWhoCannotEatGluten.as_view(),
         name="report_people_who_cannot_eat_gluten",
     ),
+    path(
+        "<int:pk>/report/sos-contacts/",
+        views.SOSContacts.as_view(),
+        name="sos_contacts",
+    ),
 ]
