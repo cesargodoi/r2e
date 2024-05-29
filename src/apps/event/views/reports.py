@@ -197,6 +197,11 @@ class Staff(ReportByRegister):
         return context
 
 
+class SOSContacts(ReportByRegister):
+    template_name = "event/reports/sos_contacts.html"
+    extra_context = {"title": _("SOS Contacts")}
+
+
 #  helpers
 def get_people_per_meal(registers):
     meals = [[MEALS[meal], 0, []] for meal in MEALS]

@@ -48,6 +48,11 @@
               <i class="bi bi-file-earmark-ruled"></i> {% trans "Staff" %}
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:sos_contacts' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans "SOS contacts" %}
+            </a>
+          </li>
         </ul>
         <br>
         <h5 class="offcanvas-title mb-3 border-bottom">{% trans "Actions" %}</h5>
