@@ -1,0 +1,24 @@
+{% extends 'base/base_report.html' %}
+{% load static %}
+{% load i18n %}
+{% load my_tags %}
+
+{% block content %}
+  {% if aspect_list %}
+    {% with aspect="" %}
+      {% for row in aspect_list %}
+        {% ifchanged row.aspect %}
+          {% with aspect=row.aspect %}
+            <h4 class="mt-4 fw-bolder border-bottom">
+              {{ aspects|get_item:aspect }} &nbsp;&nbsp;
+              <small class="fw-lighter fst-italic">{% trans "total subscribers" %}: {{totals|get_item:aspect}}</small>
+            </h4>
+          {% endwith %}
+        {% endifchanged %}
+        &nbsp;&nbsp;&nbsp; <span class="fs-6"><i class="bi bi-square"></i>&nbsp; {{ row.person }}</span><br>
+      {% endfor %}
+    {% endwith %}
+  {% else %}
+    <div class="h5 p-1 text-center">{% trans "no data for this report" %}</div>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base/base_report.html' %}
+{% load i18n %}
+{% load static %}
+{% load my_tags %}
+
+{% block content %}
+  {% if centers %}
+    <div class="mt-4 mb-4">
+      {% for item in centers %}
+        <div class="pt-4 mb-4">
+          <div class="d-flex justify-content-between border-bottom">
+            <span class="h4">{{ item.center }}</span>
+            <h4>{% trans "$" %} {{ item.total }}</h4>
+          </div>
+          <div class="row">
+            <div class="col d-flex justify-content-between pt-2">
+              <div class="h6">{% trans "children and exempt" %}: &nbsp;<span class="h5">{{ item.free }}</span></div>
+            </div>
+            <div class="col d-flex justify-content-between pt-2">
+              <div class="h6">{% trans "from 12 to 18 years old" %}: &nbsp;<span class="h5">{{ item.half }}</span></div>
+              {% if item.total_half %}<div class="h5"><span class="badge bg-secondary">{% trans "$" %} {{ item.total_half }}</span></div>{% endif %}
+            </div>
+            <div class="col d-flex justify-content-between pt-2">
+              <div class="h6">{% trans "over 18 years old" %}: &nbsp;<span class="h5">{{ item.full }}</span></div>
+              {% if item.total_full %}<div class="h5"><span class="badge bg-secondary">{% trans "$" %} {{ item.total_full }}</span></div>{% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <div class="d-flex justify-content-end">
+        <h2 class="mt-4">Total: &nbsp;&nbsp;&nbsp;{% trans "$" %} {{ total }}</h2>
+      </div>
+    </div>
+  {% else %}
+    <div class="h5 p-1 text-center">{% trans "no data for this report" %}</div>
+  {% endif %}
+{% endblock %}

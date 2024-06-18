@@ -159,6 +159,30 @@ class PeoplePerAspect(ReportByRegister):
         return context
 
 
+class GoldenHead(ReportByRegister):
+    template_name = "event/reports/golden_head.html"
+    extra_context = {"title": _("Golden Head pupils")}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        aspect_list = []
+        aspects = dict(ASPECTS)
+        totals = {"A5": 0, "A6": 0}
+        for item in self.object_list.filter(
+            person__aspect__in=["A5", "A6"]
+        ).order_by("person__aspect", "person__name"):
+            for aspect in aspects:
+                if item.person.aspect == aspect:
+                    totals[aspect] += 1
+                    aspect_list.append(
+                        {"aspect": aspect, "person": item.person.name}
+                    )
+        context["aspects"] = aspects
+        context["aspect_list"] = aspect_list
+        context["totals"] = totals
+        return context
+
+
 class PeoplePerMeal(ReportByRegister):
     template_name = "event/reports/people_per_meal.html"
     extra_context = {"title": _("People per meal")}
@@ -202,6 +226,56 @@ class SOSContacts(ReportByRegister):
     extra_context = {"title": _("SOS Contacts")}
 
 
+class TotalCollectedByCenters(ReportByRegister):
+    template_name = "event/reports/total_collected_by_centers.html"
+    extra_context = {"title": _("Total collected by centers")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.order_by("order__center")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        tax = self.object_list[0].order.event.min_value
+        payers = get_payers(self.object_list, full=True)
+
+        centers, center, center_name = [], {}, ""
+
+        for n, payer in enumerate(payers):
+            if center_name != payer["center"]:
+                center_name = payer["center"]
+                if center and center.get("center") != center_name:
+                    centers.append(center)
+
+                center = {
+                    "center": center_name,
+                    "free": 0,
+                    "half": 0,
+                    "full": 0,
+                }
+
+            match payer["pg_type"]:
+                case "free":
+                    center["free"] += 1
+                case "half":
+                    center["half"] += 1
+                case "full":
+                    center["full"] += 1
+
+            if len(payers) == n + 1:
+                centers.append(center)
+
+        for cent in centers:
+            cent["total_free"] = Decimal(0.00)
+            cent["total_half"] = tax / 2 * cent["half"]
+            cent["total_full"] = tax * cent["full"]
+            cent["total"] = (tax / 2 * cent["half"]) + (tax * cent["full"])
+
+        context["centers"] = centers
+        context["total"] = sum([cnt["total"] for cnt in centers])
+        return context
+
+
 #  helpers
 def get_people_per_meal(registers):
     meals = [[MEALS[meal], 0, []] for meal in MEALS]
@@ -238,6 +312,7 @@ def get_payers_by_type(records):
     for payer in sorted(payers, key=lambda x: x["pg_type"]):
         if payer["pg_type"] != pg_type:
             pg_type = payer["pg_type"]
+
             _payers = [x for x in payers if x["pg_type"] == pg_type]
             dict_payers = dict(pg_type=pg_type)
             dict_payers["payers"] = [
@@ -249,13 +324,15 @@ def get_payers_by_type(records):
                 dict_payers["payed"] - dict_payers["expected"]
             )
             payers_by_type.append(dict_payers)
+
     return payers_by_type
 
 
-def get_payers(records):
+def get_payers(records, full=False):
     payers = []
     for r in records:
-        pg_type = payer_type(get_age(r.person.birth), r.value)
+        age = get_age(r.person.birth)
+        pg_type = payer_type(age, r.value)
         match pg_type:
             case "free":
                 expected = Decimal(0.00)
@@ -263,23 +340,27 @@ def get_payers(records):
                 expected = r.order.event.min_value / 2
             case "full":
                 expected = r.order.event.min_value
+
         payer = dict(
-            person=r.person.name,
-            age=get_age(r.person.birth),
+            center=f"{r.order.center.name}",
             pg_type=pg_type,
             expected=expected,
-            payed=r.value,
         )
+        if not full:
+            payer["person"] = r.person.name
+            payer["age"] = age
+            payer["payed"] = r.value
+
         payers.append(payer)
     return payers
 
 
 def payer_type(age, payed):
-    if (not age or age >= 18) and payed == 0.0 or age < 7:
+    if (not age or age > 18) and payed == 0.0 or age < 12:
         return "free"
     elif not age or age >= 18:
         return "full"
-    elif age >= 7 and age < 18:
+    elif age >= 12 and age < 18:
         return "half"
 
 
