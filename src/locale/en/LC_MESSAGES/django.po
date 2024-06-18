@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-29 10:25-0300\n"
+"POT-Creation-Date: 2024-06-18 07:27-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -174,11 +174,11 @@ msgid "manage activities"
 msgstr ""
 
 #: src/apps/base/templates/base/tools.html:56
-#: src/apps/event/templates/event/accommodation/components/navbar.html:48
+#: src/apps/event/templates/event/accommodation/components/navbar.html:53
 #: src/apps/event/templates/event/accommodation/components/person_list.html:20
 #: src/apps/event/templates/event/reports/mapping_per_person.html:14
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:187
+#: src/apps/event/views/reports.py:211
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -687,26 +687,36 @@ msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:38
 #: src/apps/event/views/reports.py:164
-msgid "People per meal"
+msgid "Golden Head pupils"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:43
-#: src/apps/event/views/reports.py:174
+#: src/apps/event/views/reports.py:188
+msgid "People per meal"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:48
+#: src/apps/event/views/reports.py:198
 msgid "People who cannot eat gluten"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:53
+#: src/apps/event/templates/event/accommodation/components/navbar.html:58
 msgid "SOS contacts"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:58
+#: src/apps/event/templates/event/accommodation/components/navbar.html:63
+#: src/apps/event/views/reports.py:231
+msgid "Total collected by centers"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/navbar.html:68
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:6
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:14
 #: src/apps/event/templates/event/components/navbar.html:72
 msgid "Actions"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/navbar.html:66
+#: src/apps/event/templates/event/accommodation/components/navbar.html:76
 msgid "View bedrooms"
 msgstr ""
 
@@ -930,6 +940,7 @@ msgid "Pending"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/cash_balance.html:50
+#: src/apps/event/templates/event/reports/golden_head.html:22
 #: src/apps/event/templates/event/reports/mapping_by_room.html:51
 #: src/apps/event/templates/event/reports/mapping_per_person.html:43
 #: src/apps/event/templates/event/reports/payment_per_person.html:54
@@ -939,6 +950,7 @@ msgstr ""
 #: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:43
 #: src/apps/event/templates/event/reports/sos_contacts.html:32
 #: src/apps/event/templates/event/reports/staff.html:19
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:35
 #: src/apps/event/templates/event/reports/total_collected_in_the_center.html:42
 msgid "no data for this report"
 msgstr ""
@@ -967,6 +979,10 @@ msgstr ""
 
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:24
 msgid "On"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/golden_head.html:14
+msgid "total subscribers"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/mapping_by_room.html:20
@@ -1040,6 +1056,25 @@ msgstr ""
 
 #: src/apps/event/templates/event/reports/sos_contacts.html:16
 msgid "SOS Phone"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:13
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:21
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:25
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:31
+msgid "$"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:17
+msgid "children and exempt"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:20
+msgid "from 12 to 18 years old"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/total_collected_by_centers.html:24
+msgid "over 18 years old"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/total_collected_in_the_center.html:12
@@ -1130,7 +1165,7 @@ msgstr ""
 msgid "People per Aspect"
 msgstr ""
 
-#: src/apps/event/views/reports.py:202
+#: src/apps/event/views/reports.py:226
 msgid "SOS Contacts"
 msgstr ""
 

@@ -34,6 +34,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:reports_golden_head' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans "Golden Head pupils" %}
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'event:report_people_per_meal' event.pk %}" target="_blank">
               <i class="bi bi-file-earmark-ruled"></i> {% trans "People per meal" %}
             </a>
@@ -49,8 +54,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{% url 'event:sos_contacts' event.pk %}" target="_blank">
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_sos_contacts' event.pk %}" target="_blank">
               <i class="bi bi-file-earmark-ruled"></i> {% trans "SOS contacts" %}
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_total_collected_by_centers' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans "Total collected by centers" %}
             </a>
           </li>
         </ul>
