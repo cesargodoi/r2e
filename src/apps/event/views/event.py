@@ -40,6 +40,7 @@ class EventList(LoginRequiredMixin, ListView):
             queryset.select_related("created_by", "modified_by")
             .filter(is_active=True)
             .annotate(registers=Count("orders__registers"))
+            .order_by("-date")
         )
 
         if self.request.GET.get("q"):
