@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-18 07:27-0300\n"
+"POT-Creation-Date: 2024-07-01 13:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -624,24 +624,28 @@ msgid "Choose a building"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/event_card.html:12
+msgid "Latests"
+msgstr ""
+
+#: src/apps/event/templates/event/accommodation/components/event_card.html:20
 msgid "Registered"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:23
+#: src/apps/event/templates/event/accommodation/components/event_card.html:31
 msgid "Allocated"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:34
+#: src/apps/event/templates/event/accommodation/components/event_card.html:42
 #: src/apps/event/templates/event/reports/people_at_the_event.html:35
 msgid "Unallocated"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:45
+#: src/apps/event/templates/event/accommodation/components/event_card.html:53
 #: src/r2e/commom.py:67
 msgid "House"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:56
+#: src/apps/event/templates/event/accommodation/components/event_card.html:64
 #: src/r2e/commom.py:67
 msgid "Hotel"
 msgstr ""
@@ -1093,19 +1097,19 @@ msgstr ""
 msgid "Difference"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:68
+#: src/apps/event/views/accommodations.py:69
 msgid "Accommodation management"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:116
+#: src/apps/event/views/accommodations.py:117
 msgid "Bedrooms on event"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:491
+#: src/apps/event/views/accommodations.py:492
 msgid "Changing Stay"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:529
+#: src/apps/event/views/accommodations.py:530
 msgid "Managing Staff"
 msgstr ""
 
@@ -1117,15 +1121,15 @@ msgstr ""
 msgid "Update Activity"
 msgstr ""
 
-#: src/apps/event/views/event.py:63
+#: src/apps/event/views/event.py:64
 msgid "Records management"
 msgstr ""
 
-#: src/apps/event/views/event.py:118
+#: src/apps/event/views/event.py:119
 msgid "Create Event"
 msgstr ""
 
-#: src/apps/event/views/event.py:136
+#: src/apps/event/views/event.py:137
 msgid "Update Event"
 msgstr ""
 

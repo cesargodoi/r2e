@@ -53,8 +53,9 @@ class Accommodations(
             self.object.pk,
             q=self.request.GET.get("q"),
         )
-
-        if self.request.GET.get("filter") in ["HSE", "HTL"]:
+        if self.request.GET.get("filter") == "lts":
+            queryset = queryset.order_by("-updated_on")
+        elif self.request.GET.get("filter") in ["HSE", "HTL"]:
             queryset = queryset.filter(lodge=self.request.GET.get("filter"))
         elif self.request.GET.get("filter") == "alloc":
             queryset = queryset.filter(
