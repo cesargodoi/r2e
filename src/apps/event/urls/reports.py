@@ -20,6 +20,11 @@ urlpatterns += [
         name="report_total_collected_in_the_center",
     ),
     path(
+        "<int:pk>/report/emergency-contacts/",
+        views.EmergencyContacts.as_view(),
+        name="emergency_contacts",
+    ),
+    path(
         "<int:pk>/report/mapping_by_room/",
         views.MappingByRoom.as_view(),
         name="report_mapping_by_room",

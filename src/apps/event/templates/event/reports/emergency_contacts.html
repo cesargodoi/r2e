@@ -10,10 +10,10 @@
         <thead>
           <tr>
             <th scope="col" width="2%">#</th>
-            <th scope="col" width="25%">{% trans "Name" %}</th>
-            <th scope="col" width="25%">{% trans "City" %} / {% trans "Center" %}</th>
-            <th scope="col" width="36%">{% trans "SOS Contact" %}</th>
-            <th scope="col" width="12%" class="text-end">{% trans "SOS Phone" %}</th>
+            <th scope="col" width="20%">{% trans "Name" %}</th>
+            <th scope="col" width="15%">{% trans "City" %}</th>
+            <th scope="col" width="25%">{% trans "SOS Phone / Contact" %}</th>
+            <th scope="col" width="38%">{% trans "OBS" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -21,9 +21,11 @@
             <tr>
               <th>{{ forloop.counter }}</th>
               <td class="fw-bolder">{{ obj.person.name|shortname }}</td>
-              <td>{{ obj.person.city }} ({{ obj.person.state }}) / {{ obj.person.center }}</td>
-              <td>{% if obj.person.sos_contact %}{{ obj.person.sos_contact }}{% endif %}</td>
-              <td class="text-end">{% if obj.person.sos_phone %}{{ obj.person.sos_phone|local_phone }}{% endif %}</td>
+              <td>{{ obj.person.city }} ({{ obj.person.state }})</td>
+              <td>
+                {% if obj.person.sos_phone %}{{ obj.person.sos_phone|local_phone }}{% endif %}
+                {% if obj.person.sos_contact %} / {{ obj.person.sos_contact|truncatechars:20 }}{% endif %}</td>
+              <td>{% if obj.observations %}{{ obj.observations }}{% endif %}</td>
             </tr>
           {% endfor %}
         </tbody>

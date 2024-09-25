@@ -123,6 +123,15 @@ class TotalCollectedInTheCenter(ReportByRegister):
         return context
 
 
+class EmergencyContacts(ReportByRegister):
+    template_name = "event/reports/emergency_contacts.html"
+    extra_context = {"title": _("Emergency contacts")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(order__center=self.request.user.person.center)
+
+
 class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": _("Mapping of Accommodations")}
@@ -276,7 +285,7 @@ class TotalCollectedByCenters(ReportByRegister):
         return context
 
 
-#  helpers
+#  helpers  ###################################################################
 def get_people_per_meal(registers):
     meals = [[MEALS[meal], 0, []] for meal in MEALS]
     _extras = list(EXTRA_MEALS.keys())

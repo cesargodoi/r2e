@@ -1,4 +1,6 @@
 import re
+import phonenumbers
+
 from unicodedata import normalize
 from django.utils.translation import gettext_lazy as _
 from django.core.paginator import Paginator
@@ -194,28 +196,45 @@ def short_name(name):
     return " ".join(to_join)
 
 
-def phone_format(num, country="BR"):
-    num = (
-        "+{}".format("".join(re.findall(r"\d", num)))
-        if num.startswith("+")
-        else "".join(re.findall(r"\d", num))
-    )
-    if not num:
-        return ""
-    if country == "BR":
-        if num.startswith("+"):
-            num = (
-                f"+{num[1:3]} {num[3:5]} {num[5:10]}-{num[10:]}"
-                if len(num) == 14
-                else f"+{num[1:3]} {num[3:5]} {num[5:9]}-{num[9:]}"
-            )
-        elif len(num) in (10, 11):
-            num = (
-                f"+55 {num[:2]} {num[2:7]}-{num[7:]}"
-                if len(num) == 11
-                else f"+55 {num[:2]} {num[2:6]}-{num[6:]}"
-            )
-    return num
+def phone_format(number, country="BR"):
+    phone = PhoneBR(number)
+    if phone.is_valid():
+        return phone.format("int")
+    else:
+        return number
+
+
+class PhoneBR:
+    def __init__(self, number):
+        try:
+            self.number = phonenumbers.parse(number, "BR")
+        except phonenumbers.NumberParseException as e:
+            print(f"Erro ao parsear o número {number}: {e}")
+            self.number = None
+
+    def is_valid(self):
+        if self.number is None:
+            return False
+        return phonenumbers.is_valid_number(self.number)
+
+    def format(self, format):
+        if self.number is None:
+            return "---"
+        match format:
+            case "nat":
+                return phonenumbers.format_number(
+                    self.number, phonenumbers.PhoneNumberFormat.NATIONAL
+                )
+            case "int":
+                return phonenumbers.format_number(
+                    self.number, phonenumbers.PhoneNumberFormat.INTERNATIONAL
+                )
+            case "e164":
+                return phonenumbers.format_number(
+                    self.number, phonenumbers.PhoneNumberFormat.E164
+                )
+            case _:
+                return "---"
 
 
 def clear_session(request, items):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-01 13:20-0300\n"
+"POT-Creation-Date: 2024-09-25 09:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,7 +178,7 @@ msgstr ""
 #: src/apps/event/templates/event/accommodation/components/person_list.html:20
 #: src/apps/event/templates/event/reports/mapping_per_person.html:14
 #: src/apps/event/templates/event/reports/people_at_the_event.html:18
-#: src/apps/event/views/reports.py:211
+#: src/apps/event/views/reports.py:220
 #: src/apps/person/templates/person/components/stays.html:17
 #: src/apps/person/templates/person/staff/components/list_table.html:6
 #: src/apps/person/views/staff.py:16
@@ -287,6 +287,7 @@ msgstr ""
 #: src/apps/center/templates/center/building/components/list_table.html:14
 #: src/apps/center/templates/center/components/list_table.html:13
 #: src/apps/event/templates/event/activity/components/list_table.html:13
+#: src/apps/event/templates/event/reports/emergency_contacts.html:13
 #: src/apps/event/templates/event/reports/mapping_per_person.html:12
 #: src/apps/event/templates/event/reports/people_at_the_event.html:13
 #: src/apps/event/templates/event/reports/sos_contacts.html:13
@@ -343,7 +344,7 @@ msgstr ""
 #: src/apps/center/templates/center/components/detail_card.html:46
 #: src/apps/event/templates/event/activity/components/list_table.html:35
 #: src/apps/event/templates/event/activity/components/table.html:24
-#: src/apps/event/templates/event/components/navbar.html:90
+#: src/apps/event/templates/event/components/navbar.html:95
 #: src/apps/person/templates/person/components/detail_card.html:65
 #: src/apps/person/templates/person/staff/components/list_table.html:34
 #: src/apps/register/templates/register/bankflag/components/list_table.html:34
@@ -690,17 +691,17 @@ msgid "People per aspect"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:38
-#: src/apps/event/views/reports.py:164
+#: src/apps/event/views/reports.py:173
 msgid "Golden Head pupils"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:43
-#: src/apps/event/views/reports.py:188
+#: src/apps/event/views/reports.py:197
 msgid "People per meal"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:48
-#: src/apps/event/views/reports.py:198
+#: src/apps/event/views/reports.py:207
 msgid "People who cannot eat gluten"
 msgstr ""
 
@@ -709,14 +710,14 @@ msgid "SOS contacts"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:63
-#: src/apps/event/views/reports.py:231
+#: src/apps/event/views/reports.py:240
 msgid "Total collected by centers"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/navbar.html:68
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:6
 #: src/apps/event/templates/event/accommodation/components/navbar_bedrooms.html:14
-#: src/apps/event/templates/event/components/navbar.html:72
+#: src/apps/event/templates/event/components/navbar.html:77
 msgid "Actions"
 msgstr ""
 
@@ -737,7 +738,7 @@ msgid "EVENT"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/person_list.html:5
-#: src/apps/event/templates/event/components/navbar.html:80
+#: src/apps/event/templates/event/components/navbar.html:85
 msgid "Accommodations"
 msgstr ""
 
@@ -912,6 +913,11 @@ msgstr ""
 msgid "Total collected in the center"
 msgstr ""
 
+#: src/apps/event/templates/event/components/navbar.html:71
+#: src/apps/event/views/reports.py:128
+msgid "Emergency contacts"
+msgstr ""
+
 #: src/apps/event/templates/event/components/register_list.html:16
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:25
 #: src/apps/event/templates/event/reports/payment_per_person.html:15
@@ -944,6 +950,7 @@ msgid "Pending"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/cash_balance.html:50
+#: src/apps/event/templates/event/reports/emergency_contacts.html:34
 #: src/apps/event/templates/event/reports/golden_head.html:22
 #: src/apps/event/templates/event/reports/mapping_by_room.html:51
 #: src/apps/event/templates/event/reports/mapping_per_person.html:43
@@ -983,6 +990,19 @@ msgstr ""
 
 #: src/apps/event/templates/event/reports/components/cash_balance_table.html:24
 msgid "On"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/emergency_contacts.html:14
+#: src/apps/event/templates/event/reports/sos_contacts.html:14
+msgid "City"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/emergency_contacts.html:15
+msgid "SOS Phone / Contact"
+msgstr ""
+
+#: src/apps/event/templates/event/reports/emergency_contacts.html:16
+msgid "OBS"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/golden_head.html:14
@@ -1048,10 +1068,6 @@ msgstr ""
 #: src/apps/event/templates/event/reports/people_per_meal.html:35
 #: src/apps/event/templates/event/reports/people_who_cannot_eat_gluten.html:35
 msgid "no people for this meal"
-msgstr ""
-
-#: src/apps/event/templates/event/reports/sos_contacts.html:14
-msgid "City"
 msgstr ""
 
 #: src/apps/event/templates/event/reports/sos_contacts.html:15
@@ -1153,23 +1169,23 @@ msgstr ""
 msgid "Payment per Person"
 msgstr ""
 
-#: src/apps/event/views/reports.py:128
+#: src/apps/event/views/reports.py:137
 msgid "Mapping of Accommodations"
 msgstr ""
 
-#: src/apps/event/views/reports.py:133
+#: src/apps/event/views/reports.py:142
 msgid "Mapping per Person"
 msgstr ""
 
-#: src/apps/event/views/reports.py:138
+#: src/apps/event/views/reports.py:147
 msgid "People at the Event"
 msgstr ""
 
-#: src/apps/event/views/reports.py:143
+#: src/apps/event/views/reports.py:152
 msgid "People per Aspect"
 msgstr ""
 
-#: src/apps/event/views/reports.py:226
+#: src/apps/event/views/reports.py:235
 msgid "SOS Contacts"
 msgstr ""
 
