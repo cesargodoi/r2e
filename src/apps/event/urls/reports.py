@@ -50,6 +50,11 @@ urlpatterns += [
         name="report_people_per_aspect",
     ),
     path(
+        "<int:pk>/report/new-pupils-per-center/",
+        views.NewPupilsPerCenter.as_view(),
+        name="report_new_pupils_per_center",
+    ),
+    path(
         "<int:pk>/report/golden-head/",
         views.GoldenHead.as_view(),
         name="reports_golden_head",

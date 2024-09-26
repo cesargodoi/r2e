@@ -168,6 +168,38 @@ class PeoplePerAspect(ReportByRegister):
         return context
 
 
+class NewPupilsPerCenter(ReportByRegister):
+    template_name = "event/reports/new_pupils_per_center.html"
+    extra_context = {"title": _("New pupils per center")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(person__aspect__in=["21", "A1"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_pupils_per_center = []
+        aspects = dict(ASPECTS)
+        for item in self.object_list.order_by(
+            "person__center", "person__aspect", "person__name"
+        ):
+            for aspect in aspects:
+                if item.person.aspect == aspect:
+                    new_pupils_per_center.append(
+                        {
+                            "center": "{} ({})".format(
+                                item.person.center.name,
+                                item.person.center.country,
+                            ),
+                            "aspect": aspects[aspect],
+                            "aspect_id": aspect,
+                            "person": item.person.name,
+                        }
+                    )
+        context["new_pupils_per_center"] = new_pupils_per_center
+        return context
+
+
 class GoldenHead(ReportByRegister):
     template_name = "event/reports/golden_head.html"
     extra_context = {"title": _("Golden Head pupils")}

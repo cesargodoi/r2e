@@ -1,0 +1,26 @@
+{% extends 'base/base_report.html' %}
+{% load static %}
+{% load i18n %}
+{% load my_tags %}
+
+{% block content %}
+  {% if new_pupils_per_center %}
+    {% with center="" %}
+      {% for row in new_pupils_per_center %}
+        {% ifchanged row.center %}
+          {% with center=row.center %}
+            <br>
+            <h5 class="mt-4 fw-bolder border-bottom border-dark">{{ row.center }}</h5>
+          {% endwith %}
+        {% endifchanged %}
+        <div class="row fs-6 {% if row.aspect_id == '21' %}text-primary{% endif %}">
+          <div class="col fw-bold ps-4">▪️ {{ row.person }}</div>
+          <div class="col fw-bold">{{ row.aspect }}</div>
+        </div>
+      {% endfor %}
+    {% endwith %}
+    <br>
+  {% else %}
+    <div class="h5 p-1 text-center">{% trans "no data for this report" %}</div>
+  {% endif %}
+{% endblock %}
