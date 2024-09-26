@@ -20,6 +20,11 @@ urlpatterns += [
         name="report_total_collected_in_the_center",
     ),
     path(
+        "<int:pk>/report/emergency-contacts/",
+        views.EmergencyContacts.as_view(),
+        name="emergency_contacts",
+    ),
+    path(
         "<int:pk>/report/mapping_by_room/",
         views.MappingByRoom.as_view(),
         name="report_mapping_by_room",
@@ -43,6 +48,11 @@ urlpatterns += [
         "<int:pk>/report/people-per-aspect/",
         views.PeoplePerAspect.as_view(),
         name="report_people_per_aspect",
+    ),
+    path(
+        "<int:pk>/report/new-pupils-per-center/",
+        views.NewPupilsPerCenter.as_view(),
+        name="report_new_pupils_per_center",
     ),
     path(
         "<int:pk>/report/golden-head/",

@@ -53,3 +53,12 @@ def get_item(dictionary, key):
 @register.filter(name="get_abs")
 def get_abs(num):
     return abs(num)
+
+
+@register.filter(name="local_phone")
+def local_phone(phone):
+    if phone.startswith("+55"):
+        return phone.replace("+55", "").strip()
+    if phone.startswith("55"):
+        return phone.replace("55", "").strip()
+    return phone

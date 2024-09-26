@@ -123,6 +123,15 @@ class TotalCollectedInTheCenter(ReportByRegister):
         return context
 
 
+class EmergencyContacts(ReportByRegister):
+    template_name = "event/reports/emergency_contacts.html"
+    extra_context = {"title": _("Emergency contacts")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(order__center=self.request.user.person.center)
+
+
 class MappingByRoom(ReportByAccommodation):
     template_name = "event/reports/mapping_by_room.html"
     extra_context = {"title": _("Mapping of Accommodations")}
@@ -156,6 +165,38 @@ class PeoplePerAspect(ReportByRegister):
                     )
         context["aspect_list"] = aspect_list
         # sorted(aspect_list, key=lambda x: x["aspect"])
+        return context
+
+
+class NewPupilsPerCenter(ReportByRegister):
+    template_name = "event/reports/new_pupils_per_center.html"
+    extra_context = {"title": _("New pupils per center")}
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(person__aspect__in=["21", "A1"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        new_pupils_per_center = []
+        aspects = dict(ASPECTS)
+        for item in self.object_list.order_by(
+            "person__center", "person__aspect", "person__name"
+        ):
+            for aspect in aspects:
+                if item.person.aspect == aspect:
+                    new_pupils_per_center.append(
+                        {
+                            "center": "{} ({})".format(
+                                item.person.center.name,
+                                item.person.center.country,
+                            ),
+                            "aspect": aspects[aspect],
+                            "aspect_id": aspect,
+                            "person": item.person.name,
+                        }
+                    )
+        context["new_pupils_per_center"] = new_pupils_per_center
         return context
 
 
@@ -276,7 +317,7 @@ class TotalCollectedByCenters(ReportByRegister):
         return context
 
 
-#  helpers
+#  helpers  ###################################################################
 def get_people_per_meal(registers):
     meals = [[MEALS[meal], 0, []] for meal in MEALS]
     _extras = list(EXTRA_MEALS.keys())

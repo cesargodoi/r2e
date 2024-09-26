@@ -66,6 +66,11 @@
               <i class="bi bi-file-earmark-ruled"></i> {% trans 'Total collected in the center' %}
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:emergency_contacts' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans 'Emergency contacts' %}
+            </a>
+          </li>
         </ul>
         <br>
         {% if user|same_center:object.center_id %}
