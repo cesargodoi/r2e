@@ -1,7 +1,7 @@
 from django.urls import path
-from .order import urlpatterns
-from .. import views
 
+from .. import views
+from .order import urlpatterns
 
 urlpatterns += [
     path("bankflag/list/", views.BankFlagList.as_view(), name="bankflag_list"),

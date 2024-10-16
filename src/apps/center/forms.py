@@ -1,5 +1,6 @@
 from django import forms
-from .models import Center, Building, Bedroom
+
+from .models import Bedroom, Building, Center
 
 
 class CenterForm(forms.ModelForm):

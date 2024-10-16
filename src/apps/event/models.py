@@ -1,14 +1,14 @@
-from django.urls import reverse
-from django.db import models
 from django.conf import settings
+from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from apps.center.models import Center
 from r2e.commom import (
     ACTIVITY_TYPES,
-    EVENT_STATUS,
     BEDROOM_GENDER,
     BEDROOM_TYPE,
+    EVENT_STATUS,
 )
 
 

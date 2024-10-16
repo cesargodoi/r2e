@@ -1,11 +1,9 @@
-import re
-import phonenumbers
-
-from unicodedata import normalize
-from django.utils.translation import gettext_lazy as _
-from django.core.paginator import Paginator
 from datetime import date
+from unicodedata import normalize
 
+import phonenumbers
+from django.core.paginator import Paginator
+from django.utils.translation import gettext_lazy as _
 
 COUNTRIES_CHOICES = [
     ("BR", _("Brazil")),

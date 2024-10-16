@@ -1,15 +1,21 @@
-from django.utils import timezone
 from datetime import timedelta
 from decimal import Decimal
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-from ..models import Accommodation, Event
 
 from apps.register.models import Register
+from r2e.commom import ASPECTS, EXTRA_MEALS, MEALS, get_age
 
-from r2e.commom import get_age, ASPECTS, MEALS, EXTRA_MEALS
+from ..models import Accommodation, Event
+from ..schemas import (
+    CollectedByCenterSchema,
+    FormsOfPaymentSchema,
+    PayerSchema,
+    PayersSchema,
+)
 
 
 class ReportByAccommodation(LoginRequiredMixin, ListView):
@@ -280,40 +286,29 @@ class TotalCollectedByCenters(ReportByRegister):
         tax = self.object_list[0].order.event.min_value
         payers = get_payers(self.object_list, full=True)
 
-        centers, center, center_name = [], {}, ""
+        centers, center, center_name = [], None, ""
 
         for n, payer in enumerate(payers):
-            if center_name != payer["center"]:
-                center_name = payer["center"]
-                if center and center.get("center") != center_name:
+            if center_name != payer.center:
+                center_name = payer.center
+                if center and center.center != center_name:
                     centers.append(center)
 
-                center = {
-                    "center": center_name,
-                    "free": 0,
-                    "half": 0,
-                    "full": 0,
-                }
+                center = CollectedByCenterSchema(tax=tax, center=center_name)
 
-            match payer["pg_type"]:
+            match payer.pg_type:
                 case "free":
-                    center["free"] += 1
+                    center.free += 1
                 case "half":
-                    center["half"] += 1
+                    center.half += 1
                 case "full":
-                    center["full"] += 1
+                    center.full += 1
 
             if len(payers) == n + 1:
                 centers.append(center)
 
-        for cent in centers:
-            cent["total_free"] = Decimal(0.00)
-            cent["total_half"] = tax / 2 * cent["half"]
-            cent["total_full"] = tax * cent["full"]
-            cent["total"] = (tax / 2 * cent["half"]) + (tax * cent["full"])
-
         context["centers"] = centers
-        context["total"] = sum([cnt["total"] for cnt in centers])
+        context["total"] = sum([cnt.total for cnt in centers])
         return context
 
 
@@ -322,7 +317,7 @@ def get_people_per_meal(registers):
     meals = [[MEALS[meal], 0, []] for meal in MEALS]
     _extras = list(EXTRA_MEALS.keys())
 
-    if len(registers[0].meals) > 6:
+    if len(registers[0].meals) > 6:  # noqa: PLR2004
         extra_meals = [
             [EXTRA_MEALS[m], 0, []]
             for m in _extras[0 : len(registers[0].meals) - 6]
@@ -339,32 +334,29 @@ def get_people_per_meal(registers):
 
 
 def get_totals(payers_by_type):
-    return dict(
-        payed=sum(x["payed"] for x in payers_by_type),
-        expected=sum(x["expected"] for x in payers_by_type),
-        difference=sum(x["difference"] for x in payers_by_type),
-    )
+    return {
+        "payed": sum(x.payed for x in payers_by_type),
+        "expected": sum(x.expected for x in payers_by_type),
+        "difference": sum(x.difference for x in payers_by_type),
+    }
 
 
 def get_payers_by_type(records):
     payers = get_payers(records)
     payers_by_type = []
     pg_type = ""
-    for payer in sorted(payers, key=lambda x: x["pg_type"]):
-        if payer["pg_type"] != pg_type:
-            pg_type = payer["pg_type"]
+    for payer in sorted(payers, key=lambda x: x.pg_type):
+        if payer.pg_type != pg_type:
+            pg_type = payer.pg_type
 
-            _payers = [x for x in payers if x["pg_type"] == pg_type]
-            dict_payers = dict(pg_type=pg_type)
-            dict_payers["payers"] = [
-                x for x in _payers if x["pg_type"] == pg_type
-            ]
-            dict_payers["payed"] = sum(x["payed"] for x in _payers)
-            dict_payers["expected"] = sum(x["expected"] for x in _payers)
-            dict_payers["difference"] = (
-                dict_payers["payed"] - dict_payers["expected"]
+            _payers = [x for x in payers if x.pg_type == pg_type]
+            by_type = PayersSchema(
+                pg_type=pg_type,
+                payers=[x for x in _payers if x.pg_type == pg_type],
+                payed=sum(x.payed for x in _payers),
+                expected=sum(x.expected for x in _payers),
             )
-            payers_by_type.append(dict_payers)
+            payers_by_type.append(by_type)
 
     return payers_by_type
 
@@ -382,26 +374,32 @@ def get_payers(records, full=False):
             case "full":
                 expected = r.order.event.min_value
 
-        payer = dict(
+        payer = PayerSchema(
             center=f"{r.order.center.name}",
             pg_type=pg_type,
             expected=expected,
+            person=None,
+            age=None,
+            payed=None,
         )
         if not full:
-            payer["person"] = r.person.name
-            payer["age"] = age
-            payer["payed"] = r.value
+            payer.person = r.person.name
+            payer.age = age
+            payer.payed = r.value
 
         payers.append(payer)
     return payers
 
 
 def payer_type(age, payed):
-    if (not age or age > 18) and payed == 0.0 or age < 12:
+    ADULT = 18
+    CHILD = 12
+
+    if (not age or age > ADULT) and payed == 0.0 or age < CHILD:
         return "free"
-    elif not age or age >= 18:
+    elif not age or age >= ADULT:
         return "full"
-    elif age >= 12 and age < 18:
+    elif age >= CHILD and age < ADULT:
         return "half"
 
 
@@ -418,11 +416,11 @@ def get_form_of_payments(object_list, days):
 
     form_of_payments = []
     for item in object_list:
-        if item.order.pk not in [x["order"] for x in form_of_payments]:
+        if item.order.pk not in [x.order for x in form_of_payments]:
             for fpay in item.order.form_of_payments.all().order_by(
                 "-updated_on"
             ):
-                form_of_payment = dict(
+                form_of_payment = FormsOfPaymentSchema(
                     order=item.order.pk,
                     type=fpay.get_payment_type_display(),
                     bank_flag=fpay.bank_flag,
@@ -434,14 +432,12 @@ def get_form_of_payments(object_list, days):
                 form_of_payments.append(form_of_payment)
     type = ""
     objects = []
-    for fpay in sorted(form_of_payments, key=lambda x: x["type"]):
-        if type != fpay["type"]:
-            type = fpay["type"]
-            total = sum(
-                x["value"] for x in form_of_payments if x["type"] == type
-            )
-            new_dict = dict(type=type, total=total, objects=[])
-            for _fpay in [fp for fp in form_of_payments if fp["type"] == type]:
+    for fpay in sorted(form_of_payments, key=lambda x: x.type):
+        if type != fpay.type:
+            type = fpay.type
+            total = sum(x.value for x in form_of_payments if x.type == type)
+            new_dict = {"type": type, "total": total, "objects": []}
+            for _fpay in [fp for fp in form_of_payments if fp.type == type]:
                 new_dict["objects"].append(_fpay)
             objects.append(new_dict)
 

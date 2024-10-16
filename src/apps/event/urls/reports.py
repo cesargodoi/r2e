@@ -1,7 +1,7 @@
 from django.urls import path
-from .event import urlpatterns
-from .. import views
 
+from .. import views
+from .event import urlpatterns
 
 urlpatterns += [
     path(

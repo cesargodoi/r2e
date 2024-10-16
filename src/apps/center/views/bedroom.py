@@ -1,17 +1,17 @@
-from django.urls import reverse_lazy
-from django.http import HttpResponse
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
-
-from ..models import Building, Bedroom
-from ..forms import BedroomForm
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from r2e.commom import get_pagination_url
+
+from ..forms import BedroomForm
+from ..models import Bedroom, Building
 
 
 class BedroomList(LoginRequiredMixin, ListView):

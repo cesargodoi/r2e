@@ -1,7 +1,9 @@
 from django import forms
-from .models import Activity, Event
+
 from apps.person.models import PersonStay
 from apps.register.models import Register
+
+from .models import Activity, Event
 
 
 class ActivityForm(forms.ModelForm):

@@ -1,17 +1,17 @@
-from django.urls import reverse_lazy, reverse
-from django.http import HttpResponse
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import DeleteView
-from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
 )
+from django.http import HttpResponse
+from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import DeleteView
+from django.views.generic.edit import FormView
 
-from ..models import Person, PersonStay
+from r2e.commom import get_bedroom_type, get_meals
+
 from ..forms import StayForm
-
-from r2e.commom import get_bedroom_type, get_meals, TAKE_MEAL
+from ..models import Person, PersonStay
 
 
 class StayCreate(LoginRequiredMixin, PermissionRequiredMixin, FormView):

@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import BankFlag, FormOfPayment, Register, Order
 
+from .models import BankFlag, FormOfPayment, Order, Register
 
 admin.site.register(BankFlag)
 

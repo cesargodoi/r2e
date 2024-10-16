@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Activity, Event, Accommodation
+
 from apps.register.models import Register
 
+from .models import Accommodation, Activity, Event
 
 admin.site.register(Activity)
 admin.site.register(Event)

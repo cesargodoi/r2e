@@ -1,0 +1,12 @@
+0.8.0
+
+- Using UV
+- Tweaking imports and linter with ruff
+
+0.7.6
+
+- Improving db performance
+
+0.7.5
+
+- Translations

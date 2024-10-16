@@ -1,8 +1,9 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
-from django.conf import settings
-from r2e.commom import COUNTRIES_CHOICES, BEDROOM_GENDER, phone_format
+
+from r2e.commom import BEDROOM_GENDER, COUNTRIES_CHOICES, phone_format
 
 
 class Center(models.Model):

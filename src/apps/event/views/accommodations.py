@@ -1,32 +1,31 @@
 import json
-from django.urls import reverse_lazy
-from django.shortcuts import render, redirect, HttpResponse
-from django.utils.translation import gettext_lazy as _
+
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
-from django.contrib.auth.decorators import login_required
+from django.shortcuts import HttpResponse, redirect, render
 from django.template.loader import render_to_string
-from django.views.generic import View
-from django.views.generic import DetailView, FormView
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import DetailView, View
 
-from ..forms import StayForm, StaffForm
-
-from apps.event.models import Event, Accommodation
+from apps.center.models import Bedroom
+from apps.event.models import Accommodation, Event
 from apps.person.models import PersonStay
 from apps.register.models import Register
-from apps.center.models import Bedroom
-
 from r2e.commom import (
-    clear_session,
-    get_pagination_url,
-    get_paginator,
     ARRIVAL_TIME,
     DEPARTURE_TIME,
     LODGE_TYPES,
+    clear_session,
+    get_pagination_url,
+    get_paginator,
 )
+
+from ..forms import StaffForm, StayForm
+from ..schemas import BedroomSchema
 
 
 class Accommodations(
@@ -109,16 +108,16 @@ class BedroomsOnEvent(
             queryset = queryset.filter(gender=filter)
 
         bedrooms = get_bedrooms(queryset)
+
         total_used, total_unused = 0, 0
         for bedroom in bedrooms:
-            total_used += bedroom["used"]
-            total_unused += bedroom["unused"]
+            total_used += bedroom.used
+            total_unused += bedroom.unused
 
         context["title"] = _("Bedrooms on event")
         context["event_id"] = self.object.pk
         context["filter"] = self.request.GET.get("filter") or "all"
         context["q"] = self.request.GET.get("q", "")
-        # context["pagination_url"] = get_pagination_url(self.request)
         context["bedrooms"] = bedrooms
         context["total_used"] = total_used
         context["total_unused"] = total_unused
@@ -126,64 +125,59 @@ class BedroomsOnEvent(
 
 
 def get_bedrooms(queryset):
-    # add 'used' status in each accommodation
     for accommodation in queryset:
-        try:
-            if accommodation.register:
-                accommodation.used = True
-        except Exception:
-            accommodation.used = False
+        accommodation.used = bool(getattr(accommodation, "register", False))
 
     bedrooms = []
     bed_id = 0
+    bedroom = None
+
+    def update_bedroom(bedroom, row):
+        if row.bottom_or_top == "B":
+            bedroom.bottom += 1
+            bedroom.bottom_used += 1 if row.used else 0
+            bedroom.bottom_free += 1 if not row.used else 0
+        elif row.bottom_or_top == "T":
+            bedroom.top += 1
+            bedroom.top_used += 1 if row.used else 0
+            bedroom.top_free += 1 if not row.used else 0
+        bedroom.used += 1 if row.used else 0
+        bedroom.unused += 1 if not row.used else 0
+
     for i, row in enumerate(queryset):
         if row.bedroom.id != bed_id:
             if bed_id != 0:
                 bedrooms.append(bedroom)
-            bedroom = dict(
+            bedroom = BedroomSchema(
                 building=row.bedroom.building.name,
                 id=row.bedroom.id,
                 name=row.bedroom.name,
                 gender=row.gender,
                 floor=row.bedroom.floor,
                 bottom=1 if row.bottom_or_top == "B" else 0,
-                bottom_used=(
-                    1 if (row.bottom_or_top == "B" and row.used) else 0
-                ),
-                bottom_free=(
-                    1 if (row.bottom_or_top == "B" and not row.used) else 0
-                ),
+                bottom_used=1
+                if (row.bottom_or_top == "B" and row.used)
+                else 0,
+                bottom_free=1
+                if (row.bottom_or_top == "B" and not row.used)
+                else 0,
                 top=1 if row.bottom_or_top == "T" else 0,
                 top_used=1 if (row.bottom_or_top == "T" and row.used) else 0,
-                top_free=(
-                    1 if (row.bottom_or_top == "T" and not row.used) else 0
-                ),
+                top_free=1
+                if (row.bottom_or_top == "T" and not row.used)
+                else 0,
                 used=1 if row.used else 0,
                 unused=1 if not row.used else 0,
             )
             bed_id = row.bedroom.id
         else:
-            bedroom["bottom"] += 1 if row.bottom_or_top == "B" else 0
-            bedroom["bottom_used"] += (
-                1 if (row.bottom_or_top == "B" and row.used) else 0
-            )
-            bedroom["bottom_free"] += (
-                1 if (row.bottom_or_top == "B" and not row.used) else 0
-            )
-            bedroom["top"] += 1 if row.bottom_or_top == "T" else 0
-            bedroom["top_used"] += (
-                1 if (row.bottom_or_top == "T" and row.used) else 0
-            )
-            bedroom["top_free"] += (
-                1 if (row.bottom_or_top == "T" and not row.used) else 0
-            )
-            bedroom["used"] += 1 if row.used else 0
-            bedroom["unused"] += 1 if not row.used else 0
-            if i == len(queryset) - 1:
-                bedrooms.append(bedroom)
-    bedrooms.sort(key=lambda x: x["name"])
-    bedrooms.sort(key=lambda x: x["floor"])
-    bedrooms.sort(key=lambda x: x["building"])
+            update_bedroom(bedroom, row)
+
+        if i == len(queryset) - 1:
+            bedrooms.append(bedroom)
+
+    bedrooms.sort(key=lambda x: (x.building, x.floor, x.name))
+
     return bedrooms
 
 
@@ -223,7 +217,7 @@ class ReloadTheMapping(
         template_name = "event/accommodation/confirm_reload.html"
         return render(request, template_name)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):  # noqa: C901, PLR0912
         accommodations = Accommodation.objects.filter(
             event_id=kwargs["event_id"]
         )
@@ -273,7 +267,7 @@ def add_to_mapp(event_id, bedroom_id, bedrooms):
         "bedroom": bed,
         "gender": bed.gender,
     }
-    for _ in range(bed.bottom_beds):
+    for _ in range(bed.bottom_beds):  # noqa: F402
         bottom_bed = new_acc.copy()
         bottom_bed["bottom_or_top"] = "B"
         Accommodation(**bottom_bed).save()
@@ -554,7 +548,7 @@ def generate_mapping(event_id):
         building__center=event.center, building__is_active=True, is_active=True
     ):
         bedroom = {"event": event, "bedroom": bed, "gender": bed.gender}
-        for _ in range(bed.bottom_beds):
+        for _ in range(bed.bottom_beds):  # noqa: F402
             bottom_bed = bedroom.copy()
             bottom_bed["bottom_or_top"] = "B"
             Accommodation(**bottom_bed).save()

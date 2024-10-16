@@ -1,31 +1,29 @@
 from datetime import datetime
-from django.db.models import Count
-from django.urls import reverse_lazy, reverse
-from django.http import HttpResponse, HttpResponseRedirect
-from django.utils.translation import gettext_lazy as _
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count
+from django.http import HttpResponse, HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from django.utils.cache import add_never_cache_headers
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
-    ListView,
     CreateView,
-    DetailView,
-    UpdateView,
     DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
 )
-from ..models import Event
-from ..forms import EventForm
-from ..views.accommodations import generate_mapping
 
 from apps.register.models import Register
-
 from r2e.commom import (
     clear_session,
     get_pagination_url,
     get_paginator,
-    LODGE_TYPES,
-    ARRIVAL_TIME,
-    DEPARTURE_TIME,
 )
+
+from ..forms import EventForm
+from ..models import Event
+from ..views.accommodations import generate_mapping
 
 
 # Event Views

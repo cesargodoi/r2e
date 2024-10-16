@@ -1,15 +1,12 @@
 import random
+
 import pytest
-
-from faker import Faker
-from django.utils import timezone
 from django.contrib.auth.models import Group, Permission
+from faker import Faker
 
-from apps.center.models import Center, Building, Bedroom
+from apps.center.models import Bedroom, Building, Center
 from apps.person.models import Person
-from apps.event.models import Event
-
-from r2e.commom import us_inter_char, ASPECTS
+from r2e.commom import ASPECTS, us_inter_char
 
 fake = Faker("pt_BR")
 get_gender = random.choice(["M", "F"])
@@ -58,15 +55,15 @@ def create_center(db, create_user):
             kwargs.get("name")
             or f"Center {fake.pyint(min_value=1, max_value=100)}"
         )
-        new = dict(
-            name=name,
-            short_name=f"C-{name.split()[1]}",
-            city=fake.city(),
-            state=fake.estado_sigla(),
-            country=fake.current_country_code(),
-            phone=fake.phone_number(),
-            email=kwargs.get("email") or fake.email(),
-        )
+        new = {
+            "name": name,
+            "short_name": f"C-{name.split()[1]}",
+            "city": fake.city(),
+            "state": fake.estado_sigla(),
+            "country": fake.current_country_code(),
+            "phone": fake.phone_number(),
+            "email": kwargs.get("email") or fake.email(),
+        }
         center = Center.objects.create(**new)
         contact = kwargs.get("user") or create_user()
         center.contact.add(contact)
@@ -89,10 +86,7 @@ def create_building(db, create_center, create_user):
         center.contact.add(contact)
         center.save()
 
-        new = dict(
-            center=center,
-            name=name,
-        )
+        new = {"center": center, "name": name}
         return Building.objects.create(**new)
 
     return make_building
@@ -106,14 +100,14 @@ def create_bedroom(db, create_building):
             kwargs.get("name")
             or f"Bedrom {fake.pyint(min_value=1, max_value=20)}"
         )
-        new = dict(
-            building=building,
-            name=name,
-            gender=random.choice(["M", "F", "X"]),
-            floor=fake.pyint(min_value=-1, max_value=2),
-            bottom_beds=4,
-            top_beds=4,
-        )
+        new = {
+            "building": building,
+            "name": name,
+            "gender": random.choice(["M", "F", "X"]),
+            "floor": fake.pyint(min_value=-1, max_value=2),
+            "bottom_beds": 4,
+            "top_beds": 4,
+        }
         return Bedroom.objects.create(**new)
 
     return make_bedroom
@@ -125,20 +119,20 @@ def create_person(db, create_user, create_center):
         user = kwargs.get("user") or create_user()
         name = kwargs.get("name") or fake.name()
         birth = fake.date_of_birth(minimum_age=18, maximum_age=80, tzinfo=None)
-        new = dict(
-            user=user,
-            center=kwargs.get("center") or create_center(),
-            name=name,
-            name_sa=us_inter_char(name),
-            gender=kwargs.get("gender") or get_gender,
-            birth=birth,
-            aspect=random.choice([asp[0] for asp in ASPECTS]),
-            city=fake.city(),
-            state=fake.estado_sigla(),
-            country=fake.current_country_code(),
-            email=user.email,
-            phone=fake.phone_number(),
-        )
+        new = {
+            "user": user,
+            "center": kwargs.get("center") or create_center(),
+            "name": name,
+            "name_sa": us_inter_char(name),
+            "gender": kwargs.get("gender") or get_gender,
+            "birth": birth,
+            "aspect": random.choice([asp[0] for asp in ASPECTS]),
+            "city": fake.city(),
+            "state": fake.estado_sigla(),
+            "country": fake.current_country_code(),
+            "email": user.email,
+            "phone": fake.phone_number(),
+        }
         return Person.objects.create(**new)
 
     return make_person
