@@ -1,8 +1,8 @@
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from r2e.commom import PAYMENT_TYPES, LODGE_TYPES, ARRIVAL_TIME, DEPARTURE_TIME
+from r2e.commom import ARRIVAL_TIME, DEPARTURE_TIME, LODGE_TYPES, PAYMENT_TYPES
 
 
 class BankFlag(models.Model):

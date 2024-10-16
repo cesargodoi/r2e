@@ -1,24 +1,24 @@
-from django.urls import reverse_lazy, reverse
-from django.utils.translation import gettext_lazy as _
-from django.template.loader import render_to_string
-from django.http import HttpResponse, HttpResponseRedirect
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView,
-)
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
-
-from ..models import Person
-from ..forms import PersonForm, ChangeCenterForm
+from django.http import HttpResponse, HttpResponseRedirect
+from django.template.loader import render_to_string
+from django.urls import reverse, reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
 from r2e.commom import get_pagination_url, us_inter_char
+
+from ..forms import ChangeCenterForm, PersonForm
+from ..models import Person
 
 
 class PersonList(LoginRequiredMixin, ListView):
@@ -89,7 +89,7 @@ class PersonCreate(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
 
 
 def check_name(request):
-    if len(request.GET.get("name")) < 3:
+    if len(request.GET.get("name")) < 3:  # noqa: PLR2004
         return HttpResponse()
     typed_name = us_inter_char(request.GET.get("name").lower())
     object_list = Person.objects.filter(name_sa__icontains=typed_name)

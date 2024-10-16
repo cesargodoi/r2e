@@ -1,19 +1,19 @@
-from django.urls import reverse
-from django.db import models
 from django.conf import settings
+from django.db import models
+from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from apps.center.models import Center
 from r2e.commom import (
-    GENDER,
-    COUNTRIES_CHOICES,
-    ASPECTS,
-    LODGE_TYPES,
     ARRIVAL_TIME,
-    DEPARTURE_TIME,
+    ASPECTS,
     BEDROOM_TYPE,
-    us_inter_char,
+    COUNTRIES_CHOICES,
+    DEPARTURE_TIME,
+    GENDER,
+    LODGE_TYPES,
     phone_format,
+    us_inter_char,
 )
 
 

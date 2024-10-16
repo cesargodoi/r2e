@@ -1,12 +1,13 @@
 import os
-import dynaconf  # noqa
 from pathlib import Path
+
+import dynaconf  # noqa
 
 DEBUG = True
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]  #
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 # Application definition
 INSTALLED_APPS = [

@@ -1,21 +1,22 @@
-from django.urls import reverse_lazy
-from django.http import HttpResponse
-from django.utils.translation import gettext_lazy as _
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-)
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    ListView,
+    UpdateView,
+)
 
-from ..models import Center
-from ..forms import CenterForm
 from r2e.commom import get_pagination_url
+
+from ..forms import CenterForm
+from ..models import Center
 
 
 class CenterList(LoginRequiredMixin, ListView):

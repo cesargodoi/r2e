@@ -1,7 +1,7 @@
 from django.urls import path
-from .center import urlpatterns
-from .. import views
 
+from .. import views
+from .center import urlpatterns
 
 urlpatterns += [
     path("building/list/", views.BuildingList.as_view(), name="building_list"),

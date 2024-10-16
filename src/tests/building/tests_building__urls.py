@@ -7,7 +7,7 @@ def test_building_list_url_is_correct():
 
 def test_building_detail_url_is_correct():
     building_detail = reverse("center:building_detail", kwargs={"pk": 1})
-    result = f"/center/building/1/detail/"
+    result = "/center/building/1/detail/"
     assert building_detail == result
 
 
@@ -17,5 +17,5 @@ def test_building_create_url_is_correct():
 
 def test_building_update_info_url_is_correct():
     building_update = reverse("center:building_update", kwargs={"pk": 1})
-    result = f"/center/building/1/update/"
+    result = "/center/building/1/update/"
     assert building_update == result

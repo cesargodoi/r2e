@@ -10,7 +10,7 @@
         <thead>
           <tr>
             <th scope="col">{% trans 'Payment type' %}</th>
-            <th scope="col" class="text-center">{% trans 'Records' %}</th>
+            <th scope="col" class="text-end">{% trans 'Records' %}</th>
             <th scope="col" class="text-end">{% trans 'Payed' %} $</th>
             <th scope="col" class="text-end">{% trans 'Expected' %} $</th>
             <th scope="col" class="text-end">{% trans 'Difference' %} $</th>
@@ -19,8 +19,12 @@
         <tbody>
           {% for item in payers_by_type %}
             <tr>
-              <th>{{ item.pg_type|upper }}</th>
-              <td class="text-center">{{ item.payers|length }}</td>
+              <th>
+                {% if item.pg_type == "free" %}{% trans "children and exempt" %}
+                {% elif item.pg_type == "half" %}{% trans "from 12 to 18 years old" %}
+                {% else %}{% trans "over 18 years old" %}{% endif %}
+              </th>
+              <td class="text-end">{{ item.payers|length }}</td>
               <td class="fw-bolder text-end">{{ item.payed|floatformat:2 }}</td>
               <td class="fw-bolder text-end">{{ item.expected|floatformat:2 }}</td>
               <td class="fw-bolder text-end">{{ item.difference|floatformat:2 }}</td>
@@ -30,7 +34,7 @@
         <tfoot>
           <tr class="lead">
             <th class="text-end">TOTAL</th>
-            <td class="text-center">{{ object_list|length }}</td>
+            <td class="text-end">{{ object_list|length }}</td>
             <td class="fw-bolder text-end">{{ totals.payed }}</td>
             <td class="fw-bolder text-end">{{ totals.expected }}</td>
             <td class="fw-bolder text-end">{{ totals.difference }}</td>

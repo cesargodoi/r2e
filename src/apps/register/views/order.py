@@ -1,20 +1,19 @@
-from django.views.decorators.http import require_http_methods
-from django.http import QueryDict
-from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import QueryDict
+from django.shortcuts import HttpResponse, redirect, render
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-
-from ..models import Order, Register, FormOfPayment
-from ..forms import FormOfPaymentForm
-from . import utils
+from django.views.decorators.http import require_http_methods
 
 from apps.event.models import Event
 from apps.person.models import Person
-from apps.person.views import StayCreate, StayUpdate, PersonCreate
-
+from apps.person.views import PersonCreate, StayCreate, StayUpdate
 from r2e.commom import clear_session, get_bedroom_type, get_meals
+
+from ..forms import FormOfPaymentForm
+from ..models import FormOfPayment, Order, Register
+from . import utils
 
 
 class CreateOrder(LoginRequiredMixin, View):

@@ -1,6 +1,7 @@
 from django.urls import path
-from .event import urlpatterns
+
 from .. import views
+from .event import urlpatterns
 
 urlpatterns += [
     path("activity/list/", views.ActivityList.as_view(), name="activity_list"),
@@ -19,9 +20,4 @@ urlpatterns += [
         views.ActivityDelete.as_view(),
         name="activity_delete",
     ),
-    # path(
-    #     "activity/search/",
-    #     views.ActivitySearch.as_view(),
-    #     name="activity_search",
-    # ),
 ]

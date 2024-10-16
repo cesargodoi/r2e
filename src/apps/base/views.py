@@ -1,7 +1,7 @@
-from django.shortcuts import render
-from django.db.models import Count
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
+from django.shortcuts import render
+from django.utils.translation import gettext_lazy as _
 
 from apps.event.models import Event
 

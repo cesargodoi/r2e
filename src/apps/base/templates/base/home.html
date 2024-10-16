@@ -11,8 +11,9 @@
         onclick="location.href='{% url 'event:detail' obj.pk %}'"
       >
         <div class="card-body">
-          <h4 class="card-title"><span class="fw-bolder">{{ obj.activity.name }}</span></h4>
-          <p>{{ obj.center.name }} <br> {{ obj.center.city }} ({{ obj.center.state }}/{{ obj.center.country }})</p>
+          <h5 class="card-title"><span class="fw-bolder">{{ obj.activity.name }}</span></h5>
+          <h1 class="display-1 text-warning fw-bolder">{{ obj.date|date:"M/y" }}</h1>
+          <p class="lead">{{ obj.center.name }} <br> <span class="fw-bolder">{{ obj.center.city }} ({{ obj.center.state }}/{{ obj.center.country }})</span></p>
           <table class="table text-start">
             <tr>
               <td class="text-light">{% trans "period" %}:</td><td class="text-light">{{ obj.date|date:"d/m/y" }} to {{ obj.end_date|date:"d/m/y" }}</td>

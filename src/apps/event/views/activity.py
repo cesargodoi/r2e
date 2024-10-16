@@ -1,20 +1,20 @@
-from django.urls import reverse_lazy
-from django.http import HttpResponse
-from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
+from django.http import HttpResponse
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import (
-    ListView,
     CreateView,
-    UpdateView,
     DeleteView,
+    ListView,
+    UpdateView,
 )
 
-from ..models import Activity
 from ..forms import ActivityForm
+from ..models import Activity
 
 
 class ActivityList(LoginRequiredMixin, ListView):

@@ -1,11 +1,13 @@
 import secrets
 from datetime import datetime
+
 from django.db.models import Q
 
-from ..models import BankFlag
-from apps.person.models import Person
 from apps.event.models import Accommodation, Event
+from apps.person.models import Person
 from r2e.commom import PAYMENT_TYPES
+
+from ..models import BankFlag
 
 
 #  Helpers  ###################################################################
@@ -40,25 +42,28 @@ def get_dict_register(person, stay, ref_value, alt_mapping, event_id=None):
 
         bedroom = _bedroom if accommodations else ""
 
-    return dict(
+    return dict(  # noqa: C408
         regid=stay.id if stay else secrets.token_hex(3)[:6],
-        person=dict(name=person.name, id=person.id),
+        person={"name": person.name, "id": person.id},
         lodge=(
-            dict(name=stay.get_lodge_display(), id=stay.lodge) if stay else ""
+            {"name": stay.get_lodge_display(), "id": stay.lodge}
+            if stay
+            else ""
         ),
         no_stairs=stay.no_stairs if stay else "",
         no_bunk=stay.no_bunk if stay else "",
         no_gluten=stay.no_gluten if stay else "",
         snorer=stay.snorer if stay else "",
         arrival_time=(
-            dict(name=stay.get_arrival_time_display(), id=stay.arrival_time)
+            {"name": stay.get_arrival_time_display(), "id": stay.arrival_time}
             if stay
             else ""
         ),
         departure_time=(
-            dict(
-                name=stay.get_departure_time_display(), id=stay.departure_time
-            )
+            {
+                "name": stay.get_departure_time_display(),
+                "id": stay.departure_time,
+            }
             if stay
             else ""
         ),
@@ -76,31 +81,34 @@ def get_dict_register_update(register, event_center_pk, alt_mapping):
     person = register.person
     stay = person.stays.filter(stay_center__pk=event_center_pk).first()
 
-    return dict(
-        regid=stay.id,
-        person=dict(name=register.person.name, id=register.person.id),
-        lodge=dict(name=register.get_lodge_display(), id=register.lodge),
-        no_stairs=register.no_stairs,
-        no_bunk=register.no_bunk,
-        no_gluten=register.no_gluten,
-        snorer=register.snorer,
-        arrival_time=dict(
-            name=register.get_arrival_time_display(), id=register.arrival_time
-        ),
-        departure_time=dict(
-            name=register.get_departure_time_display(),
-            id=register.departure_time,
-        ),
-        take_meals=stay.take_meals,
-        meals=stay.meals,
-        staff=" | ".join([st.name for st in stay.staff.all()]) if stay else "",
-        bedroom=(
+    return {
+        "regid": stay.id,
+        "person": {"name": register.person.name, "id": register.person.id},
+        "lodge": {"name": register.get_lodge_display(), "id": register.lodge},
+        "no_stairs": register.no_stairs,
+        "no_bunk": register.no_bunk,
+        "no_gluten": register.no_gluten,
+        "snorer": register.snorer,
+        "arrival_time": {
+            "name": register.get_arrival_time_display(),
+            "id": register.arrival_time,
+        },
+        "departure_time": {
+            "name": register.get_departure_time_display(),
+            "id": register.departure_time,
+        },
+        "take_meals": stay.take_meals,
+        "meals": stay.meals,
+        "staff": " | ".join([st.name for st in stay.staff.all()])
+        if stay
+        else "",
+        "bedroom": (
             register.accommodation.bedroom_id if register.accommodation else ""
         ),
-        bedroom_type=stay.bedroom_type,
-        observations=register.observations,
-        value=float(register.value),
-    )
+        "bedroom_type": stay.bedroom_type,
+        "observations": register.observations,
+        "value": float(register.value),
+    }
 
 
 def get_dict_payform(payform):
@@ -111,37 +119,37 @@ def get_dict_payform(payform):
         else None
     )
 
-    return dict(
-        pfid=secrets.token_hex(3)[:6],
-        person=dict(name=person.name, id=person.id),
-        payment_type=dict(
-            name=str(dict(PAYMENT_TYPES)[payform["payment_type"]]),
-            id=payform["payment_type"],
+    return {
+        "pfid": secrets.token_hex(3)[:6],
+        "person": {"name": person.name, "id": person.id},
+        "payment_type": {
+            "name": str(dict(PAYMENT_TYPES)[payform["payment_type"]]),
+            "id": payform["payment_type"],
+        },
+        "bank_flag": (
+            {"name": bank_flag.name, "id": bank_flag.id} if bank_flag else ""
         ),
-        bank_flag=(
-            dict(name=bank_flag.name, id=bank_flag.id) if bank_flag else ""
-        ),
-        ctrl=payform["ctrl"] or "",
-        value=float(payform["value"]) or 0.0,
-    )
+        "ctrl": payform["ctrl"] or "",
+        "value": float(payform["value"]) or 0.0,
+    }
 
 
 def get_dict_payform_update(payform):
-    return dict(
-        pfid=payform.id,
-        person=dict(name=payform.person.name, id=payform.person.id),
-        payment_type=dict(
-            name=str(dict(PAYMENT_TYPES)[payform.payment_type]),
-            id=payform.payment_type,
-        ),
-        bank_flag=(
-            dict(name=payform.bank_flag.name, id=payform.bank_flag.id)
+    return {
+        "pfid": payform.id,
+        "person": {"name": payform.person.name, "id": payform.person.id},
+        "payment_type": {
+            "name": str(dict(PAYMENT_TYPES)[payform.payment_type]),
+            "id": payform.payment_type,
+        },
+        "bank_flag": (
+            {"name": payform.bank_flag.name, "id": payform.bank_flag.id}
             if payform.bank_flag
             else ""
         ),
-        ctrl=payform.ctrl or "",
-        value=float(payform.value) or 0.0,
-    )
+        "ctrl": payform.ctrl or "",
+        "value": float(payform.value) or 0.0,
+    }
 
 
 def get_register(order, regid):
@@ -187,20 +195,20 @@ def total_payforms_del(order, value):
 #   to save on database   #####################################################
 def who_made_what(request, update):
     if update:
-        return dict(updated_by=request.user)
+        return {"updated_by": request.user}
 
-    return dict(created_by=request.user, updated_by=request.user)
+    return {"created_by": request.user, "updated_by": request.user}
 
 
 def get_dict_order_to_db(request, order, update=False):
-    _order = dict(
-        center_id=order["center"],
-        event_id=order["event"],
-        value=order["total_registers"],
-        late_payment=datetime.now()
+    _order = {
+        "center_id": order["center"],
+        "event_id": order["event"],
+        "value": order["total_registers"],
+        "late_payment": datetime.now()
         > datetime.strptime(order["deadline"], "%Y-%m-%d %H:%M"),
-        observations=request.POST.get("observations"),
-    )
+        "observations": request.POST.get("observations"),
+    }
     _order.update(who_made_what(request, update))
 
     return _order
@@ -219,7 +227,7 @@ def get_dict_register_to_db(
     event_days = get_event_days(event_id)
 
     meals = register["meals"]
-    if event_days > 2:
+    if event_days > 2:  # noqa: PLR2004
         extra_days = event_days - 2
         to_take = (
             0
@@ -229,22 +237,22 @@ def get_dict_register_to_db(
         for _ in range(extra_days * 3):
             meals.insert(4, to_take)
 
-    _register = dict(
-        person_id=register["person"]["id"],
-        order_id=order_id,
-        lodge=register["lodge"]["id"],
-        no_stairs=register["no_stairs"],
-        no_bunk=register["no_bunk"],
-        no_gluten=register["no_gluten"],
-        snorer=register["snorer"],
-        arrival_time=register["arrival_time"]["id"],
-        departure_time=register["departure_time"]["id"],
-        take_meals=register["take_meals"],
-        meals=meals,
-        staff=register["staff"],
-        observations=register["observations"],
-        value=register["value"],
-    )
+    _register = {
+        "person_id": register["person"]["id"],
+        "order_id": order_id,
+        "lodge": register["lodge"]["id"],
+        "no_stairs": register["no_stairs"],
+        "no_bunk": register["no_bunk"],
+        "no_gluten": register["no_gluten"],
+        "snorer": register["snorer"],
+        "arrival_time": register["arrival_time"]["id"],
+        "departure_time": register["departure_time"]["id"],
+        "take_meals": register["take_meals"],
+        "meals": meals,
+        "staff": register["staff"],
+        "observations": register["observations"],
+        "value": register["value"],
+    }
     if register["bedroom"] and register["lodge"]["id"] == "LDG":
         try:
             accommodation = Accommodation.objects.filter(
@@ -264,16 +272,16 @@ def get_dict_register_to_db(
 
 
 def get_dict_payforn_to_db(request, payform, order_id, update=False):
-    _payform = dict(
-        person_id=payform["person"]["id"],
-        order_id=order_id,
-        payment_type=payform["payment_type"]["id"],
-        bank_flag_id=(
+    _payform = {
+        "person_id": payform["person"]["id"],
+        "order_id": order_id,
+        "payment_type": payform["payment_type"]["id"],
+        "bank_flag_id": (
             payform["bank_flag"]["id"] if payform["bank_flag"] else None
         ),
-        ctrl=payform["ctrl"] or None,
-        value=payform["value"],
-    )
+        "ctrl": payform["ctrl"] or None,
+        "value": payform["value"],
+    }
     _payform.update(who_made_what(request, update))
 
     return _payform

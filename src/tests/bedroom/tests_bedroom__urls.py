@@ -16,7 +16,7 @@ def test_bedroom_update_info_url_is_correct():
     bedroom_update = reverse(
         "center:bedroom_update", kwargs={"id": 1, "pk": 1}
     )
-    result = f"/center/building/1/bedroom/1/update/"
+    result = "/center/building/1/bedroom/1/update/"
     assert bedroom_update == result
 
 
@@ -24,5 +24,5 @@ def test_bedroom_delete_info_url_is_correct():
     bedroom_delete = reverse(
         "center:bedroom_delete", kwargs={"id": 1, "pk": 1}
     )
-    result = f"/center/building/1/bedroom/1/delete/"
+    result = "/center/building/1/bedroom/1/delete/"
     assert bedroom_delete == result
