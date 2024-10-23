@@ -326,6 +326,7 @@ class AddToBedroom(LoginRequiredMixin, View):
         )
         if not accommodations and bedroom_type == "T":
             accommodations = Accommodation.objects.filter(
+                event_id=kwargs["event_id"],
                 bedroom_id=to_bedroom["bedroom_id"],
                 bottom_or_top="B",
                 register__isnull=True,
@@ -427,9 +428,11 @@ def get_bedroom_mapping(request, event_id):
     bottom_beds = _bedroom.filter(bottom_or_top="B").exclude(
         register__isnull=False
     )
-    force_top_bed = (
-        True if not bottom_beds and _stay.bedroom_type == "B" else False
-    )
+
+    force_top_bed = False
+    if _stay.bedroom_type == "B" and not bottom_beds:
+        force_top_bed = True
+
     context = {
         "tops": [b for b in _bedroom if b.bottom_or_top == "T"],
         "bottoms": [b for b in _bedroom if b.bottom_or_top == "B"],

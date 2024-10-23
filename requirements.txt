@@ -4,7 +4,7 @@ asgiref==3.8.1
     # via
     #   django
     #   django-htmx
-django==4.2.11
+django==4.2.16
     # via
     #   r2e (pyproject.toml)
     #   django-bootstrap5
@@ -19,13 +19,13 @@ dynaconf==3.2.6
     # via r2e (pyproject.toml)
 gunicorn==23.0.0
     # via r2e (pyproject.toml)
-packaging==24.0
+packaging==24.1
     # via gunicorn
-phonenumbers==8.13.46
+phonenumbers==8.13.47
     # via r2e (pyproject.toml)
-pillow==10.4.0
+pillow==11.0.0
     # via r2e (pyproject.toml)
-psycopg2-binary==2.9.9
+psycopg2-binary==2.9.10
     # via r2e (pyproject.toml)
-sqlparse==0.5.0
+sqlparse==0.5.1
     # via django
