@@ -1,12 +1,13 @@
 {% load static %}
 {% load i18n %}
+{% load my_tags %}
 <li class="nav-item dropdown no-arrow">
   <div class="nav-item dropdown no-arrow">
     <a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#">
-      <span class="d-none d-lg-inline me-2 text-gray-600 small">{{ request.user }}</span>
-      {% if request.user.is_superuser %}
-        <span class="d-none d-lg-inline me-2 text-gray-600 small"> {% trans "on" %} <strong>{{ request.user.person.center }}</strong></span>
-      {% endif %}
+      <span class="d-none d-lg-inline me-2 text-gray-800 small">
+        {{ request.user.email|get_username }}{% if request.user.is_superuser %} <strong>(root)</strong>{% endif %}
+      </span>      
+      <span class="d-none d-lg-inline me-2 text-gray-800 small"> {% trans "on" %} <strong>{{ request.user.person.center.short_name }}</strong></span>
       {% if user.person.gender == 'M' %}
         <img src="{% static 'img/male.png' %}" alt="male" style="width:25px;height:25px;"> &nbsp;&nbsp;
       {% else %}

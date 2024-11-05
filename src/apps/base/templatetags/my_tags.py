@@ -1,5 +1,7 @@
 from datetime import date
+
 from django import template
+
 from r2e.commom import short_name
 
 register = template.Library()
@@ -62,3 +64,8 @@ def local_phone(phone):
     if phone.startswith("55"):
         return phone.replace("55", "").strip()
     return phone
+
+
+@register.filter(name="get_username")
+def get_username(value):
+    return value.split("@")[0]
