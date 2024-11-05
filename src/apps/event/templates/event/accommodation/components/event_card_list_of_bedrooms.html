@@ -9,10 +9,8 @@
           class="nav-link {% if filter == 'all' %}active{% endif %}" 
           href="{% url 'event:bedrooms_on_event' event_id %}"
         >
-          {% trans "All bedrooms" %}  
-          <span class="badge text-bg-secondary">
-            {{ request.session.bedrooms_on_event.all }}
-          </span>
+          {% trans "All bedrooms" %} &nbsp;&nbsp;
+          <span class="badge text-bg-secondary">{{ request.session.bedrooms_on_event.all }} {% trans "beds" %}</span> 
         </a>
       </li>
       <li class="nav-item">
@@ -20,10 +18,8 @@
           class="nav-link {% if filter == 'M' %}active{% endif %}" 
           href="{% url 'event:bedrooms_on_event' event_id %}?filter=M"
         >
-          {% trans "Male" %}
-          <span class="badge text-bg-secondary">
-            {{ request.session.bedrooms_on_event.M }}
-          </span>
+          {% trans "Male" %} &nbsp;&nbsp;
+          <span class="badge text-bg-secondary">{{ request.session.bedrooms_on_event.M }} {% trans "beds" %}</span>
         </a> 
       </li>
       <li class="nav-item">
@@ -31,10 +27,8 @@
           class="nav-link {% if filter == 'F' %}active{% endif %}" 
           href="{% url 'event:bedrooms_on_event' event_id %}?filter=F"
         >
-          {% trans "Female" %}
-          <span class="badge text-bg-secondary">
-            {{ request.session.bedrooms_on_event.F }}
-          </span>
+          {% trans "Female" %} &nbsp;&nbsp;
+          <span class="badge text-bg-secondary">{{ request.session.bedrooms_on_event.F }}  {% trans "beds" %}</span>
         </a> 
       </li>
       <li class="nav-item">
@@ -42,10 +36,8 @@
           class="nav-link {% if filter == 'X' %}active{% endif %}" 
           href="{% url 'event:bedrooms_on_event' event_id %}?filter=X"
         >
-          {% trans "Mixed" %}
-          <span class="badge text-bg-secondary">
-            {{ request.session.bedrooms_on_event.X }}
-          </span>
+          {% trans "Mixed" %} &nbsp;&nbsp;
+          <span class="badge text-bg-secondary"> {{ request.session.bedrooms_on_event.X }}  {% trans "beds" %}</span>
         </a> 
       </li>
       {% comment %} <li class="nav-item">
