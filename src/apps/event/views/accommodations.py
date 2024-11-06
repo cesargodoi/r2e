@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import (
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
+from django.db.models import Count, Q
 from django.shortcuts import HttpResponse, redirect, render
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -47,11 +48,23 @@ class Accommodations(
         self.request.session["nav_item"] = "event"
         context = super().get_context_data(**kwargs)
 
-        queryset = get_queryset_and_totals(
+        queryset = get_registers(
             self.request,
             self.object.pk,
             q=self.request.GET.get("q"),
         )
+
+        counts = queryset.aggregate(
+            total_registers=Count("id"),
+            allocated=Count("id", filter=Q(accommodation__isnull=False)),
+            unallocated=Count(
+                "id", filter=Q(accommodation__isnull=True, lodge="LDG")
+            ),
+            house=Count("id", filter=Q(lodge="HSE")),
+            hotel=Count("id", filter=Q(lodge="HTL")),
+        )
+        context.update(counts)
+
         if self.request.GET.get("filter") == "lts":
             queryset = queryset.order_by("-updated_on")
         elif self.request.GET.get("filter") in ["HSE", "HTL"]:
@@ -98,11 +111,19 @@ class BedroomsOnEvent(
         filter = self.request.GET.get("filter") or None
         context = super().get_context_data(**kwargs)
 
-        queryset = get_queryset_and_totals_of_bedrooms(
+        queryset = get_accommodations(
             self.request,
             self.object.pk,
             q=self.request.GET.get("q"),
         )
+
+        counts = queryset.aggregate(
+            all=Count("id"),
+            male=Count("id", filter=Q(gender="M")),
+            female=Count("id", filter=Q(gender="F")),
+            mixed=Count("id", filter=Q(gender="X")),
+        )
+        context.update(counts)
 
         if filter and filter in "MFX":
             queryset = queryset.filter(gender=filter)
@@ -114,7 +135,7 @@ class BedroomsOnEvent(
             total_used += bedroom.used
             total_unused += bedroom.unused
 
-        context["title"] = _("Bedrooms on event")
+        context["title"] = _("Beds on event")
         context["event_id"] = self.object.pk
         context["filter"] = self.request.GET.get("filter") or "all"
         context["q"] = self.request.GET.get("q", "")
@@ -349,22 +370,7 @@ class AddToBedroom(LoginRequiredMixin, View):
         else:
             stay.bedroom = to_bedroom["bedroom_id"]
         stay.save()
-        get_queryset_and_totals(
-            request, register.order.event.id, get_totals=True
-        )
         return HttpResponse(headers={"HX-Refresh": "true"})
-
-
-@login_required
-def reload_session(request, evenid):
-    get_queryset_and_totals(request, evenid, get_totals=True)
-    return HttpResponse(headers={"HX-Refresh": "true"})
-
-
-@login_required
-def reload_session_bedrooms(request, evenid):
-    get_queryset_and_totals_of_bedrooms(request, evenid, get_totals=True)
-    return HttpResponse(headers={"HX-Refresh": "true"})
 
 
 @login_required
@@ -565,8 +571,8 @@ def kill_mapping(event_id):
     Accommodation.objects.filter(event_id=event_id).delete()
 
 
-def get_queryset_and_totals(request, evenid, q=None, get_totals=False):
-    queryset = (
+def get_registers(request, evenid, q=None):
+    return (
         Register.objects.select_related(
             "person",
             "person__center",
@@ -578,49 +584,12 @@ def get_queryset_and_totals(request, evenid, q=None, get_totals=False):
         .filter(order__event=evenid, person__name__icontains=q if q else "")
         .order_by("person")
     )
-    if get_totals:
-        del request.session["accommodation"]
-    if "accommodation" not in request.session or get_totals:
-        request.session["accommodation"] = {}
-        request.session["accommodation"]["total_registers"] = len(queryset)
-        request.session["accommodation"]["allocated"] = len(
-            [_ for r in queryset if r.accommodation]
-        )
-        request.session["accommodation"]["unallocated"] = len(
-            [_ for r in queryset if not r.accommodation and r.lodge == "LDG"]
-        )
-        request.session["accommodation"]["house"] = len(
-            [_ for r in queryset if r.lodge == "HSE"]
-        )
-        request.session["accommodation"]["hotel"] = len(
-            [_ for r in queryset if r.lodge == "HTL"]
-        )
-    return queryset if not get_totals else None
 
 
-def get_queryset_and_totals_of_bedrooms(
-    request, evenid, q=None, get_totals=False
-):
-    queryset = Accommodation.objects.select_related(
+def get_accommodations(request, evenid, q=None):
+    return Accommodation.objects.select_related(
         "bedroom",
         "bedroom__building",
         "bedroom__building__center",
         "register",
     ).filter(event=evenid, bedroom__building__name__icontains=q if q else "")
-
-    if get_totals:
-        del request.session["bedrooms_on_event"]
-    if "bedrooms_on_event" not in request.session or get_totals:
-        request.session["bedrooms_on_event"] = {}
-        request.session["bedrooms_on_event"]["all"] = len(queryset)
-        request.session["bedrooms_on_event"]["M"] = len(
-            [r for r in queryset if r.gender == "M"]
-        )
-        request.session["bedrooms_on_event"]["F"] = len(
-            [r for r in queryset if r.gender == "F"]
-        )
-        request.session["bedrooms_on_event"]["X"] = len(
-            [r for r in queryset if r.gender == "X"]
-        )
-
-    return queryset if not get_totals else None

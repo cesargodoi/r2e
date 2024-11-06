@@ -10,7 +10,7 @@
           href="{% url 'event:bedrooms_on_event' event_id %}"
         >
           {% trans "All bedrooms" %} &nbsp;&nbsp;
-          <span class="badge text-bg-secondary">{{ request.session.bedrooms_on_event.all }} {% trans "beds" %}</span> 
+          <span class="badge text-bg-secondary">{{ all }}</span> 
         </a>
       </li>
       <li class="nav-item">
@@ -19,7 +19,7 @@
           href="{% url 'event:bedrooms_on_event' event_id %}?filter=M"
         >
           {% trans "Male" %} &nbsp;&nbsp;
-          <span class="badge text-bg-secondary">{{ request.session.bedrooms_on_event.M }} {% trans "beds" %}</span>
+          <span class="badge text-bg-secondary">{{ male }}</span>
         </a> 
       </li>
       <li class="nav-item">
@@ -28,7 +28,7 @@
           href="{% url 'event:bedrooms_on_event' event_id %}?filter=F"
         >
           {% trans "Female" %} &nbsp;&nbsp;
-          <span class="badge text-bg-secondary">{{ request.session.bedrooms_on_event.F }}  {% trans "beds" %}</span>
+          <span class="badge text-bg-secondary">{{ female }}</span>
         </a> 
       </li>
       <li class="nav-item">
@@ -37,7 +37,7 @@
           href="{% url 'event:bedrooms_on_event' event_id %}?filter=X"
         >
           {% trans "Mixed" %} &nbsp;&nbsp;
-          <span class="badge text-bg-secondary"> {{ request.session.bedrooms_on_event.X }}  {% trans "beds" %}</span>
+          <span class="badge text-bg-secondary"> {{ mixed }}</span>
         </a> 
       </li>
       {% comment %} <li class="nav-item">
