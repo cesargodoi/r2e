@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-05 17:02-0300\n"
+"POT-Creation-Date: 2024-11-08 15:41-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -632,34 +632,27 @@ msgstr ""
 msgid "Registered"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:31
+#: src/apps/event/templates/event/accommodation/components/event_card.html:29
 msgid "Allocated"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:42
+#: src/apps/event/templates/event/accommodation/components/event_card.html:38
 #: src/apps/event/templates/event/reports/people_at_the_event.html:35
 msgid "Unallocated"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:53
+#: src/apps/event/templates/event/accommodation/components/event_card.html:47
 #: src/r2e/commom.py:67
 msgid "House"
 msgstr ""
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:64
+#: src/apps/event/templates/event/accommodation/components/event_card.html:56
 #: src/r2e/commom.py:67
 msgid "Hotel"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:12
 msgid "All bedrooms"
-msgstr ""
-
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:13
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:22
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:31
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:40
-msgid "beds"
 msgstr ""
 
 #: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:21
@@ -1129,19 +1122,19 @@ msgstr ""
 msgid "Difference"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:68
+#: src/apps/event/views/accommodations.py:81
 msgid "Accommodation management"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:117
-msgid "Bedrooms on event"
+#: src/apps/event/views/accommodations.py:138
+msgid "Beds on event"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:489
+#: src/apps/event/views/accommodations.py:495
 msgid "Changing Stay"
 msgstr ""
 
-#: src/apps/event/views/accommodations.py:527
+#: src/apps/event/views/accommodations.py:533
 msgid "Managing Staff"
 msgstr ""
 

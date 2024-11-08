@@ -65,14 +65,4 @@ urlpatterns += [
         views.ReloadTheMapping.as_view(),
         name="reload_the_mapping",
     ),
-    path(
-        "<int:evenid>/reload-session/",
-        views.reload_session,
-        name="reload_session",
-    ),
-    path(
-        "<int:evenid>/reload-session-bedrooms/",
-        views.reload_session_bedrooms,
-        name="reload_session_bedrooms",
-    ),
 ]

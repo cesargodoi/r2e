@@ -9,7 +9,7 @@
           class="nav-link {% if filter == 'lts' %}active{% endif %}" 
           href="{% url 'event:accommodations' event_id %}?filter=lts"
         >
-        <i class="bi bi-arrow-up"></i> {% trans "Latests" %} 
+          <i class="bi bi-arrow-up"></i> {% trans "Latests" %} 
         </a>
       </li>
       <li class="nav-item">
@@ -18,9 +18,7 @@
           href="{% url 'event:accommodations' event_id %}"
         >
           {% trans "Registered" %}  
-          <span class="badge text-bg-secondary">
-            {{ request.session.accommodation.total_registers }}
-          </span>
+          <span class="badge text-bg-secondary">{{ total_registers }}</span>
         </a>
       </li>
       <li class="nav-item">
@@ -29,9 +27,7 @@
           href="{% url 'event:accommodations' event_id %}?filter=alloc"
         >
           {% trans "Allocated" %}
-          <span class="badge text-bg-secondary">
-            {{ request.session.accommodation.allocated }}
-          </span>
+          <span class="badge text-bg-secondary">{{ allocated }}</span>
         </a> 
       </li>
       <li class="nav-item">
@@ -40,9 +36,7 @@
           href="{% url 'event:accommodations' event_id %}?filter=unalloc"
         >
           {% trans "Unallocated" %}
-          <span class="badge text-bg-secondary">
-            {{ request.session.accommodation.unallocated }}
-          </span>
+          <span class="badge text-bg-secondary">{{ unallocated }}</span>
         </a> 
       </li>
       <li class="nav-item">
@@ -51,9 +45,7 @@
           href="{% url 'event:accommodations' event_id %}?filter=HSE"
         >
           {% trans "House" %}
-          <span class="badge text-bg-secondary"> 
-            {{ request.session.accommodation.house }}
-          </span>
+          <span class="badge text-bg-secondary">{{ house }}</span>
         </a> 
       </li>
       <li class="nav-item">
@@ -62,9 +54,7 @@
           href="{% url 'event:accommodations' event_id %}?filter=HTL"
         >
           {% trans "Hotel" %}
-          <span class="badge text-bg-secondary">
-            {{ request.session.accommodation.hotel }}
-          </span>
+          <span class="badge text-bg-secondary">{{ hotel }}</span>
         </a> 
       </li>
     </ul>

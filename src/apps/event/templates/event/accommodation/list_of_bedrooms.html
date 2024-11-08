@@ -15,13 +15,6 @@
 {% block float_buttoms %}
   <button 
     type="button"
-    class="float-buttom border btn btn-warning btn-lg rounded-circle fw-bold text-center" 
-    hx-get="{% url 'event:reload_session_bedrooms' object.pk %}"
-  >
-    <i class="fas fa-sync text-center" style="color: rgb(0,0,0); vertical-align: middle;"></i>
-  </button>
-  <button 
-    type="button"
     class="float-buttom border btn btn-info btn-lg rounded-circle fw-bold text-center" 
     onclick="location.href='{% url 'event:accommodations' object.pk %}';"
   >
