@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-05 17:02-0300\n"
+"POT-Creation-Date: 2024-11-08 15:41-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -632,21 +632,21 @@ msgstr "Ultimos inscritos"
 msgid "Registered"
 msgstr "Registrados"
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:31
+#: src/apps/event/templates/event/accommodation/components/event_card.html:29
 msgid "Allocated"
 msgstr "Alocados"
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:42
+#: src/apps/event/templates/event/accommodation/components/event_card.html:38
 #: src/apps/event/templates/event/reports/people_at_the_event.html:35
 msgid "Unallocated"
 msgstr "Não alocados"
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:53
+#: src/apps/event/templates/event/accommodation/components/event_card.html:47
 #: src/r2e/commom.py:67
 msgid "House"
 msgstr "Em casa"
 
-#: src/apps/event/templates/event/accommodation/components/event_card.html:64
+#: src/apps/event/templates/event/accommodation/components/event_card.html:56
 #: src/r2e/commom.py:67
 msgid "Hotel"
 msgstr "Em hotel"
@@ -654,13 +654,6 @@ msgstr "Em hotel"
 #: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:12
 msgid "All bedrooms"
 msgstr "Todos os quartos"
-
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:13
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:22
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:31
-#: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:40
-msgid "beds"
-msgstr "leitos"
 
 #: src/apps/event/templates/event/accommodation/components/event_card_list_of_bedrooms.html:21
 #: src/r2e/commom.py:34 src/r2e/commom.py:35
@@ -1129,19 +1122,19 @@ msgstr "Esperado"
 msgid "Difference"
 msgstr "Diferença"
 
-#: src/apps/event/views/accommodations.py:68
+#: src/apps/event/views/accommodations.py:81
 msgid "Accommodation management"
 msgstr "Gerenciamento de acomodações"
 
-#: src/apps/event/views/accommodations.py:117
-msgid "Bedrooms on event"
-msgstr "Quartos no evento"
+#: src/apps/event/views/accommodations.py:138
+msgid "Beds on event"
+msgstr "Leitos no evento"
 
-#: src/apps/event/views/accommodations.py:489
+#: src/apps/event/views/accommodations.py:495
 msgid "Changing Stay"
 msgstr "Mudança de estadia"
 
-#: src/apps/event/views/accommodations.py:527
+#: src/apps/event/views/accommodations.py:533
 msgid "Managing Staff"
 msgstr "Gerenciar o Staff"
 
@@ -1725,3 +1718,6 @@ msgstr "Almoço do 4. dia"
 #: src/r2e/commom.py:159
 msgid "Dinner on the fourfth day"
 msgstr "Jantar do 4. dia"
+
+#~ msgid "beds"
+#~ msgstr "leitos"
