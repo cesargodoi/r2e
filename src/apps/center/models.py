@@ -7,6 +7,9 @@ from r2e.commom import BEDROOM_GENDER, COUNTRIES_CHOICES, phone_format
 
 
 class Center(models.Model):
+    abbr = models.CharField(
+        _("abbr"), max_length=3, unique=True, null=True, blank=True
+    )
     name = models.CharField(_("name"), max_length=50, unique=True)
     short_name = models.CharField(_("short name"), max_length=20, unique=True)
     city = models.CharField(_("city"), max_length=50, null=True, blank=True)
