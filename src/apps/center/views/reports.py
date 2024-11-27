@@ -61,6 +61,10 @@ def annual_frequency(request):
     report_data["Aspect"] = report_data["Aspect"].astype(str)
     report_data["Name"] = report_data["Name"].apply(short_name)
     report_data.index += 1
+    totals = report_data[
+        ["Feb", "Mar", "Apr", "May", "Jun", "Aug", "Sep", "Oct", "Nov", "Dec"]
+    ].sum()
+    report_data.loc[""] = ["", "", "Totals: ", *totals, ""]
 
     # prepare file.xslx
     request.session["data_to_file"] = {
