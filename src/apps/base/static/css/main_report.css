@@ -103,3 +103,20 @@ th:nth-child(3),
 th:nth-child(4) {
   text-align: left;
 }
+
+.dataframe tr:last-child {
+  font-size: 10pt;
+  font-weight: bold;
+  background-color: #c8c8cc;
+  border-top: 2px solid rgb(104, 101, 121) !important;
+  border-bottom: 2px solid rgb(104, 101, 121) !important;
+}
+
+.dataframe tr:last-child td:nth-child(4) {
+  text-align: right;
+}
+
+.dataframe td:last-child {
+  font-size: 10pt;
+  font-weight: bold;
+}

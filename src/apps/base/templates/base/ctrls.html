@@ -4,7 +4,7 @@
   <button class="btn btn-outline-primary" onclick="reload()">
     <i class="bi bi-printer"></i>
   </button>
-  {% if "center" in request.resolver_match.view_name %}
+  {% if "center:reports" in request.resolver_match.view_name %}
     <a class="btn btn-outline-success" href="{{ get_file }}">
       <i class="bi bi-file-earmark-excel"></i>
     </a>
