@@ -1,0 +1,10 @@
+{% extends 'base/base_report.html' %}
+{% load static %}
+{% load i18n %}
+{% load my_tags %}
+
+{% block content %}
+  <div class="pandas-table">
+    {{ report_data | safe }}
+  </div>
+{% endblock %}

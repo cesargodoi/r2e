@@ -58,7 +58,19 @@
         </div>
       </div>
     {% endif %}
-    {% if user.is_superuser %}
+    {% if user.is_authenticated and user|has_group:'admin,manager' %}
+      <div 
+        class="card text-bg-primary mb-3 is-link" 
+        style="width: 18rem;"
+        onclick="window.open('{% url 'center:reports__annual_frequency' %}', '_blank')"
+      >
+        <div class="card-body">
+          <h4 class="card-title">{% trans "Annual frequency" %}</h4>
+          <p class="card-text">{% trans "shows people's frequencies throughout the year" %}</p>
+        </div>
+      </div>
+    {% endif %}
+    {% if user.is_superuser or user.is_authenticated and user|has_group:'admin,manager' %}
       <div 
         class="card text-bg-primary mb-3 is-link" 
         style="width: 18rem;"

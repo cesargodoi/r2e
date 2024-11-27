@@ -171,7 +171,10 @@ class ChangeCenter(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     extra_context = {"title": _("View other center")}
 
     def test_func(self):
-        return self.request.user.is_superuser
+        return (
+            self.request.user.is_superuser
+            or self.request.user.groups.filter(name="manager").exists()
+        )
 
     def get_initial(self):
         initial = super().get_initial()
