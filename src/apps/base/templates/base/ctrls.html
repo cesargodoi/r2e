@@ -4,6 +4,11 @@
   <button class="btn btn-outline-primary" onclick="reload()">
     <i class="bi bi-printer"></i>
   </button>
+  {% if "center" in request.resolver_match.view_name %}
+    <a class="btn btn-outline-success" href="{{ get_file }}">
+      <i class="bi bi-file-earmark-excel"></i>
+    </a>
+  {% endif %}
   <button class="btn btn-outline-danger" onclick="window.close()">
     <i class="bi bi-x-lg"></i>
   </button>

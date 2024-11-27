@@ -1,7 +1,12 @@
+:root{
+  --table-line: #d2d4e6;
+  --table-hover:#f1edb4;
+}
+
 body {
   width: 1000px;
   margin: 0 auto;
-  font-size: 9pt;
+  font-size: 10pt;
   font-family: arial, helvetica;
 }
 
@@ -24,4 +29,77 @@ body {
   #controlers {
     display: none;
   }
+}
+
+/* pandas table */
+table {
+  width: 100%;
+}
+
+table,
+td,
+th {
+  border: none;
+}
+
+/* thead {
+  border-bottom: 2px solid rgb(153, 11, 11) !important;
+} */
+
+.dataframe {
+  width: 100%;
+  text-align: right;
+  font-size: 9pt;
+}
+
+.dataframe thead {
+  background-color: #c8c8cc;
+  border-bottom: 2px solid rgb(104, 101, 121) !important;
+}
+
+.dataframe td,
+.dataframe th {
+  padding: 4px;
+}
+
+.dataframe th {
+  font-size: 10pt;
+}
+
+.dataframe td:nth-child(1),
+td:nth-child(2),
+td:nth-child(3),
+td:nth-child(4) {
+  text-align: left;
+}
+
+.dataframe td:nth-child(2),
+td:nth-child(1) {
+  font-weight: bold;
+  font-size: 9pt;
+}
+
+.dataframe tr {
+  line-height: .2rem;
+}
+
+.dataframe tr:nth-child(even) {
+  background-color: var(--table-line);
+}
+
+.dataframe tr:hover {
+  background-color: var(--table-hover);
+}
+
+.dataframe th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-weight: bold;
+}
+
+.dataframe th:nth-child(1),
+th:nth-child(2),
+th:nth-child(3),
+th:nth-child(4) {
+  text-align: left;
 }

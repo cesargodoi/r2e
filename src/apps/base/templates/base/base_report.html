@@ -19,12 +19,18 @@
         <img src="{% static 'img/rca_logo.png' %}" width="50em" height="50em" style="filter: invert();">
         <div class="ms-3">
           <span class="h3 mt-2"><small>Register</small><span class="fw-bolder">2</span><small>Event</small></span><br>
-          <span class="text-muted fs-6 fw-light fst-italic">
-            {{ event.activity.name }} &nbsp;&nbsp;|&nbsp;&nbsp;
-            {{ event.center.short_name }} - 
-            {{ event.center.city }} ({{ event.center.state }}-{{ event.center.country }})
-            &nbsp;&nbsp; {{ event.date|date:"M/Y" }}
-          </span>
+          {% if "center" not in request.resolver_match.view_name %}
+            <span class="text-muted fs-6 fw-light fst-italic">
+              {{ event.activity.name }} &nbsp;&nbsp;|&nbsp;&nbsp;
+              {{ event.center.short_name }} - 
+              {{ event.center.city }} ({{ event.center.state }}-{{ event.center.country }})
+              &nbsp;&nbsp; {{ event.date|date:"M/Y" }}
+            </span>
+          {% else %}
+            <span class="text-muted fs-6 fw-light fst-italic">
+              {{ title }}
+            </span>
+          {% endif %}
         </div>
       </div>
       <div class="text-end pt-2 pb-2">
