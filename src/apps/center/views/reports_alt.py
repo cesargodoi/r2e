@@ -15,6 +15,7 @@ aspects = dict(ASPECTS)
 def annual_frequency(request):
     current_year = datetime.now().year
     template_name = "base/reports/show_report.html"
+    centers = "JAR CPS SOR SAN SPA CCP SJC".split()
     registers = (
         Register.objects.select_related(
             "person",
@@ -29,21 +30,30 @@ def annual_frequency(request):
             "person__aspect",
             "person__city",
             "person__state",
+            "person__center__abbr",
             "order__event__date",
         )
-        .filter(person__center=request.user.person.center)
+        # .filter(person__center=request.user.person.center)
+        .filter(person__center__abbr__in=centers)
         .filter(order__event__date__year=current_year)
-        .order_by("person__aspect", "person__name_sa", "order__event__date")
+        .order_by(
+            "person__center",
+            "person__aspect",
+            "person__name_sa",
+            "order__event__date",
+        )
+        # .order_by("person__aspect", "person__name_sa", "order__event__date")
     )
 
     frequents_ids = [fid["person__id"] for fid in registers]
     frequents_ids.append(1)
 
     no_presences = (
-        Person.objects.filter(center=request.user.person.center)
-        .values("name", "aspect", "city", "state")
+        # Person.objects.filter(center=request.user.person.center)
+        Person.objects.filter(center__abbr__in=centers)
+        .values("name", "aspect", "city", "state", "center__abbr")
         .exclude(id__in=frequents_ids)
-        .order_by("aspect", "name_sa")
+        .order_by("center", "aspect", "name_sa")
     )
 
     registers = cleaned_registers(registers)
@@ -54,7 +64,7 @@ def annual_frequency(request):
     normalized_objects = normalize_objects(all_people)
 
     normalized_objects = sorted(
-        normalized_objects, key=lambda x: (x["Aspect"], x["Name"])
+        normalized_objects, key=lambda x: (x["Center"], x["Aspect"], x["Name"])
     )
 
     months = "Feb Mar Apr May Jun Aug Sep Oct Nov Dec".split()
@@ -75,7 +85,7 @@ def annual_frequency(request):
 
     # add totals to basic table
     totals = basic_table[months].sum()
-    basic_table.loc[""] = ["", "", "Totals: ", *totals, ""]
+    basic_table.loc[""] = ["", "", "", "Totals: ", *totals, ""]
 
     # prepare file.xslx
     request.session["data_to_file"] = {
@@ -122,6 +132,7 @@ def get_register_dict(register):
         reg_dict["aspect"] = aspect
         reg_dict["city"] = register["person__city"]
         reg_dict["state"] = register["person__state"]
+        reg_dict["center"] = register["person__center__abbr"]  # comment!
         reg_dict["month"] = register["order__event__date"].strftime("%b")
     else:
         reg_dict["name"] = register["name"]
@@ -130,6 +141,7 @@ def get_register_dict(register):
         reg_dict["aspect"] = aspect
         reg_dict["city"] = register["city"]
         reg_dict["state"] = register["state"]
+        reg_dict["center"] = register["center__abbr"]  # comment!
         reg_dict["month"] = None
     return reg_dict
 
@@ -156,6 +168,7 @@ def normalize_objects(registers):
                 "Name": obj["name"],
                 "Aspect": obj["aspect"],
                 "City": city,
+                "Center": obj["center"],  # comment!
                 "Feb": 0,
                 "Mar": 0,
                 "Apr": 0,

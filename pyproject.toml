@@ -16,6 +16,7 @@ dependencies = [
     "phonenumbers>=8.13.46",
     "pillow>=10.4.0",
     "psycopg2-binary>=2.9.9",
+    "xlsxwriter>=3.2.0",
 ]
 
 [tool.uv]
@@ -35,6 +36,6 @@ lint = 'ruff check . && ruff check . --diff'
 format = 'ruff check . --fix && ruff format .'
 run = 'src/manage.py runserver'
 mng = 'src/manage.py'
-script = 'src/manage.py runscript'
+runscript = 'src/manage.py runscript'
 pre_test = 'task lint'
 test = 'pytest src/tests/'
