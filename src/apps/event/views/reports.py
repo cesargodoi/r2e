@@ -2,6 +2,7 @@ from datetime import timedelta
 from decimal import Decimal
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import F
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import ListView
@@ -61,6 +62,28 @@ class ReportByRegister(LoginRequiredMixin, ListView):
             .prefetch_related("order__form_of_payments")
             .filter(order__event__pk=self.kwargs.get("pk"))
             .order_by("person__name")
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["event"] = Event.objects.get(pk=self.kwargs.get("pk"))
+        return context
+
+
+class ReportByRegisterPerCenter(LoginRequiredMixin, ListView):
+    model = Register
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return (
+            queryset.select_related("person")
+            .annotate(
+                center_name=F("person__center__name"),
+                person_name=F("person__name"),
+            )
+            .filter(order__event__pk=self.kwargs.get("pk"))
+            .values("center_name", "person_name")
+            .order_by("person__center", "person__name")
         )
 
     def get_context_data(self, **kwargs):
@@ -171,6 +194,20 @@ class PeoplePerAspect(ReportByRegister):
                     )
         context["aspect_list"] = aspect_list
         # sorted(aspect_list, key=lambda x: x["aspect"])
+        return context
+
+
+class PeoplePerCenter(ReportByRegisterPerCenter):
+    template_name = "event/reports/people_per_center.html"
+    extra_context = {"title": _("People per Center")}
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     return queryset.order_by("order__center")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["object_list"] = self.object_list
         return context
 
 

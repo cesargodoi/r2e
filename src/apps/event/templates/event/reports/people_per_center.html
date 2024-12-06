@@ -1,0 +1,21 @@
+{% extends 'base/base_report.html' %}
+{% load static %}
+{% load i18n %}
+{% load my_tags %}
+
+{% block content %}
+  {% if object_list %}
+    {% with center="" %}
+      {% for row in object_list %}
+        {% ifchanged row.center_name %}
+          {% with center=row.center_name %}
+            <h4 class="mt-4 fw-bolder border-bottom">{{ row.center_name }}</h4>
+          {% endwith %}
+        {% endifchanged %}
+        <span class="fs-6"><i class="bi bi-square"></i> {{ row.person_name }}</span> &nbsp;&nbsp;&nbsp;
+      {% endfor %}
+    {% endwith %}
+  {% else %}
+    <div class="h5 p-1 text-center">{% trans "no data for this report" %}</div>
+  {% endif %}
+{% endblock %}

@@ -34,6 +34,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="{% url 'event:report_people_per_center' event.pk %}" target="_blank">
+              <i class="bi bi-file-earmark-ruled"></i> {% trans "People per center" %}
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{% url 'event:report_new_pupils_per_center' event.pk %}" target="_blank">
               <i class="bi bi-file-earmark-ruled"></i> {% trans "New pupils per center" %}
             </a>
