@@ -29,23 +29,25 @@ def tools(request):
 @login_required
 def get_file(request):
     file = request.session["data_to_file"]
-    df = pd.read_json(file["content"])
+    if not file:
+        return HttpResponse("No data available for download.", status=400)
 
-    if "since" in df.columns:
-        df["since"] = df["since"].div(60 * 60 * 24 * 1000)
-    if "date" in df.columns:
-        df["date"] = df["date"].dt.strftime("%Y-%m-%d")
+    file_name = file["name"]
+
+    tables = [pd.read_json(table_json) for table_json in file["content"]]
 
     buffer = BytesIO()
 
-    with pd.ExcelWriter(buffer) as writer:
-        df.to_excel(writer, index=False)
+    with pd.ExcelWriter(buffer, engine="xlsxwriter") as writer:
+        for idx, df in enumerate(tables):
+            sheet_name = f"Sheet{idx + 1}"
+            df.to_excel(writer, sheet_name=sheet_name, index=False)
 
     buffer.seek(0)
 
     mime = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     response = HttpResponse(buffer, content_type=mime)
-    response["Content-Disposition"] = f"attachment; filename={file['name']}"
+    response["Content-Disposition"] = f"attachment; filename={file_name}.xlsx"
     return response
 
 
