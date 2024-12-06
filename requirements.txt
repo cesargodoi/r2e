@@ -45,3 +45,5 @@ sqlparse==0.5.1
     # via django
 tzdata==2024.2
     # via pandas
+xlsxwriter==3.2.0
+    # via r2e (pyproject.toml)
